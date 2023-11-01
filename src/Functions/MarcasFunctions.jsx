@@ -1,54 +1,74 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = "http://localhost:5678";
+const baseUrl = import.meta.env.VITE_NAME;
+
+const axiosInstance = axios.create({
+  baseURL: baseUrl,
+});
+
+// Interceptar las solicitudes para incluir el token de autorización en el encabezado
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 const getAllMarcas = async () => {
-  const respuesta = await axios.get(`${baseUrl}/api/marcas`);
-  return respuesta;
+  try {
+    const respuesta = await axiosInstance.get('/api/marcas');
+    return respuesta;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const getOneMarca = async (id) => {
-  const respuesta = await axios.get(`${baseUrl}/api/marcas/${id}`);
-  return respuesta;
+  try {
+    const respuesta = await axiosInstance.get(`/api/marcas/${id}`);
+    return respuesta;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const createMarca = async (data) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/marcas`,
-      method: "POST",
-      data: data,
-    });
-    return response;
-  } catch (errors) {
-    console.log(errors);
+    const respuesta = await axiosInstance.post('/api/marcas', data);
+    return respuesta;
+  } catch (error) {
+    console.error(error);
   }
 };
 
 const updateMarca = async (id, data) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/marcas/${id}`,
-      method: "PUT",
-      data: data,
-    });
-    return response;
-  } catch (errors) {
-    console.log(errors);
+    const respuesta = await axiosInstance.put(`/api/marcas/${id}`, data);
+    return respuesta;
+  } catch (error) {
+    console.error(error);
   }
 };
 
-const deleteMarca = async (id, data) => {
+const deleteMarca = async (id) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/marcas/${id}`,
-      method: "DELETE",
-      data: data,
-    });
-    return response;
-  } catch (errors) {
-    console.log(errors);
+    const respuesta = await axiosInstance.delete(`/api/marcas/${id}`);
+    return respuesta;
+  } catch (error) {
+    console.error(error);
   }
 };
 
-export { getAllMarcas, createMarca, updateMarca, getOneMarca, deleteMarca };
+export {
+  getAllMarcas,
+  createMarca,
+  updateMarca,
+  getOneMarca,
+  deleteMarca
+};

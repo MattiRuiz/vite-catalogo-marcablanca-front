@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import {
-  getAllTallas,
-  createTalla,
-  updateTalla,
-  deleteTalla,
-} from '../../../Functions/TallasFunctions';
+  getAllClientes,
+  createCliente,
+  updateCliente,
+  deleteCliente,
+} from '../../../Functions/ClienteFunctions';
 
-const TallasCRUD = () => {
-  const [tallas, setTallas] = useState([]);
+const ClientesCRUD = () => {
+  const [clientes, setClientes] = useState([]);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({ nombre: '', dimensiones: '' });
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    nombre: '',
+    apellido: '',
+  });
   const [editData, setEditData] = useState({});
 
   const fetchData = async () => {
     try {
-      const response = await getAllTallas();
-      setTallas(response.data);
+      const response = await getAllClientes();
+      setClientes(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -28,29 +33,44 @@ const TallasCRUD = () => {
 
   const handleCreate = async () => {
     try {
-      const response = await createTalla(formData);
+      const response = await createCliente(formData);
       setCreating(false);
-      setFormData({ nombre: '', dimensiones: '' });
+      setFormData({
+        username: '',
+        password: '',
+        nombre: '',
+        apellido: '',
+      });
       fetchData()
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleEditOpen = (talla) => {
+  const handleEditOpen = (cliente) => {
     setCreating(false);
     setEditing(true);
-    setEditData(talla);
-    setFormData({ nombre: talla.nombre, dimensiones: talla.dimensiones });
+    setEditData(cliente);
+    setFormData({
+      username: cliente.username,
+      password: cliente.password,
+      nombre: cliente.clientes.nombre,
+      apellido: cliente.clientes.apellido,
+    });
   };
 
   const handleUpdate = async () => {
     try {
-      await updateTalla(editData.id, formData);
+      const response = await updateCliente(editData.id, formData);
+      fetchData()
       setEditing(false);
       setEditData({});
-      setFormData({ nombre: '', dimensiones: '' });
-      fetchData()
+      setFormData({
+        username: '',
+        password: '',
+        nombre: '',
+        apellido: '',
+      });
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +78,7 @@ const TallasCRUD = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteTalla(id);
+      await deleteCliente(id);
       fetchData()
     } catch (error) {
       console.error(error);
@@ -74,28 +94,33 @@ const TallasCRUD = () => {
             onClick={() => {
               setCreating(true);
               setEditing(false);
-              setFormData({ nombre: '', dimensiones: '' });
+              setFormData({
+                username: '',
+                password: '',
+                nombre: '',
+                apellido: '',
+              });
             }}
           >
-            Crear Talla
+            Crear Cliente
           </button>
           <ul className="list-group mt-3">
-            {tallas.map((talla) => (
+            {clientes.map((cliente) => (
               <li
-                key={talla.id}
+                key={cliente.id}
                 className="list-group-item d-flex justify-content-between"
               >
-                {talla.nombre} - {talla.dimensiones}
+                {cliente.username} <br/> {cliente.clientes.nombre} {cliente.clientes.apellido}
                 <div>
                   <button
                     className="btn btn-warning btn-sm mr-2"
-                    onClick={() => handleEditOpen(talla)}
+                    onClick={() => handleEditOpen(cliente)}
                   >
                     Editar
                   </button>
                   <button
                     className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(talla.id)}
+                    onClick={() => handleDelete(cliente.id)}
                   >
                     Eliminar
                   </button>
@@ -107,7 +132,7 @@ const TallasCRUD = () => {
         {creating && (
           <div className="rounded bg-light col-md-6 mt-3">
             <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Crear Talla</h3>
+              <h3 className="text-black p-2">Crear Cliente</h3>
               <button
                 className="btn btn-light btn-sm"
                 onClick={() => setCreating(false)}
@@ -119,7 +144,25 @@ const TallasCRUD = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Nombre de la talla"
+                placeholder="Nombre de usuario"
+                value={formData.username || ''}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="form-control mt-2"
+                placeholder="Contraseña"
+                value={formData.password || ''}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="form-control mt-2"
+                placeholder="Nombre"
                 value={formData.nombre || ''}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
@@ -128,10 +171,10 @@ const TallasCRUD = () => {
               <input
                 type="text"
                 className="form-control mt-2"
-                placeholder="Dimensiones de la talla"
-                value={formData.dimensiones || ''}
+                placeholder="Apellido"
+                value={formData.apellido || ''}
                 onChange={(e) =>
-                  setFormData({ ...formData, dimensiones: e.target.value })
+                  setFormData({ ...formData, apellido: e.target.value })
                 }
               />
             </div>
@@ -146,7 +189,7 @@ const TallasCRUD = () => {
         {editing && (
           <div className="rounded bg-light col-md-6 mt-3">
             <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Editar Talla</h3>
+              <h3 className="text-black p-2">Editar Cliente</h3>
               <button
                 className="btn btn-light btn-sm"
                 onClick={() => setEditing(false)}
@@ -158,8 +201,26 @@ const TallasCRUD = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Nombre de la talla"
-                value={formData.nombre || editData.nombre}
+                placeholder="Nombre de usuario"
+                value={formData.username || editData.username}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="form-control mt-2"
+                placeholder="Contraseña"
+                value={formData.password || editData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="form-control mt-2"
+                placeholder="Nombre"
+                value={formData.nombre || editData.clientes.nombre}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
@@ -167,10 +228,10 @@ const TallasCRUD = () => {
               <input
                 type="text"
                 className="form-control mt-2"
-                placeholder="Dimensiones de la talla"
-                value={formData.dimensiones || editData.dimensiones}
+                placeholder="Apellido"
+                value={formData.apellido || editData.clientes.apellido}
                 onChange={(e) =>
-                  setFormData({ ...formData, dimensiones: e.target.value })
+                  setFormData({ ...formData, apellido: e.target.value })
                 }
               />
             </div>
@@ -187,4 +248,4 @@ const TallasCRUD = () => {
   );
 };
 
-export default TallasCRUD;
+export default ClientesCRUD;

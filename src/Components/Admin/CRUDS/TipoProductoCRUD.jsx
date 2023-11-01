@@ -33,9 +33,9 @@ const TipoProductoCRUD = () => {
       formDataForAPI.append('imagen', formData.imagen);
 
       const response = await createTipoProducto(formDataForAPI);
-      setTipoProductos([...tipoProductos, response.data]);
       setCreating(false);
       setFormData({ nombre: '', imagen: null });
+      fetchData()
     } catch (error) {
       console.error(error);
     }
@@ -55,14 +55,10 @@ const TipoProductoCRUD = () => {
       formDataForAPI.append('imagen', formData.imagen);
 
       const response = await updateTipoProducto(editData.id, formDataForAPI);
-      setTipoProductos((prevTipoProductos) =>
-        prevTipoProductos.map((tipoProducto) =>
-          tipoProducto.id === response.data.id ? response.data : tipoProducto
-        )
-      );
       setEditing(false);
       setEditData({});
       setFormData({ nombre: '', imagen: null });
+      fetchData()
     } catch (error) {
       console.error(error);
     }
@@ -71,9 +67,8 @@ const TipoProductoCRUD = () => {
   const handleDelete = async (id) => {
     try {
       await deleteTipoProducto(id);
-      setTipoProductos((prevTipoProductos) =>
-        prevTipoProductos.filter((tipoProducto) => tipoProducto.id !== id)
-      );
+      fetchData()
+
     } catch (error) {
       console.error(error);
     }

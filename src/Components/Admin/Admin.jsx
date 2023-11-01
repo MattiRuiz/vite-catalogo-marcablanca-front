@@ -3,6 +3,7 @@ import TallasCRUD from "./CRUDS/TallasCRUD";
 import TipoProductoCRUD from "./CRUDS/TipoProductoCRUD";
 import MarcasCRUD from "./CRUDS/MarcasCRUD";
 import ProductosCRUD from "./CRUDS/ProductosCRUD";
+import ClientesCRUD from "./CRUDS/ClientesCRUD";
 
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState("tallas");
@@ -26,6 +27,7 @@ const Admin = () => {
               <option value="tipo-producto">Tipo de Producto</option>
               <option value="marcas">Marcas</option>
               <option value="productos">Productos</option>
+              <option value="clientes">Clientes</option>
             </select>
           </div>
         </div>
@@ -36,6 +38,7 @@ const Admin = () => {
           {selectedEntity === "tipo-producto" && <TipoProductoCRUD />}
           {selectedEntity === "marcas" && <MarcasCRUD />}
           {selectedEntity === "productos" && <ProductosCRUD />}
+          {selectedEntity === "clientes" && <ClientesCRUD />}
         </div>
       </div>
     </div>

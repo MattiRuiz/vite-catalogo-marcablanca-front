@@ -34,6 +34,7 @@ function Login() {
       } else {
         const response = await loginCliente(data);
         const esAdmin = response.data.esAdmin;
+
         if (esAdmin === 0) {
           handleLogin(userName);
           navigate("/welcome");

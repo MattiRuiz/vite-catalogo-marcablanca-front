@@ -28,10 +28,10 @@ const MarcasCRUD = () => {
 
   const handleCreate = async () => {
     try {
-      const response = await createMarca(formData);
-      setMarcas([...marcas, response.data]);
+      await createMarca(formData);
       setCreating(false);
       setFormData({ nombre: '' });
+      fetchData()
     } catch (error) {
       console.error(error);
     }
@@ -46,15 +46,11 @@ const MarcasCRUD = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await updateMarca(editData.id, formData);
-      setMarcas((prevMarcas) =>
-        prevMarcas.map((marca) =>
-          marca.id === response.data.id ? response.data : marca
-        )
-      );
+      await updateMarca(editData.id, formData);
       setEditing(false);
       setEditData({});
       setFormData({ nombre: '' });
+      fetchData()
     } catch (error) {
       console.error(error);
     }
@@ -63,9 +59,7 @@ const MarcasCRUD = () => {
   const handleDelete = async (id) => {
     try {
       await deleteMarca(id);
-      setMarcas((prevMarcas) =>
-        prevMarcas.filter((marca) => marca.id !== id)
-      );
+      fetchData()
     } catch (error) {
       console.error(error);
     }

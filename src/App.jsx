@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,14 +8,13 @@ import Footer from "./Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
 import Welcome from "./Components/Welcome/Welcome";
-import Catalog from "./Components/Catalog/Catalog2";
+import Catalog from "./Components/Catalog/Catalog";
 import ListaPrecio from "./Components/ListaPrecio/ListaPrecio";
 import Admin from "./Components/Admin/Admin";
 
 function App() {
   return (
     <div>
-      <HashRouter>
         <Navbar />
         <Routes>
           <Route
@@ -76,7 +75,6 @@ function App() {
           />
         </Routes>
         <Footer />
-      </HashRouter>
     </div>
   );
 }

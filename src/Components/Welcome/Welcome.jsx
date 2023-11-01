@@ -7,6 +7,7 @@ import { getAllTipoProductos } from "../../Functions/TipoProductosFunctions";
 function Welcome() {
   const { auth } = useContext(LoginProvider);
   const [clienteLista, setClienteLista] = useState([]);
+  const baseUrl = import.meta.env.VITE_NAME;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +46,7 @@ function Welcome() {
           >
             <Col xs={10} className="mx-auto">
               <Image
-                src={"http://localhost:5678"+ producto.rutaImagen}
+                src={baseUrl + producto.rutaImagen}
                 fluid
               />
             </Col>

@@ -1,6 +1,24 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5678";
+const baseUrl = import.meta.env.VITE_NAME;
+
+const axiosInstance = axios.create({
+  baseURL: baseUrl,
+});
+
+// Interceptar las solicitudes para incluir el token de autorización en el encabezado
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+)
 
 const getAllClientes = async () => {
     const respuesta = await axios.get(`${baseUrl}/api/clientes`)
