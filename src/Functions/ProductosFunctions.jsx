@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = import.meta.env.REACT_APP_BASE_URL;
+const baseUrl = "http://localhost:5678";
 
 const getAllProductosSinTallas = async () => {
   const respuesta = await axios.get(`${baseUrl}/api/productos`);
