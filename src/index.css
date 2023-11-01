@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap');
+
+/* @font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  src: url(https://example.com/material-symbols.woff) format('woff');
+} */
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+:root {
+  --primary: #1b64b3;
+  --secondary: #D9D9D9;
+  --black: #666;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--black)!important;
+  background-color: var(--primary)!important;
+}
+
+a {
+  text-decoration: none!important;
+}
+
+.link-articulos a {
+  color: var(--black)!important;
+}
+
+.logo-home {
+  width: 100px;
+}
+
+.bg-primario {
+  background-color: var(--primary);
+}
+
+.color-primario {
+  color: var(--primary)
+}
+
+.black {
+  font-weight: 800;
+}
+
+.btn-primary {
+  background-color: var(--primary)!important;
+  border-color: var(--primary)!important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary)!important;
+  border-color: var(--secondary)!important;
+  color: var(--black)!important;
+}
+
+.text-primary {
+  color: var(--primary)
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+li span.material-symbols-outlined {
+  font-weight:500;
+  font-size: 16px;
+  color: var(--secondary);
+  margin-right: 4px;
+}
+
+.offcanvas {
+  width: 60%!important;
+}
+
+.offcanvas a{
+  color: var(--black)!important;
+}
+
+.form-control{
+  border: var(--bs-border-width) solid #aeaeae!important;
+}
+
+.form-check-input {
+  border: var(--bs-border-width) solid #aeaeae!important;
+}
+
+p, li, a.btn {
+  letter-spacing: 0.30px!important;
+}
