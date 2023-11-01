@@ -30,7 +30,7 @@ function Navbar() {
   }, [menu]);
 
   return (
-    <Container>
+    <Container fluid>
       <Row className="bg-primario py-3 text-center text-white px-3">
         <Col xs={6}>
           <Link to={"/"}>

@@ -12,7 +12,7 @@ function Home() {
           {/* <Image src={cartel} fluid /> */}
         </Col>
       </Row>
-      <Row className="text-white text-center py-3 px-3">
+      <Row className="text-white text-center pb-3 px-3">
         <Col xs={12} className="border-top border-bottom border-white py-3">
           <h5 className="display-5">
             <strong>Mayorista textil</strong>
@@ -33,11 +33,11 @@ function Home() {
           </p>
         </Col>
         <Col>
-          <Image src={empresasLogo} fluid />
+          <Image src={empresasLogo} fluid className="mx-auto d-block" />
         </Col>
       </Row>
       <Row className="text-white justify-content-center py-3">
-        <Col xs={11} className="text-center pb-3" id="contacto">
+        <Col xs={11} md={8} lg={5} className="text-center pb-3" id="contacto">
           <p className="fs-4">Encontranos en:</p>
           <div>
             <div className="mapouter">
