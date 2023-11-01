@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 
 import {
   getAllProductosSinTallas,
@@ -118,8 +118,9 @@ const ProductosCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <button
-          className="btn btn-primary bg-success"
+        <Button
+          variant="outline-light"
+          className="mt-3"
           onClick={() => {
             setCreating(true);
             setEditing(false);
@@ -133,7 +134,7 @@ const ProductosCRUD = () => {
           }}
         >
           Crear Producto
-        </button>
+        </Button>
         <ul className="list-group mt-3">
           {productos.map((producto) => (
             <li
@@ -146,18 +147,21 @@ const ProductosCRUD = () => {
               <br />
               Categoria: {producto.tipo_producto.nombre}
               <div className="d-flex align-items-center">
-                <button
-                  className="btn btn-warning btn-sm mr-2"
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="me-1"
                   onClick={() => handleEditOpen(producto)}
                 >
-                  Editar
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
+                  <span className="material-symbols-outlined">edit</span>
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
                   onClick={() => handleDelete(producto.id)}
                 >
-                  Eliminar
-                </button>
+                  <span className="material-symbols-outlined">delete</span>
+                </Button>
               </div>
             </li>
           ))}
@@ -168,12 +172,13 @@ const ProductosCRUD = () => {
           <Col xs={12} className="rounded bg-light mt-3 p-3">
             <Col className="d-flex justify-content-between">
               <h6 className="text-black py-3">Crear Producto</h6>
-              <button
-                className="btn btn-light btn-sm"
+              <Button
+                size="sm"
+                variant="light"
                 onClick={() => setCreating(false)}
               >
-                X
-              </button>
+                <span className="material-symbols-outlined">close</span>
+              </Button>
             </Col>
             <Form.Group>
               <Form.Control
@@ -221,24 +226,22 @@ const ProductosCRUD = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-            <button
-              className="btn btn-success mt-2 mb-2"
-              onClick={handleCreate}
-            >
+            <Button className="my-3" onClick={handleCreate}>
               Guardar
-            </button>
+            </Button>
           </Col>
         )}
         {editing && (
           <Col xs={12} className="rounded bg-light mt-3 p-3">
             <Col className="d-flex justify-content-between">
               <h6 className="text-black py-3">Editar Producto</h6>
-              <button
-                className="btn btn-light btn-sm"
+              <Button
+                size="sm"
+                variant="light"
                 onClick={() => setEditing(false)}
               >
-                X
-              </button>
+                <span className="material-symbols-outlined">close</span>
+              </Button>
             </Col>
             <Form.Group>
               <Form.Control
@@ -286,12 +289,9 @@ const ProductosCRUD = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-            <button
-              className="btn btn-success mt-2 mb-2"
-              onClick={handleUpdate}
-            >
+            <Button className="my-3" onClick={handleUpdate}>
               Guardar Cambios
-            </button>
+            </Button>
           </Col>
         )}
       </Row>

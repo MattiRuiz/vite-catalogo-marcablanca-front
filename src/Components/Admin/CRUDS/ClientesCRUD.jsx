@@ -241,12 +241,9 @@ const ClientesCRUD = () => {
                 }
               />
             </Form.Group>
-            <button
-              className="btn btn-success mt-2 mb-2"
-              onClick={handleUpdate}
-            >
+            <Button className="my-3" onClick={handleUpdate}>
               Guardar Cambios
-            </button>
+            </Button>
           </Col>
         )}
       </Row>
