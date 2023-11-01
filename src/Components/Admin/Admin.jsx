@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Container, Row, Col, Form } from "react-bootstrap";
+
 import TallasCRUD from "./CRUDS/TallasCRUD";
 import TipoProductoCRUD from "./CRUDS/TipoProductoCRUD";
 import MarcasCRUD from "./CRUDS/MarcasCRUD";
@@ -9,17 +11,16 @@ const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState("tallas");
 
   return (
-    <div className="container mt-4">
-      <h1 className="mb-4 text-white">Panel de Administración</h1>
-      <div className="row">
-        <div className="col-md-6">
-          <div className="form-group">
-            <label className="text-white" htmlFor="entity">
+    <Container fluid className="mt-4">
+      <Row>
+        <Col xs={12}>
+          <h1 className="mb-4 text-white">Panel de Administración</h1>
+          <Form.Group>
+            <Form.Label className="text-white" htmlFor="entity">
               Selecciona una seccion:
-            </label>
-            <select
+            </Form.Label>
+            <Form.Select
               id="entity"
-              className="form-control"
               value={selectedEntity}
               onChange={(e) => setSelectedEntity(e.target.value)}
             >
@@ -28,20 +29,18 @@ const Admin = () => {
               <option value="marcas">Marcas</option>
               <option value="productos">Productos</option>
               <option value="clientes">Clientes</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12">
-          {selectedEntity === "tallas" && <TallasCRUD />}
-          {selectedEntity === "tipo-producto" && <TipoProductoCRUD />}
-          {selectedEntity === "marcas" && <MarcasCRUD />}
-          {selectedEntity === "productos" && <ProductosCRUD />}
-          {selectedEntity === "clientes" && <ClientesCRUD />}
-        </div>
-      </div>
-    </div>
+            </Form.Select>
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        {selectedEntity === "tallas" && <TallasCRUD />}
+        {selectedEntity === "tipo-producto" && <TipoProductoCRUD />}
+        {selectedEntity === "marcas" && <MarcasCRUD />}
+        {selectedEntity === "productos" && <ProductosCRUD />}
+        {selectedEntity === "clientes" && <ClientesCRUD />}
+      </Row>
+    </Container>
   );
 };
 

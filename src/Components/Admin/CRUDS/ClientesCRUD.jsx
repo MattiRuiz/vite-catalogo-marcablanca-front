@@ -1,20 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Row, Col, Form, Button } from "react-bootstrap";
+
 import {
   getAllClientes,
   createCliente,
   updateCliente,
   deleteCliente,
-} from '../../../Functions/ClienteFunctions';
+} from "../../../Functions/ClienteFunctions";
 
 const ClientesCRUD = () => {
   const [clientes, setClientes] = useState([]);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    nombre: '',
-    apellido: '',
+    username: "",
+    password: "",
+    nombre: "",
+    apellido: "",
   });
   const [editData, setEditData] = useState({});
 
@@ -36,12 +38,12 @@ const ClientesCRUD = () => {
       const response = await createCliente(formData);
       setCreating(false);
       setFormData({
-        username: '',
-        password: '',
-        nombre: '',
-        apellido: '',
+        username: "",
+        password: "",
+        nombre: "",
+        apellido: "",
       });
-      fetchData()
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -62,14 +64,14 @@ const ClientesCRUD = () => {
   const handleUpdate = async () => {
     try {
       const response = await updateCliente(editData.id, formData);
-      fetchData()
+      fetchData();
       setEditing(false);
       setEditData({});
       setFormData({
-        username: '',
-        password: '',
-        nombre: '',
-        apellido: '',
+        username: "",
+        password: "",
+        nombre: "",
+        apellido: "",
       });
     } catch (error) {
       console.error(error);
@@ -79,126 +81,130 @@ const ClientesCRUD = () => {
   const handleDelete = async (id) => {
     try {
       await deleteCliente(id);
-      fetchData()
+      fetchData();
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-md-6">
-          <button
-            className="btn btn-primary bg-success"
-            onClick={() => {
-              setCreating(true);
-              setEditing(false);
-              setFormData({
-                username: '',
-                password: '',
-                nombre: '',
-                apellido: '',
-              });
-            }}
-          >
-            Crear Cliente
-          </button>
-          <ul className="list-group mt-3">
-            {clientes.map((cliente) => (
-              <li
-                key={cliente.id}
-                className="list-group-item d-flex justify-content-between"
-              >
-                {cliente.username} <br/> {cliente.clientes.nombre} {cliente.clientes.apellido}
-                <div>
-                  <button
-                    className="btn btn-warning btn-sm mr-2"
-                    onClick={() => handleEditOpen(cliente)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(cliente.id)}
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <>
+      <Col xs={12}>
+        <Button
+          variant="outline-light"
+          className="mt-3"
+          onClick={() => {
+            setCreating(true);
+            setEditing(false);
+            setFormData({
+              username: "",
+              password: "",
+              nombre: "",
+              apellido: "",
+            });
+          }}
+        >
+          Crear Cliente
+        </Button>
+        <ul className="list-group mt-3">
+          {clientes.map((cliente) => (
+            <li
+              key={cliente.id}
+              className="list-group-item d-flex justify-content-between"
+            >
+              {cliente.username} <br /> {cliente.clientes.nombre}{" "}
+              {cliente.clientes.apellido}
+              <div>
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="me-1"
+                  onClick={() => handleEditOpen(cliente)}
+                >
+                  <span className="material-symbols-outlined">edit</span>
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(cliente.id)}
+                >
+                  <span className="material-symbols-outlined">delete</span>
+                </Button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Col>
+      <Row>
         {creating && (
-          <div className="rounded bg-light col-md-6 mt-3">
-            <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Crear Cliente</h3>
-              <button
-                className="btn btn-light btn-sm"
+          <Col xs={12} className="rounded bg-light mt-3 p-3">
+            <Col className="d-flex justify-content-between">
+              <h6 className="text-black py-3">Crear cliente</h6>
+              <Button
+                size="sm"
+                variant="light"
                 onClick={() => setCreating(false)}
               >
-                X
-              </button>
-            </div>
-            <div className="form-group">
-              <input
+                <span className="material-symbols-outlined">close</span>
+              </Button>
+            </Col>
+            <Form.Group>
+              <Form.Control
                 type="text"
                 className="form-control"
                 placeholder="Nombre de usuario"
-                value={formData.username || ''}
+                value={formData.username || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Contraseña"
-                value={formData.password || ''}
+                value={formData.password || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Nombre"
-                value={formData.nombre || ''}
+                value={formData.nombre || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Apellido"
-                value={formData.apellido || ''}
+                value={formData.apellido || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, apellido: e.target.value })
                 }
               />
-            </div>
-            <button
-              className="btn btn-success mt-2 mb-2"
-              onClick={handleCreate}
-            >
+            </Form.Group>
+            <Button className="my-3" onClick={handleCreate}>
               Guardar
-            </button>
-          </div>
+            </Button>
+          </Col>
         )}
         {editing && (
-          <div className="rounded bg-light col-md-6 mt-3">
-            <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Editar Cliente</h3>
-              <button
-                className="btn btn-light btn-sm"
+          <Col xs={12} className="rounded bg-light mt-3 p-3">
+            <Col className="d-flex justify-content-between">
+              <h6 className="text-black py-3">Editar Cliente</h6>
+              <Button
+                size="sm"
+                variant="light"
                 onClick={() => setEditing(false)}
               >
-                X
-              </button>
-            </div>
-            <div className="form-group">
-              <input
+                <span className="material-symbols-outlined">close</span>
+              </Button>
+            </Col>
+            <Form.Group>
+              <Form.Control
                 type="text"
                 className="form-control"
                 placeholder="Nombre de usuario"
@@ -207,7 +213,7 @@ const ClientesCRUD = () => {
                   setFormData({ ...formData, username: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Contraseña"
@@ -216,7 +222,7 @@ const ClientesCRUD = () => {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Nombre"
@@ -225,7 +231,7 @@ const ClientesCRUD = () => {
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Apellido"
@@ -234,17 +240,17 @@ const ClientesCRUD = () => {
                   setFormData({ ...formData, apellido: e.target.value })
                 }
               />
-            </div>
+            </Form.Group>
             <button
               className="btn btn-success mt-2 mb-2"
               onClick={handleUpdate}
             >
               Guardar Cambios
             </button>
-          </div>
+          </Col>
         )}
-      </div>
-    </div>
+      </Row>
+    </>
   );
 };
 

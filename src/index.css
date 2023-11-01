@@ -85,6 +85,11 @@ li span.material-symbols-outlined {
   margin-right: 4px;
 }
 
+li button span.material-symbols-outlined{
+  margin-right: 0;
+  font-size: 18px
+}
+
 .offcanvas {
   width: 60%!important;
 }

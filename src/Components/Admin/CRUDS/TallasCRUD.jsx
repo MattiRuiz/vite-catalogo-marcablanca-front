@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Row, Col, Form } from "react-bootstrap";
+
 import {
   getAllTallas,
   createTalla,
   updateTalla,
   deleteTalla,
-} from '../../../Functions/TallasFunctions';
+} from "../../../Functions/TallasFunctions";
 
 const TallasCRUD = () => {
   const [tallas, setTallas] = useState([]);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({ nombre: '', dimensiones: '' });
+  const [formData, setFormData] = useState({ nombre: "", dimensiones: "" });
   const [editData, setEditData] = useState({});
 
   const fetchData = async () => {
@@ -30,8 +32,8 @@ const TallasCRUD = () => {
     try {
       const response = await createTalla(formData);
       setCreating(false);
-      setFormData({ nombre: '', dimensiones: '' });
-      fetchData()
+      setFormData({ nombre: "", dimensiones: "" });
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -49,8 +51,8 @@ const TallasCRUD = () => {
       await updateTalla(editData.id, formData);
       setEditing(false);
       setEditData({});
-      setFormData({ nombre: '', dimensiones: '' });
-      fetchData()
+      setFormData({ nombre: "", dimensiones: "" });
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -59,103 +61,103 @@ const TallasCRUD = () => {
   const handleDelete = async (id) => {
     try {
       await deleteTalla(id);
-      fetchData()
+      fetchData();
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-md-6">
-          <button
-            className="btn btn-primary bg-success"
-            onClick={() => {
-              setCreating(true);
-              setEditing(false);
-              setFormData({ nombre: '', dimensiones: '' });
-            }}
-          >
-            Crear Talla
-          </button>
-          <ul className="list-group mt-3">
-            {tallas.map((talla) => (
-              <li
-                key={talla.id}
-                className="list-group-item d-flex justify-content-between"
-              >
-                {talla.nombre} - {talla.dimensiones}
-                <div>
-                  <button
-                    className="btn btn-warning btn-sm mr-2"
-                    onClick={() => handleEditOpen(talla)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(talla.id)}
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <>
+      <Col xs={12}>
+        <button
+          className="btn btn-primary bg-success"
+          onClick={() => {
+            setCreating(true);
+            setEditing(false);
+            setFormData({ nombre: "", dimensiones: "" });
+          }}
+        >
+          Crear Talla
+        </button>
+        <ul className="list-group mt-3">
+          {tallas.map((talla) => (
+            <li
+              key={talla.id}
+              className="list-group-item d-flex justify-content-between"
+            >
+              {talla.nombre} - {talla.dimensiones}
+              <div>
+                <button
+                  className="btn btn-warning btn-sm mr-2"
+                  onClick={() => handleEditOpen(talla)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(talla.id)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Col>
+      <Row>
         {creating && (
-          <div className="rounded bg-light col-md-6 mt-3">
-            <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Crear Talla</h3>
+          <Col xs={12} className="rounded bg-light mt-3 p-3">
+            <Col className="d-flex justify-content-between">
+              <h6 className="text-black py-3">Crear Talla</h6>
               <button
                 className="btn btn-light btn-sm"
                 onClick={() => setCreating(false)}
               >
                 X
               </button>
-            </div>
-            <div className="form-group">
-              <input
+            </Col>
+            <Form.Group>
+              <Form.Control
                 type="text"
                 className="form-control"
                 placeholder="Nombre de la talla"
-                value={formData.nombre || ''}
+                value={formData.nombre || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Dimensiones de la talla"
-                value={formData.dimensiones || ''}
+                value={formData.dimensiones || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, dimensiones: e.target.value })
                 }
               />
-            </div>
+            </Form.Group>
             <button
               className="btn btn-success mt-2 mb-2"
               onClick={handleCreate}
             >
               Guardar
             </button>
-          </div>
+          </Col>
         )}
         {editing && (
-          <div className="rounded bg-light col-md-6 mt-3">
-            <div className="d-flex justify-content-between">
-              <h3 className="text-black p-2">Editar Talla</h3>
+          <Col xs={12} className="rounded bg-light mt-3 p-3">
+            <Col className="d-flex justify-content-between">
+              <h6 className="text-black py-3">Editar Talla</h6>
               <button
                 className="btn btn-light btn-sm"
                 onClick={() => setEditing(false)}
               >
                 X
               </button>
-            </div>
-            <div className="form-group">
-              <input
+            </Col>
+            <Form.Group>
+              <Form.Control
                 type="text"
                 className="form-control"
                 placeholder="Nombre de la talla"
@@ -164,7 +166,7 @@ const TallasCRUD = () => {
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
-              <input
+              <Form.Control
                 type="text"
                 className="form-control mt-2"
                 placeholder="Dimensiones de la talla"
@@ -173,17 +175,17 @@ const TallasCRUD = () => {
                   setFormData({ ...formData, dimensiones: e.target.value })
                 }
               />
-            </div>
+            </Form.Group>
             <button
               className="btn btn-success mt-2 mb-2"
               onClick={handleUpdate}
             >
               Guardar Cambios
             </button>
-          </div>
+          </Col>
         )}
-      </div>
-    </div>
+      </Row>
+    </>
   );
 };
 
