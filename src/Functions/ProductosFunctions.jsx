@@ -19,13 +19,13 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 )
-
+//INTERCAMBIADO
 const getAllProductosSinTallas = async () => {
-    const respuesta = await axios.get(`${baseUrl}/api/productos`)
+    const respuesta = await axios.get(`${baseUrl}/api/productostallas`)
     return respuesta
 }
 const getAllProductos = async () => {
-    const respuesta = await axios.get(`${baseUrl}/api/productostallas`)
+    const respuesta = await axios.get(`${baseUrl}/api/productos`)
     return respuesta
 }
 

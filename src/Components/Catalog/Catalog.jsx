@@ -13,7 +13,7 @@ import {
 
 function Catalog() {
   const { id } = useParams();
-  const baseUrl = import.meta.env.REACT_APP_BASE_URL;
+  const baseUrl = import.meta.env.VITE_NAME;
 
   const [products, setProducts] = useState([]);
 
