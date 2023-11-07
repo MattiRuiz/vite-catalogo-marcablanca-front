@@ -21,7 +21,7 @@ const ProductosCRUD = () => {
     imagen: null,
     marcasId: "",
     tipoProductoId: "",
-    adminsId: 3,
+    adminsId: 2,
   });
   const [editData, setEditData] = useState({});
 
@@ -53,7 +53,7 @@ const ProductosCRUD = () => {
       imagen: producto.rutaImagen,
       marcasId: producto.marcas.id,
       tipoProductoId: producto.tipo_producto.id,
-      adminsId: 3,
+      adminsId: 2,
     });
   };
 
@@ -73,7 +73,7 @@ const ProductosCRUD = () => {
         imagen: null,
         marcasId: "",
         tipoProductoId: "",
-        adminsId: 3,
+        adminsId: 2,
       });
       fetchData(); // Actualizar datos después de crear
     } catch (error) {
@@ -98,7 +98,7 @@ const ProductosCRUD = () => {
         imagen: null,
         marcasId: "",
         tipoProductoId: "",
-        adminsId: 3,
+        adminsId: 2,
       });
       fetchData(); // Actualizar datos después de actualizar
     } catch (error) {
