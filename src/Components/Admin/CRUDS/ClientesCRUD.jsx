@@ -136,34 +136,6 @@ const ClientesCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
-        <ul className="list-group mt-3">
-          {clientes.map((cliente) => (
-            <li
-              key={cliente.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              {cliente.username} <br /> {cliente.clientes.nombre}{" "}
-              {cliente.clientes.apellido}
-              <div>
-                <Button
-                  variant="warning"
-                  size="sm"
-                  className="me-1"
-                  onClick={() => handleEditOpen(cliente)}
-                >
-                  <span className="material-symbols-outlined">edit</span>
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDelete(cliente.id)}
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
       </Col>
       <Row>
         {creating && (
