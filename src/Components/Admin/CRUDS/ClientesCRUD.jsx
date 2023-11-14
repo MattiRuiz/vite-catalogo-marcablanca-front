@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Accordion } from "react-bootstrap";
 
 import {
   getAllClientes,
@@ -106,6 +106,36 @@ const ClientesCRUD = () => {
         >
           Crear Cliente
         </Button>
+        <Accordion className="mt-3">
+          {clientes.map((cliente) => (
+            <Accordion.Item eventKey={cliente.id}>
+              <Accordion.Header>
+                <ul className="list-unstyled my-0">
+                  <li className="mb-1"><strong>User:</strong> {cliente.username}</li>
+                  <li><strong>Nombre:</strong> {cliente.clientes.nombre}{" "}
+              {cliente.clientes.apellido}</li>
+                </ul>
+                </Accordion.Header>
+                <Accordion.Body>
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="me-1"
+                  onClick={() => handleEditOpen(cliente)}
+                >
+                  Editar
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(cliente.id)}
+                >
+                  Borrar
+                </Button>
+                </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
         <ul className="list-group mt-3">
           {clientes.map((cliente) => (
             <li

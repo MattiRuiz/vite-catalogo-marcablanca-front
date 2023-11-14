@@ -24,22 +24,22 @@ function MenuLoged({ close }) {
     <>
       <Offcanvas.Body>
         <ul className="list-unstyled">
-          <li className="mb-2">
+          <li className="mb-3">
             <Link to={"/"} onClick={close}>
               Inicio
             </Link>
           </li>
-          <li className="mb-2">
+          <li className="mb-3">
             <Link to={"/welcome"} onClick={close}>
               Catálogo
             </Link>
           </li>
-          <li className="mb-2">
+          <li className="mb-3">
             <Link to={"/lista-precios"} onClick={close}>
               Lista de precios
             </Link>
           </li>
-          <li className="mb-2">
+          <li className="mb-3">
             <Link onClick={handleShow}>
               <strong>Cerrar sesión</strong>
             </Link>
