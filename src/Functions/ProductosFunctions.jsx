@@ -52,6 +52,19 @@ const createProducto = async (data) => {
     }
   }
 
+  const createProductoTalla = async (data) => {
+    try {
+      const respuesta = await axios({
+        url: `${baseUrl}/api/productosTallas`,
+        method: "POST",
+        data: data
+      })
+      return respuesta;
+    } catch (errors) {
+      console.log(errors);
+    }
+  }
+
 const updateProducto = async (id, data) => {
   try {
     const respuesta = await axios({
@@ -82,6 +95,7 @@ export {
     getAllProductos,
     getAllProductosSinTallas,
     getProductosPorCategoria,
+    createProductoTalla,
     createProducto,
     updateProducto,
     getOneProducto,

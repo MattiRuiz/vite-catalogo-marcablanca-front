@@ -30,7 +30,7 @@ const TallasCRUD = () => {
 
   const handleCreate = async () => {
     try {
-      const response = await createTalla(formData);
+      await createTalla(formData);
       setCreating(false);
       setFormData({ nombre: "", dimensiones: "" });
       fetchData();

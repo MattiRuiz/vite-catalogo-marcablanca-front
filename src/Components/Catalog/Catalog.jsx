@@ -10,7 +10,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { getAllProductosSinTallas } from "../../Functions/ProductosFunctions";
+import { getAllProductos } from "../../Functions/ProductosFunctions";
 import { getProductosPorCategoria } from "../../Functions/ProductosFunctions";
 
 function Catalog() {
@@ -26,7 +26,7 @@ function Catalog() {
           const response = await getProductosPorCategoria(id);
           setProducts(response.data);
         } else {
-          const response = await getAllProductosSinTallas();
+          const response = await getAllProductos();
           setProducts(response.data);
         }
       } catch (e) {

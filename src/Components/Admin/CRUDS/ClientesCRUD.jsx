@@ -35,7 +35,7 @@ const ClientesCRUD = () => {
 
   const handleCreate = async () => {
     try {
-      const response = await createCliente(formData);
+      await createCliente(formData);
       setCreating(false);
       setFormData({
         username: "",
@@ -63,7 +63,7 @@ const ClientesCRUD = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await updateCliente(editData.id, formData);
+      await updateCliente(editData.id, formData);
       fetchData();
       setEditing(false);
       setEditData({});
