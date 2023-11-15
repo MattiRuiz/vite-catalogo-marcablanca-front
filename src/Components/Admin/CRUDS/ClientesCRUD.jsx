@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form, Button, Accordion } from "react-bootstrap";
+import { Row, Col, Form, Button, Accordion, Modal } from "react-bootstrap";
 
 import {
   getAllClientes,
@@ -9,6 +9,13 @@ import {
 } from "../../../Functions/ClienteFunctions";
 
 const ClientesCRUD = () => {
+  const [showModalCreate, setModalCreate] = useState(false)
+  const handleCloseCreate = () => setModalCreate(false)
+  const handleShowCreate = () => setModalCreate(true)
+  const [showModalEdit, setModalEdit] = useState(false)
+  const handleCloseEdit = () => setModalEdit(false)
+  const handleShowEdit = () => setModalEdit(true)
+
   const [clientes, setClientes] = useState([]);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -106,7 +113,126 @@ const ClientesCRUD = () => {
         >
           Crear Cliente
         </Button>
-        <Accordion className="mt-3">
+        <Button
+          variant="outline-light"
+          className="mt-3 ms-2"
+          onClick={handleShowCreate}
+        >
+          Crear cliente
+        </Button>
+        <Modal show={showModalCreate} onHide={handleCloseCreate} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Crear cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form.Group>
+            <Form.Label>Nombre de usuario:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Nombre de usuario"
+                value={formData.username || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+              />
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Contraseña"
+                value={formData.password || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <Form.Label>Nombre:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Nombre"
+                value={formData.nombre || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, nombre: e.target.value })
+                }
+              />
+              <Form.Label>Apellido:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Apellido"
+                value={formData.apellido || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, apellido: e.target.value })
+                }
+              />
+            </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button onClick={handleCreate}>
+              Guardar
+            </Button>
+          <Button variant="secondary" onClick={handleCloseCreate}>Cerrar</Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showModalEdit} onHide={handleCloseEdit} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        {/* <Form.Group>
+              <Form.Label>Nombre de usuario:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Nombre de usuario"
+                value={formData.username || editData.username}
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+              />
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Contraseña"
+                value={formData.password || editData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <Form.Label>Nombre:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Nombre"
+                value={formData.nombre || editData.clientes.nombre}
+                onChange={(e) =>
+                  setFormData({ ...formData, nombre: e.target.value })
+                }
+              />
+              <Form.Label>Apellido:</Form.Label>
+              <Form.Control
+                type="text"
+                className="mb-2"
+                placeholder="Apellido"
+                value={formData.apellido || editData.clientes.apellido}
+                onChange={(e) =>
+                  setFormData({ ...formData, apellido: e.target.value })
+                }
+              />
+            </Form.Group> */}
+        </Modal.Body>
+        <Modal.Footer>
+        <Button onClick={handleUpdate}>
+              Guardar
+            </Button>
+          <Button variant="secondary" onClick={handleCloseEdit}>Cerrar</Button>
+        </Modal.Footer>
+      </Modal>
+        <Row>
+          <Col xs={12}>
+          <Accordion className="mt-3">
           {clientes.map((cliente) => (
             <Accordion.Item eventKey={cliente.id}>
               <Accordion.Header>
@@ -136,12 +262,12 @@ const ClientesCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
-      </Col>
-      <Row>
-        {creating && (
+          </Col>
+          <Col xs={12} lg={4}>
+          {creating && (
           <Col xs={12} className="rounded bg-light mt-3 p-3">
             <Col className="d-flex justify-content-between">
-              <h6 className="text-black py-3">Crear cliente</h6>
+              <h5 className="text-black py-3">Crear cliente</h5>
               <Button
                 size="sm"
                 variant="light"
@@ -151,36 +277,40 @@ const ClientesCRUD = () => {
               </Button>
             </Col>
             <Form.Group>
+            <Form.Label>Nombre de usuario:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control"
+                className="mb-2"
                 placeholder="Nombre de usuario"
                 value={formData.username || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
               />
+              <Form.Label>Contraseña:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Contraseña"
                 value={formData.password || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+              <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Nombre"
                 value={formData.nombre || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
+              <Form.Label>Apellido:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Apellido"
                 value={formData.apellido || ""}
                 onChange={(e) =>
@@ -196,7 +326,7 @@ const ClientesCRUD = () => {
         {editing && (
           <Col xs={12} className="rounded bg-light mt-3 p-3">
             <Col className="d-flex justify-content-between">
-              <h6 className="text-black py-3">Editar Cliente</h6>
+              <h5 className="text-black py-3">Editar Cliente</h5>
               <Button
                 size="sm"
                 variant="light"
@@ -206,36 +336,40 @@ const ClientesCRUD = () => {
               </Button>
             </Col>
             <Form.Group>
+              <Form.Label>Nombre de usuario:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control"
+                className="mb-2"
                 placeholder="Nombre de usuario"
                 value={formData.username || editData.username}
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
               />
+              <Form.Label>Contraseña:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Contraseña"
                 value={formData.password || editData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+              <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Nombre"
                 value={formData.nombre || editData.clientes.nombre}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
+              <Form.Label>Apellido:</Form.Label>
               <Form.Control
                 type="text"
-                className="form-control mt-2"
+                className="mb-2"
                 placeholder="Apellido"
                 value={formData.apellido || editData.clientes.apellido}
                 onChange={(e) =>
@@ -248,7 +382,10 @@ const ClientesCRUD = () => {
             </Button>
           </Col>
         )}
-      </Row>
+          </Col>
+        </Row>
+        
+      </Col>
     </>
   );
 };

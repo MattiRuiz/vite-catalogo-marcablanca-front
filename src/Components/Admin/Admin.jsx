@@ -12,7 +12,7 @@ const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState("tallas");
 
   return (
-    <Container fluid className="py-4">
+    <Container className="py-4">
       <Row>
         <Col xs={12}>
           <h1 className="mb-4 text-white">Panel de Administración</h1>
