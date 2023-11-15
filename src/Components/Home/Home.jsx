@@ -1,19 +1,14 @@
-import { Container, Row, Col, Button, Ratio, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Row, Col, Button, Ratio, Image } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
-import empresasLogo from "../../Images/logos-empresas.jpg";
-import catalogo from "../../Images/mockup_catalogo.png";
+import empresasLogo from '../../Images/logos-empresas.jpg'
+import catalogo from '../../Images/mockup_catalogo.png'
 
 function Home() {
   return (
     <Container fluid>
-      <Row>
-        <Col xs={12} className="px-0">
-          {/* <Image src={cartel} fluid /> */}
-        </Col>
-      </Row>
-      <Row className="text-white text-center pb-3 px-3">
-        <Col xs={12} className="border-top border-bottom border-white py-3">
+      <Row className="text-center pb-3 align-items-center">
+        <Col xs={12} lg={6} className="p-5 text-white">
           <h5 className="display-5">
             <strong>Mayorista textil</strong>
           </h5>
@@ -25,52 +20,81 @@ function Home() {
             </strong>
           </p>
         </Col>
-      </Row>
-      <Row className="bg-white py-4">
-        <Col xs="12" className="text-center">
+        <Col xs={12} lg={6} className="text-center bg-white p-4 p-md-5">
           <p className="fs-4 lh-sm">
             Con los mejores precios en las <strong>siguientes marcas:</strong>
           </p>
-        </Col>
-        <Col>
-          <Image src={empresasLogo} fluid className="mx-auto d-block" />
+          <Row className="justify-content-center">
+            <Col xs={11} md={8}>
+              <Image src={empresasLogo} fluid />
+            </Col>
+          </Row>
         </Col>
       </Row>
-      <Row className="text-white justify-content-center py-3">
-        <Col xs={11} md={8} lg={5} className="text-center pb-3" id="contacto">
-          <p className="fs-4">Encontranos en:</p>
-          <div>
-            <div className="mapouter">
-              <div className="gmap_canvas">
-                <Ratio aspectRatio="1x1">
-                  <iframe
-                    className="gmap_iframe"
-                    width="100%"
-                    title="Mapa de Blanqueria MarcaBlanca"
-                    src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Blanqueria MarcaBlanca&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                  ></iframe>
-                </Ratio>
-              </div>
-              <style>
-                .mapouter
-                {"position:relative;text-align:right;width:100%;height:400px;"}
-                .gmap_canvas{" "}
-                {
-                  "overflow:hidden;background:none!important;width:100%;height:400px;"
-                }
-                .gmap_iframe {"height:400px!important;"}
-              </style>
-            </div>
-          </div>
-        </Col>
+      <Row className="justify-content-center align-items-center">
         <Col
           xs={11}
+          md={8}
+          lg={6}
+          className="text-center py-5 text-white"
+          id="contacto"
+        >
+          <p className="fs-4">Encontranos en:</p>
+          <Row className="justify-content-center">
+            <Col xs={11} sm={9} lg={8} xl={7}>
+              <div>
+                <div className="mapouter">
+                  <div className="gmap_canvas">
+                    <Ratio aspectRatio="1x1">
+                      <iframe
+                        className="gmap_iframe"
+                        width="100%"
+                        title="Mapa de Blanqueria MarcaBlanca"
+                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Blanqueria MarcaBlanca&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                      ></iframe>
+                    </Ratio>
+                  </div>
+                  <style>
+                    .mapouter
+                    {
+                      'position:relative;text-align:right;width:100%;height:400px;'
+                    }
+                    .gmap_canvas{' '}
+                    {
+                      'overflow:hidden;background:none!important;width:100%;height:400px;'
+                    }
+                    .gmap_iframe {'height:400px!important;'}
+                  </style>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={12} lg={6} className="bg-white py-5">
+          <Row className="text-center justify-content-center">
+            <Col xs={8}>
+              <Image src={catalogo} fluid />
+            </Col>
+            <Col xs={10}>
+              <h4>¡Nuevo catálogo digital!</h4>
+              <p>Suscribite a Marca Blanca y llevá tu catalogo en el celular</p>
+            </Col>
+            <Col xs={11}>
+              <Button as={Link} to={'/login'} variant="outline-primary">
+                Ver catálogo
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row className="pt-3 pb-4 text-center justify-content-center bg-white">
+        <Col
+          xs={11}
+          lg={6}
           className="text-center border-top border-bottom border-white pt-3 pb-2"
         >
           <h4>Horario de atención</h4>
           <p>Lunes a viernes de 9:00 a 18:00h</p>
-        </Col>
-        <Col xs={10} className="pt-3 text-center">
           <h4>Contacto</h4>
           <ul className="list-unstyled">
             <li>
@@ -88,22 +112,8 @@ function Home() {
           </ul>
         </Col>
       </Row>
-      <Row className="pt-3 pb-4 text-center justify-content-center bg-white">
-        <Col xs={8}>
-          <Image src={catalogo} fluid />
-        </Col>
-        <Col xs={10}>
-          <h4>¡Nuevo catálogo digital!</h4>
-          <p>Suscribite a Marca Blanca y llevá tu catalogo en el celular</p>
-        </Col>
-        <Col xs={11}>
-          <Button as={Link} to={"/login"} variant="outline-primary">
-            Ver catálogo
-          </Button>
-        </Col>
-      </Row>
     </Container>
-  );
+  )
 }
 
-export default Home;
+export default Home
