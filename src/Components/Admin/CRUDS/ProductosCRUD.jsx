@@ -18,10 +18,11 @@ const ProductosCRUD = () => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
+    descripcion: "",
     imagen: null,
     marcasId: "",
     tipoProductoId: "",
-    adminsId: 2,
+    adminsId: 1,
   });
   const [editData, setEditData] = useState({});
 
@@ -50,10 +51,11 @@ const ProductosCRUD = () => {
     setEditData(producto);
     setFormData({
       nombre: producto.nombre,
+      descripcion: producto.descripcion,
       imagen: producto.rutaImagen,
       marcasId: producto.marcas.id,
       tipoProductoId: producto.tipo_producto.id,
-      adminsId: 2,
+      adminsId: 1,
     });
   };
 
@@ -61,6 +63,7 @@ const ProductosCRUD = () => {
     try {
       const formDataForAPI = new FormData();
       formDataForAPI.append("nombre", formData.nombre);
+      formDataForAPI.append("descripcion", formData.descripcion);
       formDataForAPI.append("imagen", formData.imagen);
       formDataForAPI.append("marcas_id", formData.marcasId);
       formDataForAPI.append("tipo_producto_id", formData.tipoProductoId);
@@ -70,10 +73,11 @@ const ProductosCRUD = () => {
       setCreating(false);
       setFormData({
         nombre: "",
+        descripcion: "",
         imagen: null,
         marcasId: "",
         tipoProductoId: "",
-        adminsId: 2,
+        adminsId: 1,
       });
       fetchData(); // Actualizar datos después de crear
     } catch (error) {
@@ -85,6 +89,7 @@ const ProductosCRUD = () => {
     try {
       const formDataForAPI = new FormData();
       formDataForAPI.append("nombre", formData.nombre);
+      formDataForAPI.append("descripcion", formData.descripcion);
       formDataForAPI.append("imagen", formData.imagen);
       formDataForAPI.append("marcas_id", formData.marcasId);
       formDataForAPI.append("tipo_producto_id", formData.tipoProductoId);
@@ -95,10 +100,11 @@ const ProductosCRUD = () => {
       setEditData({});
       setFormData({
         nombre: "",
+        descripcion: "",
         imagen: null,
         marcasId: "",
         tipoProductoId: "",
-        adminsId: 2,
+        adminsId: 1,
       });
       fetchData(); // Actualizar datos después de actualizar
     } catch (error) {
@@ -126,10 +132,11 @@ const ProductosCRUD = () => {
             setEditing(false);
             setFormData({
               nombre: "",
+              descripcion: "",
               imagen: null,
               marcasId: "",
               tipoProductoId: "",
-              adminsId: 5,
+              adminsId: 1,
             });
           }}
         >
@@ -142,6 +149,7 @@ const ProductosCRUD = () => {
               className="list-group-item d-flex justify-content-between "
             >
               {producto.nombre}
+              {producto.descripcion}
               <br />
               {producto.marcas.nombre}
               <br />
@@ -188,6 +196,15 @@ const ProductosCRUD = () => {
                 value={formData.nombre || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
+                }
+              />
+              <Form.Control
+                type="text"
+                className="form-control mt-2"
+                placeholder="Descripcion del producto"
+                value={formData.descripcion || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, descripcion: e.target.value })
                 }
               />
               <Form.Control
@@ -251,6 +268,15 @@ const ProductosCRUD = () => {
                 value={formData.nombre || editData.nombre}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
+                }
+              />
+              <Form.Control
+                type="text"
+                className="form-control mt-2"
+                placeholder="Descripcion del producto"
+                value={formData.descripcion || editData.descripcion}
+                onChange={(e) =>
+                  setFormData({ ...formData, descripcion: e.target.value })
                 }
               />
               <Form.Control
