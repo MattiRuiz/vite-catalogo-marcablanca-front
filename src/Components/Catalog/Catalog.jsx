@@ -42,10 +42,10 @@ function Catalog() {
       <Button variant="Light" as={Link} to={'/welcome'} className="py-3 ps-0">
         <span className="material-symbols-outlined">arrow_back</span>
       </Button>
-      <Row className="justify-content-start my-3">
+      <Row className="justify-content-start my-3 g-3">
         {products.map((product) => (
           <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
-            <Card className="mb-3">
+            <Card className="mb-3 h-100">
               <Ratio aspectRatio="4x3">
                 <Card.Img variant="top" src={baseUrl + product.rutaImagen} />
               </Ratio>

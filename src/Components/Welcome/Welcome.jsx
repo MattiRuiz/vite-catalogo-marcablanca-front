@@ -49,7 +49,7 @@ function Welcome() {
             <Ratio aspectRatio="1x1">
               <Image src={baseUrl + producto.rutaImagen} fluid />
             </Ratio>
-            <h6 className="my-3">{producto.nombre}</h6>
+            <h6 className="mt-2 mb-4">- {producto.nombre} -</h6>
           </Col>
         ))}
       </Row>
