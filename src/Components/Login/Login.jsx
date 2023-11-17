@@ -1,5 +1,13 @@
 import { useState, useContext } from 'react'
-import { Container, Row, Col, Button, Form, Image } from 'react-bootstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Image,
+  Alert,
+} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
@@ -9,6 +17,13 @@ import catalogo from '../../Images/mockup_catalogo.png'
 function Login() {
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
+
+  const [showAlert, setShowAlert] = useState(false)
+  const handleShow = () => setShowAlert(true)
+  const handleClose = () => setShowAlert(false)
+  const [alertMessage, setAlertMessage] = useState(
+    'Ha ocurrido un error, por favor intente más tarde'
+  )
 
   const { handleLogin } = useContext(LoginContext)
 
@@ -30,7 +45,8 @@ function Login() {
       }
 
       if (!data.username || !data.password) {
-        alert('Hay campos vacíos')
+        setAlertMessage('Hay campos vacios, por favor rellene todos los datos.')
+        handleShow()
       } else {
         const response = await loginCliente(data)
         const esAdmin = response.data.esAdmin
@@ -42,18 +58,20 @@ function Login() {
           handleLogin(userName)
           navigate('/admin')
         } else {
-          alert('Usuario o contraseña incorrectos')
+          alert('Usuario o contraseña incorrectos') //este else no está funcionando, entra directamente al catch
         }
       }
     } catch (error) {
-      alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.')
+      // alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.')
+      setAlertMessage('Usuario o contraseña incorrectos.')
+      handleShow()
       console.error('Error:', error)
     }
   }
   return (
     <Container className="bg-white" fluid>
       <Row className="py-5 justify-content-center justify-content-md-around  align-items-center">
-        <Col xs={12} md={5} lg={4}>
+        <Col xs={11} md={5} lg={4}>
           <h4>INGRESAR</h4>
           <Form.Group className="py-2">
             <Form.Label>Nombre de usuario:</Form.Label>
@@ -66,6 +84,17 @@ function Login() {
           <Button type="submit" className="mt-3" onClick={dataSender}>
             Ingresar
           </Button>
+
+          <Alert
+            variant="danger"
+            className="my-4"
+            onClose={handleClose}
+            show={showAlert}
+            dismissible
+          >
+            <Alert.Heading>Error!</Alert.Heading>
+            {alertMessage}
+          </Alert>
         </Col>
         <Col xs={12} md={6} lg={5}>
           <Row className="justify-content-center text-center">
@@ -77,7 +106,7 @@ function Login() {
               <p>
                 Pasá por nuestro local para suscribite a{' '}
                 <strong>Marca Blanca</strong> y comenzar a utilizar nuestro{' '}
-                <strong>Catálogo digital</strong>
+                <strong>Catálogo digital.</strong>
               </p>
             </Col>
           </Row>

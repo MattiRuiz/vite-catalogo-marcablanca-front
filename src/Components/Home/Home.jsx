@@ -7,7 +7,7 @@ import catalogo from '../../Images/mockup_catalogo.png'
 function Home() {
   return (
     <Container fluid>
-      <Row className="text-center pb-3 align-items-center">
+      <Row className="text-center align-items-center">
         <Col xs={12} lg={6} className="p-5 text-white">
           <h5 className="display-5">
             <strong>Mayorista textil</strong>
