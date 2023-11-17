@@ -52,9 +52,9 @@ function Catalog() {
               <Card.ImgOverlay>
                 <Badge className="fs-6">{"0" + product.id}</Badge>
               </Card.ImgOverlay>
-              <Card.Body className="pb-1">
+              <Card.Body className="pb-0">
                 <Card.Title>{product.nombre}</Card.Title>
-                <Card.Subtitle>{product.descripcion}</Card.Subtitle>
+                <Card.Subtitle className="text-muted pb-3">{product.descripcion}</Card.Subtitle>
                 <Card.Text>
                   <ul className="list-unstyled">
                     {product.productos_tallas
