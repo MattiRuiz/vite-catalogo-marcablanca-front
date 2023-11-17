@@ -54,6 +54,7 @@ function Catalog() {
               </Card.ImgOverlay>
               <Card.Body className="pb-1">
                 <Card.Title>{product.nombre}</Card.Title>
+                <Card.Subtitle>{product.descripcion}</Card.Subtitle>
                 <Card.Text>
                   <ul className="list-unstyled">
                     {product.productos_tallas
