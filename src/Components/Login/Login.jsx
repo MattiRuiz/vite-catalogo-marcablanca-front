@@ -24,7 +24,11 @@ function Login() {
   const [alertMessage, setAlertMessage] = useState(
     'Ha ocurrido un error, por favor intente más tarde'
   )
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dataSender()
 
+  };
   const { handleLogin } = useContext(LoginContext)
 
   const navigate = useNavigate()
@@ -52,10 +56,10 @@ function Login() {
         const esAdmin = response.data.esAdmin
 
         if (esAdmin === 0) {
-          handleLogin(userName)
+          handleLogin(response.data)
           navigate('/welcome')
         } else if (esAdmin === 1) {
-          handleLogin(userName)
+          handleLogin(response.data)
           navigate('/admin')
         } else {
           alert('Usuario o contraseña incorrectos') //este else no está funcionando, entra directamente al catch
@@ -70,6 +74,7 @@ function Login() {
   }
   return (
     <Container className="bg-white" fluid>
+      <Form onSubmit={handleSubmit}>
       <Row className="py-5 justify-content-center justify-content-md-around  align-items-center">
         <Col xs={11} md={5} lg={4}>
           <h4>INGRESAR</h4>
@@ -112,6 +117,7 @@ function Login() {
           </Row>
         </Col>
       </Row>
+      </Form>
     </Container>
   )
 }
