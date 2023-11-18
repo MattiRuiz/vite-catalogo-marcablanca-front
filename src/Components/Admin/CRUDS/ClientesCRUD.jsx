@@ -4,10 +4,13 @@ import ClientesPopup from './ClientesCRUD_popup';
 import { Col, Button } from 'react-bootstrap';
 
 const ClientesCRUD = () => {
+  //#region Declaracion useState's
   const [clientes, setClientes] = useState([]);
   const [popUp, setPopUp] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState(null);
+  //#endregion
 
+  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
       const clientesResponse = await getAllClientes();
@@ -20,33 +23,36 @@ const ClientesCRUD = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handlePopup = (cliente) => {
+  //#endregion
+  
+  const openPopup = (cliente) => {
     setSelectedCliente(cliente);
-    setPopUp(!popUp);
+    setPopUp(true);
   };
+  //#endregion
 
+  //#region Handle elminar cliente
   const handleDelete = async (idCliente) => {
     try{
       const response = await deleteCliente(idCliente)
+      console.log('Usuario eliminado', response)
       setPopUp(false)
-      fetchData()
-      return response
-
     }
     catch (e)
     {
       return e.message
     }
+    fetchData();
   };
+  //#endregion
 
   return (
     <div>
-      <Col xs={12}>
+      <Col xs={5}>
         <Button
           variant="outline-light"
           className="mt-3"
-          onClick={() => handlePopup(null)}
+          onClick={() => openPopup(null)}
         >
           Crear Marca
         </Button>
@@ -64,7 +70,7 @@ const ClientesCRUD = () => {
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => handlePopup(cliente)}
+                  onClick={() => openPopup(cliente)}
                 >
                   <span className="material-symbols-outlined">edit</span>
                 </Button>
@@ -76,20 +82,22 @@ const ClientesCRUD = () => {
           ))}
         </ul>
       </Col>
-      { 
-      popUp ? 
-        (
+        {  
+        //#region Renderizado condicional PopUp
+        popUp ? (
           <ClientesPopup 
           cliente={selectedCliente} 
           onClienteUpdated={() => fetchData()}
-          closePopUp={() => setPopUp(!popUp)}
+          closePopUp={() => setPopUp(false)}
           />
         ) 
         : 
         (
-          <></>
-        ) 
-      }
+          <>
+          </>
+        )
+        //#endregion
+        }
     </div>
   );
 };

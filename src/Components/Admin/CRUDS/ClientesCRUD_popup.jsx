@@ -10,18 +10,21 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
     password: '',
   });
 
-  useEffect(() => {
-    if (cliente) {
-      setClienteData({
-        nombre: cliente.clientes.nombre || '',
-        apellido: cliente.clientes.apellido || '',
-        username: cliente.username || '',
-        password: cliente.password || '',
-      });
-    }
-  }, [cliente]);
+    //#region UseEffect
+    useEffect(() => {
+        if (cliente) {
+            setClienteData({
+                nombre: cliente.clientes.nombre || '',
+                apellido: cliente.clientes.apellido || '',
+                username: cliente.username || '',
+                password: cliente.password || '',
+            });
+        }
+    }, [cliente]);
+    //#endregion
 
-  const handleGuardar = async () => {
+    //#region Handle guardar cambios (CREAR O EDITAR)
+    const handleGuardar = async () => {
     const dataToSend = {
       ...clienteData,
     };
@@ -38,59 +41,67 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
     onClienteUpdated();
     closePopUp();
   };
+    //#endregion
+  
+    //#region Handle de todos los inputs
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setClienteData((prevData) => ({
+        ...prevData,
+        [name]: value,
+        }));
+    };
+    //#endregion
+  
+    return (
+    <Col xs={5} className="bg-light p-2 mt-4 ">
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setClienteData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    { cliente ? <h4>Editar cliente</h4> : <h4>Añadir cliente</h4> }
 
-  return (
-    <Col xs={16} className="bg-light p-2">
-      {cliente ? (
-        <h4>Editar cliente</h4>
-      ) : (
-        <h4>Añadir cliente</h4>
-      )}
-      <FormControl
+    <FormControl
         type="text"
         className="mb-2"
-        placeholder="nombre"
+        placeholder="Nombre"
         name="nombre"
         value={clienteData.nombre}
         onChange={handleInputChange}
-      />
-      <FormControl
+    />
+    
+    <FormControl
         type="text"
         className="mb-2"
-        placeholder="apellido"
+        placeholder="Apellido"
         name="apellido"
         value={clienteData.apellido}
         onChange={handleInputChange}
-      />
-      <FormControl
+    />
+    
+    <FormControl
         type="text"
         className="mb-2"
-        placeholder="username"
+        placeholder="Username"
         name="username"
         value={clienteData.username}
         onChange={handleInputChange}
-      />
-      <FormControl
+    />
+    
+    <FormControl
         type="password"
         className="mb-2"
-        placeholder="password"
+        placeholder="Password"
         name="password"
         value={clienteData.password}
         onChange={handleInputChange}
-      />
-      {cliente ? (
+    />
+    
+    {
+    cliente ? 
         <Button onClick={handleGuardar}>Guardar cambios</Button>
-      ) : (
+        :
         <Button onClick={handleGuardar}>Crear cliente</Button>
-      )}
+    }
+        <Button className='m-2' onClick={() => closePopUp()}>Canclear</Button>
+
     </Col>
   );
 };
