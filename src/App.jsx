@@ -12,6 +12,7 @@ import Welcome from "./Components/Welcome/Welcome";
 import Catalog from "./Components/Catalog/Catalog";
 import ListaPrecio from "./Components/ListaPrecio/ListaPrecio";
 import Admin from "./Components/Admin/Admin";
+import NotFound from "./Components/404/NotFund";
 
 function App() {
   return (
@@ -71,6 +72,14 @@ function App() {
           element={
             <>
               <Admin />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <NotFound />
             </>
           }
         />
