@@ -1,79 +1,79 @@
-import { useState, useEffect } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { useState, useEffect } from 'react'
+import { Row, Col, Form, Button, Accordion } from 'react-bootstrap'
 
 import {
   getAllTipoProductos,
   createTipoProducto,
   updateTipoProducto,
   deleteTipoProducto,
-} from "../../../Functions/TipoProductosFunctions";
+} from '../../../Functions/TipoProductosFunctions'
 
 const TipoProductoCRUD = () => {
-  const [tipoProductos, setTipoProductos] = useState([]);
-  const [creating, setCreating] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({ nombre: "", imagen: null });
-  const [editData, setEditData] = useState({});
+  const [tipoProductos, setTipoProductos] = useState([])
+  const [creating, setCreating] = useState(false)
+  const [editing, setEditing] = useState(false)
+  const [formData, setFormData] = useState({ nombre: '', imagen: null })
+  const [editData, setEditData] = useState({})
 
   const fetchData = async () => {
     try {
-      const response = await getAllTipoProductos();
-      setTipoProductos(response.data);
+      const response = await getAllTipoProductos()
+      setTipoProductos(response.data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const handleCreate = async () => {
     try {
-      const formDataForAPI = new FormData();
-      formDataForAPI.append("nombre", formData.nombre);
-      formDataForAPI.append("imagen", formData.imagen);
+      const formDataForAPI = new FormData()
+      formDataForAPI.append('nombre', formData.nombre)
+      formDataForAPI.append('imagen', formData.imagen)
 
-      await createTipoProducto(formDataForAPI);
-      setCreating(false);
-      setFormData({ nombre: "", imagen: null });
-      fetchData();
+      await createTipoProducto(formDataForAPI)
+      setCreating(false)
+      setFormData({ nombre: '', imagen: null })
+      fetchData()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleEditOpen = (tipoProducto) => {
-    setCreating(false);
-    setEditing(true);
-    setEditData(tipoProducto);
-    setFormData({ nombre: tipoProducto.nombre, imagen: tipoProducto.imagen });
-  };
+    setCreating(false)
+    setEditing(true)
+    setEditData(tipoProducto)
+    setFormData({ nombre: tipoProducto.nombre, imagen: tipoProducto.imagen })
+  }
 
   const handleUpdate = async () => {
     try {
-      const formDataForAPI = new FormData();
-      formDataForAPI.append("nombre", formData.nombre);
-      formDataForAPI.append("imagen", formData.imagen);
+      const formDataForAPI = new FormData()
+      formDataForAPI.append('nombre', formData.nombre)
+      formDataForAPI.append('imagen', formData.imagen)
 
-      await updateTipoProducto(editData.id, formDataForAPI);
-      setEditing(false);
-      setEditData({});
-      setFormData({ nombre: "", imagen: null });
-      fetchData();
+      await updateTipoProducto(editData.id, formDataForAPI)
+      setEditing(false)
+      setEditData({})
+      setFormData({ nombre: '', imagen: null })
+      fetchData()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleDelete = async (id) => {
     try {
-      await deleteTipoProducto(id);
-      fetchData();
+      await deleteTipoProducto(id)
+      fetchData()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -82,40 +82,37 @@ const TipoProductoCRUD = () => {
           variant="outline-light"
           className="mt-3"
           onClick={() => {
-            setCreating(true);
-            setEditing(false);
-            setFormData({ nombre: "", imagen: null });
+            setCreating(true)
+            setEditing(false)
+            setFormData({ nombre: '', imagen: null })
           }}
         >
           Crear Tipo de Producto
         </Button>
-        <ul className="list-group mt-3">
+        <Accordion className="mt-3">
           {tipoProductos.map((tipoProducto) => (
-            <li
-              key={tipoProducto.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              {tipoProducto.nombre}
-              <div>
+            <Accordion.Item eventKey={tipoProducto.id} key={tipoProducto.id}>
+              <Accordion.Header>{tipoProducto.nombre}</Accordion.Header>
+              <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => handleEditOpen(tipoProducto)}
                 >
-                  <span className="material-symbols-outlined">edit</span>
+                  Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(tipoProducto.id)}
                 >
-                  <span className="material-symbols-outlined">delete</span>
+                  Borrar
                 </Button>
-              </div>
-            </li>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </ul>
+        </Accordion>
       </Col>
       <Row>
         {creating && (
@@ -135,7 +132,7 @@ const TipoProductoCRUD = () => {
                 type="text"
                 className="form-control"
                 placeholder="Nombre del tipo de producto"
-                value={formData.nombre || ""}
+                value={formData.nombre || ''}
                 onChange={(e) =>
                   setFormData({ ...formData, nombre: e.target.value })
                 }
@@ -190,7 +187,7 @@ const TipoProductoCRUD = () => {
         )}
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default TipoProductoCRUD;
+export default TipoProductoCRUD
