@@ -41,11 +41,11 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
   
     //#region Handle de todos los inputs
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setTallaData((prevData) => ({
-        ...prevData,
-        [name]: value,
-        }));
+      const { name, value } = e.target;
+      setTallaData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      }));
     };
     //#endregion
   

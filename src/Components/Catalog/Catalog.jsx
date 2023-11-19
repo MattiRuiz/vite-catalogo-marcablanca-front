@@ -18,9 +18,11 @@ function Catalog() {
   const baseUrl = import.meta.env.VITE_NAME
   const showGanancia = localStorage.getItem('showGanancia')
   let ganancia = 1
+  let porcentual = 1.0
   if(showGanancia){
     const gananciaStr = localStorage.getItem('ganancia')
     ganancia = JSON.parse(gananciaStr)
+    porcentual = ( ganancia + 100 )/ 100
   }
   const [products, setProducts] = useState([])
 
@@ -70,7 +72,7 @@ function Catalog() {
                         {
                         showGanancia == 'true' ?
                           <li key={index}>
-                            <strong>{talla.talla}:</strong> {talla.dimensiones} a ${parseInt(talla.precio) * ((ganancia + 100) / 100)}
+                            <strong>{talla.talla}:</strong> {talla.dimensiones} a ${parseInt(talla.precio) * porcentual}
                           </li>
                           :
                           <li key={index}>

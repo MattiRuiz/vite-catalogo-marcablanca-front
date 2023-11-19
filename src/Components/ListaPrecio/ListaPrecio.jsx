@@ -28,7 +28,7 @@ function ListaPrecio() {
 
   const mostrarPrecios = () => {
     localStorage.setItem('ganancia', (ganancia))
-    localStorage.setItem('showGanancia', JSON.stringify(showGanancia))
+    localStorage.setItem('showGanancia',(showGanancia))
     setShow(false)
   }
   const dataSave = () => {
