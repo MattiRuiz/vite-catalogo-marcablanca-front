@@ -1,54 +1,52 @@
-import { useState, useEffect } from 'react';
-import { getAllMarcas, deleteMarca } from '../../../Functions/MarcasFunctions';
-import MarcasPopUp from './MarcasCRUD_popup';
-import { Col, Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react'
+import { getAllMarcas, deleteMarca } from '../../../Functions/MarcasFunctions'
+import MarcasPopUp from './MarcasCRUD_popup'
+import { Col, Button, Accordion } from 'react-bootstrap'
 
 const MarcasCRUD = () => {
   //#region Declaracion useState's
-  const [marcas, setMarcas] = useState([]);
-  const [popUp, setPopUp] = useState(false);
-  const [selectedMarca, setSelectedMarca] = useState(null);
+  const [marcas, setMarcas] = useState([])
+  const [popUp, setPopUp] = useState(false)
+  const [selectedMarca, setSelectedMarca] = useState(null)
   //#endregion
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const marcasRespone = await getAllMarcas();
-      setMarcas(marcasRespone.data);
+      const marcasRespone = await getAllMarcas()
+      setMarcas(marcasRespone.data)
     } catch (e) {
-      console.error(e.message);
+      console.error(e.message)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
   //#endregion
-  
+
   const openPopup = (marca) => {
-    setSelectedMarca(marca);
-    setPopUp(true);
-  };
+    setSelectedMarca(marca)
+    setPopUp(true)
+  }
   //#endregion
 
   //#region Handle elminar cliente
   const handleDelete = async (idMarca) => {
-    try{
+    try {
       const response = await deleteMarca(idMarca)
       console.log('Usuario eliminado', response)
       setPopUp(false)
-    }
-    catch (e)
-    {
+    } catch (e) {
       return e.message
     }
-    fetchData();
-  };
+    fetchData()
+  }
   //#endregion
 
   return (
-    <div>
-      <Col xs={5}>
+    <>
+      <Col xs={12}>
         <Button
           variant="outline-light"
           className="mt-3"
@@ -56,48 +54,46 @@ const MarcasCRUD = () => {
         >
           Crear Marca
         </Button>
-        <ul className="list-group mt-3">
+        <Accordion className="mt-3">
           {marcas.map((marca) => (
-            <li
-              key={marca.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              {marca.nombre} 
-              <div>
+            <Accordion.Item eventKey={marca.id} key={marca.id}>
+              <Accordion.Header>{marca.nombre}</Accordion.Header>
+              <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(marca)}
                 >
-                  <span className="material-symbols-outlined">edit</span>
+                  Editar
                 </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(marca.id)}>
-                  <span className="material-symbols-outlined">delete</span>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(marca.id)}
+                >
+                  Borrar
                 </Button>
-              </div>
-            </li>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </ul>
+        </Accordion>
       </Col>
-        {  
+      {
         //#region Renderizado condicional PopUp
         popUp ? (
-          <MarcasPopUp 
-          marca={selectedMarca} 
-          onClienteUpdated={() => fetchData()}
-          closePopUp={() => setPopUp(false)}
+          <MarcasPopUp
+            marca={selectedMarca}
+            onClienteUpdated={() => fetchData()}
+            closePopUp={() => setPopUp(false)}
           />
-        ) 
-        : 
-        (
-          <>
-          </>
+        ) : (
+          <></>
         )
         //#endregion
-        }
-    </div>
-  );
-};
+      }
+    </>
+  )
+}
 
-export default MarcasCRUD;
+export default MarcasCRUD
