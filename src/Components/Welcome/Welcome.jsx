@@ -1,10 +1,8 @@
-import { useContext } from 'react'
-import LoginProvider from '../../Context/LoginContext'
 import WelcomeLog from './WelcomeLog'
 import WelcomeUnlog from './WelcomeUnlog'
-const Welcome = () => {
-  const { auth } = useContext(LoginProvider)
 
+const Welcome = () => {
+  const auth = localStorage.getItem('token')
   return (
     <>
     {

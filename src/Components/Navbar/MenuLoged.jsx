@@ -17,7 +17,10 @@ function MenuLoged({ close }) {
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
     handleLogin();
+    setShow(false);
     navigate("/");
   };
   return (

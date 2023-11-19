@@ -1,15 +1,13 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Row, Col, Image, Button, Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-import LoginContext from '../../Context/LoginContext'
 
 import MenuOffline from './MenuOffline'
 import MenuLoged from './MenuLoged'
 import imageLogo from '../../Images/logo-marca.svg'
 
 function Navbar() {
-  const { auth } = useContext(LoginContext)
+  const  auth  = localStorage.getItem('token')
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleOpen = () => setShow(true)
@@ -18,7 +16,7 @@ function Navbar() {
 
   useEffect(() => {
     const close = () => handleClose()
-    if (auth) {
+    if (auth ) {
       setMenu(<MenuLoged close={close} />)
     } else {
       setMenu(<MenuOffline close={close} />)

@@ -1,7 +1,5 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-
-import LoginProvider from '../../Context/LoginContext';
 
 import TallasCRUD from "./CRUDS/TallasCRUD/TallasCRUD";
 import TipoProductoCRUD from "./CRUDS/TipoProductos_CRUD/TipoProductoCRUD";
@@ -14,14 +12,15 @@ import NotFound from "../404/NotFund";
 
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState("tallas");
-  const { auth } = useContext(LoginProvider)
+
+  const  user  = localStorage.getItem('userData')
+  const userParsed = JSON.parse(user)
+  const auth=userParsed.esAdmin
 
   return (
    <>
-{console.log(auth)}
-
    {
-    auth?
+    auth === 1 ?
     <Container className="py-4">
     <Row>
       <Col xs={12}>
