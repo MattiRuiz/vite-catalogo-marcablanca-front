@@ -14,33 +14,59 @@ import { getAllProductos } from '../../Functions/ProductosFunctions'
 import { getProductosPorCategoria } from '../../Functions/ProductosFunctions'
 
 function Catalog() {
+  const [products, setProducts] = useState([])
+
   const { id } = useParams()
+
   const baseUrl = import.meta.env.VITE_NAME
+
   const showGanancia = localStorage.getItem('showGanancia')
   let ganancia = 1
   let porcentual = 1.0
+
   if(showGanancia){
     const gananciaStr = localStorage.getItem('ganancia')
     ganancia = JSON.parse(gananciaStr)
     porcentual = ( ganancia + 100 )/ 100
   }
-  const [products, setProducts] = useState([])
 
+  const productosStorage = JSON.parse(localStorage.getItem('listaProductos'))
+  const productCatStorage = JSON.parse(localStorage.getItem('listaProductosCat'))
+  console.log(productCatStorage)
+  console.log(productosStorage)
   useEffect(() => {
+
+
     const fetchData = async () => {
       try {
         if (id) {
-          const response = await getProductosPorCategoria(id)
-          setProducts(response.data)
-        } else {
+          if(productCatStorage.idCat != id) {
+            const response = await getProductosPorCategoria(id)
+            setProducts(response.data)
+            localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
+            return
+          } else if (!productCatStorage){
+            const response = await getProductosPorCategoria(id)
+            setProducts(response.data)
+            localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
+            return
+          }else{
+            setProducts(productCatStorage.data)
+            return
+          }
+      }
+        if (productosStorage.length === 0){
           const response = await getAllProductos()
           setProducts(response.data)
+          localStorage.setItem('listaProductos', JSON.stringify(response.data))
+          return
+        }else {
+          setProducts(productosStorage)
         }
       } catch (e) {
         console.log(e.message)
       }
     }
-
     fetchData()
   }, [])
 
