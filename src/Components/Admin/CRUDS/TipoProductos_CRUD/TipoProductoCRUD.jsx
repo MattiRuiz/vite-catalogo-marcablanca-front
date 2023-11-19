@@ -9,7 +9,7 @@ const TipoProductoCRUD = () => {
   const [popUp, setPopUp] = useState(false);
   const [selectedTipoProducto, setSelectedTipoProducto] = useState(null);
   //#endregion
-
+  
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
@@ -48,7 +48,7 @@ const TipoProductoCRUD = () => {
 
   return (
     <div>
-      <Col xs={5}>
+      <Col >
         <Button
           variant="outline-light"
           className="mt-3"

@@ -59,22 +59,22 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     <Modal.Body>
         
     <FormGroup>
-        <FormControl
-            type="text"
-            className="mb-2 "
-            placeholder="Nombre"
-            name="nombre"
-            value={tallaData.nombre}
-            onChange={handleInputChange}
-        />
-        <FormControl
-            type="text"
-            className="mb-2 "
-            placeholder="Dimensiones"
-            name="dimensiones"
-            value={tallaData.dimensiones}
-            onChange={handleInputChange}
-        />
+      <FormControl
+          type="text"
+          className="mb-2 "
+          placeholder="Nombre"
+          name="nombre"
+          value={tallaData.nombre}
+          onChange={handleInputChange}
+      />
+      <FormControl
+          type="text"
+          className="mb-2 "
+          placeholder="Dimensiones"
+          name="dimensiones"
+          value={tallaData.dimensiones}
+          onChange={handleInputChange}
+      />
     </FormGroup>
 
     <Col row={3} className='d-flex justify-content-between'>

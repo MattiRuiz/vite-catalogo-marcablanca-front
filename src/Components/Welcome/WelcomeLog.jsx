@@ -4,18 +4,27 @@ import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 function WelcomeLog() {
-  const username = localStorage.getItem('username')
   const [clienteLista, setClienteLista] = useState([])
+
+  const userData = localStorage.getItem('userData')
+  const user = JSON.parse(userData)
+
+  const tipoProductos_storage = localStorage.getItem('tipoProductos')
+  const tipoProductos = JSON.parse(tipoProductos_storage)
+  const username = user.username
   const baseUrl = import.meta.env.VITE_NAME
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await getAllTipoProductos()
-        setClienteLista(response.data)
-      } catch (error) {
-        console.error('Error al obtener los productos:', error)
+      if (tipoProductos.length === 0){
+        try {
+          const response = await getAllTipoProductos()
+          setClienteLista(response.data)
+        } catch (error) {
+          console.error('Error al obtener los productos:', error)
+        }
       }
+      setClienteLista(tipoProductos)
     }
     fetchData()
   }, [])

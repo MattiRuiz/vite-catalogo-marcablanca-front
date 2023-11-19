@@ -48,7 +48,7 @@ const TallasCRUD = () => {
 
   return (
     <div>
-      <Col xs={5}>
+      <Col >
         <Button
           variant="outline-light"
           className="mt-3"
