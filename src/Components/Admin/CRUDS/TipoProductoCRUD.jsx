@@ -1,93 +1,60 @@
-import { useState, useEffect } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
-
-import {
-  getAllTipoProductos,
-  createTipoProducto,
-  updateTipoProducto,
-  deleteTipoProducto,
-} from "../../../Functions/TipoProductosFunctions";
+import { useState, useEffect } from 'react';
+import { getAllTipoProductos, deleteTipoProducto } from '../../../Functions/TipoProductosFunctions';
+import TipoProductosPopUp from './TipoProductoCRUD_popup';
+import { Col, Button } from 'react-bootstrap';
 
 const TipoProductoCRUD = () => {
+  //#region Declaracion useState's
   const [tipoProductos, setTipoProductos] = useState([]);
-  const [creating, setCreating] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({ nombre: "", imagen: null });
-  const [editData, setEditData] = useState({});
+  const [popUp, setPopUp] = useState(false);
+  const [selectedTipoProducto, setSelectedTipoProducto] = useState(null);
+  //#endregion
 
+  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const response = await getAllTipoProductos();
-      setTipoProductos(response.data);
-    } catch (error) {
-      console.error(error);
+      const tallasRespone = await getAllTipoProductos();
+      setTipoProductos(tallasRespone.data);
+    } catch (e) {
+      console.error(e.message);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+  //#endregion
+  
+  const openPopup = (tipoProducto) => {
+    setSelectedTipoProducto(tipoProducto);
+    setPopUp(true);
+  };
+  //#endregion
 
-  const handleCreate = async () => {
-    try {
-      const formDataForAPI = new FormData();
-      formDataForAPI.append("nombre", formData.nombre);
-      formDataForAPI.append("imagen", formData.imagen);
-
-      await createTipoProducto(formDataForAPI);
-      setCreating(false);
-      setFormData({ nombre: "", imagen: null });
-      fetchData();
-    } catch (error) {
-      console.error(error);
+  //#region Handle elminar cliente
+  const handleDelete = async (idTipoProducto) => {
+    try{
+      const response = await deleteTipoProducto(idTipoProducto)
+      console.log('Tipo producto eliminado', response)
+      setPopUp(false)
     }
-  };
-
-  const handleEditOpen = (tipoProducto) => {
-    setCreating(false);
-    setEditing(true);
-    setEditData(tipoProducto);
-    setFormData({ nombre: tipoProducto.nombre, imagen: tipoProducto.imagen });
-  };
-
-  const handleUpdate = async () => {
-    try {
-      const formDataForAPI = new FormData();
-      formDataForAPI.append("nombre", formData.nombre);
-      formDataForAPI.append("imagen", formData.imagen);
-
-      await updateTipoProducto(editData.id, formDataForAPI);
-      setEditing(false);
-      setEditData({});
-      setFormData({ nombre: "", imagen: null });
-      fetchData();
-    } catch (error) {
-      console.error(error);
+    catch (e)
+    {
+      return e.message
     }
+    fetchData();
   };
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteTipoProducto(id);
-      fetchData();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //#endregion
 
   return (
-    <>
-      <Col xs={12}>
+    <div>
+      <Col xs={5}>
         <Button
           variant="outline-light"
           className="mt-3"
-          onClick={() => {
-            setCreating(true);
-            setEditing(false);
-            setFormData({ nombre: "", imagen: null });
-          }}
+          onClick={() => openPopup(null)}
         >
-          Crear Tipo de Producto
+          Crear Talla
         </Button>
         <ul className="list-group mt-3">
           {tipoProductos.map((tipoProducto) => (
@@ -95,21 +62,20 @@ const TipoProductoCRUD = () => {
               key={tipoProducto.id}
               className="list-group-item d-flex justify-content-between"
             >
-              {tipoProducto.nombre}
+              <div className='m-0 p-0'>
+                {tipoProducto.nombre}
+                {tipoProducto.dimensiones}
+              </div>
               <div>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => handleEditOpen(tipoProducto)}
+                  onClick={() => openPopup(tipoProducto)}
                 >
                   <span className="material-symbols-outlined">edit</span>
                 </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDelete(tipoProducto.id)}
-                >
+                <Button variant="danger" size="sm" onClick={() => handleDelete(tipoProducto.id)}>
                   <span className="material-symbols-outlined">delete</span>
                 </Button>
               </div>
@@ -117,79 +83,23 @@ const TipoProductoCRUD = () => {
           ))}
         </ul>
       </Col>
-      <Row>
-        {creating && (
-          <Col xs={12} className="rounded bg-light mt-3 p-3">
-            <Col className="d-flex justify-content-between">
-              <h6 className="text-black py-3">Crear Tipo de Producto</h6>
-              <Button
-                size="sm"
-                variant="light"
-                onClick={() => setCreating(false)}
-              >
-                <span className="material-symbols-outlined">close</span>
-              </Button>
-            </Col>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                className="form-control"
-                placeholder="Nombre del tipo de producto"
-                value={formData.nombre || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, nombre: e.target.value })
-                }
-              />
-              <Form.Control
-                type="file"
-                className="form-control mt-2"
-                onChange={(e) =>
-                  setFormData({ ...formData, imagen: e.target.files[0] })
-                }
-              />
-            </Form.Group>
-            <Button className="my-3" onClick={handleCreate}>
-              Guardar
-            </Button>
-          </Col>
-        )}
-        {editing && (
-          <Col xs={12} className="rounded bg-light mt-3 p-3">
-            <Col className="d-flex justify-content-between">
-              <h6 className="text-black py-3">Editar Tipo de Producto</h6>
-              <Button
-                size="sm"
-                variant="light"
-                onClick={() => setEditing(false)}
-              >
-                <span className="material-symbols-outlined">close</span>
-              </Button>
-            </Col>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                className="form-control"
-                placeholder="Nombre del tipo de producto"
-                value={formData.nombre || editData.nombre}
-                onChange={(e) =>
-                  setFormData({ ...formData, nombre: e.target.value })
-                }
-              />
-              <Form.Control
-                type="file"
-                className="form-control mt-2"
-                onChange={(e) =>
-                  setFormData({ ...formData, imagen: e.target.files[0] })
-                }
-              />
-            </Form.Group>
-            <Button className="my-3" onClick={handleUpdate}>
-              Guardar Cambios
-            </Button>
-          </Col>
-        )}
-      </Row>
-    </>
+        {  
+        //#region Renderizado condicional PopUp
+        popUp ? (
+          <TipoProductosPopUp 
+          tipoProducto={selectedTipoProducto} 
+          onTipoProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+          />
+        ) 
+        : 
+        (
+          <>
+          </>
+        )
+        //#endregion
+        }
+    </div>
   );
 };
 

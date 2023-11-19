@@ -7,7 +7,6 @@ import {
 } from "../../../Functions/ProductosFunctions.jsx";
 import { getAllTallas } from "../../../Functions/TallasFunctions.jsx";
 
-import './ProdutosTallasCRUD.css'
 
 const ProductosTallasCRUD = () => {
   const [productos, setProductos] = useState([]);
