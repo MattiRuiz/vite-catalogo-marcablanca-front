@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -31,6 +31,14 @@ function ListaPrecio() {
     localStorage.setItem('showGanancia', JSON.stringify(showGanancia))
     setShow(false)
   }
+  const dataSave = () => {
+    setGanancia(localStorage.getItem('ganancia'))
+    setShowGanancia(localStorage.getItem('showGanancia'))
+    setShow(false)
+  }
+  useEffect(() => {
+    dataSave();
+  },[])
 
   return (
     <Container fluid className="bg-white pb-5 pt-4">
@@ -49,9 +57,9 @@ function ListaPrecio() {
             </Form.Label>
             <InputGroup className="mb-2">
               <InputGroup.Text>%</InputGroup.Text>
-              <Form.Control onChange={(e) => handleValor(e)} type="number" placeholder="Ingrese un valor" />
+              <Form.Control onChange={(e) => handleValor(e)} value={ganancia} type="number" placeholder="Ingrese un valor" />
             </InputGroup>
-            <Form.Check onChange={(e) => handleShowGanacia(e)} type="switch" label="Mostrar precios" />
+            <Form.Check onChange={(e) => handleShowGanacia(e)} checked={showGanancia} type="switch" label="Mostrar precios" />
           </Form>
           <Button className="mt-3" onClick={handleShow}>
             Aplicar cambios
