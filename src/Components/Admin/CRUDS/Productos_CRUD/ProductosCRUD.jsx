@@ -6,9 +6,9 @@ import {
   createProducto,
   updateProducto,
   deleteProducto,
-} from "../../../Functions/ProductosFunctions";
-import { getAllTipoProductos } from "../../../Functions/TipoProductosFunctions";
-import { getAllMarcas } from "../../../Functions/MarcasFunctions";
+} from "../../../../Functions/ProductosFunctions";
+import { getAllTipoProductos } from "../../../../Functions/TipoProductosFunctions";
+import { getAllMarcas } from "../../../../Functions/MarcasFunctions";
 
 const ProductosCRUD = () => {
   const [productos, setProductos] = useState([]);

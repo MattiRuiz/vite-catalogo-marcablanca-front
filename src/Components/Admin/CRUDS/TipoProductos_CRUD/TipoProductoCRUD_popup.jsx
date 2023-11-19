@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Col, FormControl, FormGroup, Modal } from 'react-bootstrap';
-import { createTipoProducto, updateTipoProducto } from '../../../Functions/TipoProductosFunctions';
+import { createTipoProducto, updateTipoProducto } from '../../../../Functions/TipoProductosFunctions';
 
 const TallasCRUD_popup = ({ tipoProducto, onTipoProductoUpdated, closePopUp }) => {
   const [tallaData, setTallaData] = useState({

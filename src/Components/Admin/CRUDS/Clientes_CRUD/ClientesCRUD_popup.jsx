@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import {
   createCliente,
   updateCliente,
-} from '../../../Functions/ClienteFunctions'
+} from '../../../../Functions/ClienteFunctions'
 
 const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
   const [clienteData, setClienteData] = useState({

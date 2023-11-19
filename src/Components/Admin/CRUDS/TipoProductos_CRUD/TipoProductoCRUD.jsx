@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import { getAllTallas, deleteTalla } from '../../../Functions/TallasFunctions';
-import TallasPopUp from './TallasCRUD_popup';
+import { getAllTipoProductos, deleteTipoProducto } from '../../../../Functions/TipoProductosFunctions';
+import TipoProductosPopUp from './TipoProductoCRUD_popup';
 import { Col, Button } from 'react-bootstrap';
 
-const TallasCRUD = () => {
+const TipoProductoCRUD = () => {
   //#region Declaracion useState's
-  const [tallas, setTallas] = useState([]);
+  const [tipoProductos, setTipoProductos] = useState([]);
   const [popUp, setPopUp] = useState(false);
-  const [selectedTalla, setSelectedTalla] = useState(null);
+  const [selectedTipoProducto, setSelectedTipoProducto] = useState(null);
   //#endregion
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const tallasRespone = await getAllTallas();
-      setTallas(tallasRespone.data);
+      const tallasRespone = await getAllTipoProductos();
+      setTipoProductos(tallasRespone.data);
     } catch (e) {
       console.error(e.message);
     }
@@ -25,17 +25,17 @@ const TallasCRUD = () => {
   }, []);
   //#endregion
   
-  const openPopup = (marca) => {
-    setSelectedTalla(marca);
+  const openPopup = (tipoProducto) => {
+    setSelectedTipoProducto(tipoProducto);
     setPopUp(true);
   };
   //#endregion
 
   //#region Handle elminar cliente
-  const handleDelete = async (idTalla) => {
+  const handleDelete = async (idTipoProducto) => {
     try{
-      const response = await deleteTalla(idTalla)
-      console.log('Talla eliminado', response)
+      const response = await deleteTipoProducto(idTipoProducto)
+      console.log('Tipo producto eliminado', response)
       setPopUp(false)
     }
     catch (e)
@@ -57,25 +57,25 @@ const TallasCRUD = () => {
           Crear Talla
         </Button>
         <ul className="list-group mt-3">
-          {tallas.map((talla) => (
+          {tipoProductos.map((tipoProducto) => (
             <li
-              key={talla.id}
+              key={tipoProducto.id}
               className="list-group-item d-flex justify-content-between"
             >
               <div className='m-0 p-0'>
-                <h5>{talla.nombre}</h5> 
-                <p className='m-0'>Medidas: {talla.dimensiones}</p> 
+                {tipoProducto.nombre}
+                {tipoProducto.dimensiones}
               </div>
               <div>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => openPopup(talla)}
+                  onClick={() => openPopup(tipoProducto)}
                 >
                   <span className="material-symbols-outlined">edit</span>
                 </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(talla.id)}>
+                <Button variant="danger" size="sm" onClick={() => handleDelete(tipoProducto.id)}>
                   <span className="material-symbols-outlined">delete</span>
                 </Button>
               </div>
@@ -86,9 +86,9 @@ const TallasCRUD = () => {
         {  
         //#region Renderizado condicional PopUp
         popUp ? (
-          <TallasPopUp 
-          talla={selectedTalla} 
-          onTallaUpdated={() => fetchData()}
+          <TipoProductosPopUp 
+          tipoProducto={selectedTipoProducto} 
+          onTipoProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUp(false)}
           />
         ) 
@@ -103,4 +103,4 @@ const TallasCRUD = () => {
   );
 };
 
-export default TallasCRUD;
+export default TipoProductoCRUD;

@@ -3,12 +3,12 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 
 import LoginProvider from '../../Context/LoginContext';
 
-import TallasCRUD from "./CRUDS/TallasCRUD";
-import TipoProductoCRUD from "./CRUDS/TipoProductoCRUD";
-import MarcasCRUD from "./CRUDS/MarcasCRUD";
-import ProductosCRUD from "./CRUDS/ProductosCRUD";
-import ClientesCRUD from "./CRUDS/ClientesCRUD";
-import ProductosTallasCRUD from "./CRUDS/ProductosTallasCRUD";
+import TallasCRUD from "./CRUDS/TallasCRUD/TallasCRUD";
+import TipoProductoCRUD from "./CRUDS/TipoProductos_CRUD/TipoProductoCRUD";
+import MarcasCRUD from "./CRUDS/Marcas_CRUD/MarcasCRUD";
+import ProductosCRUD from "./CRUDS/Productos_CRUD/ProductosCRUD";
+import ClientesCRUD from "./CRUDS/Clientes_CRUD/ClientesCRUD";
+import ProductosTallasCRUD from "./CRUDS/ProductosTallas_CRUD/ProductosTallasCRUD";
 import NotFound from "../404/NotFund";
 
 
