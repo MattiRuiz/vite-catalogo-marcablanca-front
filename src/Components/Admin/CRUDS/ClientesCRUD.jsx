@@ -4,7 +4,7 @@ import {
   deleteCliente,
 } from '../../../Functions/ClienteFunctions'
 import ClientesPopup from './ClientesCRUD_popup'
-import { Col, Button } from 'react-bootstrap'
+import { Col, Button, Accordion } from 'react-bootstrap'
 
 const ClientesCRUD = () => {
   //#region Declaracion useState's
@@ -48,8 +48,8 @@ const ClientesCRUD = () => {
   //#endregion
 
   return (
-    <div>
-      <Col xs={5}>
+    <>
+      <Col xs={12}>
         <Button
           variant="outline-light"
           className="mt-3"
@@ -57,35 +57,40 @@ const ClientesCRUD = () => {
         >
           Crear cliente
         </Button>
-        <ul className="list-group mt-3">
+        <Accordion className="mt-3">
           {clientes.map((cliente) => (
-            <li
-              key={cliente.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              {cliente.clientes.nombre} {cliente.clientes.apellido}
-              <br></br>
-              {cliente.username}
-              <div>
+            <Accordion.Item eventKey={cliente.id} key={cliente.id}>
+              <Accordion.Header>
+                <ul className="list-unstyled my-0">
+                  <li className="mb-1">
+                    <strong>User:</strong> {cliente.username}
+                  </li>
+                  <li>
+                    <strong>Nombre:</strong> {cliente.clientes.nombre}{' '}
+                    {cliente.clientes.apellido}
+                  </li>
+                </ul>
+              </Accordion.Header>
+              <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(cliente)}
                 >
-                  <span className="material-symbols-outlined">edit</span>
+                  Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(cliente.id)}
                 >
-                  <span className="material-symbols-outlined">delete</span>
+                  Borrar
                 </Button>
-              </div>
-            </li>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </ul>
+        </Accordion>
       </Col>
       {
         //#region Renderizado condicional PopUp
@@ -100,7 +105,7 @@ const ClientesCRUD = () => {
         )
         //#endregion
       }
-    </div>
+    </>
   )
 }
 

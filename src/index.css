@@ -26,6 +26,10 @@
   --black: #666;
 }
 
+.btn-warning {
+  background-color: #FFA400;
+}
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
