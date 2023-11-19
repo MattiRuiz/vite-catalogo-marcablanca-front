@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
+
+import LoginProvider from '../../Context/LoginContext';
 
 import TallasCRUD from "./CRUDS/TallasCRUD";
 import TipoProductoCRUD from "./CRUDS/TipoProductoCRUD";
@@ -8,8 +10,10 @@ import ProductosCRUD from "./CRUDS/ProductosCRUD";
 import ClientesCRUD from "./CRUDS/ClientesCRUD";
 import ProductosTallasCRUD from "./CRUDS/ProductosTallasCRUD";
 
+
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState("tallas");
+  const { auth } = useContext(LoginProvider)
 
   return (
     <Container className="py-4">

@@ -62,7 +62,7 @@ function Catalog() {
                     {product.productos_tallas
                       ? product.productos_tallas.map((talla, index) => (
                           <li key={index}>
-                            <strong>{talla.talla}:</strong> {talla.dimensiones}
+                            <strong>{talla.talla}:</strong> {talla.dimensiones} - ${talla.precio}
                           </li>
                         ))
                       : null}
