@@ -16,7 +16,12 @@ import { getProductosPorCategoria } from '../../Functions/ProductosFunctions'
 function Catalog() {
   const { id } = useParams()
   const baseUrl = import.meta.env.VITE_NAME
-
+  const showGanancia = localStorage.getItem('showGanancia')
+  let ganancia = 1
+  if(showGanancia){
+    const gananciaStr = localStorage.getItem('ganancia')
+    ganancia = JSON.parse(gananciaStr)
+  }
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -61,9 +66,18 @@ function Catalog() {
                   <ul className="list-unstyled">
                     {product.productos_tallas
                       ? product.productos_tallas.map((talla, index) => (
+                        <>
+                        {
+                        showGanancia == 'true' ?
                           <li key={index}>
-                            <strong>{talla.talla}:</strong> {talla.dimensiones} - ${talla.precio}
+                            <strong>{talla.talla}:</strong> {talla.dimensiones} a ${parseInt(talla.precio) * ((ganancia + 100) / 100)}
                           </li>
+                          :
+                          <li key={index}>
+                          <strong>{talla.talla}:</strong> {talla.dimensiones}
+                          </li>
+                        }
+                        </>
                         ))
                       : null}
                   </ul>
