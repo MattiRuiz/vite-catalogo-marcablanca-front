@@ -16,7 +16,7 @@ function WelcomeLog() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (tipoProductos.length === 0){
+      if (!tipoProductos_storage){
         try {
           const response = await getAllTipoProductos()
           setClienteLista(response.data)

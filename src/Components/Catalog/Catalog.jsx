@@ -45,7 +45,7 @@ function Catalog() {
             setProducts(response.data)
             localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
             return
-          } else if (!productCatStorage){
+          } else if (productCatStorage === null){
             const response = await getProductosPorCategoria(id)
             setProducts(response.data)
             localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
@@ -55,7 +55,7 @@ function Catalog() {
             return
           }
       }
-        if (productosStorage.length === 0){
+        if (productosStorage === null){
           const response = await getAllProductos()
           setProducts(response.data)
           localStorage.setItem('listaProductos', JSON.stringify(response.data))
