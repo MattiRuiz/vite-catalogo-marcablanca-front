@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { createMarca, updateMarca } from '../../../Functions/MarcasFunctions'
+import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
 const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
   const [marcaData, setMarcaData] = useState({

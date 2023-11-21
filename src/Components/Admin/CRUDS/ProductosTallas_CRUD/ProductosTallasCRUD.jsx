@@ -4,10 +4,9 @@ import { Col, Form, Button } from "react-bootstrap";
 import {
   getAllProductosSinTallas,
   createProductoTalla,
-} from "../../../Functions/ProductosFunctions.jsx";
-import { getAllTallas } from "../../../Functions/TallasFunctions.jsx";
+} from "../../../../Functions/ProductosFunctions.jsx";
+import { getAllTallas } from "../../../../Functions/TallasFunctions.jsx"
 
-import './ProdutosTallasCRUD.css'
 
 const ProductosTallasCRUD = () => {
   const [productos, setProductos] = useState([]);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Col, FormControl, FormGroup, Modal } from 'react-bootstrap';
-import { createTalla, updateTalla } from '../../../Functions/TallasFunctions';
+import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions';
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
   const [tallaData, setTallaData] = useState({
@@ -41,11 +41,11 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
   
     //#region Handle de todos los inputs
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setTallaData((prevData) => ({
-        ...prevData,
-        [name]: value,
-        }));
+      const { name, value } = e.target;
+      setTallaData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      }));
     };
     //#endregion
   
@@ -59,22 +59,22 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     <Modal.Body>
         
     <FormGroup>
-        <FormControl
-            type="text"
-            className="mb-2 "
-            placeholder="Nombre"
-            name="nombre"
-            value={tallaData.nombre}
-            onChange={handleInputChange}
-        />
-        <FormControl
-            type="text"
-            className="mb-2 "
-            placeholder="Dimensiones"
-            name="dimensiones"
-            value={tallaData.dimensiones}
-            onChange={handleInputChange}
-        />
+      <FormControl
+          type="text"
+          className="mb-2 "
+          placeholder="Nombre"
+          name="nombre"
+          value={tallaData.nombre}
+          onChange={handleInputChange}
+      />
+      <FormControl
+          type="text"
+          className="mb-2 "
+          placeholder="Dimensiones"
+          name="dimensiones"
+          value={tallaData.dimensiones}
+          onChange={handleInputChange}
+      />
     </FormGroup>
 
     <Col row={3} className='d-flex justify-content-between'>

@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react'
-import { getAllTallas, deleteTalla } from '../../../Functions/TallasFunctions'
-import TallasPopUp from './TallasCRUD_popup'
+import { getAllMarcas, deleteMarca } from '../../../../Functions/MarcasFunctions'
+import MarcasPopUp from './MarcasCRUD_popup'
 import { Col, Button, Accordion } from 'react-bootstrap'
 
-const TallasCRUD = () => {
+const MarcasCRUD = () => {
   //#region Declaracion useState's
-  const [tallas, setTallas] = useState([])
+  const [marcas, setMarcas] = useState([])
   const [popUp, setPopUp] = useState(false)
-  const [selectedTalla, setSelectedTalla] = useState(null)
+  const [selectedMarca, setSelectedMarca] = useState(null)
   //#endregion
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const tallasRespone = await getAllTallas()
-      setTallas(tallasRespone.data)
+      const marcasRespone = await getAllMarcas()
+      setMarcas(marcasRespone.data)
     } catch (e) {
       console.error(e.message)
     }
@@ -26,16 +26,16 @@ const TallasCRUD = () => {
   //#endregion
 
   const openPopup = (marca) => {
-    setSelectedTalla(marca)
+    setSelectedMarca(marca)
     setPopUp(true)
   }
   //#endregion
 
   //#region Handle elminar cliente
-  const handleDelete = async (idTalla) => {
+  const handleDelete = async (idMarca) => {
     try {
-      const response = await deleteTalla(idTalla)
-      console.log('Talla eliminado', response)
+      const response = await deleteMarca(idMarca)
+      console.log('Usuario eliminado', response)
       setPopUp(false)
     } catch (e) {
       return e.message
@@ -45,45 +45,32 @@ const TallasCRUD = () => {
   //#endregion
 
   return (
-    <div>
+    <>
       <Col xs={12}>
         <Button
           variant="outline-light"
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Talla
+          Crear Marca
         </Button>
         <Accordion className="mt-3">
-          {tallas.map((talla) => (
-            <Accordion.Item eventKey={talla.id} key={talla.id}>
-              <Accordion.Header>
-                <ul className="list-unstyled my-0">
-                  <li className="mb-1">
-                    <h5>
-                      <strong>{talla.nombre}</strong>
-                    </h5>
-                  </li>
-                  <li>
-                    <strong>Medidas:</strong>
-                    {talla.dimensiones}
-                  </li>
-                </ul>
-              </Accordion.Header>
-
+          {marcas.map((marca) => (
+            <Accordion.Item eventKey={marca.id} key={marca.id}>
+              <Accordion.Header>{marca.nombre}</Accordion.Header>
               <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => openPopup(talla)}
+                  onClick={() => openPopup(marca)}
                 >
                   Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(talla.id)}
+                  onClick={() => handleDelete(marca.id)}
                 >
                   Borrar
                 </Button>
@@ -95,9 +82,9 @@ const TallasCRUD = () => {
       {
         //#region Renderizado condicional PopUp
         popUp ? (
-          <TallasPopUp
-            talla={selectedTalla}
-            onTallaUpdated={() => fetchData()}
+          <MarcasPopUp
+            marca={selectedMarca}
+            onClienteUpdated={() => fetchData()}
             closePopUp={() => setPopUp(false)}
           />
         ) : (
@@ -105,8 +92,8 @@ const TallasCRUD = () => {
         )
         //#endregion
       }
-    </div>
+    </>
   )
 }
 
-export default TallasCRUD
+export default MarcasCRUD

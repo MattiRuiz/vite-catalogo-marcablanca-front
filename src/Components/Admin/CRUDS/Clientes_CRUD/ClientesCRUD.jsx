@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react'
-import { getAllMarcas, deleteMarca } from '../../../Functions/MarcasFunctions'
-import MarcasPopUp from './MarcasCRUD_popup'
+import {
+  getAllClientes,
+  deleteCliente,
+} from '../../../../Functions/ClienteFunctions'
+import ClientesPopup from './ClientesCRUD_popup'
 import { Col, Button, Accordion } from 'react-bootstrap'
 
-const MarcasCRUD = () => {
+const ClientesCRUD = () => {
   //#region Declaracion useState's
-  const [marcas, setMarcas] = useState([])
+  const [clientes, setClientes] = useState([])
   const [popUp, setPopUp] = useState(false)
-  const [selectedMarca, setSelectedMarca] = useState(null)
+  const [selectedCliente, setSelectedCliente] = useState(null)
   //#endregion
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const marcasRespone = await getAllMarcas()
-      setMarcas(marcasRespone.data)
+      const clientesResponse = await getAllClientes()
+      setClientes(clientesResponse.data)
     } catch (e) {
       console.error(e.message)
     }
@@ -25,16 +28,16 @@ const MarcasCRUD = () => {
   }, [])
   //#endregion
 
-  const openPopup = (marca) => {
-    setSelectedMarca(marca)
+  const openPopup = (cliente) => {
+    setSelectedCliente(cliente)
     setPopUp(true)
   }
   //#endregion
 
   //#region Handle elminar cliente
-  const handleDelete = async (idMarca) => {
+  const handleDelete = async (idCliente) => {
     try {
-      const response = await deleteMarca(idMarca)
+      const response = await deleteCliente(idCliente)
       console.log('Usuario eliminado', response)
       setPopUp(false)
     } catch (e) {
@@ -52,25 +55,35 @@ const MarcasCRUD = () => {
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Marca
+          Crear cliente
         </Button>
         <Accordion className="mt-3">
-          {marcas.map((marca) => (
-            <Accordion.Item eventKey={marca.id} key={marca.id}>
-              <Accordion.Header>{marca.nombre}</Accordion.Header>
+          {clientes.map((cliente) => (
+            <Accordion.Item eventKey={cliente.id} key={cliente.id}>
+              <Accordion.Header>
+                <ul className="list-unstyled my-0">
+                  <li className="mb-1">
+                    <strong>User:</strong> {cliente.username}
+                  </li>
+                  <li>
+                    <strong>Nombre:</strong> {cliente.clientes.nombre}{' '}
+                    {cliente.clientes.apellido}
+                  </li>
+                </ul>
+              </Accordion.Header>
               <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => openPopup(marca)}
+                  onClick={() => openPopup(cliente)}
                 >
                   Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(marca.id)}
+                  onClick={() => handleDelete(cliente.id)}
                 >
                   Borrar
                 </Button>
@@ -82,8 +95,8 @@ const MarcasCRUD = () => {
       {
         //#region Renderizado condicional PopUp
         popUp ? (
-          <MarcasPopUp
-            marca={selectedMarca}
+          <ClientesPopup
+            cliente={selectedCliente}
             onClienteUpdated={() => fetchData()}
             closePopUp={() => setPopUp(false)}
           />
@@ -96,4 +109,4 @@ const MarcasCRUD = () => {
   )
 }
 
-export default MarcasCRUD
+export default ClientesCRUD

@@ -1,23 +1,27 @@
+<<<<<<< HEAD:src/Components/Admin/CRUDS/TallasCRUD.jsx
 import { useState, useEffect } from 'react'
-import {
-  getAllClientes,
-  deleteCliente,
-} from '../../../Functions/ClienteFunctions'
-import ClientesPopup from './ClientesCRUD_popup'
+import { getAllTallas, deleteTalla } from '../../../Functions/TallasFunctions'
+import TallasPopUp from './TallasCRUD_popup'
 import { Col, Button, Accordion } from 'react-bootstrap'
+=======
+import { useState, useEffect } from 'react';
+import { getAllTallas, deleteTalla } from '../../../../Functions/TallasFunctions';
+import TallasPopUp from './TallasCRUD_popup';
+import { Col, Button } from 'react-bootstrap';
+>>>>>>> 58942abdc15533413804959be7001ea73cc66888:src/Components/Admin/CRUDS/TallasCRUD/TallasCRUD.jsx
 
-const ClientesCRUD = () => {
+const TallasCRUD = () => {
   //#region Declaracion useState's
-  const [clientes, setClientes] = useState([])
+  const [tallas, setTallas] = useState([])
   const [popUp, setPopUp] = useState(false)
-  const [selectedCliente, setSelectedCliente] = useState(null)
+  const [selectedTalla, setSelectedTalla] = useState(null)
   //#endregion
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const clientesResponse = await getAllClientes()
-      setClientes(clientesResponse.data)
+      const tallasRespone = await getAllTallas()
+      setTallas(tallasRespone.data)
     } catch (e) {
       console.error(e.message)
     }
@@ -28,17 +32,17 @@ const ClientesCRUD = () => {
   }, [])
   //#endregion
 
-  const openPopup = (cliente) => {
-    setSelectedCliente(cliente)
+  const openPopup = (marca) => {
+    setSelectedTalla(marca)
     setPopUp(true)
   }
   //#endregion
 
   //#region Handle elminar cliente
-  const handleDelete = async (idCliente) => {
+  const handleDelete = async (idTalla) => {
     try {
-      const response = await deleteCliente(idCliente)
-      console.log('Usuario eliminado', response)
+      const response = await deleteTalla(idTalla)
+      console.log('Talla eliminado', response)
       setPopUp(false)
     } catch (e) {
       return e.message
@@ -48,42 +52,49 @@ const ClientesCRUD = () => {
   //#endregion
 
   return (
-    <>
+    <div>
+<<<<<<< HEAD:src/Components/Admin/CRUDS/TallasCRUD.jsx
       <Col xs={12}>
+=======
+      <Col >
+>>>>>>> 58942abdc15533413804959be7001ea73cc66888:src/Components/Admin/CRUDS/TallasCRUD/TallasCRUD.jsx
         <Button
           variant="outline-light"
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear cliente
+          Crear Talla
         </Button>
         <Accordion className="mt-3">
-          {clientes.map((cliente) => (
-            <Accordion.Item eventKey={cliente.id} key={cliente.id}>
+          {tallas.map((talla) => (
+            <Accordion.Item eventKey={talla.id} key={talla.id}>
               <Accordion.Header>
                 <ul className="list-unstyled my-0">
                   <li className="mb-1">
-                    <strong>User:</strong> {cliente.username}
+                    <h5>
+                      <strong>{talla.nombre}</strong>
+                    </h5>
                   </li>
                   <li>
-                    <strong>Nombre:</strong> {cliente.clientes.nombre}{' '}
-                    {cliente.clientes.apellido}
+                    <strong>Medidas:</strong>
+                    {talla.dimensiones}
                   </li>
                 </ul>
               </Accordion.Header>
+
               <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
-                  onClick={() => openPopup(cliente)}
+                  onClick={() => openPopup(talla)}
                 >
                   Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(cliente.id)}
+                  onClick={() => handleDelete(talla.id)}
                 >
                   Borrar
                 </Button>
@@ -95,9 +106,9 @@ const ClientesCRUD = () => {
       {
         //#region Renderizado condicional PopUp
         popUp ? (
-          <ClientesPopup
-            cliente={selectedCliente}
-            onClienteUpdated={() => fetchData()}
+          <TallasPopUp
+            talla={selectedTalla}
+            onTallaUpdated={() => fetchData()}
             closePopUp={() => setPopUp(false)}
           />
         ) : (
@@ -105,8 +116,8 @@ const ClientesCRUD = () => {
         )
         //#endregion
       }
-    </>
+    </div>
   )
 }
 
-export default ClientesCRUD
+export default TallasCRUD
