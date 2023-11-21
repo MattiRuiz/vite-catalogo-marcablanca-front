@@ -1,54 +1,55 @@
-import { useState, useEffect } from 'react';
-import { getAllTipoProductos, deleteTipoProducto } from '../../../../Functions/TipoProductosFunctions';
-import TipoProductosPopUp from './TipoProductoCRUD_popup';
-import { Col, Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react'
+import {
+  getAllTipoProductos,
+  deleteTipoProducto,
+} from '../../../../Functions/TipoProductosFunctions'
+import TipoProductosPopUp from './TipoProductoCRUD_popup'
+import { Col, Button } from 'react-bootstrap'
 
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
-  const [tipoProductos, setTipoProductos] = useState([]);
-  const [popUp, setPopUp] = useState(false);
-  const [selectedTipoProducto, setSelectedTipoProducto] = useState(null);
+  const [tipoProductos, setTipoProductos] = useState([])
+  const [popUp, setPopUp] = useState(false)
+  const [selectedTipoProducto, setSelectedTipoProducto] = useState(null)
   //#endregion
-  
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     try {
-      const tallasRespone = await getAllTipoProductos();
-      setTipoProductos(tallasRespone.data);
+      const tallasRespone = await getAllTipoProductos()
+      setTipoProductos(tallasRespone.data)
     } catch (e) {
-      console.error(e.message);
+      console.error(e.message)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
   //#endregion
-  
+
   const openPopup = (tipoProducto) => {
-    setSelectedTipoProducto(tipoProducto);
-    setPopUp(true);
-  };
+    setSelectedTipoProducto(tipoProducto)
+    setPopUp(true)
+  }
   //#endregion
 
   //#region Handle elminar cliente
   const handleDelete = async (idTipoProducto) => {
-    try{
+    try {
       const response = await deleteTipoProducto(idTipoProducto)
       console.log('Tipo producto eliminado', response)
       setPopUp(false)
-    }
-    catch (e)
-    {
+    } catch (e) {
       return e.message
     }
-    fetchData();
-  };
+    fetchData()
+  }
   //#endregion
 
   return (
     <div>
-      <Col >
+      <Col>
         <Button
           variant="outline-light"
           className="mt-3"
@@ -62,7 +63,7 @@ const TipoProductoCRUD = () => {
               key={tipoProducto.id}
               className="list-group-item d-flex justify-content-between"
             >
-              <div className='m-0 p-0'>
+              <div className="m-0 p-0">
                 {tipoProducto.nombre}
                 {tipoProducto.dimensiones}
               </div>
@@ -75,7 +76,11 @@ const TipoProductoCRUD = () => {
                 >
                   <span className="material-symbols-outlined">edit</span>
                 </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(tipoProducto.id)}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(tipoProducto.id)}
+                >
                   <span className="material-symbols-outlined">delete</span>
                 </Button>
               </div>
@@ -83,24 +88,21 @@ const TipoProductoCRUD = () => {
           ))}
         </ul>
       </Col>
-        {  
+      {
         //#region Renderizado condicional PopUp
         popUp ? (
-          <TipoProductosPopUp 
-          tipoProducto={selectedTipoProducto} 
-          onTipoProductoUpdated={() => fetchData()}
-          closePopUp={() => setPopUp(false)}
+          <TipoProductosPopUp
+            tipoProducto={selectedTipoProducto}
+            onTipoProductoUpdated={() => fetchData()}
+            closePopUp={() => setPopUp(false)}
           />
-        ) 
-        : 
-        (
-          <>
-          </>
+        ) : (
+          <></>
         )
         //#endregion
-        }
+      }
     </div>
-  );
-};
+  )
+}
 
-export default TipoProductoCRUD;
+export default TipoProductoCRUD

@@ -1,22 +1,30 @@
-import { useContext, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { Container, Row, Col, Image, Button, Ratio } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import LoginProvider from '../../Context/LoginContext'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 function WelcomeLog() {
-  const { auth } = useContext(LoginProvider)
   const [clienteLista, setClienteLista] = useState([])
+
+  const userData = localStorage.getItem('userData')
+  const user = JSON.parse(userData)
+
+  const tipoProductos_storage = localStorage.getItem('tipoProductos')
+  const tipoProductos = JSON.parse(tipoProductos_storage)
+  const username = user.username
   const baseUrl = import.meta.env.VITE_NAME
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await getAllTipoProductos()
-        setClienteLista(response.data)
-      } catch (error) {
-        console.error('Error al obtener los productos:', error)
+      if (!tipoProductos_storage){
+        try {
+          const response = await getAllTipoProductos()
+          setClienteLista(response.data)
+        } catch (error) {
+          console.error('Error al obtener los productos:', error)
+        }
       }
+      setClienteLista(tipoProductos)
     }
     fetchData()
   }, [])
@@ -25,7 +33,7 @@ function WelcomeLog() {
     <Container fluid className="bg-white">
       <Row className="text-center justify-content-around pb-3 pt-4">
         <Col xs={12}>
-          <h3 className="mb-1"> ¡Bienvenido <strong>  {auth.username}!</strong> </h3>
+          <h3 className="mb-1"> ¡Bienvenido <strong>  {username}!</strong> </h3>
           <Button as={Link} to={'/catalogo'} className="mt-2 mb-4">
             Click aquí para ver el catálogo
           </Button>

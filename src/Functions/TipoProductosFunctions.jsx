@@ -21,8 +21,9 @@ axiosInstance.interceptors.request.use(
 )
 
 const getAllTipoProductos = async () => {
-    const respuesta = await axios.get(`${baseUrl}/api/tipoProductos`)
-    return respuesta
+  const respuesta = await axios.get(`${baseUrl}/api/tipoProductos`)
+  localStorage.setItem('tipoProductos', JSON.stringify(respuesta.data))
+  return respuesta
 }
 
 const getOneTipoProducto = async (id) => {

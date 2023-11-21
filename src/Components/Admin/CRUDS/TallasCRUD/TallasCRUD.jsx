@@ -1,14 +1,10 @@
-<<<<<<< HEAD:src/Components/Admin/CRUDS/TallasCRUD.jsx
 import { useState, useEffect } from 'react'
-import { getAllTallas, deleteTalla } from '../../../Functions/TallasFunctions'
+import {
+  getAllTallas,
+  deleteTalla,
+} from '../../../../Functions/TallasFunctions'
 import TallasPopUp from './TallasCRUD_popup'
-import { Col, Button, Accordion } from 'react-bootstrap'
-=======
-import { useState, useEffect } from 'react';
-import { getAllTallas, deleteTalla } from '../../../../Functions/TallasFunctions';
-import TallasPopUp from './TallasCRUD_popup';
-import { Col, Button } from 'react-bootstrap';
->>>>>>> 58942abdc15533413804959be7001ea73cc66888:src/Components/Admin/CRUDS/TallasCRUD/TallasCRUD.jsx
+import { Col, Button } from 'react-bootstrap'
 
 const TallasCRUD = () => {
   //#region Declaracion useState's
@@ -53,11 +49,7 @@ const TallasCRUD = () => {
 
   return (
     <div>
-<<<<<<< HEAD:src/Components/Admin/CRUDS/TallasCRUD.jsx
-      <Col xs={12}>
-=======
-      <Col >
->>>>>>> 58942abdc15533413804959be7001ea73cc66888:src/Components/Admin/CRUDS/TallasCRUD/TallasCRUD.jsx
+      <Col>
         <Button
           variant="outline-light"
           className="mt-3"
@@ -65,43 +57,36 @@ const TallasCRUD = () => {
         >
           Crear Talla
         </Button>
-        <Accordion className="mt-3">
+        <ul className="list-group mt-3">
           {tallas.map((talla) => (
-            <Accordion.Item eventKey={talla.id} key={talla.id}>
-              <Accordion.Header>
-                <ul className="list-unstyled my-0">
-                  <li className="mb-1">
-                    <h5>
-                      <strong>{talla.nombre}</strong>
-                    </h5>
-                  </li>
-                  <li>
-                    <strong>Medidas:</strong>
-                    {talla.dimensiones}
-                  </li>
-                </ul>
-              </Accordion.Header>
-
-              <Accordion.Body>
+            <li
+              key={talla.id}
+              className="list-group-item d-flex justify-content-between"
+            >
+              <div className="m-0 p-0">
+                <h5>{talla.nombre}</h5>
+                <p className="m-0">Medidas: {talla.dimensiones}</p>
+              </div>
+              <div>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(talla)}
                 >
-                  Editar
+                  <span className="material-symbols-outlined">edit</span>
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(talla.id)}
                 >
-                  Borrar
+                  <span className="material-symbols-outlined">delete</span>
                 </Button>
-              </Accordion.Body>
-            </Accordion.Item>
+              </div>
+            </li>
           ))}
-        </Accordion>
+        </ul>
       </Col>
       {
         //#region Renderizado condicional PopUp

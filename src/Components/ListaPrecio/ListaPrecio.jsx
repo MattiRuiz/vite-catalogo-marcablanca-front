@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -11,9 +11,34 @@ import {
 
 function ListaPrecio() {
   const [show, setShow] = useState(false);
+  const [ganancia, setGanancia] = useState(0);
+  const [showGanancia, setShowGanancia] = useState(false);
+
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleValor = (e) => {
+    setGanancia(e.target.value)
+  }
+  const handleShowGanacia = (e) => {
+    setShowGanancia(e.target.checked)
+  }
+
+  const mostrarPrecios = () => {
+    localStorage.setItem('ganancia', (ganancia))
+    localStorage.setItem('showGanancia',(showGanancia))
+    setShow(false)
+  }
+  const dataSave = () => {
+    setGanancia(localStorage.getItem('ganancia'))
+    setShowGanancia(localStorage.getItem('showGanancia'))
+    setShow(false)
+  }
+  useEffect(() => {
+    dataSave();
+  },[])
 
   return (
     <Container fluid className="bg-white pb-5 pt-4">
@@ -32,9 +57,9 @@ function ListaPrecio() {
             </Form.Label>
             <InputGroup className="mb-2">
               <InputGroup.Text>%</InputGroup.Text>
-              <Form.Control type="number" placeholder="Ingrese un valor" />
+              <Form.Control onChange={(e) => handleValor(e)} value={ganancia} type="number" placeholder="Ingrese un valor" />
             </InputGroup>
-            <Form.Check type="switch" label="Mostrar precios" />
+            <Form.Check onChange={(e) => handleShowGanacia(e)} checked={showGanancia} type="switch" label="Mostrar precios" />
           </Form>
           <Button className="mt-3" onClick={handleShow}>
             Aplicar cambios
@@ -53,9 +78,7 @@ function ListaPrecio() {
             Cancelar
           </Button>
           <Button
-            onClick={() => {
-              alert("ahre que todavia no funciona");
-            }}
+            onClick={ mostrarPrecios }
           >
             Aceptar
           </Button>
