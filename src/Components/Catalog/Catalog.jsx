@@ -28,45 +28,49 @@ function Catalog() {
   let ganancia = 1
   let porcentual = 1.0
 
-  if(showGanancia){
+  if (showGanancia) {
     const gananciaStr = localStorage.getItem('ganancia')
     ganancia = JSON.parse(gananciaStr)
-    porcentual = ( ganancia + 100 )/ 100
+    porcentual = (ganancia + 100) / 100
   }
 
   const productosStorage = JSON.parse(localStorage.getItem('listaProductos'))
-  const productCatStorage = JSON.parse(localStorage.getItem('listaProductosCat'))
-  console.log(productCatStorage)
-  console.log(productosStorage)
-
+  const productCatStorage = JSON.parse(
+    localStorage.getItem('listaProductosCat')
+  )
   useEffect(() => {
-
-
     const fetchData = async () => {
       try {
         setLoading(true)
         if (id) {
-          if(productCatStorage.idCat != id) {
-            const response = await setTimeout(()=> getProductosPorCategoria(id),3000)
-            setProducts(response.data)
-            localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
-            return
-          } else if (productCatStorage === null){
+          if (productCatStorage === null) {
             const response = await getProductosPorCategoria(id)
             setProducts(response.data)
-            localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
+            localStorage.setItem(
+              'listaProductosCat',
+              JSON.stringify({ idCat: id, data: response.data })
+            )
             return
-          }else{
+          } else if (productCatStorage.idCat != id) {
+            const response = await getProductosPorCategoria(id)
+            setProducts(response.data)
+            localStorage.setItem(
+              'listaProductosCat',
+              JSON.stringify({ idCat: id, data: response.data })
+            )
+            return
+          } else {
             setProducts(productCatStorage.data)
             return
           }
-      }
-        if (productosStorage === null){
+        }
+
+        if (productosStorage === null) {
           const response = await getAllProductos()
           setProducts(response.data)
           localStorage.setItem('listaProductos', JSON.stringify(response.data))
           return
-        }else {
+        } else {
           setProducts(productosStorage)
         }
       } catch (e) {
@@ -106,18 +110,20 @@ function Catalog() {
                   <ul className="list-unstyled">
                     {product.productos_tallas
                       ? product.productos_tallas.map((talla, index) => (
-                        <>
-                        {
-                        showGanancia == 'true' ?
-                          <li key={index}>
-                            <strong>{talla.talla}:</strong> {talla.dimensiones} a ${parseInt(talla.precio) * porcentual}
-                          </li>
-                          :
-                          <li key={index}>
-                          <strong>{talla.talla}:</strong> {talla.dimensiones}
-                          </li>
-                        }
-                        </>
+                          <>
+                            {showGanancia == 'true' ? (
+                              <li key={index}>
+                                <strong>{talla.talla}:</strong>{' '}
+                                {talla.dimensiones} a $
+                                {parseInt(talla.precio) * porcentual}
+                              </li>
+                            ) : (
+                              <li key={index}>
+                                <strong>{talla.talla}:</strong>{' '}
+                                {talla.dimensiones}
+                              </li>
+                            )}
+                          </>
                         ))
                       : null}
                   </ul>
