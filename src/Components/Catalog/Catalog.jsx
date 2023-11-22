@@ -8,13 +8,17 @@ import {
   Card,
   Badge,
   Button,
+  Placeholder,
 } from 'react-bootstrap'
 
 import { getAllProductos } from '../../Functions/ProductosFunctions'
 import { getProductosPorCategoria } from '../../Functions/ProductosFunctions'
 
+import CardLoading from './CardLoading'
+
 function Catalog() {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const { id } = useParams()
 
@@ -34,14 +38,16 @@ function Catalog() {
   const productCatStorage = JSON.parse(localStorage.getItem('listaProductosCat'))
   console.log(productCatStorage)
   console.log(productosStorage)
+
   useEffect(() => {
 
 
     const fetchData = async () => {
       try {
+        setLoading(true)
         if (id) {
           if(productCatStorage.idCat != id) {
-            const response = await getProductosPorCategoria(id)
+            const response = await setTimeout(()=> getProductosPorCategoria(id),3000)
             setProducts(response.data)
             localStorage.setItem('listaProductosCat',JSON.stringify({idCat: id, data: (response.data)}))
             return
@@ -67,15 +73,21 @@ function Catalog() {
         console.log(e.message)
       }
     }
-    fetchData()
+      fetchData();
+    
+    return () => setLoading(false);
+    
   }, [])
+
 
   return (
     <Container fluid className="bg-white py-4">
       <Button variant="Light" as={Link} to={'/welcome'} className="py-3 ps-0">
         <span className="material-symbols-outlined">arrow_back</span>
       </Button>
-      <Row className="justify-content-start my-3 g-3">
+      {console.log(loading)}
+        {!loading ?  <Row className="justify-content-start my-3 g-3"><CardLoading/><CardLoading/><CardLoading/></Row> : <></>}
+      <Row className="justify-content-start my-3 g-3"> 
         {products.map((product) => (
           <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
             <Card className="mb-3 h-100">
