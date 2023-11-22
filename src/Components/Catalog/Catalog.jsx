@@ -8,7 +8,6 @@ import {
   Card,
   Badge,
   Button,
-  Placeholder,
 } from 'react-bootstrap'
 
 import { getAllProductos } from '../../Functions/ProductosFunctions'
@@ -96,7 +95,7 @@ function Catalog() {
           <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
             <Card className="mb-3 h-100">
               <Ratio aspectRatio="4x3">
-                <Card.Img variant="top" src={baseUrl + product.rutaImagen} />
+                <Card.Img alt={product.nombre} variant="top" src={baseUrl + product.rutaImagen} />
               </Ratio>
               <Card.ImgOverlay>
                 <Badge className="fs-6">{'0' + product.id}</Badge>
