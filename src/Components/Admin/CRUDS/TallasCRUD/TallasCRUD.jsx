@@ -4,7 +4,7 @@ import {
   deleteTalla,
 } from '../../../../Functions/TallasFunctions'
 import TallasPopUp from './TallasCRUD_popup'
-import { Col, Button } from 'react-bootstrap'
+import { Col, Button, Accordion } from 'react-bootstrap'
 
 const TallasCRUD = () => {
   //#region Declaracion useState's
@@ -48,8 +48,8 @@ const TallasCRUD = () => {
   //#endregion
 
   return (
-    <div>
-      <Col>
+    <>
+      <Col xs={12}>
         <Button
           variant="outline-light"
           className="mt-3"
@@ -57,36 +57,38 @@ const TallasCRUD = () => {
         >
           Crear Talla
         </Button>
-        <ul className="list-group mt-3">
+        <Accordion className="mt-3">
           {tallas.map((talla) => (
-            <li
-              key={talla.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              <div className="m-0 p-0">
-                <h5>{talla.nombre}</h5>
-                <p className="m-0">Medidas: {talla.dimensiones}</p>
-              </div>
-              <div>
+            <Accordion.Item eventKey={talla.id} key={talla.id}>
+              <Accordion.Header>
+                <ul className="list-unstyled my-0">
+                  <li className="fs-5 mb-1">{talla.nombre}</li>
+                  <li>
+                    <strong>Medidas: </strong>
+                    {talla.dimensiones}
+                  </li>
+                </ul>
+              </Accordion.Header>
+              <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(talla)}
                 >
-                  <span className="material-symbols-outlined">edit</span>
+                  Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(talla.id)}
                 >
-                  <span className="material-symbols-outlined">delete</span>
+                  Borrar
                 </Button>
-              </div>
-            </li>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </ul>
+        </Accordion>
       </Col>
       {
         //#region Renderizado condicional PopUp
@@ -101,7 +103,7 @@ const TallasCRUD = () => {
         )
         //#endregion
       }
-    </div>
+    </>
   )
 }
 

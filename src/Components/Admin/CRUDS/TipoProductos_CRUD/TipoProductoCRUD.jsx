@@ -4,7 +4,7 @@ import {
   deleteTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import { Col, Button, Accordion, Image, Row } from 'react-bootstrap'
+import { Col, Button, Accordion, Image } from 'react-bootstrap'
 
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
