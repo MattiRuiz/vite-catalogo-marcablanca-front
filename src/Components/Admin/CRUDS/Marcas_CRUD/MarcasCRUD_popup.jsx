@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert } from 'react-bootstrap'
+import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
 const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
+  const [loading, setLoading] = useState(false)
 
   const [alertVariant, setAlertVariant] = useState('danger')
   const alertDanger = () => setAlertVariant('danger')
@@ -31,6 +32,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
 
   //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
+    setLoading(true)
     const dataToSend = {
       ...marcaData,
     }
@@ -39,7 +41,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
       const id = marca.id
 
       const response = await updateMarca(id, dataToSend)
-
+      setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
@@ -55,6 +57,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
       }
     } else {
       const response = await createMarca(dataToSend)
+      setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
@@ -84,8 +87,8 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
   //#endregion
 
   return (
-    <Modal show={true} centered>
-      <Modal.Header>
+    <Modal show={true} onHide={closePopUp} centered>
+      <Modal.Header closeButton>
         <Modal.Title>
           {marca ? <h4>Editar marca</h4> : <h4>Añadir marca</h4>}
         </Modal.Title>
@@ -105,6 +108,11 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
             />
           </Form.Group>
         </Form>
+        {loading ? (
+          <Spinner className="my-3 d-block mx-auto" animation="border" />
+        ) : (
+          ''
+        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"

@@ -7,6 +7,7 @@ import {
   Form,
   Image,
   Alert,
+  Spinner,
 } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
@@ -17,6 +18,7 @@ import catalogo from '../../Images/mockup_catalogo.png'
 function Login() {
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
+  const [loading, setLoading] = useState(false)
 
   const [showAlert, setShowAlert] = useState(false)
   const handleShow = () => setShowAlert(true)
@@ -42,17 +44,22 @@ function Login() {
 
   const dataSender = async () => {
     try {
+      setLoading(true)
       const data = {
         username: userName,
         password: password,
       }
 
       if (!data.username || !data.password) {
-        setAlertMessage('Hay campos vacios, por favor rellene todos los datos.')
+        setAlertMessage(
+          'Hay campos vacios, por favor complete todos los datos.'
+        )
         handleShow()
+        setTimeout(() => handleClose(), 5000)
       } else {
         const response = await loginCliente(data)
         const esAdmin = response.data.esAdmin
+        console.log('entra en el else', data)
 
         if (esAdmin === 0) {
           handleLogin(response.data)
@@ -61,21 +68,23 @@ function Login() {
           handleLogin(response.data)
           navigate('/admin')
         } else {
-          alert('Usuario o contraseña incorrectos') //este else no está funcionando, entra directamente al catch
+          alert('Usuario o contraseña incorrectos.') //este else no está funcionando, entra directamente al catch
         }
       }
     } catch (error) {
-      // alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.')
-      setAlertMessage('Usuario o contraseña incorrectos.')
+      setAlertMessage('Usuario o contraseña incorrectos')
       handleShow()
+      setTimeout(() => handleClose(), 5000)
       console.error('Error:', error)
+    } finally {
+      setLoading(false)
     }
   }
   return (
     <Container className="bg-white" fluid>
       <Form onSubmit={handleSubmit}>
-        <Row className="py-5 justify-content-center justify-content-md-around  align-items-center">
-          <Col xs={11} md={5} lg={4}>
+        <Row className="py-5 justify-content-center justify-content-md-around">
+          <Col xs={11} md={5} lg={4} className="pt-4 pt-md-5">
             <h4>INGRESAR</h4>
             <Form.Group className="py-2">
               <Form.Label>Nombre de usuario:</Form.Label>
@@ -85,26 +94,30 @@ function Login() {
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control type="password" onChange={passwordHandler} />
             </Form.Group>
-            <Button type="submit" className="mt-3" onClick={dataSender}>
-              Ingresar
+            <Button type="submit" className="mt-3 w-100" onClick={dataSender}>
+              {loading ? (
+                <Spinner animation="border" variant="light" size="sm" />
+              ) : (
+                'Ingresar'
+              )}
             </Button>
 
             <Alert
               variant="danger"
-              className="my-4"
+              className="mt-3 mb-0"
               onClose={handleClose}
               show={showAlert}
               dismissible
             >
               <Alert.Heading className="fs-6">
-                <strong>Error!</strong>
+                <strong>Error</strong>
               </Alert.Heading>
               {alertMessage}
             </Alert>
           </Col>
           <Col xs={12} md={6} lg={5}>
             <Row className="justify-content-center text-center">
-              <Col xs={8} className="mt-3 pt-4">
+              <Col xs={8} md={6} className="mt-3 pt-4">
                 <Image src={catalogo} fluid />
               </Col>
               <Col xs={11}>
