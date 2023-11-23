@@ -6,7 +6,7 @@ import {
 import { getAllTipoProductos } from '../../../../Functions/TipoProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 import ProductosPopUp from './ProductosCRUD_popup'
-import { Col, Button, Accordion, Image, Badge } from 'react-bootstrap'
+import { Col, Button, Accordion, Image, Badge, Spinner } from 'react-bootstrap'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -19,8 +19,11 @@ const ProductoCRUD = () => {
   const [selectedProducto, setSelectedProducto] = useState({})
   //#endregion
 
+  const [loading, setLoading] = useState(false)
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
+    setLoading(true)
     try {
       const productoResponse = await getAllProductosSinTallas()
       setProductos(productoResponse.data)
@@ -32,6 +35,8 @@ const ProductoCRUD = () => {
       setCategorias(responseCategorias.data)
     } catch (e) {
       console.error(e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -116,6 +121,15 @@ const ProductoCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
+        {loading ? (
+          <Spinner
+            variant="light"
+            className="my-5 d-block mx-auto"
+            animation="border"
+          />
+        ) : (
+          ''
+        )}
       </Col>
       {
         //#region Renderizado condicional PopUp

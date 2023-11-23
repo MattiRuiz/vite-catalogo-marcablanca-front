@@ -4,7 +4,7 @@ import {
   deleteTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import { Col, Button, Accordion, Image } from 'react-bootstrap'
+import { Col, Button, Accordion, Image, Spinner } from 'react-bootstrap'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -15,13 +15,18 @@ const TipoProductoCRUD = () => {
   const [selectedTipoProducto, setSelectedTipoProducto] = useState(null)
   //#endregion
 
+  const [loading, setLoading] = useState(false)
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
+    setLoading(true)
     try {
       const tallasRespone = await getAllTipoProductos()
       setTipoProductos(tallasRespone.data)
     } catch (e) {
       console.error(e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -90,6 +95,15 @@ const TipoProductoCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
+        {loading ? (
+          <Spinner
+            variant="light"
+            className="my-5 d-block mx-auto"
+            animation="border"
+          />
+        ) : (
+          ''
+        )}
       </Col>
       {
         //#region Renderizado condicional PopUp

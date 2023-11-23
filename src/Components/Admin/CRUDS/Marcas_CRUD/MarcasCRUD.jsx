@@ -4,7 +4,7 @@ import {
   deleteMarca,
 } from '../../../../Functions/MarcasFunctions'
 import MarcasPopUp from './MarcasCRUD_popup'
-import { Col, Button, Accordion } from 'react-bootstrap'
+import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
 
 const MarcasCRUD = () => {
   //#region Declaracion useState's
@@ -13,13 +13,18 @@ const MarcasCRUD = () => {
   const [selectedMarca, setSelectedMarca] = useState(null)
   //#endregion
 
+  const [loading, setLoading] = useState(false)
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
+    setLoading(true)
     try {
       const marcasRespone = await getAllMarcas()
       setMarcas(marcasRespone.data)
     } catch (e) {
       console.error(e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -81,6 +86,15 @@ const MarcasCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
+        {loading ? (
+          <Spinner
+            variant="light"
+            className="my-5 d-block mx-auto"
+            animation="border"
+          />
+        ) : (
+          ''
+        )}
       </Col>
       {
         //#region Renderizado condicional PopUp

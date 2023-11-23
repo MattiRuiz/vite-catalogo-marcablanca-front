@@ -4,7 +4,7 @@ import {
   deleteCliente,
 } from '../../../../Functions/ClienteFunctions'
 import ClientesPopup from './ClientesCRUD_popup'
-import { Col, Button, Accordion } from 'react-bootstrap'
+import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
 
 const ClientesCRUD = () => {
   //#region Declaracion useState's
@@ -13,13 +13,18 @@ const ClientesCRUD = () => {
   const [selectedCliente, setSelectedCliente] = useState(null)
   //#endregion
 
+  const [loading, setLoading] = useState(false)
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
+    setLoading(true)
     try {
       const clientesResponse = await getAllClientes()
       setClientes(clientesResponse.data)
     } catch (e) {
       console.error(e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -91,6 +96,15 @@ const ClientesCRUD = () => {
             </Accordion.Item>
           ))}
         </Accordion>
+        {loading ? (
+          <Spinner
+            variant="light"
+            className="my-5 d-block mx-auto"
+            animation="border"
+          />
+        ) : (
+          ''
+        )}
       </Col>
       {
         //#region Renderizado condicional PopUp
