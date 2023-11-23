@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
+import { Button, Form, Modal, Alert } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
 const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
+  const [showAlert, setShowAlert] = useState(false)
+  const handleShowAlert = () => setShowAlert(true)
+  const handleCloseAlert = () => setShowAlert(false)
+
+  const [alertVariant, setAlertVariant] = useState('danger')
+  const alertDanger = () => setAlertVariant('danger')
+  const alertSuccess = () => setAlertVariant('success')
+  const [alertMessage, setAlertMessage] = useState(
+    'Ha ocurrido un error, por favor intente más tarde'
+  )
+  const [alertHeader, setAlertHeader] = useState('Error')
+
   const [marcaData, setMarcaData] = useState({
     nombre: '',
   })
@@ -27,13 +39,37 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
       const id = marca.id
 
       const response = await updateMarca(id, dataToSend)
-      console.log('Marca actualizada:', response)
+
+      if (!response) {
+        alertDanger()
+        setAlertHeader('Error')
+        setAlertMessage('Hubo un problema al querer actualizar la marca')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
+      } else {
+        alertSuccess()
+        setAlertHeader('Marca actualizada')
+        setAlertMessage('La marca ha sido actualizada con éxito')
+        handleShowAlert()
+        setTimeout(() => closePopUp(), 3000)
+      }
     } else {
       const response = await createMarca(dataToSend)
-      console.log('Marca creada:', response)
+      if (!response) {
+        alertDanger()
+        setAlertHeader('Error')
+        setAlertMessage('Hubo un problema al crear una marca nueva')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
+      } else {
+        alertSuccess()
+        setAlertHeader('Marca creada')
+        setAlertMessage('La marca ha sido creada con éxito')
+        handleShowAlert()
+        setTimeout(() => closePopUp(), 3000)
+      }
     }
     onClienteUpdated()
-    closePopUp()
   }
   //#endregion
 
@@ -69,6 +105,18 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
             />
           </Form.Group>
         </Form>
+        <Alert
+          variant={alertVariant}
+          className="mt-3 mb-0"
+          onClose={handleCloseAlert}
+          show={showAlert}
+          dismissible
+        >
+          <Alert.Heading className="fs-6">
+            <strong>{alertHeader}</strong>
+          </Alert.Heading>
+          {alertMessage}
+        </Alert>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => closePopUp()}>
@@ -77,7 +125,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
         {marca ? (
           <Button onClick={handleGuardar}>Guardar cambios</Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear cliente</Button>
+          <Button onClick={handleGuardar}>Crear marca</Button>
         )}
       </Modal.Footer>
     </Modal>

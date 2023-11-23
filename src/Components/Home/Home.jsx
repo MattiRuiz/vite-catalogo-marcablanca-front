@@ -31,7 +31,7 @@ function Home() {
           </Row>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center">
+      <Row className="justify-content-center align-items-center align-items-stretch">
         <Col
           xs={11}
           md={8}
