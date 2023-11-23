@@ -46,7 +46,7 @@ function ListaPrecio() {
         <Col xs={12}>
           <h4>Lista de precios</h4>
           <p>Descarga la lista de precios en formato PDF</p>
-          <Button>Descargar PDF</Button>
+          <Button href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf" download >Descargar PDF</Button>
         </Col>
         <Col xs={12} className="mt-4">
           <h4>Activar precios en el catálogo</h4>
