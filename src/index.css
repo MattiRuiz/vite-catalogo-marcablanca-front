@@ -59,6 +59,10 @@ a {
   color: var(--primary)
 }
 
+.color-grisclaro {
+color: #999;
+}
+
 .black {
   font-weight: 800;
 }
@@ -124,6 +128,10 @@ p, li, a.btn {
 
 .label-marca {
   font-size: 14px;
+}
+
+.fondo-imagen {
+  background-color: #d3d3d3;
 }
 
 @media (min-width: 992px) {

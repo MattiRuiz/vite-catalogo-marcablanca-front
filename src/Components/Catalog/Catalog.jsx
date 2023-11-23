@@ -8,6 +8,7 @@ import {
   Card,
   Badge,
   Button,
+  Alert,
 } from 'react-bootstrap'
 
 import { getAllProductos } from '../../Functions/ProductosFunctions'
@@ -17,7 +18,11 @@ import CardLoading from './CardLoading'
 
 function Catalog() {
   const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
+
+  const [loading, setLoading] = useState(false)
+  const [imagenError, setImagenError] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const handleShow = () => setShowAlert(true)
 
   const { id } = useParams()
 
@@ -39,8 +44,9 @@ function Catalog() {
   )
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
+
       try {
-        setLoading(true)
         if (id) {
           if (productCatStorage === null) {
             const response = await getProductosPorCategoria(id)
@@ -49,6 +55,7 @@ function Catalog() {
               'listaProductosCat',
               JSON.stringify({ idCat: id, data: response.data })
             )
+            if (!productCatStorage.data.length) handleShow()
             return
           } else if (productCatStorage.idCat != id) {
             const response = await getProductosPorCategoria(id)
@@ -57,14 +64,17 @@ function Catalog() {
               'listaProductosCat',
               JSON.stringify({ idCat: id, data: response.data })
             )
+            if (!productCatStorage.data.length) handleShow()
             return
           } else {
             setProducts(productCatStorage.data)
+            if (!productCatStorage.data.length) handleShow()
             return
           }
         }
 
         if (productosStorage === null) {
+          console.log('peladuki')
           const response = await getAllProductos()
           setProducts(response.data)
           localStorage.setItem('listaProductos', JSON.stringify(response.data))
@@ -74,28 +84,45 @@ function Catalog() {
         }
       } catch (e) {
         console.log(e.message)
+      } finally {
+        setLoading(false)
       }
     }
-      fetchData();
-    
-    return () => setLoading(false);
-    
+    fetchData()
   }, [])
-
 
   return (
     <Container fluid className="bg-white py-4">
       <Button variant="Light" as={Link} to={'/welcome'} className="py-3 ps-0">
         <span className="material-symbols-outlined">arrow_back</span>
       </Button>
-      {console.log(loading)}
-        {!loading ?  <Row className="justify-content-start my-3 g-3"><CardLoading/><CardLoading/><CardLoading/></Row> : <></>}
-      <Row className="justify-content-start my-3 g-3"> 
+      {loading ? (
+        <Row className="justify-content-start my-3 g-3">
+          <CardLoading />
+          <CardLoading />
+        </Row>
+      ) : (
+        <></>
+      )}
+      <Row className="justify-content-start my-3 g-3">
         {products.map((product) => (
           <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
             <Card className="mb-3 h-100">
-              <Ratio aspectRatio="4x3">
-                <Card.Img alt={product.nombre} variant="top" src={baseUrl + product.rutaImagen} />
+              <Ratio aspectRatio="4x3" className="fondo-imagen">
+                {imagenError ? (
+                  <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                    <p className="mb-0 color-grisclaro">
+                      <strong>Sin imágen</strong>
+                    </p>
+                  </div>
+                ) : (
+                  <Card.Img
+                    alt={product.nombre}
+                    variant="top"
+                    src={baseUrl + product.rutaImagen}
+                    onError={() => setImagenError(true)}
+                  />
+                )}
               </Ratio>
               <Card.ImgOverlay>
                 <Badge className="fs-6">{'0' + product.id}</Badge>
@@ -131,6 +158,14 @@ function Catalog() {
             </Card>
           </Col>
         ))}
+        <Col xs={12} md={10} lg={8} className="d-block mx-auto">
+          <Alert variant="warning" className="mb-5" show={showAlert}>
+            <Alert.Heading className="fs-6">
+              <strong>Ups!</strong>
+            </Alert.Heading>
+            No se han encontrado resultados para esta categoría
+          </Alert>
+        </Col>
       </Row>
     </Container>
   )

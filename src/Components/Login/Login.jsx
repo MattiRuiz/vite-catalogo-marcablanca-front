@@ -26,6 +26,7 @@ function Login() {
   const [alertMessage, setAlertMessage] = useState(
     'Ha ocurrido un error, por favor intente más tarde'
   )
+
   const handleSubmit = (event) => {
     event.preventDefault()
     dataSender()
@@ -55,7 +56,6 @@ function Login() {
           'Hay campos vacios, por favor complete todos los datos.'
         )
         handleShow()
-        setTimeout(() => handleClose(), 5000)
       } else {
         const response = await loginCliente(data)
         const esAdmin = response.data.esAdmin
@@ -74,7 +74,6 @@ function Login() {
     } catch (error) {
       setAlertMessage('Usuario o contraseña incorrectos')
       handleShow()
-      setTimeout(() => handleClose(), 5000)
       console.error('Error:', error)
     } finally {
       setLoading(false)
