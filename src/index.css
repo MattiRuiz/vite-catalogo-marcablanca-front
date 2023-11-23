@@ -114,6 +114,10 @@ p, li, a.btn {
   letter-spacing: 0.30px!important;
 }
 
+.image-preview {
+  width: 70px;
+}
+
 @media (min-width: 992px) {
   .offcanvas {
     width: 25% !important;
