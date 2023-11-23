@@ -4,7 +4,9 @@ import {
   deleteTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import { Col, Button } from 'react-bootstrap'
+import { Col, Button, Accordion, Image } from 'react-bootstrap'
+
+const baseUrl = import.meta.env.VITE_NAME
 
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
@@ -48,45 +50,46 @@ const TipoProductoCRUD = () => {
   //#endregion
 
   return (
-    <div>
-      <Col>
+    <>
+      <Col xs={12}>
         <Button
           variant="outline-light"
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Talla
+          Crear tipo de producto
         </Button>
-        <ul className="list-group mt-3">
+        <Accordion className="mt-3">
           {tipoProductos.map((tipoProducto) => (
-            <li
-              key={tipoProducto.id}
-              className="list-group-item d-flex justify-content-between"
-            >
-              <div className="m-0 p-0">
+            <Accordion.Item eventKey={tipoProducto.id} key={tipoProducto.id}>
+              <Accordion.Header>
+                <Image
+                  fluid
+                  className="tipoproducto-preview me-3"
+                  src={`${baseUrl}${tipoProducto.rutaImagen}`}
+                />
                 {tipoProducto.nombre}
-                {tipoProducto.dimensiones}
-              </div>
-              <div>
+              </Accordion.Header>
+              <Accordion.Body>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(tipoProducto)}
                 >
-                  <span className="material-symbols-outlined">edit</span>
+                  Editar
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => handleDelete(tipoProducto.id)}
                 >
-                  <span className="material-symbols-outlined">delete</span>
+                  Borrar
                 </Button>
-              </div>
-            </li>
+              </Accordion.Body>
+            </Accordion.Item>
           ))}
-        </ul>
+        </Accordion>
       </Col>
       {
         //#region Renderizado condicional PopUp
@@ -101,7 +104,7 @@ const TipoProductoCRUD = () => {
         )
         //#endregion
       }
-    </div>
+    </>
   )
 }
 

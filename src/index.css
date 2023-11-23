@@ -114,6 +114,14 @@ p, li, a.btn {
   letter-spacing: 0.30px!important;
 }
 
+.tipoproducto-preview {
+  width: 70px;
+}
+
+.producto-preview {
+  width: 200px;
+}
+
 @media (min-width: 992px) {
   .offcanvas {
     width: 25% !important;

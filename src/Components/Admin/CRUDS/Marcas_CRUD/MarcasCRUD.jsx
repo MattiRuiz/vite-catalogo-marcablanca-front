@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
-import { getAllMarcas, deleteMarca } from '../../../../Functions/MarcasFunctions'
+import {
+  getAllMarcas,
+  deleteMarca,
+} from '../../../../Functions/MarcasFunctions'
 import MarcasPopUp from './MarcasCRUD_popup'
 import { Col, Button, Accordion } from 'react-bootstrap'
 
@@ -52,7 +55,7 @@ const MarcasCRUD = () => {
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Marca
+          Crear marca
         </Button>
         <Accordion className="mt-3">
           {marcas.map((marca) => (
