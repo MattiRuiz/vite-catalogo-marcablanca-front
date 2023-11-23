@@ -6,7 +6,13 @@ import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 function WelcomeLog() {
   const [clienteLista, setClienteLista] = useState([])
 
-  const [imagenError, setImagenError] = useState(false)
+  const [imagenErrors, setImagenErrors] = useState({})
+  const handleImageError = (productId) => {
+    setImagenErrors((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }))
+  }
 
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
@@ -59,7 +65,7 @@ function WelcomeLog() {
             className="text-center"
           >
             <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
-              {imagenError ? (
+              {imagenErrors[producto.id] ? (
                 // Mostrar elemento alternativo en caso de error
                 <div className="w-100 h-100 d-flex align-items-center justify-content-center">
                   <p className="mb-0 color-grisclaro">
@@ -70,7 +76,7 @@ function WelcomeLog() {
                 <Image
                   src={baseUrl + producto.rutaImagen}
                   fluid
-                  onError={() => setImagenError(true)}
+                  onError={() => handleImageError(producto.id)}
                 />
               )}
             </Ratio>
