@@ -22,13 +22,13 @@ function WelcomeLog() {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-          const response = await getAllTipoProductos()
-          setClienteLista(response.data)
-        } catch (error) {
-          console.error('Error al obtener los productos:', error)
-        }
-      } 
+      try {
+        const response = await getAllTipoProductos()
+        setClienteLista(response.data)
+      } catch (error) {
+        console.error('Error al obtener los productos:', error)
+      }
+    }
     fetchData()
   }, [])
 
@@ -69,6 +69,7 @@ function WelcomeLog() {
               ) : (
                 <Image
                   src={baseUrl + producto.rutaImagen}
+                  className="rounded-circle"
                   fluid
                   onError={() => handleImageError(producto.id)}
                 />

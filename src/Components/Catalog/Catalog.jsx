@@ -20,9 +20,16 @@ function Catalog() {
   const [products, setProducts] = useState([])
 
   const [loading, setLoading] = useState(false)
-  const [imagenError, setImagenError] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const handleShow = () => setShowAlert(true)
+
+  const [imagenErrors, setImagenErrors] = useState({})
+  const handleImageError = (productId) => {
+    setImagenErrors((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }))
+  }
 
   const { id } = useParams()
 
@@ -40,18 +47,18 @@ function Catalog() {
   }
   //#endregion
 
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
       try {
         if (id) {
-            const response = await getProductosPorCategoria(id)
-            setProducts(response.data)
-        }else{
+          const response = await getProductosPorCategoria(id)
+          setProducts(response.data)
+          if (!response.data.length) handleShow()
+        } else {
           const response = await getAllProductos()
           setProducts(response.data)
-
+          if (!response.data.length) handleShow()
         }
       } catch (e) {
         console.log(e.message)
@@ -80,7 +87,7 @@ function Catalog() {
           <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
             <Card className="mb-3 h-100">
               <Ratio aspectRatio="4x3" className="fondo-imagen">
-                {imagenError ? (
+                {imagenErrors[product.id] ? (
                   <div className="w-100 h-100 d-flex align-items-center justify-content-center">
                     <p className="mb-0 color-grisclaro">
                       <strong>Sin imágen</strong>
@@ -91,7 +98,7 @@ function Catalog() {
                     alt={product.nombre}
                     variant="top"
                     src={baseUrl + product.rutaImagen}
-                    onError={() => setImagenError(true)}
+                    onError={() => handleImageError(product.id)}
                   />
                 )}
               </Ratio>
