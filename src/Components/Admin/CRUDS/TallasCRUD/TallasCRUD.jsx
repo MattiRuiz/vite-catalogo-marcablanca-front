@@ -55,7 +55,7 @@ const TallasCRUD = () => {
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Talla
+          Crear medida
         </Button>
         <Accordion className="mt-3">
           {tallas.map((talla) => (

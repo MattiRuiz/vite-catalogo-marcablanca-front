@@ -114,8 +114,12 @@ p, li, a.btn {
   letter-spacing: 0.30px!important;
 }
 
-.image-preview {
+.tipoproducto-preview {
   width: 70px;
+}
+
+.producto-preview {
+  width: 200px;
 }
 
 @media (min-width: 992px) {

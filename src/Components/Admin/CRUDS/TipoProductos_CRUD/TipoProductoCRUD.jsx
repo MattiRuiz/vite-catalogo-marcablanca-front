@@ -6,6 +6,8 @@ import {
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
 import { Col, Button, Accordion, Image } from 'react-bootstrap'
 
+const baseUrl = import.meta.env.VITE_NAME
+
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
   const [tipoProductos, setTipoProductos] = useState([])
@@ -55,7 +57,7 @@ const TipoProductoCRUD = () => {
           className="mt-3"
           onClick={() => openPopup(null)}
         >
-          Crear Talla
+          Crear tipo de producto
         </Button>
         <Accordion className="mt-3">
           {tipoProductos.map((tipoProducto) => (
@@ -63,8 +65,8 @@ const TipoProductoCRUD = () => {
               <Accordion.Header>
                 <Image
                   fluid
-                  className="image-preview me-3"
-                  src={`https://catalogo-backend-production-baf9.up.railway.app${tipoProducto.rutaImagen}`}
+                  className="tipoproducto-preview me-3"
+                  src={`${baseUrl}${tipoProducto.rutaImagen}`}
                 />
                 {tipoProducto.nombre}
               </Accordion.Header>
