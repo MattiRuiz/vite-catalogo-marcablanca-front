@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
+import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 import {
   createCliente,
   updateCliente,
@@ -12,6 +12,19 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
     username: '',
     password: '',
   })
+
+  const [showAlert, setShowAlert] = useState(false)
+  const handleShowAlert = () => setShowAlert(true)
+  const handleCloseAlert = () => setShowAlert(false)
+  const [loading, setLoading] = useState(false)
+
+  const [alertVariant, setAlertVariant] = useState('danger')
+  const alertDanger = () => setAlertVariant('danger')
+  const alertSuccess = () => setAlertVariant('success')
+  const [alertMessage, setAlertMessage] = useState(
+    'Ha ocurrido un error, por favor intente más tarde'
+  )
+  const [alertHeader, setAlertHeader] = useState('Error')
 
   //#region UseEffect
   useEffect(() => {
@@ -28,6 +41,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
 
   //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
+    setLoading(true)
     const dataToSend = {
       ...clienteData,
     }
@@ -36,13 +50,38 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
       const id = cliente.id
 
       const response = await updateCliente(id, dataToSend)
-      console.log('Cliente actualizado:', response)
+      setLoading(false)
+      if (!response) {
+        alertDanger()
+        setAlertHeader('Error')
+        setAlertMessage('Hubo un problema al querer actualizar el cliente')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
+      } else {
+        alertSuccess()
+        setAlertHeader('Cliente actualizado')
+        setAlertMessage('El cliente ha sido actualizado con éxito')
+        handleShowAlert()
+        setTimeout(() => closePopUp(), 3000)
+      }
     } else {
       const response = await createCliente(dataToSend)
-      console.log('Cliente creado:', response)
+      setLoading(false)
+      if (!response) {
+        alertDanger()
+        setAlertHeader('Error')
+        setAlertMessage('Hubo un problema al crear el cliente')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
+      } else {
+        alertSuccess()
+        setAlertHeader('Cliente creado')
+        setAlertMessage('El cliente ha sido creado con éxito')
+        handleShowAlert()
+        setTimeout(() => closePopUp(), 3000)
+      }
     }
     onClienteUpdated()
-    closePopUp()
   }
   //#endregion
 
@@ -57,8 +96,8 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
   //#endregion
 
   return (
-    <Modal centered show={true}>
-      <Modal.Header>
+    <Modal show={true} onHide={closePopUp} centered>
+      <Modal.Header closeButton>
         {cliente ? <h4>Editar cliente</h4> : <h4>Añadir cliente</h4>}
       </Modal.Header>
 
@@ -68,7 +107,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             <Form.Label>Nombre:</Form.Label>
             <Form.Control
               type="text"
-              className="mb-2"
+              className="mb-3"
               placeholder="Nombre"
               name="nombre"
               value={clienteData.nombre}
@@ -77,7 +116,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             <Form.Label>Apellido:</Form.Label>
             <Form.Control
               type="text"
-              className="mb-2"
+              className="mb-3"
               placeholder="Apellido"
               name="apellido"
               value={clienteData.apellido}
@@ -86,7 +125,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             <Form.Label>Nombre de usuario:</Form.Label>
             <Form.Control
               type="text"
-              className="mb-2"
+              className="mb-3"
               placeholder="Username"
               name="username"
               value={clienteData.username}
@@ -95,7 +134,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             <Form.Label>Contraseña:</Form.Label>
             <Form.Control
               type="password"
-              className="mb-2"
+              className="mb-3"
               placeholder="Password"
               name="password"
               value={clienteData.password}
@@ -103,13 +142,26 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             />
           </Form.Group>
         </Form>
+        {loading ? (
+          <Spinner className="my-3 d-block mx-auto" animation="border" />
+        ) : (
+          ''
+        )}
+        <Alert
+          variant={alertVariant}
+          className="mt-3 mb-0"
+          onClose={handleCloseAlert}
+          show={showAlert}
+          dismissible
+        >
+          <Alert.Heading className="fs-6">
+            <strong>{alertHeader}</strong>
+          </Alert.Heading>
+          {alertMessage}
+        </Alert>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="secondary"
-          className="me-1"
-          onClick={() => closePopUp()}
-        >
+        <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
         {cliente ? (

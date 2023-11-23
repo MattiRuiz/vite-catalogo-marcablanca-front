@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Col, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
