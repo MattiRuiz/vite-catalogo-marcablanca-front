@@ -161,7 +161,7 @@ const TallasCRUD_popup = ({
         {tipoProducto ? (
           <Button onClick={handleGuardar}>Guardar cambios</Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear cliente</Button>
+          <Button onClick={handleGuardar}>Crear tipo producto</Button>
         )}
       </Modal.Footer>
     </Modal>

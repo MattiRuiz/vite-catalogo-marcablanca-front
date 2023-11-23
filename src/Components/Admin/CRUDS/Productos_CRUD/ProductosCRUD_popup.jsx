@@ -211,7 +211,7 @@ const ProductosCRUD_popup = ({
         {producto ? (
           <Button onClick={handleGuardar}>Guardar cambios</Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear cliente</Button>
+          <Button onClick={handleGuardar}>Crear Producto</Button>
         )}
       </Modal.Footer>
     </Modal>

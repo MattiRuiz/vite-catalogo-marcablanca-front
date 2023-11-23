@@ -47,13 +47,13 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar la medida')
+        setAlertMessage('Hubo un problema al querer actualizar la talla')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
-        setAlertHeader('Medida actualizada')
-        setAlertMessage('La medida ha sido actualizada con éxito')
+        setAlertHeader('Talla actualizada')
+        setAlertMessage('La talla ha sido actualizada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 3000)
       }
@@ -63,13 +63,13 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear una medida nueva')
+        setAlertMessage('Hubo un problema al crear una talla nueva')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
-        setAlertHeader('Marca creada')
-        setAlertMessage('La medida ha sido creada con éxito')
+        setAlertHeader('Talla creada')
+        setAlertMessage('La talla ha sido creada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 3000)
       }
@@ -92,14 +92,14 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     <Modal show={true} onHide={closePopUp} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          {talla ? <h4>Editar medida</h4> : <h4>Añadir medida</h4>}
+          {talla ? <h4>Editar talla</h4> : <h4>Añadir talla</h4>}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Nombre de la medida:</Form.Label>
+            <Form.Label>Nombre de la talla:</Form.Label>
             <Form.Control
               type="text"
               className="mb-3"
@@ -144,7 +144,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         {talla ? (
           <Button onClick={handleGuardar}>Guardar cambios</Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear cliente</Button>
+          <Button onClick={handleGuardar}>Crear talla</Button>
         )}
       </Modal.Footer>
     </Modal>
