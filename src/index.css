@@ -122,6 +122,10 @@ p, li, a.btn {
   width: 200px;
 }
 
+.label-marca {
+  font-size: 14px;
+}
+
 @media (min-width: 992px) {
   .offcanvas {
     width: 25% !important;

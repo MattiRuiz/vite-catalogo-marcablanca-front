@@ -73,9 +73,13 @@ const ProductoCRUD = () => {
           {productos.map((producto) => (
             <Accordion.Item eventKey={producto.id} key={producto.id}>
               <Accordion.Header>
-                <Badge className="me-2">{producto.id}</Badge>{' '}
-                <strong>{producto.marcas.nombre}</strong>
-                {' | ' + producto.nombre}
+                <Badge className="me-3">{producto.id}</Badge>{' '}
+                <ul className="list-unstyled mb-0">
+                  <li className="label-marca">{producto.marcas.nombre}</li>
+                  <li>
+                    <strong>{producto.nombre}</strong>
+                  </li>
+                </ul>
               </Accordion.Header>
               <Accordion.Body>
                 <Image
@@ -83,8 +87,11 @@ const ProductoCRUD = () => {
                   className="producto-preview me-3 mb-3"
                   src={`${baseUrl}${producto.rutaImagen}`}
                 />
-                <ul className="list-unstyled ">
-                  <li>{producto.descripcion}</li>
+                <ul className="list-unstyled">
+                  <li>
+                    <strong>Descripción: </strong>
+                    {producto.descripcion}
+                  </li>
                   <li>
                     <strong>Categoría: </strong>
                     {producto.tipo_producto.nombre}
