@@ -28,6 +28,7 @@ function Catalog() {
 
   const baseUrl = import.meta.env.VITE_NAME
 
+  //#region GANANCIAS/PRECIOS
   const showGanancia = localStorage.getItem('showGanancia')
   let ganancia = 1
   let porcentual = 1.0
@@ -37,50 +38,20 @@ function Catalog() {
     ganancia = JSON.parse(gananciaStr)
     porcentual = (ganancia + 100) / 100
   }
+  //#endregion
 
-  const productosStorage = JSON.parse(localStorage.getItem('listaProductos'))
-  const productCatStorage = JSON.parse(
-    localStorage.getItem('listaProductosCat')
-  )
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
-
       try {
         if (id) {
-          if (productCatStorage === null) {
             const response = await getProductosPorCategoria(id)
             setProducts(response.data)
-            localStorage.setItem(
-              'listaProductosCat',
-              JSON.stringify({ idCat: id, data: response.data })
-            )
-            if (!productCatStorage.data.length) handleShow()
-            return
-          } else if (productCatStorage.idCat != id) {
-            const response = await getProductosPorCategoria(id)
-            setProducts(response.data)
-            localStorage.setItem(
-              'listaProductosCat',
-              JSON.stringify({ idCat: id, data: response.data })
-            )
-            if (!productCatStorage.data.length) handleShow()
-            return
-          } else {
-            setProducts(productCatStorage.data)
-            if (!productCatStorage.data.length) handleShow()
-            return
-          }
-        }
-
-        if (productosStorage === null) {
-          console.log('peladuki')
+        }else{
           const response = await getAllProductos()
           setProducts(response.data)
-          localStorage.setItem('listaProductos', JSON.stringify(response.data))
-          return
-        } else {
-          setProducts(productosStorage)
+
         }
       } catch (e) {
         console.log(e.message)

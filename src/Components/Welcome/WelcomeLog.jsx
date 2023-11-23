@@ -17,24 +17,18 @@ function WelcomeLog() {
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
 
-  const tipoProductos = JSON.parse(localStorage.getItem('tipoProductos'))
   const username = user.username
   const baseUrl = import.meta.env.VITE_NAME
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!tipoProductos) {
         try {
           const response = await getAllTipoProductos()
           setClienteLista(response.data)
         } catch (error) {
           console.error('Error al obtener los productos:', error)
         }
-      } else {
-        setClienteLista(tipoProductos)
-        console.log(tipoProductos)
-      }
-    }
+      } 
     fetchData()
   }, [])
 
