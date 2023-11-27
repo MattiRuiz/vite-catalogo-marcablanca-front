@@ -1,73 +1,47 @@
-import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import {
-  Container,
-  Row,
-  Col,
-  Ratio,
-  Card,
-  Badge,
-  Button,
-  Alert,
-} from 'react-bootstrap'
-
-import { getAllProductos } from '../../Functions/ProductosFunctions'
-import { getProductosPorCategoria } from '../../Functions/ProductosFunctions'
-
-import CardLoading from './CardLoading'
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Container, Row, Col, Ratio, Card, Badge, Button, Alert } from 'react-bootstrap';
+import { getAllProductos } from '../../Functions/ProductosFunctions'; // Ajusta según tu API
+import CardLoading from './CardLoading';
 
 function Catalog() {
-  const [products, setProducts] = useState([])
+  const [categorias, setCategorias] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShow = () => setShowAlert(true)
-
-  const [imagenErrors, setImagenErrors] = useState({})
-  const handleImageError = (productId) => {
-    setImagenErrors((prevErrors) => ({
-      ...prevErrors,
-      [productId]: true,
-    }))
-  }
-
-  const { id } = useParams()
-
-  const baseUrl = import.meta.env.VITE_NAME
+  const { id } = useParams();
+  const baseUrl = import.meta.env.VITE_NAME;
 
   //#region GANANCIAS/PRECIOS
-  const showGanancia = localStorage.getItem('showGanancia')
-  let ganancia = 1
-  let porcentual = 1.0
+  const showGanancia = localStorage.getItem('showGanancia');
+  let ganancia = 1;
+  let porcentual = 1.0;
 
   if (showGanancia) {
-    const gananciaStr = localStorage.getItem('ganancia')
-    ganancia = JSON.parse(gananciaStr)
-    porcentual = (ganancia + 100) / 100
+    const gananciaStr = localStorage.getItem('ganancia');
+    ganancia = JSON.parse(gananciaStr);
+    porcentual = (ganancia + 100) / 100;
   }
   //#endregion
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        if (id) {
-          const response = await getProductosPorCategoria(id)
-          setProducts(response.data)
-          if (!response.data.length) handleShow()
-        } else {
-          const response = await getAllProductos()
-          setProducts(response.data)
-          if (!response.data.length) handleShow()
-        }
+        const response = await getAllProductos(); // Ajusta según tu API
+        setCategorias(response.data);
+        console.log(response.data);
+        if (!response.data.length) handleShow();
       } catch (e) {
-        console.log(e.message)
+        console.error(e.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
+
+  const handleShow = () => setShowAlert(true);
 
   return (
     <Container fluid className="bg-white py-4">
@@ -79,61 +53,43 @@ function Catalog() {
           <CardLoading />
           <CardLoading />
         </Row>
-      ) : (
-        <></>
-      )}
+      ) : null}
       <Row className="justify-content-start my-3 g-3">
-        {products.map((product) => (
-          <Col key={product.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
-            <Card className="mb-3 h-100">
-              <Ratio aspectRatio="4x3" className="fondo-imagen">
-                {imagenErrors[product.id] ? (
-                  <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                    <p className="mb-0 color-grisclaro">
-                      <strong>Sin imágen</strong>
-                    </p>
-                  </div>
-                ) : (
-                  <Card.Img
-                    alt={product.nombre}
-                    variant="top"
-                    src={baseUrl + product.rutaImagen}
-                    onError={() => handleImageError(product.id)}
-                  />
-                )}
-              </Ratio>
-              <Card.ImgOverlay>
-                <Badge className="fs-6">{'0' + product.id}</Badge>
-              </Card.ImgOverlay>
-              <Card.Body className="pb-0">
-                <Card.Title>{product.nombre}</Card.Title>
-                <Card.Subtitle className="text-muted pb-3">
-                  {product.descripcion}
-                </Card.Subtitle>
-                <Card.Text>
-                  <ul className="list-unstyled">
-                    {product.productos_tallas
-                      ? product.productos_tallas.map((talla, index) => (
-                          <>
-                            {showGanancia == 'true' ? (
-                              <li key={index}>
-                                <strong>{talla.talla}:</strong>{' '}
-                                {talla.dimensiones} a $
-                                {parseInt(talla.precio) * porcentual}
-                              </li>
-                            ) : (
-                              <li key={index}>
-                                <strong>{talla.talla}:</strong>{' '}
-                                {talla.dimensiones}
-                              </li>
-                            )}
-                          </>
-                        ))
-                      : null}
-                  </ul>
-                </Card.Text>
-              </Card.Body>
-            </Card>
+        {categorias.map((categoria) => (
+          <Col key={categoria.id} xs={12} className="mb-2">
+            <h2>{categoria.nombre}</h2>
+            {categoria.productos && categoria.productos.length > 0 ? (
+              <Row>
+                {categoria.productos.map((producto) => (
+                  <Col key={producto.id} xs={12} md={6} lg={4} xl={3} className="mb-2">
+                    <Card className="mb-3 h-100">
+                      <Ratio aspectRatio="4x3" className="fondo-imagen">
+                        <Card.Img alt={producto.nombre} variant="top" src={baseUrl + producto.rutaImagen} />
+                      </Ratio>
+                      <Card.ImgOverlay>
+                        <Badge className="fs-6">{'0' + producto.id}</Badge>
+                      </Card.ImgOverlay>
+                      <Card.Body className="pb-0">
+                        <Card.Title>{producto.nombre}</Card.Title>
+                        <Card.Subtitle className="text-muted pb-3">{producto.descripcion}</Card.Subtitle>
+                        <Card.Text>
+                          <ul className="list-unstyled">
+                            {producto.productos_tallas &&
+                              producto.productos_tallas.map((talla, index) => (
+                                <li key={index}>
+                                  <strong>{talla.tallas.nombre}:</strong> {talla.tallas.dimensiones} a ${parseInt(talla.precio) * porcentual}
+                                </li>
+                              ))}
+                          </ul>
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <p>No hay productos disponibles en esta categoría.</p>
+            )}
           </Col>
         ))}
         <Col xs={12} md={10} lg={8} className="d-block mx-auto">
@@ -146,7 +102,7 @@ function Catalog() {
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
 
-export default Catalog
+export default Catalog;
