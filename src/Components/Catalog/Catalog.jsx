@@ -21,7 +21,7 @@ function Catalog() {
   const [showAlert, setShowAlert] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
 
-  const { id } = useParams()
+  const { id } = useParams() //No se está utilizando
   const baseUrl = import.meta.env.VITE_NAME
 
   // image error
@@ -159,7 +159,6 @@ function Catalog() {
                                   {parseInt(talla.precio) * porcentual}
                                 </li>
                               </> */}
-
                           {producto.productos_tallas.map((talla, index) => (
                             <div key={index}>
                               <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
