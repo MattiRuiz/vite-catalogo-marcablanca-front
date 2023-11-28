@@ -80,7 +80,7 @@ const ProductoCRUD = () => {
               <Accordion.Header>
                 <Badge className="me-3">{producto.id}</Badge>{' '}
                 <ul className="list-unstyled mb-0">
-                  <li className="label-marca">{producto.marcas.nombre}</li>
+                  <li className="texto-14">{producto.marcas.nombre}</li>
                   <li>
                     <strong>{producto.nombre}</strong>
                   </li>

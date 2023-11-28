@@ -82,6 +82,10 @@ color: #999;
   color: var(--primary)
 }
 
+.text-gray {
+  color: #8a8a8a
+}
+
 .bg-secondary {
   background-color: var(--secondary);
 }
@@ -126,7 +130,7 @@ p, li, a.btn {
   width: 200px;
 }
 
-.label-marca {
+.texto-14 {
   font-size: 14px;
 }
 
