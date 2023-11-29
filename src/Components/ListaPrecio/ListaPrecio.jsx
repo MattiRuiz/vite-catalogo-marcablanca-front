@@ -23,23 +23,29 @@ function ListaPrecio() {
     setGanancia(e.target.value)
   }
   const handleShowGanacia = (e) => {
+    console.log(e.target.checked)
     setShowGanancia(e.target.checked)
+    console.log(showGanancia)
+
   }
 
-  const mostrarPrecios = () => {
+  const   mostrarPrecios = () => {
     localStorage.setItem('ganancia', (ganancia))
     localStorage.setItem('showGanancia',(showGanancia))
+
+    console.log(showGanancia)
     setShow(false)
   }
   const dataSave = () => {
     setGanancia(localStorage.getItem('ganancia'))
-    setShowGanancia(localStorage.getItem('showGanancia'))
+    setShowGanancia(  localStorage.getItem('showGanancia').toLowerCase?.() === 'true')
     setShow(false)
   }
   useEffect(() => {
     dataSave();
   },[])
-
+  
+  console.log(showGanancia)
   return (
     <Container fluid className="bg-white pb-5 pt-4">
       <Row>
