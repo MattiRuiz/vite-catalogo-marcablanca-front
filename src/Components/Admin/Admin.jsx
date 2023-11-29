@@ -22,7 +22,7 @@ const Admin = () => {
       {auth === 1 ? (
         <Container className="py-4">
           <Row className="justify-content-end">
-            <Col lg={3} className="d-none d-lg-flex fixed-top  margin-menu">
+            <Col lg={2} className="d-none d-lg-flex fixed-top  margin-menu">
               <ul className="list-unstyled">
                 <li className="mb-2">
                   <Link
