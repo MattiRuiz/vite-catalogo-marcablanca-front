@@ -5,7 +5,7 @@ function Footer() {
     <Container fluid>
       <Row className="text-center py-3 text-white">
         <Col>
-          <p className="label-marca">
+          <p className="texto-14">
             Creado por <strong>Soluciones tecnológicas</strong>
           </p>
         </Col>
