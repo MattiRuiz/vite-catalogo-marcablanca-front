@@ -21,16 +21,12 @@ function ListaPrecio() {
     setGanancia(e.target.value)
   }
   const handleShowGanacia = (e) => {
-    console.log(e.target.checked)
     setShowGanancia(e.target.checked)
-    console.log(showGanancia)
   }
 
   const mostrarPrecios = () => {
     localStorage.setItem('ganancia', ganancia)
     localStorage.setItem('showGanancia', showGanancia)
-
-    console.log(showGanancia)
     setShow(false)
   }
   const dataSave = () => {
@@ -44,7 +40,6 @@ function ListaPrecio() {
     dataSave()
   }, [])
 
-  console.log(showGanancia)
   return (
     <Container fluid className="bg-white py-5">
       <Container className="py-4">
@@ -66,7 +61,7 @@ function ListaPrecio() {
                 Permite activar los precios en el catálogo. Indique un
                 porcentaje de ganancia que se aplicará a los precios mostrados.
               </Form.Label>
-              <Row className="align-items-center mb-3">
+              <Row className="align-items-center mb-2">
                 <Col xs={12} sm={6}>
                   <InputGroup>
                     <InputGroup.Text>%</InputGroup.Text>

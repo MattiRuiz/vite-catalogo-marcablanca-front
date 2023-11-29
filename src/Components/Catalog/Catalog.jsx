@@ -39,9 +39,9 @@ function Catalog() {
   let porcentual = 1.0
 
   if (showGanancia == true) {
-    const gananciaStr = localStorage.getItem('ganancia');
-    ganancia = JSON.parse(gananciaStr);
-    porcentual = (ganancia + 100) / 100;
+    const gananciaStr = localStorage.getItem('ganancia')
+    ganancia = JSON.parse(gananciaStr)
+    porcentual = (ganancia + 100) / 100
   }
   //#endregion
 
@@ -149,7 +149,7 @@ function Catalog() {
                         </Card.ImgOverlay>
                         <Card.Body className="pb-0">
                           <Card.Title>{producto.nombre}</Card.Title>
-                          <Card.Subtitle className="text-muted pb-3">
+                          <Card.Subtitle className="text-muted pb-3 fst-italic">
                             {producto.descripcion}
                           </Card.Subtitle>
                           {/* <>
