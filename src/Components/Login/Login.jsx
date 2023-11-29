@@ -59,7 +59,6 @@ function Login() {
       } else {
         const response = await loginCliente(data)
         const esAdmin = response.data.esAdmin
-        console.log('entra en el else', data)
 
         if (esAdmin === 0) {
           handleLogin(response.data)
