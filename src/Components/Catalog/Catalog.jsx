@@ -38,7 +38,7 @@ function Catalog() {
   let ganancia = 1
   let porcentual = 1.0
 
-  if (showGanancia == true) {
+  if (showGanancia == 'true') {
     const gananciaStr = localStorage.getItem('ganancia');
     ganancia = JSON.parse(gananciaStr);
     porcentual = (ganancia + 100) / 100;
@@ -152,13 +152,6 @@ function Catalog() {
                           <Card.Subtitle className="text-muted pb-3">
                             {producto.descripcion}
                           </Card.Subtitle>
-                          {/* <>
-                                <li key={index}>
-                                  <strong>{talla.tallas.nombre} - </strong>{' '}
-                                  {talla.tallas.dimensiones}: $
-                                  {parseInt(talla.precio) * porcentual}
-                                </li>
-                              </> */}
                           {producto.productos_tallas.map((talla, index) => (
                             <div key={index}>
                               <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
@@ -171,9 +164,13 @@ function Catalog() {
                                 <li className="text-muted">
                                   {talla.tallas.dimensiones}
                                 </li>
+                                {showGanancia == 'true' ? 
                                 <li className="fw-semibold">
-                                  ${parseInt(talla.precio) * porcentual}
+                                  ${Math.trunc(parseInt(talla.precio) * porcentual)}
                                 </li>
+                                :
+                                <>
+                                </>}
                               </ul>
                             </div>
                           ))}
