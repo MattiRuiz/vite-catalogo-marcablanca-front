@@ -33,10 +33,16 @@ function ListaPrecio() {
     setShow(false)
   }
   const dataSave = () => {
-    setGanancia(localStorage.getItem('ganancia'))
-    setShowGanancia(
-      localStorage.getItem('showGanancia').toLowerCase?.() === 'true'
-    )
+    const showGananciaCase = localStorage.getItem('showGanancia')
+    if(showGananciaCase != null){
+      setGanancia(localStorage.getItem('ganancia'))
+      setShowGanancia(showGananciaCase.toLowerCase?.() === 'true')
+    }
+    else{
+      localStorage.setItem('ganancia', 0)
+      localStorage.setItem('showGanancia', false)
+    }
+
     setShow(false)
   }
   useEffect(() => {
