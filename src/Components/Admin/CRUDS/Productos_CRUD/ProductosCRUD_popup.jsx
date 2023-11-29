@@ -80,7 +80,7 @@ const ProductosCRUD_popup = ({
         setAlertHeader('Producto actualizado')
         setAlertMessage('El producto ha sido actualizada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     } else {
       const response = await createProducto(formDataForAPI)
@@ -96,7 +96,7 @@ const ProductosCRUD_popup = ({
         setAlertHeader('Producto creado')
         setAlertMessage('El producto ha sido creado con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     }
     onProductoUpdated()

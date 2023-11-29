@@ -68,7 +68,7 @@ const TallasCRUD_popup = ({
         setAlertHeader('Tipo de producto actualizado')
         setAlertMessage('El tipo de producto ha sido actualizada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     } else {
       const response = await createTipoProducto(formDataForAPI)
@@ -84,7 +84,7 @@ const TallasCRUD_popup = ({
         setAlertHeader('Tipo de producto creado')
         setAlertMessage('El tipo de producto ha sido creado con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     }
     onTipoProductoUpdated()

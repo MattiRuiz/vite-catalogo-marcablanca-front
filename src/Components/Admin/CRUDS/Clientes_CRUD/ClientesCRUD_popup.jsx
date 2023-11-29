@@ -62,7 +62,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
         setAlertHeader('Cliente actualizado')
         setAlertMessage('El cliente ha sido actualizado con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     } else {
       const response = await createCliente(dataToSend)
@@ -78,7 +78,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
         setAlertHeader('Cliente creado')
         setAlertMessage('El cliente ha sido creado con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     }
     onClienteUpdated()

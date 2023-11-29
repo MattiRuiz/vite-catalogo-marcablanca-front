@@ -53,7 +53,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
         setAlertHeader('Marca actualizada')
         setAlertMessage('La marca ha sido actualizada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     } else {
       const response = await createMarca(dataToSend)
@@ -69,7 +69,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
         setAlertHeader('Marca creada')
         setAlertMessage('La marca ha sido creada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     }
     onClienteUpdated()

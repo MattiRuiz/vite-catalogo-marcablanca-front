@@ -1,42 +1,54 @@
-import { useState } from "react";
-import { Offcanvas, Modal, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from 'react'
+import { Offcanvas, Modal, Button } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 
 function MenuLoged({ close }) {
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
+  const [show, setShow] = useState(false)
+  const navigate = useNavigate()
+  const [user, setUser] = useState(false)
 
   const handleClose = () => {
-    setShow(false);
-  };
+    setShow(false)
+  }
   const handleShow = () => {
-    setShow(true);
-  };
+    setShow(true)
+  }
 
   const logout = () => {
-    navigate("/");
-    setShow(false);
-    close();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userData');
-  };
+    navigate('/')
+    setShow(false)
+    close()
+    localStorage.removeItem('token')
+    localStorage.removeItem('userData')
+  }
+
+  useEffect(() => {
+    const typeUser = JSON.parse(localStorage.getItem('userData'))
+    if (typeUser.esAdmin == 1) {
+      console.log('es admin', typeUser.esAdmin)
+      setUser(true)
+    } else {
+      console.log('no es admin', typeUser.esAdmin)
+      setUser(false)
+    }
+  }, [])
+
   return (
     <>
       <Offcanvas.Body>
         <ul className="list-unstyled">
           <li className="mb-3">
-            <Link to={"/"} onClick={close}>
+            <Link to={'/'} onClick={close}>
               Inicio
             </Link>
           </li>
           <li className="mb-3">
-            <Link to={"/welcome"} onClick={close}>
+            <Link to={'/welcome'} onClick={close}>
               Catálogo
             </Link>
           </li>
           <li className="mb-3">
-            <Link to={"/lista-precios"} onClick={close}>
+            <Link to={'/lista-precios'} onClick={close}>
               Lista de precios
             </Link>
           </li>
@@ -45,6 +57,18 @@ function MenuLoged({ close }) {
               <strong>Cerrar sesión</strong>
             </Link>
           </li>
+          {user ? (
+            <li className="mt-5">
+              <Button
+                as={Link}
+                to={'/admin'}
+                variant="secondary"
+                onClick={close}
+              >
+                Administrar
+              </Button>
+            </li>
+          ) : null}
         </ul>
       </Offcanvas.Body>
       <Modal show={show} onHide={handleClose} centered>
@@ -62,6 +86,6 @@ function MenuLoged({ close }) {
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
-export default MenuLoged;
+export default MenuLoged

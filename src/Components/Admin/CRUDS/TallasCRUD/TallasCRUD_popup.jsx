@@ -55,7 +55,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         setAlertHeader('Talla actualizada')
         setAlertMessage('La talla ha sido actualizada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     } else {
       const response = await createTalla(dataToSend)
@@ -71,7 +71,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         setAlertHeader('Talla creada')
         setAlertMessage('La talla ha sido creada con éxito')
         handleShowAlert()
-        setTimeout(() => closePopUp(), 3000)
+        setTimeout(() => closePopUp(), 2000)
       }
     }
     onTallaUpdated()
