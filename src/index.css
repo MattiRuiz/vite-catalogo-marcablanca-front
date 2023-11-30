@@ -144,6 +144,18 @@ p, li, a.btn {
   left: 30px
 }
 
+.form-control:focus {
+  box-shadow:none;
+}
+
+.accordion-button:focus{
+  box-shadow:none;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
 @media (min-width: 992px) {
   .offcanvas {
     width: 25% !important;

@@ -6,7 +6,15 @@ import {
 import { getAllTipoProductos } from '../../../../Functions/TipoProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 import ProductosPopUp from './ProductosCRUD_popup'
-import { Col, Button, Accordion, Image, Badge, Spinner } from 'react-bootstrap'
+import {
+  Col,
+  Button,
+  Accordion,
+  Image,
+  Badge,
+  Spinner,
+  Ratio,
+} from 'react-bootstrap'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -18,6 +26,14 @@ const ProductoCRUD = () => {
   const [popUp, setPopUp] = useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
   //#endregion
+
+  const [imagenErrors, setImagenErrors] = useState({})
+  const handleImageError = (productId) => {
+    setImagenErrors((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }))
+  }
 
   const [loading, setLoading] = useState(false)
 
@@ -87,11 +103,23 @@ const ProductoCRUD = () => {
                 </ul>
               </Accordion.Header>
               <Accordion.Body>
-                <Image
-                  fluid
-                  className="producto-preview me-3 mb-3"
-                  src={`${baseUrl}${producto.rutaImagen}`}
-                />
+                <Ratio aspectRatio="1x1" className="producto-preview me-3 mb-3">
+                  {imagenErrors[producto.id] ? (
+                    // Mostrar elemento alternativo en caso de error
+                    <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
+                      <p className="mb-0 color-grisclaro">
+                        <strong>Sin imágen</strong>
+                      </p>
+                    </div>
+                  ) : (
+                    <Image
+                      fluid
+                      className="object-fit-cover"
+                      src={`${baseUrl}${producto.rutaImagen}`}
+                      onError={() => handleImageError(producto.id)}
+                    />
+                  )}
+                </Ratio>
                 <ul className="list-unstyled">
                   <li>
                     <strong>Descripción: </strong>

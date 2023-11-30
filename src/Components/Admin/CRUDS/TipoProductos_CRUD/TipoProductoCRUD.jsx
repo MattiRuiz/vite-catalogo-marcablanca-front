@@ -4,7 +4,7 @@ import {
   deleteTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import { Col, Button, Accordion, Image, Spinner } from 'react-bootstrap'
+import { Col, Button, Accordion, Image, Spinner, Ratio } from 'react-bootstrap'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -14,6 +14,14 @@ const TipoProductoCRUD = () => {
   const [popUp, setPopUp] = useState(false)
   const [selectedTipoProducto, setSelectedTipoProducto] = useState(null)
   //#endregion
+
+  const [imagenErrors, setImagenErrors] = useState({})
+  const handleImageError = (productId) => {
+    setImagenErrors((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }))
+  }
 
   const [loading, setLoading] = useState(false)
 
@@ -68,11 +76,27 @@ const TipoProductoCRUD = () => {
           {tipoProductos.map((tipoProducto) => (
             <Accordion.Item eventKey={tipoProducto.id} key={tipoProducto.id}>
               <Accordion.Header>
-                <Image
-                  fluid
-                  className="tipoproducto-preview me-3"
-                  src={`${baseUrl}${tipoProducto.rutaImagen}`}
-                />
+                <Ratio
+                  aspectRatio="1x1"
+                  className="tipoproducto-preview me-3 rounded-circle"
+                >
+                  {imagenErrors[tipoProducto.id] ? (
+                    // Mostrar elemento alternativo en caso de error
+                    <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-circle text-center">
+                      <p className="texto-14 mb-0 color-grisclaro">
+                        <strong>Sin imágen</strong>
+                      </p>
+                    </div>
+                  ) : (
+                    <Image
+                      fluid
+                      className="object-fit-cover rounded-circle"
+                      src={`${baseUrl}${tipoProducto.rutaImagen}`}
+                      onError={() => handleImageError(tipoProducto.id)}
+                    />
+                  )}
+                </Ratio>
+
                 {tipoProducto.nombre}
               </Accordion.Header>
               <Accordion.Body>

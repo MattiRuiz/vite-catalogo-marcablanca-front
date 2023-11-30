@@ -136,6 +136,7 @@ function Catalog() {
                               </div>
                             ) : (
                               <Card.Img
+                                className="object-fit-cover"
                                 alt={producto.nombre}
                                 variant="top"
                                 src={baseUrl + producto.rutaImagen}
