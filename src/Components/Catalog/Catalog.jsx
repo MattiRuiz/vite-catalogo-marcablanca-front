@@ -11,6 +11,8 @@ import {
   Alert,
   Form,
   Placeholder,
+  Modal,
+  Image,
 } from 'react-bootstrap'
 import { getAllProductos } from '../../Functions/ProductosFunctions'
 import CardLoading from './CardLoading'
@@ -31,6 +33,15 @@ function Catalog() {
       ...prevErrors,
       [productId]: true,
     }))
+  }
+
+  //Modal
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [modalShow, setModalShow] = useState(false)
+
+  const showModal = (producto) => {
+    setSelectedProduct(producto)
+    setModalShow(true)
   }
 
   //#region GANANCIAS/PRECIOS
@@ -126,61 +137,63 @@ function Catalog() {
                         xl={3}
                         className="mb-4"
                       >
-                        <Card className="mb-3 h-100">
-                          <Ratio aspectRatio="4x3" className="fondo-imagen">
-                            {imagenErrors[producto.id] ? (
-                              <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                                <p className="mb-0 color-grisclaro">
-                                  <strong>Sin imágen</strong>
-                                </p>
-                              </div>
-                            ) : (
-                              <Card.Img
-                                className="object-fit-cover"
-                                alt={producto.nombre}
-                                variant="top"
-                                src={baseUrl + producto.rutaImagen}
-                                onError={() => handleImageError(producto.id)}
-                              />
-                            )}
-                          </Ratio>
-                          <Card.ImgOverlay>
-                            <Badge className="fs-6">
-                              {categoria.id + producto.id}
-                            </Badge>
-                          </Card.ImgOverlay>
-                          <Card.Body className="pb-0">
-                            <Card.Title>{producto.nombre}</Card.Title>
-                            <Card.Subtitle className="text-muted pb-3 fst-italic">
-                              {producto.descripcion}
-                            </Card.Subtitle>
-                            {producto.productos_tallas.map((talla, index) => (
-                              <div key={index}>
-                                <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
-                                  {talla.tallas.nombre}
-                                </p>
-                                <ul
-                                  key={index}
-                                  className="list-unstyled d-flex justify-content-between align-items-end"
-                                >
-                                  <li className="text-muted">
-                                    {talla.tallas.dimensiones}
-                                  </li>
-                                  {showGanancia == 'true' ? (
-                                    <li className="fw-semibold">
-                                      $
-                                      {Math.trunc(
-                                        parseInt(talla.precio) * porcentual
-                                      )}
+                        <Link onClick={() => showModal(producto)}>
+                          <Card className="mb-3 h-100">
+                            <Ratio aspectRatio="4x3" className="fondo-imagen">
+                              {imagenErrors[producto.id] ? (
+                                <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                                  <p className="mb-0 color-grisclaro">
+                                    <strong>Sin imágen</strong>
+                                  </p>
+                                </div>
+                              ) : (
+                                <Card.Img
+                                  className="object-fit-cover"
+                                  alt={producto.nombre}
+                                  variant="top"
+                                  src={baseUrl + producto.rutaImagen}
+                                  onError={() => handleImageError(producto.id)}
+                                />
+                              )}
+                            </Ratio>
+                            <Card.ImgOverlay>
+                              <Badge className="fs-6">
+                                {categoria.id + producto.id}
+                              </Badge>
+                            </Card.ImgOverlay>
+                            <Card.Body className="pb-0">
+                              <Card.Title>{producto.nombre}</Card.Title>
+                              <Card.Subtitle className="text-muted pb-3 fst-italic">
+                                {producto.descripcion}
+                              </Card.Subtitle>
+                              {producto.productos_tallas.map((talla, index) => (
+                                <div key={index}>
+                                  <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
+                                    {talla.tallas.nombre}
+                                  </p>
+                                  <ul
+                                    key={index}
+                                    className="list-unstyled d-flex justify-content-between align-items-end"
+                                  >
+                                    <li className="text-muted">
+                                      {talla.tallas.dimensiones}
                                     </li>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </ul>
-                              </div>
-                            ))}
-                          </Card.Body>
-                        </Card>
+                                    {showGanancia == 'true' ? (
+                                      <li className="fw-semibold">
+                                        $
+                                        {Math.trunc(
+                                          parseInt(talla.precio) * porcentual
+                                        )}
+                                      </li>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </ul>
+                                </div>
+                              ))}
+                            </Card.Body>
+                          </Card>
+                        </Link>
                       </Col>
                     ))}
                 </Row>
@@ -194,6 +207,25 @@ function Catalog() {
               No se han encontrado resultados para esta categoría
             </Alert>
           </Col>
+          <Modal show={modalShow} onHide={() => setModalShow(false)}>
+            <Modal.Header closeButton>
+              {selectedProduct && selectedProduct.nombre}
+            </Modal.Header>
+            <Modal.Body>
+              {selectedProduct && (
+                <Image
+                  src={baseUrl + selectedProduct.rutaImagen}
+                  alt={selectedProduct.nombre}
+                  fluid
+                />
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => setModalShow(false)}>
+                Cerrar
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Row>
       </Container>
     </Container>
