@@ -80,7 +80,7 @@ function Home() {
               <p>Suscribite a Marca Blanca y llevá tu catalogo en el celular</p>
             </Col>
             <Col xs={11}>
-              <Button as={Link} to={'/login'} variant="outline-primary">
+              <Button as={Link} to={'/welcome'}>
                 Ver catálogo
               </Button>
             </Col>

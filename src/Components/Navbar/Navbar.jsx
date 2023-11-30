@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Container, Row, Col, Image, Button, Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import MenuOffline from './MenuOffline'
+import LoginContext from '../../Context/LoginContext'
+
 import MenuLoged from './MenuLoged'
 import imageLogo from '../../Images/logo-marca.svg'
 
 function Navbar() {
-  const  auth  = localStorage.getItem('token')
+  const auth = localStorage.getItem('token')
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleOpen = () => setShow(true)
 
-  const [menu, setMenu] = useState()
+  const [menu, setMenu] = useState(false)
+  const { handleLogin } = useContext(LoginContext)
 
   useEffect(() => {
-    const close = () => handleClose()
-    if (auth ) {
-      setMenu(<MenuLoged close={close} />)
+    if (auth) {
+      setMenu(true)
     } else {
-      setMenu(<MenuOffline close={close} />)
+      setMenu(false)
     }
   }, [auth])
 
@@ -36,16 +37,22 @@ function Navbar() {
           </Link>
         </Col>
         <Col xs={6} className="d-flex align-items-center">
-          <Button className="d-block ms-auto" onClick={handleOpen}>
-            <span className="material-symbols-outlined">menu</span>
-          </Button>
+          {menu ? (
+            <Button className="d-block ms-auto" onClick={handleOpen}>
+              <span className="material-symbols-outlined">menu</span>
+            </Button>
+          ) : (
+            <Button as={Link} className="d-block ms-auto" to={'/login'}>
+              <span className="material-symbols-outlined">account_circle</span>
+            </Button>
+          )}
         </Col>
       </Row>
       <Offcanvas show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menú</Offcanvas.Title>
         </Offcanvas.Header>
-        {menu}
+        <MenuLoged close={close} />
       </Offcanvas>
     </Container>
   )

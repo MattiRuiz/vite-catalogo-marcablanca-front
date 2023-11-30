@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Offcanvas, Modal, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+
+import LoginContext from '../../Context/LoginContext'
 
 function MenuLoged({ close }) {
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
   const [user, setUser] = useState(false)
+  const { handleLogin } = useContext(LoginContext)
 
   const handleClose = () => {
     setShow(false)
@@ -20,15 +23,14 @@ function MenuLoged({ close }) {
     close()
     localStorage.removeItem('token')
     localStorage.removeItem('userData')
+    handleLogin({})
   }
 
   useEffect(() => {
     const typeUser = JSON.parse(localStorage.getItem('userData'))
     if (typeUser.esAdmin == 1) {
-      console.log('es admin', typeUser.esAdmin)
       setUser(true)
     } else {
-      console.log('no es admin', typeUser.esAdmin)
       setUser(false)
     }
   }, [])

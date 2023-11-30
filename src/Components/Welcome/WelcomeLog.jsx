@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react'
-import { Container, Row, Col, Image, Button, Ratio } from 'react-bootstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  Button,
+  Ratio,
+  Spinner,
+} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 function WelcomeLog() {
   const [clienteLista, setClienteLista] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
@@ -22,11 +31,14 @@ function WelcomeLog() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       try {
         const response = await getAllTipoProductos()
         setClienteLista(response.data)
       } catch (error) {
         console.error('Error al obtener los productos:', error)
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
@@ -46,6 +58,11 @@ function WelcomeLog() {
             </Button>
             <p>O seleccione una categoría para comenzar:</p>
           </Col>
+          {loading ? (
+            <Spinner className="my-5 d-block mx-auto" animation="border" />
+          ) : (
+            ''
+          )}
         </Row>
         <Row className="text-center pb-5 link-articulos justify-content-around">
           {clienteLista.map((producto) => (
@@ -68,14 +85,12 @@ function WelcomeLog() {
                     </p>
                   </div>
                 ) : (
-                  <div className="w-100 overflow-hidden">
-                    <Image
-                      src={baseUrl + producto.rutaImagen}
-                      className="rounded-circle"
-                      fluid
-                      onError={() => handleImageError(producto.id)}
-                    />
-                  </div>
+                  <Image
+                    src={baseUrl + producto.rutaImagen}
+                    className="rounded-circle"
+                    fluid
+                    onError={() => handleImageError(producto.id)}
+                  />
                 )}
               </Ratio>
               <h6 className="mt-2 mb-4">- {producto.nombre} -</h6>

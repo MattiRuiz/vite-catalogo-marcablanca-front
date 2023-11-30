@@ -19,6 +19,8 @@ function Login() {
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
   const [loading, setLoading] = useState(false)
+  const { handleLogin } = useContext(LoginContext)
+  const navigate = useNavigate()
 
   const [showAlert, setShowAlert] = useState(false)
   const handleShow = () => setShowAlert(true)
@@ -31,9 +33,6 @@ function Login() {
     event.preventDefault()
     dataSender()
   }
-  const { handleLogin } = useContext(LoginContext)
-
-  const navigate = useNavigate()
 
   const userNameHandler = (e) => {
     setUserName(e.target.value)
