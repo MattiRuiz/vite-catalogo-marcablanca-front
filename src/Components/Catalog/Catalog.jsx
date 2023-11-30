@@ -207,7 +207,7 @@ function Catalog() {
               No se han encontrado resultados para esta categoría
             </Alert>
           </Col>
-          <Modal show={modalShow} onHide={() => setModalShow(false)}>
+          <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
             <Modal.Header closeButton>
               {selectedProduct && selectedProduct.nombre}
             </Modal.Header>
