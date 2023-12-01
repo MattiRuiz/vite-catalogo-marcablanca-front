@@ -28,6 +28,7 @@ const ProductoCRUD = () => {
   const [categorias, setCategorias] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
+  const [selectedCategoria, setSelectedCategoria] = useState()
   //#endregion
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -61,19 +62,11 @@ const ProductoCRUD = () => {
 
   useEffect(() => {
     fetchData()
-    const getPrueba = async () => {
-      try {
-        const pruebaResponse = await getAllProductos()
-        console.log(pruebaResponse.data)
-      } catch (e) {
-        console.log('lola amiguito', e)
-      }
-    }
-    getPrueba()
   }, [])
   //#endregion
 
-  const openPopup = (producto) => {
+  const openPopup = (producto, IDcategoria) => {
+    setSelectedCategoria(IDcategoria)
     setSelectedProducto(producto)
     setPopUp(true)
   }
@@ -107,7 +100,6 @@ const ProductoCRUD = () => {
             <Col key={categoria.id} xs={12} className="mb-1">
               <h3 className="mt-4 mb-0 text-white">{categoria.nombre}</h3>
               <Row>
-                {console.log(categorias)}
                 {categoria.productos.map((producto) => (
                   <Col key={producto.id} xs={12} md={6}>
                     <Accordion className="mt-3">
@@ -158,7 +150,7 @@ const ProductoCRUD = () => {
                             variant="warning"
                             size="sm"
                             className="me-1"
-                            onClick={() => openPopup(producto)}
+                            onClick={() => openPopup(producto, categoria.id)}
                           >
                             Editar
                           </Button>
@@ -222,96 +214,6 @@ const ProductoCRUD = () => {
               </Row>
             </Col>
           ))}
-          {/* {productos.map((producto) => (
-            <Col xs={12} md={6}>
-              <Accordion className="mt-3" key={producto.id}>
-                <Accordion.Item eventKey={producto.id} key={producto.id}>
-                  <Accordion.Header>
-                    <Badge className="me-3">{producto.id}</Badge>{' '}
-                    <ul className="list-unstyled mb-0">
-                      <li className="texto-14">{producto.marcas.nombre}</li>
-                      <li>
-                        <strong>{producto.nombre}</strong>
-                      </li>
-                    </ul>
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <Ratio
-                      aspectRatio="1x1"
-                      className="producto-preview me-3 mb-3"
-                    >
-                      {imagenErrors[producto.id] ? (
-                        // Mostrar elemento alternativo en caso de error
-                        <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
-                          <p className="mb-0 color-grisclaro">
-                            <strong>Sin imágen</strong>
-                          </p>
-                        </div>
-                      ) : (
-                        <Image
-                          fluid
-                          className="object-fit-cover"
-                          src={`${baseUrl}${producto.rutaImagen}`}
-                          onError={() => handleImageError(producto.id)}
-                        />
-                      )}
-                    </Ratio>
-                    <ul className="list-unstyled">
-                      <li>
-                        <strong>Descripción: </strong>
-                        {producto.descripcion}
-                      </li>
-                      <li>
-                        <strong>Categoría: </strong>
-                        {producto.tipo_producto.nombre}
-                      </li>
-                    </ul>
-                    <Button
-                      variant="warning"
-                      size="sm"
-                      className="me-1"
-                      onClick={() => openPopup(producto)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleDelete(producto.id)}
-                    >
-                      Borrar
-                    </Button>
-
-                    <Row className="mt-4">
-                      <h6 className="mb-2 fw-bold">Medidas:</h6>
-                      <Col xs="12" className="border rounded p-3">
-                        <ul className="list-unstyled d-flex justify-content-between align-items-center mb-1 border-bottom">
-                          <li className="mb-1 text-uppercase fw-bold text-gray">
-                            <Form>
-                              <Form.Check type="checkbox" label="1 1/2 plaza" />
-                            </Form>
-                          </li>
-
-                          <li className="mb-2">
-                            <Button variant="danger" size="sm">
-                              <span class="material-symbols-outlined">
-                                delete
-                              </span>
-                            </Button>
-                          </li>
-                        </ul>
-                        <ul className="list-unstyled d-flex justify-content-between align-items-end mb-0">
-                          <li className="text-muted">140x190x30cm</li>
-
-                          <li className="fw-semibold">$15.000</li>
-                        </ul>
-                      </Col>
-                    </Row>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </Col>
-          ))} */}
         </Row>
 
         {loading ? (
@@ -331,6 +233,7 @@ const ProductoCRUD = () => {
             producto={selectedProducto}
             marcas={marcas}
             categorias={categorias}
+            selectedCategoria={selectedCategoria}
             onProductoUpdated={() => fetchData()}
             closePopUp={() => setPopUp(false)}
           />

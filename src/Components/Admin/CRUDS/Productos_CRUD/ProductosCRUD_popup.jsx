@@ -9,6 +9,7 @@ const ProductosCRUD_popup = ({
   producto,
   categorias,
   marcas,
+  selectedCategoria,
   onProductoUpdated,
   closePopUp,
 }) => {
@@ -42,6 +43,7 @@ const ProductosCRUD_popup = ({
         descripcion: producto.descripcion || '',
         imagen: producto.imagen,
         marcasId: producto.marcas.id,
+        tipoProductoId: selectedCategoria,
         adminsId: 1,
       })
     }
