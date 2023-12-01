@@ -31,4 +31,17 @@ const deleteTallaProducto = async (id) => {
   }
 }
 
-export { deleteTallaProducto }
+const createProductoTalla = async (data) => {
+  try {
+    const respuesta = await axios({
+      url: `${baseUrl}/api/productosTallas`,
+      method: 'POST',
+      data: data,
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+export { deleteTallaProducto, createProductoTalla }
