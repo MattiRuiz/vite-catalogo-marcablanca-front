@@ -4,8 +4,8 @@ import {
   getAllProductos,
   deleteProducto,
 } from '../../../../Functions/ProductosFunctions'
-import { getAllTipoProductos } from '../../../../Functions/TipoProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
+import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
 import ProductosPopUp from './ProductosCRUD_popup'
 import {
   Col,
@@ -84,6 +84,17 @@ const ProductoCRUD = () => {
     fetchData()
   }
   //#endregion
+
+  const deleteProductoTalla = async (idProductoTalla) => {
+    try {
+      console.log('idproductotalla', idProductoTalla)
+      const response = await deleteTallaProducto(idProductoTalla)
+      console.log('Borrada la talla producto', response)
+    } catch (e) {
+      console.log('Error al borrar un producto-talla', e)
+    }
+    fetchData()
+  }
 
   return (
     <>
@@ -179,12 +190,18 @@ const ProductoCRUD = () => {
                                         <Form.Check
                                           type="checkbox"
                                           label={talla.tallas.nombre}
+                                          value={talla.stock}
                                         />
                                       </Form>
                                     </li>
-
                                     <li className="mb-2">
-                                      <Button variant="danger" size="sm">
+                                      <Button
+                                        variant="danger"
+                                        size="sm"
+                                        onClick={() =>
+                                          deleteProductoTalla(talla.id)
+                                        }
+                                      >
                                         <span class="material-symbols-outlined">
                                           delete
                                         </span>
@@ -195,7 +212,6 @@ const ProductoCRUD = () => {
                                     <li className="text-muted">
                                       {talla.tallas.dimensiones}
                                     </li>
-
                                     <li className="fw-semibold">
                                       ${talla.precio}
                                     </li>
