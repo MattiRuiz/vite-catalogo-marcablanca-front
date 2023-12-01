@@ -64,7 +64,7 @@ function WelcomeLog() {
             ''
           )}
         </Row>
-        <Row className="text-center pb-5 link-articulos justify-content-around">
+        <Row className="text-center pb-5 link-articulos justify-content-center">
           {clienteLista.map((producto) => (
             <Col
               key={producto.id}
