@@ -31,7 +31,7 @@ const deleteTallaProducto = async (id) => {
   }
 }
 
-const createProductoTalla = async (data) => {
+const createTallaProducto = async (data) => {
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas`,
@@ -44,4 +44,4 @@ const createProductoTalla = async (data) => {
   }
 }
 
-export { deleteTallaProducto, createProductoTalla }
+export { deleteTallaProducto, createTallaProducto }

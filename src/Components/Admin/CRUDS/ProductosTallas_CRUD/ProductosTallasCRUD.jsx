@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Col, Form, Button } from 'react-bootstrap'
 
-import {
-  getAllProductosSinTallas,
-  createProductoTalla,
-} from '../../../../Functions/ProductosFunctions.jsx'
+import { getAllProductosSinTallas } from '../../../../Functions/ProductosFunctions.jsx'
 import { getAllTallas } from '../../../../Functions/TallasFunctions.jsx'
 
 const ProductosTallasCRUD = () => {

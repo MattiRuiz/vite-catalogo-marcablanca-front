@@ -173,7 +173,7 @@ const ProductoCRUD = () => {
                             Borrar
                           </Button>
 
-                          <Row className="mt-4">
+                          <Row className="mt-4 border-top pt-4">
                             <h6 className="mb-2 fw-bold">Medidas:</h6>
 
                             {producto.productos_tallas &&
@@ -219,8 +219,17 @@ const ProductoCRUD = () => {
                                 </Col>
                               ))
                             ) : (
-                              <p>No hay tallas disponibles</p>
+                              <p className="fst-italic texto-14">
+                                Este producto no tiene tallas creadas, por favor
+                                cree una para que sea mostrado en el catálogo.
+                              </p>
                             )}
+                            <Button
+                              className="w-100"
+                              variant="outline-secondary"
+                            >
+                              + Agregar talla
+                            </Button>
                           </Row>
                         </Accordion.Body>
                       </Accordion.Item>

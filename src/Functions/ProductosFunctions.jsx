@@ -84,7 +84,6 @@ export {
   getAllProductos,
   getAllProductosSinTallas,
   getProductosPorCategoria,
-  createProductoTalla,
   createProducto,
   updateProducto,
   getOneProducto,
