@@ -19,6 +19,8 @@ import {
   Form,
 } from 'react-bootstrap'
 
+import TallaProductoCreate_popup from './TallaProductosCreate_popup'
+
 const baseUrl = import.meta.env.VITE_NAME
 
 const ProductoCRUD = () => {
@@ -27,8 +29,10 @@ const ProductoCRUD = () => {
   const [marcas, setMarcas] = useState([])
   const [categorias, setCategorias] = useState([])
   const [popUp, setPopUp] = useState(false)
+  const [popUpTalla, setPopUpTalla] = useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
   const [selectedCategoria, setSelectedCategoria] = useState()
+  const [selectedIdProducto, setSelectedIdProducto] = useState()
   //#endregion
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -71,6 +75,11 @@ const ProductoCRUD = () => {
     setPopUp(true)
   }
   //#endregion
+
+  const openPopupTalla = (idProducto) => {
+    setSelectedIdProducto(idProducto)
+    setPopUpTalla(true)
+  }
 
   //#region Handle elminar cliente
   const handleDelete = async (idProducto) => {
@@ -219,7 +228,7 @@ const ProductoCRUD = () => {
                                 </Col>
                               ))
                             ) : (
-                              <p className="fst-italic texto-14">
+                              <p className="fst-italic texto-14 mb-4 mt-2">
                                 Este producto no tiene tallas creadas, por favor
                                 cree una para que sea mostrado en el catálogo.
                               </p>
@@ -227,8 +236,9 @@ const ProductoCRUD = () => {
                             <Button
                               className="w-100"
                               variant="outline-secondary"
+                              onClick={() => openPopupTalla(producto.id)}
                             >
-                              + Agregar talla
+                              + Agregar medida
                             </Button>
                           </Row>
                         </Accordion.Body>
@@ -267,6 +277,15 @@ const ProductoCRUD = () => {
         )
         //#endregion
       }
+      {popUpTalla ? (
+        <TallaProductoCreate_popup
+          producto={selectedIdProducto}
+          onProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUpTalla(false)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

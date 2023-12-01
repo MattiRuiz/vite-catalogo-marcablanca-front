@@ -32,6 +32,7 @@ const deleteTallaProducto = async (id) => {
 }
 
 const createTallaProducto = async (data) => {
+  console.log('entra a la función', data)
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas`,
