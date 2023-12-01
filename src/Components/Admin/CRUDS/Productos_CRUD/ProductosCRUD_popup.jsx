@@ -42,7 +42,6 @@ const ProductosCRUD_popup = ({
         descripcion: producto.descripcion || '',
         imagen: producto.imagen,
         marcasId: producto.marcas.id,
-        tipoProductoId: producto.tipo_producto.id,
         adminsId: 1,
       })
     }
@@ -65,6 +64,7 @@ const ProductosCRUD_popup = ({
     formDataForAPI.append('admins_id', dataToSend.adminsId)
 
     if (producto) {
+      console.log(producto)
       const id = producto.id
 
       const response = await updateProducto(id, formDataForAPI)

@@ -107,6 +107,7 @@ const ProductoCRUD = () => {
             <Col key={categoria.id} xs={12} className="mb-1">
               <h3 className="mt-4 mb-0 text-white">{categoria.nombre}</h3>
               <Row>
+                {console.log(categorias)}
                 {categoria.productos.map((producto) => (
                   <Col key={producto.id} xs={12} md={6}>
                     <Accordion className="mt-3">
