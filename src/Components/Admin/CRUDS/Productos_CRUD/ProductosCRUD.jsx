@@ -45,6 +45,8 @@ const ProductoCRUD = () => {
 
   const [loading, setLoading] = useState(false)
 
+  const [loadingDelete, setLoadingDelete] = useState({})
+
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     setLoading(true)
@@ -96,13 +98,23 @@ const ProductoCRUD = () => {
 
   const deleteProductoTalla = async (idProductoTalla) => {
     try {
-      console.log('idproductotalla', idProductoTalla)
+      setLoadingDelete((prevLoading) => ({
+        ...prevLoading,
+        [idProductoTalla]: true,
+      }))
+
       const response = await deleteTallaProducto(idProductoTalla)
-      console.log('Borrada la talla producto', response)
+      console.log('Producto-talla eliminado', response)
     } catch (e) {
       console.log('Error al borrar un producto-talla', e)
+    } finally {
+      setLoadingDelete((prevLoading) => ({
+        ...prevLoading,
+        [idProductoTalla]: false,
+      }))
+
+      fetchData()
     }
-    fetchData()
   }
 
   return (
@@ -210,10 +222,20 @@ const ProductoCRUD = () => {
                                         onClick={() =>
                                           deleteProductoTalla(talla.id)
                                         }
+                                        disabled={loadingDelete[talla.id]}
                                       >
-                                        <span class="material-symbols-outlined">
-                                          delete
-                                        </span>
+                                        {loadingDelete[talla.id] ? (
+                                          <Spinner
+                                            animation="border"
+                                            variant="light"
+                                            size="sm"
+                                            className="my-1"
+                                          />
+                                        ) : (
+                                          <span className="material-symbols-outlined">
+                                            delete
+                                          </span>
+                                        )}
                                       </Button>
                                     </li>
                                   </ul>

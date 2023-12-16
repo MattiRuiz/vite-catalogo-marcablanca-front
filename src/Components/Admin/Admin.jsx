@@ -7,7 +7,6 @@ import TipoProductoCRUD from './CRUDS/TipoProductos_CRUD/TipoProductoCRUD'
 import MarcasCRUD from './CRUDS/Marcas_CRUD/MarcasCRUD'
 import ProductosCRUD from './CRUDS/Productos_CRUD/ProductosCRUD'
 import ClientesCRUD from './CRUDS/Clientes_CRUD/ClientesCRUD'
-import ProductosTallasCRUD from './CRUDS/ProductosTallas_CRUD/ProductosTallasCRUD'
 import NotFound from '../404/NotFund'
 
 const Admin = () => {
@@ -64,14 +63,6 @@ const Admin = () => {
                     Clientes
                   </Link>
                 </li>
-                <li className="mb-2">
-                  <Link
-                    className="text-white fw-medium"
-                    onClick={() => setSelectedEntity('productosTallas')}
-                  >
-                    Productos tallas
-                  </Link>
-                </li>
               </ul>
             </Col>
             <Col xs={12} lg={10}>
@@ -90,7 +81,6 @@ const Admin = () => {
                   <option value="marcas">Marcas</option>
                   <option value="productos">Productos</option>
                   <option value="clientes">Clientes</option>
-                  <option value="productosTallas">Productos-Tallas</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -100,7 +90,6 @@ const Admin = () => {
               {selectedEntity === 'marcas' && <MarcasCRUD />}
               {selectedEntity === 'productos' && <ProductosCRUD />}
               {selectedEntity === 'clientes' && <ClientesCRUD />}
-              {selectedEntity === 'productosTallas' && <ProductosTallasCRUD />}
             </Col>
           </Row>
         </Container>

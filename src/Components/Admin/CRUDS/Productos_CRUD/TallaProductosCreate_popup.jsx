@@ -13,6 +13,19 @@ const TallaProductoCreate_popup = ({
   const [stock, setStock] = useState()
   const [tallas, setTallas] = useState({})
 
+  const [showAlert, setShowAlert] = useState(false)
+  const handleShowAlert = () => setShowAlert(true)
+  const handleCloseAlert = () => setShowAlert(false)
+  const [loading, setLoading] = useState(false)
+
+  const [alertVariant, setAlertVariant] = useState('danger')
+  const alertDanger = () => setAlertVariant('danger')
+  const alertSuccess = () => setAlertVariant('success')
+  const [alertMessage, setAlertMessage] = useState(
+    'Ha ocurrido un error, por favor intente más tarde'
+  )
+  const [alertHeader, setAlertHeader] = useState('Error')
+
   const handleStock = (e) => {
     if (e.target.checked) {
       setStock('1')
@@ -34,6 +47,7 @@ const TallaProductoCreate_popup = ({
   }, [])
 
   const createMedidaProducto = async () => {
+    setLoading(true)
     const newMedidaProducto = {
       precio: precio,
       tallas_id: talla,
@@ -43,10 +57,19 @@ const TallaProductoCreate_popup = ({
 
     try {
       const response = await createTallaProducto(newMedidaProducto)
-      if (response) {
-        console.log('respuesta llena', response)
+      setLoading(false)
+      if (!response) {
+        alertDanger()
+        setAlertHeader('Error')
+        setAlertMessage('Hubo un problema al crear una medida')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
       } else {
-        console.log('respuesta vacia', response)
+        alertSuccess()
+        setAlertHeader('Medida producto creada')
+        setAlertMessage('La medida ha sido creada con éxito')
+        handleShowAlert()
+        setTimeout(() => closePopUp(), 2000)
       }
     } catch (e) {
       console.log('Error al crear una talla producto', e)
@@ -97,6 +120,23 @@ const TallaProductoCreate_popup = ({
             onChange={handleStock}
           />
         </Form>
+        {loading ? (
+          <Spinner className="my-3 d-block mx-auto" animation="border" />
+        ) : (
+          ''
+        )}
+        <Alert
+          variant={alertVariant}
+          className="mt-3 mb-0"
+          onClose={handleCloseAlert}
+          show={showAlert}
+          dismissible
+        >
+          <Alert.Heading className="fs-6">
+            <strong>{alertHeader}</strong>
+          </Alert.Heading>
+          {alertMessage}
+        </Alert>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => closePopUp()}>
