@@ -1,18 +1,18 @@
-import { Routes, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Routes, Route } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-import Navbar from "./Components/Navbar/Navbar";
-import Footer from "./Components/Footer/Footer";
+import Navbar from './Components/Navbar/Navbar'
+import Footer from './Components/Footer/Footer'
 
-import Home from "./Components/Home/Home";
-import Login from "./Components/Login/Login";
-import Welcome from "./Components/Welcome/Welcome";
-import Catalog from "./Components/Catalog/Catalog";
-import ListaPrecio from "./Components/ListaPrecio/ListaPrecio";
-import Admin from "./Components/Admin/Admin";
-import NotFound from "./Components/404/NotFund";
+import Home from './Components/Home/Home'
+import Login from './Components/Login/Login'
+import Welcome from './Components/Welcome/Welcome'
+import Catalog from './Components/Catalog/Catalog'
+import ListaPrecio from './Components/ListaPrecio/ListaPrecio'
+import Admin from './Components/Admin/Admin'
+import NotFound from './Components/404/NotFund'
 
 function App() {
   return (
@@ -86,7 +86,7 @@ function App() {
       </Routes>
       <Footer />
     </Container>
-  );
+  )
 }
 
-export default App;
+export default App

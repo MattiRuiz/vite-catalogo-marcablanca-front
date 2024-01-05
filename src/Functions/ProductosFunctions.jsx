@@ -80,6 +80,11 @@ const deleteProducto = async (id, data) => {
   }
 }
 
+const getAllImages = async (id) => {
+  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${id}`)
+  return respuesta
+}
+
 export {
   getAllProductos,
   getAllProductosSinTallas,
@@ -88,4 +93,5 @@ export {
   updateProducto,
   getOneProducto,
   deleteProducto,
+  getAllImages,
 }
