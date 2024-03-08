@@ -42,8 +42,13 @@ function Navbar() {
               <span className="material-symbols-outlined">menu</span>
             </Button>
           ) : (
-            <Button as={Link} className="d-block ms-auto" to={'/login'}>
-              <span className="material-symbols-outlined">account_circle</span>
+            <Button
+              variant="outline-light"
+              as={Link}
+              className="d-block ms-auto"
+              to={'/login'}
+            >
+              Ingresar
             </Button>
           )}
         </Col>
@@ -52,7 +57,7 @@ function Navbar() {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menú</Offcanvas.Title>
         </Offcanvas.Header>
-        <MenuLoged close={close} />
+        <MenuLoged close={handleClose} />
       </Offcanvas>
     </Container>
   )

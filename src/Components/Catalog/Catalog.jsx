@@ -13,6 +13,7 @@ import {
   Placeholder,
   Modal,
   Image,
+  Badge,
 } from 'react-bootstrap'
 import {
   getAllProductos,
@@ -80,7 +81,6 @@ function Catalog() {
       try {
         const response = await getAllProductos() // Ajusta según tu API
         setCategorias(response.data)
-        if (!response.data.length) handleShow()
       } catch (e) {
         console.error(e.message)
       } finally {
@@ -90,8 +90,6 @@ function Catalog() {
     fetchData()
     setSelectedCategory(id)
   }, [])
-
-  const handleShow = () => setShowAlert(true)
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value === 'all' ? null : e.target.value)
@@ -138,8 +136,7 @@ function Catalog() {
           {categorias
             .filter(
               (categoria) =>
-                (!selectedCategory || categoria.id == selectedCategory) &&
-                categoria.productos.length > 0
+                !selectedCategory || categoria.id == selectedCategory
             )
             .map((categoria) => (
               <Col key={categoria.id} xs={12} className="mb-1">
@@ -175,12 +172,10 @@ function Catalog() {
                                 />
                               )}
                             </Ratio>
-                            {/* <Card.ImgOverlay>
-                              <Badge className="fs-6">
-                                {categoria.id + producto.id}
-                              </Badge>
-                            </Card.ImgOverlay> */}
                             <Card.Body className="pb-0">
+                              <Badge className="texto-14 mb-2">
+                                {producto.marcas.nombre}
+                              </Badge>
                               <Card.Title>{producto.nombre}</Card.Title>
                               <Card.Subtitle className="text-muted pb-3 fst-italic">
                                 {producto.descripcion}

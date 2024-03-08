@@ -47,13 +47,13 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar la talla')
+        setAlertMessage('Hubo un problema al querer actualizar la medida')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
-        setAlertHeader('Talla actualizada')
-        setAlertMessage('La talla ha sido actualizada con éxito')
+        setAlertHeader('Medida actualizada')
+        setAlertMessage('La medida ha sido actualizada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
       }
@@ -63,13 +63,13 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear una talla nueva')
+        setAlertMessage('Hubo un problema al crear una medida nueva')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
-        setAlertHeader('Talla creada')
-        setAlertMessage('La talla ha sido creada con éxito')
+        setAlertHeader('Medida creada')
+        setAlertMessage('La medida ha sido creada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
       }
@@ -92,14 +92,14 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     <Modal show={true} onHide={closePopUp} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          {talla ? <h4>Editar talla</h4> : <h4>Añadir talla</h4>}
+          {talla ? <h4>Editar medida</h4> : <h4>Añadir medida</h4>}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Nombre de la talla:</Form.Label>
+            <Form.Label>Nombre de la medida:</Form.Label>
             <Form.Control
               type="text"
               className="mb-3"

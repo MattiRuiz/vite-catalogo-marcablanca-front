@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Offcanvas, Modal, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
-import LoginContext from '../../Context/LoginContext'
+//import LoginContext from '../../Context/LoginContext'
 
 function MenuLoged({ close }) {
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
   const [user, setUser] = useState(false)
-  const { handleLogin } = useContext(LoginContext)
+  //const { handleLogin } = useContext(LoginContext)
 
   const handleClose = () => {
     setShow(false)
@@ -23,7 +23,7 @@ function MenuLoged({ close }) {
     close()
     localStorage.removeItem('token')
     localStorage.removeItem('userData')
-    handleLogin({})
+    //handleLogin({})
   }
 
   useEffect(() => {
@@ -50,8 +50,8 @@ function MenuLoged({ close }) {
             </Link>
           </li>
           <li className="mb-3">
-            <Link to={'/lista-precios'} onClick={close}>
-              Lista de precios
+            <Link to={'/configuracion'} onClick={close}>
+              Panel de control
             </Link>
           </li>
           <li className="mb-3">

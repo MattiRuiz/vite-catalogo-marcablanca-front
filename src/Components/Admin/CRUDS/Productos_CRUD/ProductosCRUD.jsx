@@ -130,7 +130,9 @@ const ProductoCRUD = () => {
         <Row>
           {categorias.map((categoria) => (
             <Col key={categoria.id} xs={12} className="mb-1">
-              <h3 className="mt-4 mb-0 text-white">{categoria.nombre}</h3>
+              <h3 className="mt-4 mb-0 pb-2 text-white border-bottom">
+                {categoria.nombre}
+              </h3>
               <Row>
                 {categoria.productos.map((producto) => (
                   <Col key={producto.id} xs={12} md={6}>
@@ -141,7 +143,9 @@ const ProductoCRUD = () => {
                             {categoria.id + producto.id}
                           </Badge>{' '}
                           <ul className="list-unstyled mb-0">
-                            <li className="texto-14">marca</li>
+                            <li className="texto-14">
+                              {producto.marcas.nombre}
+                            </li>
                             <li>
                               <strong>{producto.nombre}</strong>
                             </li>

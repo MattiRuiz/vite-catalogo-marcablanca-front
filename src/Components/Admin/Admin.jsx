@@ -19,7 +19,7 @@ const Admin = () => {
   return (
     <>
       {auth === 1 ? (
-        <Container className="py-4">
+        <Container fluid className="py-4 bg-primario alto-container">
           <Row className="justify-content-end">
             <Col lg={2} className="d-none d-lg-flex fixed-top  margin-menu">
               <ul className="list-unstyled">
@@ -28,7 +28,7 @@ const Admin = () => {
                     className="text-white fw-medium"
                     onClick={() => setSelectedEntity('tallas')}
                   >
-                    Tallas
+                    Medidas
                   </Link>
                 </li>
                 <li className="mb-2">
@@ -76,7 +76,7 @@ const Admin = () => {
                   value={selectedEntity}
                   onChange={(e) => setSelectedEntity(e.target.value)}
                 >
-                  <option value="tallas">Tallas</option>
+                  <option value="tallas">Medidas</option>
                   <option value="tipo-producto">Tipo de Producto</option>
                   <option value="marcas">Marcas</option>
                   <option value="productos">Productos</option>

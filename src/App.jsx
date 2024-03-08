@@ -16,76 +16,78 @@ import NotFound from './Components/404/NotFund'
 
 function App() {
   return (
-    <Container fluid className="px-0">
+    <>
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Home />
-            </>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <>
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/welcome"
-          element={
-            <>
-              <Welcome />
-            </>
-          }
-        />
-        <Route
-          path="/catalogo"
-          element={
-            <>
-              <Catalog />
-            </>
-          }
-        />
-        <Route
-          path="/catalogo/:id"
-          element={
-            <>
-              <Catalog />
-            </>
-          }
-        />
-        <Route
-          path="/lista-precios"
-          element={
-            <>
-              <ListaPrecio />
-            </>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <>
-              <Admin />
-            </>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <>
-              <NotFound />
-            </>
-          }
-        />
-      </Routes>
+      <Container fluid className="px-0 bg-white alto-container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
+          <Route
+            path="/welcome"
+            element={
+              <>
+                <Welcome />
+              </>
+            }
+          />
+          <Route
+            path="/catalogo"
+            element={
+              <>
+                <Catalog />
+              </>
+            }
+          />
+          <Route
+            path="/catalogo/:id"
+            element={
+              <>
+                <Catalog />
+              </>
+            }
+          />
+          <Route
+            path="/configuracion"
+            element={
+              <>
+                <ListaPrecio />
+              </>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <>
+                <Admin />
+              </>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <>
+                <NotFound />
+              </>
+            }
+          />
+        </Routes>
+      </Container>
       <Footer />
-    </Container>
+    </>
   )
 }
 

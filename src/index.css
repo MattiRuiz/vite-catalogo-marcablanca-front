@@ -156,6 +156,10 @@ p, li, a.btn {
   object-fit: cover;
 }
 
+.alto-container {
+min-height: 80vh;
+}
+
 @media (min-width: 992px) {
   .offcanvas {
     width: 25% !important;

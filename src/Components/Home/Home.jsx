@@ -7,8 +7,12 @@ import catalogo from '../../Images/mockup_catalogo.png'
 function Home() {
   return (
     <Container fluid>
-      <Row className="text-center align-items-center">
-        <Col xs={12} lg={6} className="p-5 text-white">
+      <Row className="text-center">
+        <Col
+          xs={12}
+          lg={6}
+          className="p-5 text-white bg-primario d-flex flex-column justify-content-center"
+        >
           <h5 className="display-5">
             <strong>Mayorista textil</strong>
           </h5>
@@ -36,7 +40,7 @@ function Home() {
           xs={11}
           md={8}
           lg={6}
-          className="text-center py-5 text-white"
+          className="text-center py-5 text-white bg-primario"
           id="contacto"
         >
           <p className="fs-4">Encontranos en:</p>
