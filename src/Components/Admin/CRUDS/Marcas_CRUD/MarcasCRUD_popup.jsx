@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
-const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
+const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
@@ -37,7 +37,15 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
       ...marcaData,
     }
 
-    if (marca) {
+    if (!dataToSend.nombre) {
+      alertDanger()
+      setAlertHeader('Error')
+      setAlertMessage(
+        'Hay campos vacíos, por favor complete todos los datos para continuar.'
+      )
+      setLoading(false)
+      handleShowAlert()
+    } else if (marca) {
       const id = marca.id
 
       const response = await updateMarca(id, dataToSend)
@@ -54,6 +62,7 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
         setAlertMessage('La marca ha sido actualizada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onMarcaUpdated()
       }
     } else {
       const response = await createMarca(dataToSend)
@@ -70,9 +79,9 @@ const MarcasCRUD_popup = ({ marca, onClienteUpdated, closePopUp }) => {
         setAlertMessage('La marca ha sido creada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onMarcaUpdated()
       }
     }
-    onClienteUpdated()
   }
   //#endregion
 

@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Navbar from './Components/Navbar/Navbar'
-import Footer from './Components/Footer/Footer'
 
 import Home from './Components/Home/Home'
 import Login from './Components/Login/Login'
@@ -86,7 +85,6 @@ function App() {
           />
         </Routes>
       </Container>
-      <Footer />
     </>
   )
 }

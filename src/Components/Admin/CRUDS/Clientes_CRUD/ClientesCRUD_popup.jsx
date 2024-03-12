@@ -46,9 +46,21 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
       ...clienteData,
     }
 
-    if (cliente) {
+    if (
+      !dataToSend.nombre ||
+      !dataToSend.apellido ||
+      !dataToSend.username ||
+      !dataToSend.password
+    ) {
+      alertDanger()
+      setAlertHeader('Error')
+      setAlertMessage(
+        'Hay campos vacíos, por favor complete todos los datos para continuar.'
+      )
+      setLoading(false)
+      handleShowAlert()
+    } else if (cliente) {
       const id = cliente.id
-
       const response = await updateCliente(id, dataToSend)
       setLoading(false)
       if (!response) {
@@ -63,6 +75,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
         setAlertMessage('El cliente ha sido actualizado con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onClienteUpdated()
       }
     } else {
       const response = await createCliente(dataToSend)
@@ -79,9 +92,9 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
         setAlertMessage('El cliente ha sido creado con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onClienteUpdated()
       }
     }
-    onClienteUpdated()
   }
   //#endregion
 

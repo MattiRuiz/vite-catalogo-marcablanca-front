@@ -15,6 +15,8 @@ import loginCliente from '../../Functions/LoginFunctions'
 
 import catalogo from '../../Images/mockup_catalogo.png'
 
+import Footer from '../Footer/Footer'
+
 function Login() {
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
@@ -52,27 +54,33 @@ function Login() {
 
       if (!data.username || !data.password) {
         setAlertMessage(
-          'Hay campos vacios, por favor complete todos los datos.'
+          'Hay campos vacios, por favor complete todos los datos para continuar.'
         )
         handleShow()
       } else {
         const response = await loginCliente(data)
-        const esAdmin = response.data.esAdmin
+        const user = {
+          token: response.data.token,
+          userData: {
+            id: response.data.id,
+            esAdmin: response.data.esAdmin,
+            username: response.data.username,
+          },
+        }
 
-        if (esAdmin === 0) {
-          handleLogin(response.data)
+        if (user.userData.esAdmin === 0) {
+          handleLogin(user)
           navigate('/welcome')
-        } else if (esAdmin === 1) {
-          handleLogin(response.data)
+        } else if (user.userData.esAdmin === 1) {
+          handleLogin(user)
           navigate('/admin')
-        } else {
-          alert('Usuario o contraseña incorrectos.') //este else no está funcionando, entra directamente al catch
         }
       }
     } catch (error) {
-      setAlertMessage('Usuario o contraseña incorrectos')
+      setAlertMessage(
+        'Usuario o contraseña incorrectos. Por favor intente nuevamente.'
+      )
       handleShow()
-      console.error('Error:', error)
     } finally {
       setLoading(false)
     }
@@ -129,6 +137,7 @@ function Login() {
           </Col>
         </Row>
       </Form>
+      <Footer />
     </Container>
   )
 }

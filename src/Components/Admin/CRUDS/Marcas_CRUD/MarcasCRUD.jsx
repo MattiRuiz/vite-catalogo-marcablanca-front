@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react'
+import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+
 import {
   getAllMarcas,
   deleteMarca,
 } from '../../../../Functions/MarcasFunctions'
+
 import MarcasPopUp from './MarcasCRUD_popup'
-import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+import PopUpBorrarMarca from './PopUpBorrarMarca'
 
 const MarcasCRUD = () => {
   //#region Declaracion useState's
   const [marcas, setMarcas] = useState([])
   const [popUp, setPopUp] = useState(false)
+  const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedMarca, setSelectedMarca] = useState(null)
   //#endregion
 
@@ -38,6 +42,11 @@ const MarcasCRUD = () => {
     setPopUp(true)
   }
   //#endregion
+
+  const openPopUpBorrar = (marca) => {
+    setSelectedMarca(marca)
+    setPopUpBorrar(true)
+  }
 
   //#region Handle elminar cliente
   const handleDelete = async (idMarca) => {
@@ -78,7 +87,7 @@ const MarcasCRUD = () => {
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(marca.id)}
+                  onClick={() => openPopUpBorrar(marca)}
                 >
                   Borrar
                 </Button>
@@ -101,7 +110,7 @@ const MarcasCRUD = () => {
         popUp ? (
           <MarcasPopUp
             marca={selectedMarca}
-            onClienteUpdated={() => fetchData()}
+            onMarcaUpdated={() => fetchData()}
             closePopUp={() => setPopUp(false)}
           />
         ) : (
@@ -109,6 +118,15 @@ const MarcasCRUD = () => {
         )
         //#endregion
       }
+      {popUpBorrar ? (
+        <PopUpBorrarMarca
+          marca={selectedMarca}
+          onMarcaUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrar(false)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

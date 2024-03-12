@@ -1,58 +1,69 @@
-import axios from "axios";
+import axios from 'axios'
 
-const baseUrl = import.meta.env.VITE_NAME;
+const baseUrl = import.meta.env.VITE_NAME
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
-});
+})
 
 // Interceptar las solicitudes para incluir el token de autorización en el encabezado
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
     if (token) {
-      config.headers['Authorization'] = `${token}`;
+      config.headers['Authorization'] = `${token}`
     }
-    return config;
+    return config
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
 )
 
+//Logout del admin si no tiene token
+const clearData = () => {
+  try {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userData')
+    return 'success'
+  } catch (e) {
+    console.log('clearData error', e)
+  }
+}
+
 const getAllClientes = async () => {
-    const respuesta = await axios.get(`${baseUrl}/api/clientes`)
-    return respuesta
+  const respuesta = await axios.get(`${baseUrl}/api/clientes`)
+  return respuesta
 }
 
 const getOneCliente = async (id) => {
-    const respuesta = await axios.get(`${baseUrl}/api/clientes/${id}`)
-    return respuesta;
+  const respuesta = await axios.get(`${baseUrl}/api/clientes/${id}`)
+  return respuesta
 }
 
 const createCliente = async (data) => {
-    try {
-      const response = await axios({
-        url: `${baseUrl}/api/clientes`,
-        method: "POST",
-        data: data
-      })
-      return response.data;
-    } catch (errors) {
-      console.log(errors);
-    }
+  try {
+    const response = await axios({
+      url: `${baseUrl}/api/clientes`,
+      method: 'POST',
+      data: data,
+    })
+    return response.data
+  } catch (errors) {
+    console.log(errors)
   }
+}
 
 const updateCliente = async (id, data) => {
   try {
     const response = await axios({
       url: `${baseUrl}/api/clientes/${id}`,
-      method: "PUT",
-      data: data
+      method: 'PUT',
+      data: data,
     })
-    return response;
+    return response
   } catch (errors) {
-    console.log(errors);
+    console.log(errors)
   }
 }
 
@@ -60,19 +71,20 @@ const deleteCliente = async (id, data) => {
   try {
     const response = await axios({
       url: `${baseUrl}/api/clientes/${id}`,
-      method: "DELETE",
-      data: data
+      method: 'DELETE',
+      data: data,
     })
-    return response;
+    return response
   } catch (errors) {
-    console.log(errors);
+    console.log(errors)
   }
 }
-    
+
 export {
-    getAllClientes,
-    createCliente,
-    updateCliente,
-    getOneCliente,
-    deleteCliente
+  getAllClientes,
+  createCliente,
+  updateCliente,
+  getOneCliente,
+  deleteCliente,
+  clearData,
 }

@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
+import { Col, Button, Accordion, Image, Spinner, Ratio } from 'react-bootstrap'
+
 import {
   getAllTipoProductos,
   deleteTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
+
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import { Col, Button, Accordion, Image, Spinner, Ratio } from 'react-bootstrap'
+import PopUpBorrarTipoProducto from './PopUpBorrarTipoProducto'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -12,6 +15,7 @@ const TipoProductoCRUD = () => {
   //#region Declaracion useState's
   const [tipoProductos, setTipoProductos] = useState([])
   const [popUp, setPopUp] = useState(false)
+  const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedTipoProducto, setSelectedTipoProducto] = useState(null)
   //#endregion
 
@@ -48,6 +52,11 @@ const TipoProductoCRUD = () => {
     setPopUp(true)
   }
   //#endregion
+
+  const openPopUpBorrar = (tipoProducto) => {
+    setSelectedTipoProducto(tipoProducto)
+    setPopUpBorrar(true)
+  }
 
   //#region Handle elminar cliente
   const handleDelete = async (idTipoProducto) => {
@@ -111,7 +120,7 @@ const TipoProductoCRUD = () => {
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(tipoProducto.id)}
+                  onClick={() => openPopUpBorrar(tipoProducto)}
                 >
                   Borrar
                 </Button>
@@ -142,6 +151,15 @@ const TipoProductoCRUD = () => {
         )
         //#endregion
       }
+      {popUpBorrar ? (
+        <PopUpBorrarTipoProducto
+          tipoProducto={selectedTipoProducto}
+          onTipoProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrar(false)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

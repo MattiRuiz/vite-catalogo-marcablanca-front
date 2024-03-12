@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Offcanvas, Modal, Button } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
-//import LoginContext from '../../Context/LoginContext'
+import LoginContext from '../../Context/LoginContext'
 
 function MenuLoged({ close }) {
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
   const [user, setUser] = useState(false)
-  //const { handleLogin } = useContext(LoginContext)
+  const { unauthorize } = useContext(LoginContext)
 
   const handleClose = () => {
     setShow(false)
@@ -21,9 +21,7 @@ function MenuLoged({ close }) {
     navigate('/')
     setShow(false)
     close()
-    localStorage.removeItem('token')
-    localStorage.removeItem('userData')
-    //handleLogin({})
+    unauthorize()
   }
 
   useEffect(() => {

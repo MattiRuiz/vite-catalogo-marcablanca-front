@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
+import { clearData } from '../../../../Functions/ClienteFunctions'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
+  const navigate = useNavigate()
   const [tallaData, setTallaData] = useState({
     nombre: '',
     dimensiones: '',
@@ -39,23 +43,31 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       ...tallaData,
     }
 
-    if (talla) {
+    if (!dataToSend.nombre || !dataToSend.dimensiones) {
+      alertDanger()
+      setAlertHeader('Error')
+      setAlertMessage(
+        'Hay campos vacios, por favor complete todos los datos para continuar.'
+      )
+      setLoading(false)
+      handleShowAlert()
+    } else if (talla) {
       const id = talla.id
-
       const response = await updateTalla(id, dataToSend)
       setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar la medida')
+        setAlertMessage('Hubo un problema al querer actualizar la medida.')
         handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        setTimeout(() => handleCloseAlert(), 2000)
       } else {
         alertSuccess()
         setAlertHeader('Medida actualizada')
-        setAlertMessage('La medida ha sido actualizada con éxito')
+        setAlertMessage('La medida ha sido actualizada con éxito.')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onTallaUpdated()
       }
     } else {
       const response = await createTalla(dataToSend)
@@ -66,15 +78,24 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         setAlertMessage('Hubo un problema al crear una medida nueva')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
+      } else if (response == 403) {
+        console.log('Error en el front', response)
+        alertDanger()
+        setAlertHeader('Su sesión ha expirado')
+        setAlertMessage('Por favor inicie sesión nuevamente.')
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 3000)
+        clearData()
+        navigate('/login')
       } else {
         alertSuccess()
         setAlertHeader('Medida creada')
         setAlertMessage('La medida ha sido creada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onTallaUpdated()
       }
     }
-    onTallaUpdated()
   }
   //#endregion
 
@@ -144,7 +165,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         {talla ? (
           <Button onClick={handleGuardar}>Guardar cambios</Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear talla</Button>
+          <Button onClick={handleGuardar}>Crear medida</Button>
         )}
       </Modal.Footer>
     </Modal>

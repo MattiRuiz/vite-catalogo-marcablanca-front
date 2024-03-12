@@ -8,25 +8,11 @@ import MenuLoged from './MenuLoged'
 import imageLogo from '../../Images/logo-marca.svg'
 
 function Navbar() {
-  const auth = localStorage.getItem('token')
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleOpen = () => setShow(true)
 
-  const [menu, setMenu] = useState(false)
-  const { handleLogin } = useContext(LoginContext)
-
-  useEffect(() => {
-    if (auth) {
-      setMenu(true)
-    } else {
-      setMenu(false)
-    }
-  }, [auth])
-
-  useEffect(() => {
-    handleClose()
-  }, [menu])
+  const { menu } = useContext(LoginContext)
 
   return (
     <Container fluid>

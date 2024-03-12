@@ -8,12 +8,12 @@ import {
   Card,
   Carousel,
   Button,
-  Alert,
   Form,
   Placeholder,
   Modal,
   Image,
   Badge,
+  InputGroup,
 } from 'react-bootstrap'
 import {
   getAllProductos,
@@ -22,13 +22,11 @@ import {
 import CardLoading from './CardLoading'
 
 function Catalog() {
+  const { id } = useParams()
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState('all')
   const [imagenesCarrusel, setImagenesCarrusel] = useState([])
-
-  const { id } = useParams()
 
   //No se está utilizando
   const baseUrl = import.meta.env.VITE_NAME
@@ -89,7 +87,7 @@ function Catalog() {
     }
     fetchData()
     setSelectedCategory(id)
-  }, [])
+  }, [id])
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value === 'all' ? null : e.target.value)
@@ -100,32 +98,33 @@ function Catalog() {
       <Container>
         <Row>
           <Col xs={12} className="d-flex align-items-center">
-            <Button
-              variant="Light"
-              as={Link}
-              to={'/welcome'}
-              className="ps-0 pe-3"
-            >
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Button>
-
-            <Form.Select onChange={handleCategoryChange} defaultValue="all">
-              <option value="all">Todas las categorías</option>
-              {categorias.map((categoria) => (
-                <option key={categoria.id} value={categoria.id}>
-                  {categoria.nombre}
-                </option>
-              ))}
-            </Form.Select>
+            <InputGroup>
+              <Button as={Link} to={'/welcome'}>
+                <span className="material-symbols-outlined">arrow_back</span>
+              </Button>
+              <Form.Select
+                onChange={handleCategoryChange}
+                value={selectedCategory}
+              >
+                <option value="all">Todas las categorías</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nombre}
+                  </option>
+                ))}
+              </Form.Select>
+            </InputGroup>
           </Col>
         </Row>
 
         {loading ? (
           <Row className="justify-content-start my-3 g-3">
-            <h2>
+            <h3 className="mb-1">
               <Placeholder xs={5} md={3} />
-            </h2>
-            <CardLoading />
+            </h3>
+            <p className="mb-1">
+              <Placeholder xs={10} />
+            </p>
             <CardLoading />
             <CardLoading />
             <CardLoading />
@@ -141,6 +140,15 @@ function Catalog() {
             .map((categoria) => (
               <Col key={categoria.id} xs={12} className="mb-1">
                 <h2 className="mb-3">{categoria.nombre}</h2>
+                {categoria.productos.length == 0 ? (
+                  <p>
+                    <em>No se encontraron productos en esta categoría.</em>
+                  </p>
+                ) : (
+                  <p>
+                    Haga click en el producto para ver la galería de imágenes.
+                  </p>
+                )}
                 <Row>
                   {categoria.productos
                     .filter((producto) => producto.productos_tallas.length > 0)
@@ -213,17 +221,11 @@ function Catalog() {
                 </Row>
               </Col>
             ))}
-          <Col xs={12} md={10} lg={8} className="d-block mx-auto">
-            <Alert variant="warning" className="mb-5" show={showAlert}>
-              <Alert.Heading className="fs-6">
-                <strong>Ups!</strong>
-              </Alert.Heading>
-              No se han encontrado resultados para esta categoría
-            </Alert>
-          </Col>
           <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
             <Modal.Header closeButton>
-              {selectedProduct && selectedProduct.nombre}
+              <span className="fw-bold">
+                {selectedProduct && selectedProduct.nombre}
+              </span>
             </Modal.Header>
             <Modal.Body>
               <Carousel>

@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react'
+import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+
 import {
   getAllClientes,
   deleteCliente,
 } from '../../../../Functions/ClienteFunctions'
+
 import ClientesPopup from './ClientesCRUD_popup'
-import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+import PopUpBorrarCliente from './PopUpBorrarCliente'
 
 const ClientesCRUD = () => {
   //#region Declaracion useState's
   const [clientes, setClientes] = useState([])
   const [popUp, setPopUp] = useState(false)
+  const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedCliente, setSelectedCliente] = useState(null)
   //#endregion
 
@@ -38,6 +42,11 @@ const ClientesCRUD = () => {
     setPopUp(true)
   }
   //#endregion
+
+  const openPopUpBorrar = (cliente) => {
+    setSelectedCliente(cliente)
+    setPopUpBorrar(true)
+  }
 
   //#region Handle elminar cliente
   const handleDelete = async (idCliente) => {
@@ -88,7 +97,7 @@ const ClientesCRUD = () => {
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(cliente.id)}
+                  onClick={() => openPopUpBorrar(cliente)}
                 >
                   Borrar
                 </Button>
@@ -119,6 +128,15 @@ const ClientesCRUD = () => {
         )
         //#endregion
       }
+      {popUpBorrar ? (
+        <PopUpBorrarCliente
+          cliente={selectedCliente}
+          onClienteUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrar(false)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

@@ -1,18 +1,48 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from 'react'
 
-const LoginContext = createContext();
+const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState({})
+  const [menu, setMenu] = useState(false)
 
-  const handleLogin = (user) => {
-    setAuth(user);
-  };
+  const handleLogin = (resp) => {
+    setAuth(resp)
+    setMenu(true)
+  }
 
-  const data = { auth, handleLogin };
+  const unauthorize = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userData')
+    handleLogin({})
+    setMenu(false)
+  }
 
-  return <LoginContext.Provider value={data}>{children}</LoginContext.Provider>;
-};
+  const checkUser = () => {
+    const token = localStorage.getItem('token')
+    if (auth && token) {
+      setMenu(true)
+    } else if (!auth && token) {
+      const user = {
+        token: token,
+        userData: localStorage.getItem('userData'),
+      }
+      handleLogin(user)
+      setMenu(true)
+    } else {
+      handleLogin({})
+      setMenu(false)
+    }
+  }
 
-export { LoginProvider };
-export default LoginContext;
+  useEffect(() => {
+    checkUser()
+  }, [])
+
+  const data = { handleLogin, unauthorize, checkUser, menu }
+
+  return <LoginContext.Provider value={data}>{children}</LoginContext.Provider>
+}
+
+export { LoginProvider }
+export default LoginContext

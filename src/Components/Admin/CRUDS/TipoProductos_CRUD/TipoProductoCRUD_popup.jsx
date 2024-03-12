@@ -59,16 +59,17 @@ const TallasCRUD_popup = ({
         alertDanger()
         setAlertHeader('Error')
         setAlertMessage(
-          'Hubo un problema al querer actualizar el tipo de producto'
+          'Hubo un problema al querer actualizar el tipo de producto.'
         )
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
         setAlertHeader('Tipo de producto actualizado')
-        setAlertMessage('El tipo de producto ha sido actualizada con éxito')
+        setAlertMessage('El tipo de producto ha sido actualizada con éxito.')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onTipoProductoUpdated()
       }
     } else {
       const response = await createTipoProducto(formDataForAPI)
@@ -76,18 +77,18 @@ const TallasCRUD_popup = ({
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear un tipo de producto nuevo')
+        setAlertMessage('Hubo un problema al crear un tipo de producto nuevo.')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
         setAlertHeader('Tipo de producto creado')
-        setAlertMessage('El tipo de producto ha sido creado con éxito')
+        setAlertMessage('El tipo de producto ha sido creado con éxito.')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onTipoProductoUpdated()
       }
     }
-    onTipoProductoUpdated()
   }
   //#endregion
 

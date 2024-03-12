@@ -1,10 +1,20 @@
+import { useContext, useEffect } from 'react'
 import { Container, Row, Col, Button, Ratio, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import empresasLogo from '../../Images/logos-empresas.jpg'
 import catalogo from '../../Images/mockup_catalogo.png'
+import Footer from '../Footer/Footer'
+
+import LoginContext from '../../Context/LoginContext'
 
 function Home() {
+  const { checkUser } = useContext(LoginContext)
+
+  useEffect(() => {
+    checkUser()
+  }, [])
+
   return (
     <Container fluid>
       <Row className="text-center">
@@ -91,31 +101,7 @@ function Home() {
           </Row>
         </Col>
       </Row>
-      <Row className="pt-3 pb-4 text-center justify-content-center bg-white">
-        <Col
-          xs={11}
-          lg={6}
-          className="text-center border-top border-bottom border-white pt-3 pb-2"
-        >
-          <h4>Horario de atención</h4>
-          <p>Lunes a viernes de 9:00 a 18:00h</p>
-          <h4>Contacto</h4>
-          <ul className="list-unstyled">
-            <li>
-              <span className="material-symbols-outlined">location_on</span>San
-              Luis 1917
-            </li>
-            <li>
-              <span className="material-symbols-outlined">map</span>Rosario,
-              Santa Fe
-            </li>
-            <li>
-              <span className="material-symbols-outlined">call</span>(0341)
-              4212690
-            </li>
-          </ul>
-        </Col>
-      </Row>
+      <Footer />
     </Container>
   )
 }

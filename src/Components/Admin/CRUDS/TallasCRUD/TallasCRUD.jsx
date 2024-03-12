@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import {
-  getAllTallas,
-  deleteTalla,
-} from '../../../../Functions/TallasFunctions'
-import TallasPopUp from './TallasCRUD_popup'
 import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+
+import { getAllTallas } from '../../../../Functions/TallasFunctions'
+
+import TallasPopUp from './TallasCRUD_popup'
+import PopUpBorrarTalla from './PopUpBorrarTalla'
 
 const TallasCRUD = () => {
   //#region Declaracion useState's
   const [tallas, setTallas] = useState([])
   const [popUp, setPopUp] = useState(false)
+  const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedTalla, setSelectedTalla] = useState(null)
   //#endregion
 
@@ -28,6 +29,11 @@ const TallasCRUD = () => {
     }
   }
 
+  const openPopUpBorrar = (talla) => {
+    setSelectedTalla(talla)
+    setPopUpBorrar(true)
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -36,19 +42,6 @@ const TallasCRUD = () => {
   const openPopup = (marca) => {
     setSelectedTalla(marca)
     setPopUp(true)
-  }
-  //#endregion
-
-  //#region Handle elminar cliente
-  const handleDelete = async (idTalla) => {
-    try {
-      const response = await deleteTalla(idTalla)
-      console.log('Talla eliminado', response)
-      setPopUp(false)
-    } catch (e) {
-      return e.message
-    }
-    fetchData()
   }
   //#endregion
 
@@ -86,7 +79,7 @@ const TallasCRUD = () => {
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => handleDelete(talla.id)}
+                  onClick={() => openPopUpBorrar(talla)}
                 >
                   Borrar
                 </Button>
@@ -117,6 +110,15 @@ const TallasCRUD = () => {
         )
         //#endregion
       }
+      {popUpBorrar ? (
+        <PopUpBorrarTalla
+          talla={selectedTalla}
+          onTallaUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrar(false)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

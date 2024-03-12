@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react'
 import {
-  getAllProductosSinTallas,
-  getAllProductos,
-  deleteProducto,
-} from '../../../../Functions/ProductosFunctions'
-import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
-import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
-import ProductosPopUp from './ProductosCRUD_popup'
-import {
   Col,
   Row,
   Button,
@@ -19,6 +11,17 @@ import {
   Form,
 } from 'react-bootstrap'
 
+import {
+  getAllProductosSinTallas,
+  getAllProductos,
+  deleteProducto,
+} from '../../../../Functions/ProductosFunctions'
+import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
+import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
+
+import PopUpBorrar from './PopUpBorrar'
+import ImagenesCRUD_popup from './ImagenesCRUD_popup'
+import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 
 const baseUrl = import.meta.env.VITE_NAME
@@ -30,6 +33,8 @@ const ProductoCRUD = () => {
   const [categorias, setCategorias] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [popUpTalla, setPopUpTalla] = useState(false)
+  const [popUpImagenes, setPopUpImagenes] = useState(false)
+  const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
   const [selectedCategoria, setSelectedCategoria] = useState()
   const [selectedIdProducto, setSelectedIdProducto] = useState()
@@ -83,17 +88,13 @@ const ProductoCRUD = () => {
     setPopUpTalla(true)
   }
 
-  //#region Handle elminar cliente
-  const handleDelete = async (idProducto) => {
-    try {
-      const response = await deleteProducto(idProducto)
-      console.log('Tipo producto eliminado', response)
-      setPopUp(false)
-    } catch (e) {
-      return e.message
-    }
-    fetchData()
+  const openPopUpBorrar = (producto) => {
+    setSelectedProducto(producto)
+    setPopUpBorrar(true)
   }
+
+  //#region Handle elminar producto
+
   //#endregion
 
   const deleteProductoTalla = async (idProductoTalla) => {
@@ -152,36 +153,53 @@ const ProductoCRUD = () => {
                           </ul>
                         </Accordion.Header>
                         <Accordion.Body>
-                          <Ratio
-                            aspectRatio="1x1"
-                            className="producto-preview me-3 mb-3"
+                          <Row className="align-items-center">
+                            <Col xs={12} sm={6}>
+                              <Ratio
+                                aspectRatio="4x3"
+                                className="producto-preview mb-3 mx-auto"
+                              >
+                                {imagenErrors[producto.id] ? (
+                                  // Mostrar elemento alternativo en caso de error
+                                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
+                                    <p className="mb-0 color-grisclaro">
+                                      <strong>Sin imágen</strong>
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <Image
+                                    fluid
+                                    className="object-fit-cover"
+                                    src={`${baseUrl}${producto.rutaImagen}`}
+                                    onError={() =>
+                                      handleImageError(producto.id)
+                                    }
+                                  />
+                                )}
+                              </Ratio>
+                            </Col>
+                            <Col xs={12} sm={6}>
+                              <ul className="list-unstyled">
+                                <li>
+                                  <strong>Descripción: </strong>
+                                  {producto.descripcion}
+                                </li>
+                                <li>
+                                  <strong>Categoría: </strong>
+                                  {categoria.nombre}
+                                </li>
+                              </ul>
+                            </Col>
+                          </Row>
+
+                          <Button
+                            variant="success"
+                            size="sm"
+                            className="me-1"
+                            onClick={() => setPopUpImagenes(true)}
                           >
-                            {imagenErrors[producto.id] ? (
-                              // Mostrar elemento alternativo en caso de error
-                              <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
-                                <p className="mb-0 color-grisclaro">
-                                  <strong>Sin imágen</strong>
-                                </p>
-                              </div>
-                            ) : (
-                              <Image
-                                fluid
-                                className="object-fit-cover"
-                                src={`${baseUrl}${producto.rutaImagen}`}
-                                onError={() => handleImageError(producto.id)}
-                              />
-                            )}
-                          </Ratio>
-                          <ul className="list-unstyled">
-                            <li>
-                              <strong>Descripción: </strong>
-                              {producto.descripcion}
-                            </li>
-                            <li>
-                              <strong>Categoría: </strong>
-                              {categoria.nombre}
-                            </li>
-                          </ul>
+                            Editar imágenes
+                          </Button>
                           <Button
                             variant="warning"
                             size="sm"
@@ -193,7 +211,7 @@ const ProductoCRUD = () => {
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(producto.id)}
+                            onClick={() => openPopUpBorrar(producto)}
                           >
                             Borrar
                           </Button>
@@ -254,9 +272,10 @@ const ProductoCRUD = () => {
                                 </Col>
                               ))
                             ) : (
-                              <p className="fst-italic texto-14 mb-4 mt-2">
-                                Este producto no tiene tallas creadas, por favor
-                                cree una para que sea mostrado en el catálogo.
+                              <p className="fst-italic texto-14 mb-4 mt-0">
+                                Este producto no tiene medidas vinculadas, por
+                                favor cree una para que el producto sea mostrado
+                                en el catálogo.
                               </p>
                             )}
                             <Button
@@ -308,6 +327,20 @@ const ProductoCRUD = () => {
           producto={selectedIdProducto}
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUpTalla(false)}
+        />
+      ) : (
+        <></>
+      )}
+      {popUpImagenes ? (
+        <ImagenesCRUD_popup closePopUp={() => setPopUpImagenes(false)} />
+      ) : (
+        <></>
+      )}
+      {popUpBorrar ? (
+        <PopUpBorrar
+          producto={selectedProducto}
+          onProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrar(false)}
         />
       ) : (
         <></>
