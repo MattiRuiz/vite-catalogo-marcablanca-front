@@ -85,6 +85,24 @@ const getAllImages = async (id) => {
   return respuesta
 }
 
+const getImagenesPorProducto = async (id) => {
+  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${id}`)
+  return respuesta
+}
+
+const createImagen = async (data) => {
+  try {
+    const respuesta = await axios({
+      url: `${baseUrl}/api/imagenes`,
+      method: 'POST',
+      data: data,
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export {
   getAllProductos,
   getAllProductosSinTallas,
@@ -94,4 +112,6 @@ export {
   getOneProducto,
   deleteProducto,
   getAllImages,
+  getImagenesPorProducto,
+  createImagen,
 }

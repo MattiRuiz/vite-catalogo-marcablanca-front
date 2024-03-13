@@ -3,16 +3,20 @@ import { Col, Placeholder, Ratio, Card } from 'react-bootstrap'
 function CardLoading() {
   return (
     <>
-      <Col xs={12} md={6} lg={4} xl={3} className="mb-2">
+      <Col xs={12} md={6} lg={4} xl={3} className="mb-4">
         <Card className="mb-3 h-100">
           <Ratio aspectRatio="16x9" className="rounded-top">
             <Placeholder as={Card.Img} className="fondo-imagen rounded-top" />
           </Ratio>
-          <Card.Body>
+          <Card.Body className="pb-0">
             <Placeholder as={Card.Title} animation="glow">
               <Placeholder xs={8} />
             </Placeholder>
-            <Placeholder as={Card.Subtitle} animation="glow" className="pb-3">
+            <Placeholder
+              as={Card.Subtitle}
+              animation="glow"
+              className="text-muted pb-3 fst-italic"
+            >
               <Placeholder xs={6} />
             </Placeholder>
             <Placeholder as={Card.Text} animation="glow">

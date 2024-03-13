@@ -8,7 +8,7 @@
 
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
-  font-weight: 700;
+  font-weight: 500;
   font-style: normal;
   font-size: 20px;  /* Preferred icon size */
   display: inline-block;
@@ -159,6 +159,25 @@ p, li, a.btn {
 .alto-container {
 min-height: 80vh;
 }
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  background-color: rgba(27,100,179,0.9);
+  border-radius: 8px;
+  background-size: 75% 75%;
+}
+
+.carousel-control-next, .carousel-control-prev {
+  width: 12%;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: rgba(27,100,179,0.9);
+}
+
+.carousel-indicators {
+  margin-bottom: 0.5rem;
+}
+
 
 @media (min-width: 992px) {
   .offcanvas {

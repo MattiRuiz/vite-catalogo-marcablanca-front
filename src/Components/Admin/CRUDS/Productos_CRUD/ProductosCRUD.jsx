@@ -14,7 +14,6 @@ import {
 import {
   getAllProductosSinTallas,
   getAllProductos,
-  deleteProducto,
 } from '../../../../Functions/ProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
@@ -93,9 +92,10 @@ const ProductoCRUD = () => {
     setPopUpBorrar(true)
   }
 
-  //#region Handle elminar producto
-
-  //#endregion
+  const openPopUpImagenes = (producto) => {
+    setSelectedProducto(producto)
+    setPopUpImagenes(true)
+  }
 
   const deleteProductoTalla = async (idProductoTalla) => {
     try {
@@ -140,9 +140,7 @@ const ProductoCRUD = () => {
                     <Accordion className="mt-3">
                       <Accordion.Item eventKey={producto.id}>
                         <Accordion.Header>
-                          <Badge className="me-3">
-                            {categoria.id + producto.id}
-                          </Badge>{' '}
+                          <Badge className="me-3">{producto.id}</Badge>{' '}
                           <ul className="list-unstyled mb-0">
                             <li className="texto-14">
                               {producto.marcas.nombre}
@@ -155,10 +153,7 @@ const ProductoCRUD = () => {
                         <Accordion.Body>
                           <Row className="align-items-center">
                             <Col xs={12} sm={6}>
-                              <Ratio
-                                aspectRatio="4x3"
-                                className="producto-preview mb-3 mx-auto"
-                              >
+                              <Ratio aspectRatio="4x3" className="mb-3 mx-auto">
                                 {imagenErrors[producto.id] ? (
                                   // Mostrar elemento alternativo en caso de error
                                   <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
@@ -196,7 +191,7 @@ const ProductoCRUD = () => {
                             variant="success"
                             size="sm"
                             className="me-1"
-                            onClick={() => setPopUpImagenes(true)}
+                            onClick={() => openPopUpImagenes(producto)}
                           >
                             Editar imágenes
                           </Button>
@@ -332,7 +327,10 @@ const ProductoCRUD = () => {
         <></>
       )}
       {popUpImagenes ? (
-        <ImagenesCRUD_popup closePopUp={() => setPopUpImagenes(false)} />
+        <ImagenesCRUD_popup
+          producto={selectedProducto}
+          closePopUp={() => setPopUpImagenes(false)}
+        />
       ) : (
         <></>
       )}

@@ -15,23 +15,23 @@ import {
   Badge,
   InputGroup,
 } from 'react-bootstrap'
+
 import {
   getAllProductos,
   getAllImages,
 } from '../../Functions/ProductosFunctions'
+
 import CardLoading from './CardLoading'
+import PopUpCarousel from './PopUpCarousel'
 
 function Catalog() {
   const { id } = useParams()
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [imagenesCarrusel, setImagenesCarrusel] = useState([])
 
-  //No se está utilizando
   const baseUrl = import.meta.env.VITE_NAME
 
-  // image error
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
@@ -40,25 +40,13 @@ function Catalog() {
     }))
   }
 
-  //GetImages
-  const setCarrusel = async (id) => {
-    try {
-      const response = await getAllImages(id)
-      setImagenesCarrusel(response.data)
-      console.log('imagenes carrusel', imagenesCarrusel)
-    } catch (e) {
-      console.log('error en el seteo del carrusel', e)
-    }
-  }
-
   //Modal
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [modalShow, setModalShow] = useState(false)
+  const [popUpCarrusel, setPopUpCarrusel] = useState(false)
 
-  const showModal = (producto) => {
+  const openPopUpCarrusel = (producto) => {
     setSelectedProduct(producto)
-    setCarrusel(producto.id)
-    setModalShow(true)
+    setPopUpCarrusel(true)
   }
 
   //#region GANANCIAS/PRECIOS
@@ -161,7 +149,7 @@ function Catalog() {
                         xl={3}
                         className="mb-4"
                       >
-                        <Link onClick={() => showModal(producto)}>
+                        <Link onClick={() => openPopUpCarrusel(producto)}>
                           <Card className="mb-3 h-100">
                             <Ratio aspectRatio="4x3" className="fondo-imagen">
                               {imagenErrors[producto.id] ? (
@@ -221,41 +209,15 @@ function Catalog() {
                 </Row>
               </Col>
             ))}
-          <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
-            <Modal.Header closeButton>
-              <span className="fw-bold">
-                {selectedProduct && selectedProduct.nombre}
-              </span>
-            </Modal.Header>
-            <Modal.Body>
-              <Carousel>
-                {selectedProduct && (
-                  <Carousel.Item>
-                    <Image
-                      src={baseUrl + selectedProduct.rutaImagen}
-                      alt={selectedProduct.nombre}
-                      fluid
-                    />
-                  </Carousel.Item>
-                )}
-                {imagenesCarrusel.map((imagen, index) => (
-                  <Carousel.Item key={index}>
-                    <Image
-                      src={baseUrl + '/' + imagen.rutaImagen}
-                      alt={imagen.rutaImagen}
-                      fluid
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setModalShow(false)}>
-                Cerrar
-              </Button>
-            </Modal.Footer>
-          </Modal>
         </Row>
+        {popUpCarrusel ? (
+          <PopUpCarousel
+            producto={selectedProduct}
+            closePopUp={() => setPopUpCarrusel(false)}
+          />
+        ) : (
+          <></>
+        )}
       </Container>
     </Container>
   )
