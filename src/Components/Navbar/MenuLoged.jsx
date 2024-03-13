@@ -72,13 +72,13 @@ function MenuLoged({ close }) {
         </ul>
       </Offcanvas.Body>
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0 bg-primario text-white" closeButton>
           <Modal.Title>¡Atención!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>¿Deseas cerrar sesión?</p>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="border-0 pt-0">
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>

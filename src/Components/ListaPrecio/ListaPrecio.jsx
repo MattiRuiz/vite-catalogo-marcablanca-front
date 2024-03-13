@@ -106,17 +106,28 @@ function ListaPrecio() {
       </Row>
 
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0 bg-warning" closeButton>
           <Modal.Title>¡Atención!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Estás seguro de mostrar los precios en el catálogo?</p>
+          <p>
+            Está por mostrar los precios en el catálogo, configurados para
+            mostrar el:{' '}
+          </p>
+          <h5>
+            <strong>
+              {' '}
+              {ganancia ? 'Precio mayorista' : 'Precio revendedor'}
+            </strong>
+          </h5>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="border-0 pt-0">
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button onClick={mostrarPrecios}>Aceptar</Button>
+          <Button variant="warning" onClick={mostrarPrecios}>
+            Aceptar
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>

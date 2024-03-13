@@ -186,7 +186,7 @@ const ProductoCRUD = () => {
                             className="me-1"
                             onClick={() => openPopup(producto, categoria.id)}
                           >
-                            Editar
+                            Editar producto
                           </Button>
                           <Button
                             variant="danger"
@@ -211,7 +211,11 @@ const ProductoCRUD = () => {
                                     <li className="mb-1 text-uppercase fw-bold text-gray">
                                       {talla.stock ? (
                                         <>
-                                          <Badge bg="success" size="sm">
+                                          <Badge
+                                            bg="success"
+                                            size="sm"
+                                            className="mb-1"
+                                          >
                                             En stock
                                           </Badge>
                                           <p className="mb-0">
@@ -220,7 +224,11 @@ const ProductoCRUD = () => {
                                         </>
                                       ) : (
                                         <>
-                                          <Badge bg="danger" size="sm">
+                                          <Badge
+                                            bg="danger"
+                                            size="sm"
+                                            className="mb-1"
+                                          >
                                             Sin stock
                                           </Badge>
                                           <p className="mb-0">

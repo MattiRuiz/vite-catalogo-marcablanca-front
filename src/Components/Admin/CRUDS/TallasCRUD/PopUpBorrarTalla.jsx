@@ -22,7 +22,7 @@ const PopUpBorrarTalla = ({ talla, onTallaUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
+      <Modal.Header className="bg-danger text-white border-0" closeButton>
         <Modal.Title>Borrar medida</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -31,7 +31,7 @@ const PopUpBorrarTalla = ({ talla, onTallaUpdated, closePopUp }) => {
           <strong>{talla.nombre}</strong>?
         </p>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

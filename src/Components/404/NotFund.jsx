@@ -1,32 +1,32 @@
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Row, Col, Button, Image } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+import Footer from '../Footer/Footer'
 
 const NotFound = () => {
-  const notFoundStyle = {
-    color: '#F3F3F3',
-    height: '81vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-
   return (
-    <Container fluid style={notFoundStyle}>
-      <Row className='flex-column'>
-        <Col>
-            <Image src='/src/Images/logo-marca.svg' className='img-fluid'></Image>
+    <>
+      <Row
+        className="flex-column align-items-center justify-content-center bg-primario"
+        style={{ minHeight: '80vh' }}
+      >
+        <Col xs={8} md={6} lg={4}>
+          <Image src="/src/Images/logo-marca.svg" fluid />
         </Col>
         <br></br>
-        <Col className="text-center">
+        <Col xs={12} className="text-center text-white">
           <h1>ERROR 404 - Not Found</h1>
           <p>Oops! La página que estás buscando no existe.</p>
           <Link to="/">
-            <Button variant="light">Volver a la página principal</Button>
+            <Button className="mb-4" variant="light">
+              Volver a la página principal
+            </Button>
           </Link>
         </Col>
       </Row>
-    </Container>
-  );
-};
+      <Footer />
+    </>
+  )
+}
 
-export default NotFound;
+export default NotFound

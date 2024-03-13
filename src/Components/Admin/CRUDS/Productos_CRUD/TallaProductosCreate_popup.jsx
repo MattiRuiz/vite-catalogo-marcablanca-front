@@ -79,7 +79,7 @@ const TallaProductoCreate_popup = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
         <Modal.Title>Añadir medida al producto</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -138,7 +138,7 @@ const TallaProductoCreate_popup = ({
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

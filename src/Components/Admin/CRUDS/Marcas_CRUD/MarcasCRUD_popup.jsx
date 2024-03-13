@@ -97,10 +97,8 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          {marca ? <h4>Editar marca</h4> : <h4>Añadir marca</h4>}
-        </Modal.Title>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
+        <Modal.Title>{marca ? 'Editar marca' : 'Añadir marca'}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -135,7 +133,7 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

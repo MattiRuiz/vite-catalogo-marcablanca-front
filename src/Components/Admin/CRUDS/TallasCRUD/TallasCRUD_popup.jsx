@@ -40,7 +40,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       ...tallaData,
     }
 
-    if (!dataToSend.nombre || !dataToSend.dimensiones) {
+    if (!dataToSend.nombre) {
       alertDanger()
       setAlertHeader('Error')
       setAlertMessage(
@@ -99,12 +99,9 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          {talla ? <h4>Editar medida</h4> : <h4>Añadir medida</h4>}
-        </Modal.Title>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
+        <Modal.Title>{talla ? 'Editar medida' : 'Añadir medida'}</Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form>
           <Form.Group>
@@ -117,16 +114,23 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
               value={tallaData.nombre}
               onChange={handleInputChange}
             />
-            <Form.Label>Dimensiones:</Form.Label>
+            <Form.Label>
+              Dimensiones <span className="text-danger">*</span>:
+            </Form.Label>
             <Form.Control
               type="text"
-              className="mb-3"
+              className="mb-1"
               placeholder="Dimensiones"
               name="dimensiones"
               value={tallaData.dimensiones}
               onChange={handleInputChange}
             />
           </Form.Group>
+          <p className="texto-14">
+            <em>
+              <span className="text-danger">*</span> Puede estar vacío
+            </em>
+          </p>
         </Form>
         {loading ? (
           <Spinner className="my-3 d-block mx-auto" animation="border" />
@@ -146,7 +150,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

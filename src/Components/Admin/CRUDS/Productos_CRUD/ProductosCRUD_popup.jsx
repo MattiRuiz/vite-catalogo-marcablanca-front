@@ -1,5 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import {
+  Button,
+  Form,
+  Modal,
+  Alert,
+  Spinner,
+  Image,
+  Row,
+  Col,
+  Ratio,
+} from 'react-bootstrap'
 import {
   createProducto,
   updateProducto,
@@ -22,10 +32,13 @@ const ProductosCRUD_popup = ({
     adminsId: '',
   })
 
+  const baseUrl = import.meta.env.VITE_NAME
+
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
+  const [loadingImagen, setLoadingImagen] = useState(false)
 
   const [alertVariant, setAlertVariant] = useState('danger')
   const alertDanger = () => setAlertVariant('danger')
@@ -83,8 +96,8 @@ const ProductosCRUD_popup = ({
         setAlertMessage('El producto ha sido actualizada con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
-        onProductoUpdated()
       }
+      onProductoUpdated()
     } else {
       console.log(dataToSend)
       const response = await createProducto(formDataForAPI)
@@ -101,8 +114,8 @@ const ProductosCRUD_popup = ({
         setAlertMessage('El producto ha sido creado con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
-        onProductoUpdated()
       }
+      onProductoUpdated()
     }
   }
   //#endregion
@@ -117,11 +130,43 @@ const ProductosCRUD_popup = ({
   }
   //#endregion
 
+  const handleCambiarImagen = async (event) => {
+    setLoadingImagen(true)
+    const dataToSend = {
+      nombre: producto.nombre,
+      descripcion: producto.descripcion,
+      imagen: event.target.files[0],
+      marcasId: producto.marcas.id,
+      tipoProductoId: selectedCategoria,
+      adminsId: 1,
+    }
+
+    const formDataForAPI = new FormData()
+    formDataForAPI.append('nombre', dataToSend.nombre)
+    formDataForAPI.append('descripcion', dataToSend.descripcion)
+    formDataForAPI.append('imagen', dataToSend.imagen)
+    formDataForAPI.append('marcas_id', dataToSend.marcasId)
+    formDataForAPI.append('tipo_producto_id', dataToSend.tipoProductoId)
+    formDataForAPI.append('admins_id', dataToSend.adminsId)
+
+    const id = producto.id
+
+    try {
+      const response = await updateProducto(id, formDataForAPI)
+      console.log('Imagen editada', response)
+    } catch (e) {
+      console.log('Error al editar una imagen', response)
+    }
+    setLoadingImagen(false)
+    onProductoUpdated()
+    closePopUp()
+  }
+
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
         <Modal.Title>
-          {producto ? <h4>Editar producto</h4> : <h4>Añadir producto</h4>}
+          {producto ? 'Editar producto' : 'Añadir producto'}
         </Modal.Title>
       </Modal.Header>
 
@@ -179,15 +224,66 @@ const ProductosCRUD_popup = ({
                 </option>
               ))}
             </Form.Select>
-            <Form.Label>Imágen:</Form.Label>
-            <Form.Control
-              className="mb-3"
-              type="file"
-              name="imagen"
-              onChange={(e) =>
-                setProductoData({ ...productoData, imagen: e.target.files[0] })
-              }
-            />
+            {producto ? (
+              <Row className="justify-content-center">
+                <Col
+                  xs={4}
+                  className="px-0 border border-end-0"
+                  style={{ borderRadius: '8px 0 0 8px' }}
+                >
+                  <Ratio aspectRatio="1x1">
+                    <Image
+                      style={{ borderRadius: '8px 0 0 8px' }}
+                      fluid
+                      className="object-fit-cover"
+                      src={`${baseUrl}${producto.rutaImagen}`}
+                    />
+                  </Ratio>
+                </Col>
+                <Col
+                  xs={7}
+                  className="d-flex align-items-start flex-column justify-content-center border border-start-0"
+                  style={{ borderRadius: '0 8px 8px 0' }}
+                >
+                  <p className="mb-2">Imágen de portada:</p>
+                  <label htmlFor="fileInput">
+                    <Button as="span">
+                      {loadingImagen ? (
+                        <Spinner
+                          animation="border"
+                          variant="light"
+                          size="sm"
+                          className="mx-4"
+                        />
+                      ) : (
+                        'Cambiar imagen'
+                      )}
+                    </Button>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      style={{ display: 'none' }}
+                      onChange={handleCambiarImagen}
+                    />
+                  </label>
+                </Col>
+              </Row>
+            ) : (
+              <>
+                <Form.Label>Imágen de portada:</Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  type="file"
+                  name="imagen"
+                  onChange={(e) =>
+                    setProductoData({
+                      ...productoData,
+                      imagen: e.target.files[0],
+                    })
+                  }
+                />
+              </>
+            )}
           </Form.Group>
         </Form>
         {loading ? (
@@ -208,7 +304,7 @@ const ProductosCRUD_popup = ({
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

@@ -40,7 +40,7 @@ function Navbar() {
         </Col>
       </Row>
       <Offcanvas show={show} onHide={handleClose} placement="end">
-        <Offcanvas.Header closeButton>
+        <Offcanvas.Header className="bg-primario text-white mb-3" closeButton>
           <Offcanvas.Title>Menú</Offcanvas.Title>
         </Offcanvas.Header>
         <MenuLoged close={handleClose} />

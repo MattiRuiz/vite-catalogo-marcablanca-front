@@ -22,8 +22,8 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp}>
-      <Modal.Header className="border-0" closeButton>
-        <span className="fw-bold">{producto && producto.nombre}</span>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
+        <Modal.Title>{producto && producto.nombre}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="p-0">
         <Carousel>
@@ -54,10 +54,10 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
           )}
         </Carousel>
       </Modal.Body>
-      <Modal.Footer className="border-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
-          Cerrar
-        </Button>
+      <Modal.Footer className="border-0 justify-content-start texto-14">
+        <p>
+          <em>{producto.descripcion}</em>
+        </p>
       </Modal.Footer>
     </Modal>
   )

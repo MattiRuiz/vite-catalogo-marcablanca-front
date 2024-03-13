@@ -1,5 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import {
+  Button,
+  Form,
+  Modal,
+  Alert,
+  Spinner,
+  Image,
+  Row,
+  Col,
+  Ratio,
+} from 'react-bootstrap'
 import {
   createTipoProducto,
   updateTipoProducto,
@@ -15,10 +25,13 @@ const TallasCRUD_popup = ({
     imagen: '',
   })
 
+  const baseUrl = import.meta.env.VITE_NAME
+
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
+  const [loadingImagen, setLoadingImagen] = useState(false)
 
   const [alertVariant, setAlertVariant] = useState('danger')
   const alertDanger = () => setAlertVariant('danger')
@@ -102,15 +115,35 @@ const TallasCRUD_popup = ({
   }
   //#endregion
 
+  const handleCambiarImagen = async (event) => {
+    setLoadingImagen(true)
+    const dataToSend = {
+      imagen: event.target.files[0],
+      nombre: tipoProducto.nombre,
+    }
+
+    const formDataForAPI = new FormData()
+    formDataForAPI.append('nombre', dataToSend.nombre)
+    formDataForAPI.append('imagen', dataToSend.imagen)
+
+    const id = tipoProducto.id
+
+    try {
+      const response = await updateTipoProducto(id, formDataForAPI)
+      console.log('Imagen editada', response)
+    } catch (e) {
+      console.log('Error al editar una imagen', response)
+    }
+    setLoadingImagen(false)
+    closePopUp()
+    onTipoProductoUpdated()
+  }
+
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
         <Modal.Title>
-          {tipoProducto ? (
-            <h4>Editar Tipo de producto</h4>
-          ) : (
-            <h4>Añadir Tipo de producto</h4>
-          )}
+          {tipoProducto ? 'Editar Tipo de producto' : 'Añadir Tipo de producto'}
         </Modal.Title>
       </Modal.Header>
 
@@ -126,15 +159,62 @@ const TallasCRUD_popup = ({
               value={tallaData.nombre}
               onChange={handleInputChange}
             />
-            <Form.Label>Imágen:</Form.Label>
-            <Form.Control
-              className="mb-3"
-              type="file"
-              name="imagen"
-              onChange={(e) =>
-                setTallaData({ ...tallaData, imagen: e.target.files[0] })
-              }
-            />
+            {tipoProducto ? (
+              <Row className="justify-content-center">
+                <Col
+                  xs={4}
+                  className="border border-end-0 py-2"
+                  style={{ borderRadius: '8px 0 0 8px' }}
+                >
+                  <Ratio aspectRatio="1x1" className="rounded-circle">
+                    <Image
+                      fluid
+                      className="object-fit-cover rounded-circle"
+                      src={`${baseUrl}${tipoProducto.rutaImagen}`}
+                    />
+                  </Ratio>
+                </Col>
+                <Col
+                  xs={7}
+                  className="d-flex align-items-start flex-column justify-content-center border border-start-0"
+                  style={{ borderRadius: '0 8px 8px 0' }}
+                >
+                  <p className="mb-2">Imágen:</p>
+                  <label htmlFor="fileInput">
+                    <Button as="span">
+                      {loadingImagen ? (
+                        <Spinner
+                          animation="border"
+                          variant="light"
+                          size="sm"
+                          className="mx-4"
+                        />
+                      ) : (
+                        'Cambiar imagen'
+                      )}
+                    </Button>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      style={{ display: 'none' }}
+                      onChange={handleCambiarImagen}
+                    />
+                  </label>
+                </Col>
+              </Row>
+            ) : (
+              <>
+                <Form.Label>Imágen:</Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  type="file"
+                  name="imagen"
+                  onChange={(e) =>
+                    setTallaData({ ...tallaData, imagen: e.target.files[0] })
+                  }
+                />
+              </>
+            )}
           </Form.Group>
         </Form>
         {loading ? (
@@ -155,7 +235,7 @@ const TallasCRUD_popup = ({
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

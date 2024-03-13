@@ -110,10 +110,13 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header closeButton>
-        {cliente ? <h4>Editar cliente</h4> : <h4>Añadir cliente</h4>}
+      <Modal.Header className="border-0 bg-primario text-white" closeButton>
+        {cliente ? (
+          <Modal.Title>Editar cliente</Modal.Title>
+        ) : (
+          <Modal.Title>Añadir cliente</Modal.Title>
+        )}
       </Modal.Header>
-
       <Modal.Body>
         <Form>
           <Form.Group>
@@ -173,7 +176,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
           {alertMessage}
         </Alert>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>

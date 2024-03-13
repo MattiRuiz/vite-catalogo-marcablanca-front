@@ -53,14 +53,15 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   return (
     <>
       <Modal show={true} onHide={closePopUp} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0 bg-primario text-white" closeButton>
           <Modal.Title>Editar carrusel de imágenes</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
             <p className="texto-14">
               En esta sección se puede agregar o borrar imágenes en el carrusel.
-              Para cambiar la imágen principal hay que editar el producto.
+              Para cambiar la imágen de portada hay ir a{' '}
+              <strong>editar producto</strong>.
             </p>
             {imagenes ? (
               imagenes.map((imagen, index) => (
@@ -95,7 +96,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
             )}
           </Row>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="border-0 pt-0">
           <label htmlFor="fileInput">
             <Button as="span">Agregar una imagen</Button>
             <input
