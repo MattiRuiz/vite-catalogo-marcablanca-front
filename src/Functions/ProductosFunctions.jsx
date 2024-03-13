@@ -103,6 +103,15 @@ const createImagen = async (data) => {
   }
 }
 
+const deleteImagen = async (id) => {
+  try {
+    const respuesta = await axiosInstance.delete(`/api/imagenes/${id}`)
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export {
   getAllProductos,
   getAllProductosSinTallas,
@@ -114,4 +123,5 @@ export {
   getAllImages,
   getImagenesPorProducto,
   createImagen,
+  deleteImagen,
 }
