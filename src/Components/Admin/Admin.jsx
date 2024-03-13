@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import TallasCRUD from './CRUDS/TallasCRUD/TallasCRUD'
@@ -62,6 +62,17 @@ const Admin = () => {
                   >
                     Clientes
                   </Link>
+                </li>
+                <li>
+                  <Button
+                    variant="light"
+                    size="sm"
+                    as={Link}
+                    to={'/welcome'}
+                    className="mt-3"
+                  >
+                    Catálogo
+                  </Button>
                 </li>
               </ul>
             </Col>

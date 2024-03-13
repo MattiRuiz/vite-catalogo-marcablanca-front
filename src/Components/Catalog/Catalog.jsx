@@ -127,7 +127,7 @@ function Catalog() {
             )
             .map((categoria) => (
               <Col key={categoria.id} xs={12} className="mb-1">
-                <h2 className="mb-3">{categoria.nombre}</h2>
+                <h2 className="mb-2">{categoria.nombre}</h2>
                 {categoria.productos.length == 0 ? (
                   <p>
                     <em>No se encontraron productos en esta categoría.</em>
@@ -139,7 +139,11 @@ function Catalog() {
                 )}
                 <Row>
                   {categoria.productos
-                    .filter((producto) => producto.productos_tallas.length > 0)
+                    .filter((producto) =>
+                      producto.productos_tallas.some(
+                        (talla) => talla.stock !== 0
+                      )
+                    )
                     .map((producto) => (
                       <Col
                         key={producto.id}
@@ -176,31 +180,34 @@ function Catalog() {
                               <Card.Subtitle className="text-muted pb-3 fst-italic">
                                 {producto.descripcion}
                               </Card.Subtitle>
-                              {producto.productos_tallas.map((talla, index) => (
-                                <div key={index}>
-                                  <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
-                                    {talla.tallas.nombre}
-                                  </p>
-                                  <ul
-                                    key={index}
-                                    className="list-unstyled d-flex justify-content-between align-items-end"
-                                  >
-                                    <li className="text-muted">
-                                      {talla.tallas.dimensiones}
-                                    </li>
-                                    {showGanancia == 'true' ? (
-                                      <li className="fw-semibold">
-                                        $
-                                        {Math.trunc(
-                                          parseInt(talla.precio) * porcentual
-                                        )}
+                              {producto.productos_tallas
+                                .filter((talla) => talla.stock == 1)
+                                .map((talla, index) => (
+                                  <div key={index}>
+                                    {console.log(talla.stock)}
+                                    <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
+                                      {talla.tallas.nombre}
+                                    </p>
+                                    <ul
+                                      key={index}
+                                      className="list-unstyled d-flex justify-content-between align-items-end"
+                                    >
+                                      <li className="text-muted">
+                                        {talla.tallas.dimensiones}
                                       </li>
-                                    ) : (
-                                      <></>
-                                    )}
-                                  </ul>
-                                </div>
-                              ))}
+                                      {showGanancia == 'true' ? (
+                                        <li className="fw-semibold">
+                                          $
+                                          {Math.trunc(
+                                            parseInt(talla.precio) * porcentual
+                                          )}
+                                        </li>
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </ul>
+                                  </div>
+                                ))}
                             </Card.Body>
                           </Card>
                         </Link>

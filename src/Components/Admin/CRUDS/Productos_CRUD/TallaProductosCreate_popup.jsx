@@ -10,7 +10,7 @@ const TallaProductoCreate_popup = ({
 }) => {
   const [precio, setPrecio] = useState()
   const [talla, setTalla] = useState()
-  const [stock, setStock] = useState()
+  const [stock, setStock] = useState(0)
   const [tallas, setTallas] = useState({})
 
   const [showAlert, setShowAlert] = useState(false)
@@ -28,9 +28,9 @@ const TallaProductoCreate_popup = ({
 
   const handleStock = (e) => {
     if (e.target.checked) {
-      setStock('1')
+      setStock(1)
     } else {
-      setStock('0')
+      setStock(0)
     }
   }
 

@@ -178,6 +178,9 @@ min-height: 80vh;
   margin-bottom: 0.5rem;
 }
 
+.form-select:focus {
+  box-shadow: none;
+}
 
 @media (min-width: 992px) {
   .offcanvas {

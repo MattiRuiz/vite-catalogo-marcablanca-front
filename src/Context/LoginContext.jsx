@@ -1,21 +1,20 @@
 import { createContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+import PopUpUnauthorize from './PopUpUnauthorize'
 
 const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
   const [auth, setAuth] = useState({})
   const [menu, setMenu] = useState(false)
+  const [popUpUnauthorized, setPopUpUnauthorize] = useState(false)
+  const navigate = useNavigate()
 
   const handleLogin = (resp) => {
     setAuth(resp)
     setMenu(true)
-  }
-
-  const unauthorize = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userData')
-    handleLogin({})
-    setMenu(false)
   }
 
   const checkUser = () => {
@@ -37,11 +36,39 @@ const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     checkUser()
+
+    // Interceptor de estado 403
+    const responseInterceptor = axios.interceptors.response.use(
+      (response) => {
+        return response
+      },
+      (error) => {
+        if (error.response && error.response.status === 403) {
+          localStorage.removeItem('token')
+          localStorage.removeItem('userData')
+          setAuth({})
+          setMenu(false)
+          setPopUpUnauthorize(true)
+          navigate('/login')
+        }
+        return Promise.reject(error)
+      }
+    )
+    return () => {
+      axios.interceptors.response.eject(responseInterceptor)
+    }
   }, [])
 
-  const data = { handleLogin, unauthorize, checkUser, menu }
+  const data = { handleLogin, checkUser, menu }
 
-  return <LoginContext.Provider value={data}>{children}</LoginContext.Provider>
+  return (
+    <>
+      <LoginContext.Provider value={data}>{children}</LoginContext.Provider>
+      {popUpUnauthorized && (
+        <PopUpUnauthorize closePopUp={() => setPopUpUnauthorize(false)} />
+      )}
+    </>
+  )
 }
 
 export { LoginProvider }

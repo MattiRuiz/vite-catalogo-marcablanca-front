@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
-import { clearData } from '../../../../Functions/ClienteFunctions'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
-  const navigate = useNavigate()
   const [tallaData, setTallaData] = useState({
     nombre: '',
     dimensiones: '',
@@ -54,7 +51,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     } else if (talla) {
       const id = talla.id
       const response = await updateTalla(id, dataToSend)
-      setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
@@ -69,24 +65,15 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         setTimeout(() => closePopUp(), 2000)
         onTallaUpdated()
       }
+      setLoading(false)
     } else {
       const response = await createTalla(dataToSend)
-      setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
         setAlertMessage('Hubo un problema al crear una medida nueva')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
-      } else if (response == 403) {
-        console.log('Error en el front', response)
-        alertDanger()
-        setAlertHeader('Su sesión ha expirado')
-        setAlertMessage('Por favor inicie sesión nuevamente.')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
-        clearData()
-        navigate('/login')
       } else {
         alertSuccess()
         setAlertHeader('Medida creada')
@@ -95,6 +82,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         setTimeout(() => closePopUp(), 2000)
         onTallaUpdated()
       }
+      setLoading(false)
     }
   }
   //#endregion

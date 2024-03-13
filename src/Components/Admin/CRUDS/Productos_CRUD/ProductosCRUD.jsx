@@ -16,12 +16,12 @@ import {
   getAllProductos,
 } from '../../../../Functions/ProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
-import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
 
 import PopUpBorrar from './PopUpBorrar'
 import ImagenesCRUD_popup from './ImagenesCRUD_popup'
 import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
+import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -34,9 +34,12 @@ const ProductoCRUD = () => {
   const [popUpTalla, setPopUpTalla] = useState(false)
   const [popUpImagenes, setPopUpImagenes] = useState(false)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
+  const [popUpBorrarTallaProducto, setPopUpBorrarTallaProducto] =
+    useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
   const [selectedCategoria, setSelectedCategoria] = useState()
   const [selectedIdProducto, setSelectedIdProducto] = useState()
+  const [selectedTallaProducto, setSelectedTallaProducto] = useState(null)
   //#endregion
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -48,8 +51,6 @@ const ProductoCRUD = () => {
   }
 
   const [loading, setLoading] = useState(false)
-
-  const [loadingDelete, setLoadingDelete] = useState({})
 
   //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
@@ -97,25 +98,10 @@ const ProductoCRUD = () => {
     setPopUpImagenes(true)
   }
 
-  const deleteProductoTalla = async (idProductoTalla) => {
-    try {
-      setLoadingDelete((prevLoading) => ({
-        ...prevLoading,
-        [idProductoTalla]: true,
-      }))
-
-      const response = await deleteTallaProducto(idProductoTalla)
-      console.log('Producto-talla eliminado', response)
-    } catch (e) {
-      console.log('Error al borrar un producto-talla', e)
-    } finally {
-      setLoadingDelete((prevLoading) => ({
-        ...prevLoading,
-        [idProductoTalla]: false,
-      }))
-
-      fetchData()
-    }
+  const openPopUpBorrarTallaProducto = (productoTalla, producto) => {
+    setSelectedTallaProducto(productoTalla)
+    setSelectedProducto(producto)
+    setPopUpBorrarTallaProducto(true)
   }
 
   return (
@@ -186,7 +172,6 @@ const ProductoCRUD = () => {
                               </ul>
                             </Col>
                           </Row>
-
                           <Button
                             variant="success"
                             size="sm"
@@ -224,35 +209,56 @@ const ProductoCRUD = () => {
                                 >
                                   <ul className="list-unstyled d-flex justify-content-between align-items-center mb-1 border-bottom">
                                     <li className="mb-1 text-uppercase fw-bold text-gray">
-                                      <Form>
-                                        <Form.Check
-                                          type="checkbox"
-                                          label={talla.tallas.nombre}
-                                          value={talla.stock}
-                                        />
-                                      </Form>
+                                      {talla.stock ? (
+                                        <>
+                                          <Badge bg="success" size="sm">
+                                            En stock
+                                          </Badge>
+                                          <p className="mb-0">
+                                            {talla.tallas.nombre}
+                                          </p>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <Badge bg="danger" size="sm">
+                                            Sin stock
+                                          </Badge>
+                                          <p className="mb-0">
+                                            {talla.tallas.nombre}
+                                          </p>
+                                        </>
+                                      )}
                                     </li>
                                     <li className="mb-2">
                                       <Button
+                                        variant="warning"
+                                        size="sm"
+                                        className="ms-1"
+                                        onClick={() =>
+                                          openPopUpBorrarTallaProducto(
+                                            talla,
+                                            producto
+                                          )
+                                        }
+                                      >
+                                        <span className="material-symbols-outlined text-dark">
+                                          edit
+                                        </span>
+                                      </Button>
+                                      <Button
                                         variant="danger"
                                         size="sm"
+                                        className="ms-1"
                                         onClick={() =>
-                                          deleteProductoTalla(talla.id)
+                                          openPopUpBorrarTallaProducto(
+                                            talla,
+                                            producto
+                                          )
                                         }
-                                        disabled={loadingDelete[talla.id]}
                                       >
-                                        {loadingDelete[talla.id] ? (
-                                          <Spinner
-                                            animation="border"
-                                            variant="light"
-                                            size="sm"
-                                            className="my-1"
-                                          />
-                                        ) : (
-                                          <span className="material-symbols-outlined">
-                                            delete
-                                          </span>
-                                        )}
+                                        <span className="material-symbols-outlined">
+                                          delete
+                                        </span>
                                       </Button>
                                     </li>
                                   </ul>
@@ -339,6 +345,16 @@ const ProductoCRUD = () => {
           producto={selectedProducto}
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUpBorrar(false)}
+        />
+      ) : (
+        <></>
+      )}
+      {popUpBorrarTallaProducto ? (
+        <PopUpBorrarTallaProducto
+          talla={selectedTallaProducto}
+          producto={selectedProducto}
+          onDataUpdated={() => fetchData()}
+          closePopUp={() => setPopUpBorrarTallaProducto(false)}
         />
       ) : (
         <></>
