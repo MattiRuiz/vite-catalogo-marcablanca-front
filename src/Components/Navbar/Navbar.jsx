@@ -22,22 +22,45 @@ function Navbar() {
             <Image src={imageLogo} className="logo-home d-block" />
           </Link>
         </Col>
-        <Col xs={6} className="d-flex align-items-center">
-          {menu ? (
-            <Button className="d-block ms-auto" onClick={handleOpen}>
-              <span className="material-symbols-outlined">menu</span>
-            </Button>
-          ) : (
-            <Button
-              variant="outline-light"
-              as={Link}
-              className="d-block ms-auto"
-              to={'/login'}
-            >
-              Ingresar
-            </Button>
-          )}
-        </Col>
+        {menu ? (
+          <Col xs={6} className="d-flex  justify-content-end">
+            <ul className="list-unstyled d-flex mb-0 align-items-center">
+              <li className="d-none d-md-inline-block">
+                <Link to={'/'} className="text-white px-4 py-2">
+                  Inicio
+                </Link>
+              </li>
+              <li className="d-none d-md-inline-block">
+                <Link to={'/welcome'} className="text-white px-4 py-2">
+                  Catálogo
+                </Link>
+              </li>
+              <li>
+                <Link onClick={handleOpen} className="text-white d-flex">
+                  <span className="material-symbols-outlined me-0 px-2 d-none d-md-block">
+                    settings
+                  </span>
+                  <span className="material-symbols-outlined me-0 d-md-none">
+                    menu
+                  </span>
+                </Link>
+              </li>
+            </ul>
+          </Col>
+        ) : (
+          <Col xs={6} className="d-flex  justify-content-end">
+            <ul className="list-unstyled d-flex mb-0 align-items-center">
+              <li>
+                <Link
+                  to={'/login'}
+                  className="text-white px-4 py-2 border border-white rounded texto-14"
+                >
+                  Ingresar
+                </Link>
+              </li>
+            </ul>
+          </Col>
+        )}
       </Row>
       <Offcanvas show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header className="bg-primario text-white mb-3" closeButton>

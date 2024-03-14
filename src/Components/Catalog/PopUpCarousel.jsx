@@ -29,13 +29,13 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
         <Carousel>
           {producto && (
             <Carousel.Item>
-              <Ratio aspectRatio="1x1">
-                <Image
-                  src={baseUrl + producto.rutaImagen}
-                  alt={producto.nombre}
-                  fluid
-                />
-              </Ratio>
+              <Image
+                src={baseUrl + producto.rutaImagen}
+                alt={producto.nombre}
+                style={{ maxHeight: '70vh' }}
+                className="d-block mx-auto"
+                fluid
+              />
             </Carousel.Item>
           )}
           {imagenesCarousel ? (
@@ -44,6 +44,7 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
                 <Image
                   src={baseUrl + '/' + imagen.rutaImagen}
                   alt={imagen.rutaImagen}
+                  style={{ maxHeight: '70vh' }}
                   fluid
                   className="d-block mx-auto"
                 />

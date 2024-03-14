@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import {
   Container,
   Row,
@@ -9,18 +9,20 @@ import {
   Alert,
   Spinner,
 } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
 
 import catalogo from '../../Images/mockup_catalogo.png'
 
 import Footer from '../Footer/Footer'
+import PopUpForgotPassword from './PopUpForgotPassword'
 
 function Login() {
   const [userName, setUserName] = useState()
   const [password, setPassword] = useState()
   const [loading, setLoading] = useState(false)
+  const [popUpForgotPassword, setPopUpForgotPassword] = useState(false)
   const { handleLogin } = useContext(LoginContext)
   const navigate = useNavigate()
 
@@ -85,60 +87,74 @@ function Login() {
       setLoading(false)
     }
   }
+
   return (
-    <Container className="bg-white" fluid>
-      <Form onSubmit={handleSubmit}>
-        <Row className="py-5 justify-content-center justify-content-md-around">
-          <Col xs={11} md={5} lg={4} className="pt-4 pt-md-5">
+    <>
+      <Row className="py-5 justify-content-center justify-content-md-around align-items-center alto-container">
+        <Col xs={11} md={5} lg={4}>
+          <Form onSubmit={handleSubmit}>
             <h4>INGRESAR</h4>
-            <Form.Group className="py-2">
+
+            <Form.Group className="pt-2">
               <Form.Label>Nombre de usuario:</Form.Label>
               <Form.Control type="text" onChange={userNameHandler} />
             </Form.Group>
-            <Form.Group className="py-2">
+            <Form.Group className="pt-2">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control type="password" onChange={passwordHandler} />
             </Form.Group>
-            <Button type="submit" className="mt-3 w-100" onClick={dataSender}>
+
+            <Button type="submit" className="my-3 w-100" onClick={dataSender}>
               {loading ? (
                 <Spinner animation="border" variant="light" size="sm" />
               ) : (
                 'Ingresar'
               )}
             </Button>
-
-            <Alert
-              variant="danger"
-              className="mt-3 mb-0"
-              onClose={handleClose}
-              show={showAlert}
-              dismissible
+            <Link
+              className="text-dark texto-14"
+              onClick={() => setPopUpForgotPassword(true)}
             >
-              <Alert.Heading className="fs-6">
-                <strong>Error</strong>
-              </Alert.Heading>
-              {alertMessage}
-            </Alert>
-          </Col>
-          <Col xs={12} md={6} lg={5}>
-            <Row className="justify-content-center text-center">
-              <Col xs={8} md={6} className="mt-3 pt-4">
-                <Image src={catalogo} fluid />
-              </Col>
-              <Col xs={11}>
-                <h4>¡Nuevo catálogo digital!</h4>
-                <p>
-                  Pasá por nuestro local para suscribite a{' '}
-                  <strong>Marca Blanca</strong> y comenzar a utilizar nuestro{' '}
-                  <strong>Catálogo digital.</strong>
-                </p>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Form>
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </Form>
+          <Alert
+            variant="danger"
+            className="mt-3 mb-0"
+            onClose={handleClose}
+            show={showAlert}
+            dismissible
+          >
+            <Alert.Heading className="fs-6">
+              <strong>Error</strong>
+            </Alert.Heading>
+            {alertMessage}
+          </Alert>
+        </Col>
+        <Col xs={12} md={6} lg={5}>
+          <Row className="justify-content-center text-center">
+            <Col xs={8} md={6} lg={4}>
+              <Image src={catalogo} fluid />
+            </Col>
+            <Col xs={11}>
+              <h4>¡Nuevo catálogo digital!</h4>
+              <p>
+                Pasá por nuestro local para suscribite a{' '}
+                <strong>Marca Blanca</strong> y comenzar a utilizar nuestro{' '}
+                <strong>Catálogo digital.</strong>
+              </p>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
       <Footer />
-    </Container>
+      {popUpForgotPassword ? (
+        <PopUpForgotPassword closePopUp={() => setPopUpForgotPassword(false)} />
+      ) : (
+        <></>
+      )}
+    </>
   )
 }
 

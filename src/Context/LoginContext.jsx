@@ -17,6 +17,14 @@ const LoginProvider = ({ children }) => {
     setMenu(true)
   }
 
+  const unauthorize = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userData')
+    setAuth({})
+    setMenu(false)
+    navigate('/')
+  }
+
   const checkUser = () => {
     const token = localStorage.getItem('token')
     if (auth && token) {
@@ -49,7 +57,7 @@ const LoginProvider = ({ children }) => {
           setAuth({})
           setMenu(false)
           setPopUpUnauthorize(true)
-          navigate('/login')
+          navigate('/')
         }
         return Promise.reject(error)
       }
@@ -59,7 +67,7 @@ const LoginProvider = ({ children }) => {
     }
   }, [])
 
-  const data = { handleLogin, checkUser, menu }
+  const data = { handleLogin, checkUser, menu, unauthorize }
 
   return (
     <>

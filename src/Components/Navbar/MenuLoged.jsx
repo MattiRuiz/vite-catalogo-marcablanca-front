@@ -18,7 +18,6 @@ function MenuLoged({ close }) {
   }
 
   const logout = () => {
-    navigate('/')
     setShow(false)
     close()
     unauthorize()
@@ -37,12 +36,12 @@ function MenuLoged({ close }) {
     <>
       <Offcanvas.Body>
         <ul className="list-unstyled">
-          <li className="mb-3">
+          <li className="mb-3 d-md-none">
             <Link to={'/'} onClick={close}>
               Inicio
             </Link>
           </li>
-          <li className="mb-3">
+          <li className="mb-3 d-md-none">
             <Link to={'/welcome'} onClick={close}>
               Catálogo
             </Link>

@@ -46,21 +46,16 @@ function ListaPrecio() {
   }, [])
 
   return (
-    <Container>
+    <>
       <Row className="justify-content-center">
         <Col xs={12} lg={8} className="py-5">
           <h3 className="fw-bold">Panel de control</h3>
-          <p className="mb-1">
-            Aquí encontrará todas las opciones relacionadas a los precios de los
-            productos.
-          </p>
           <Col xs={12} className="mt-3 border rounded p-4">
             <h4>Activar precios en el catálogo *</h4>
             <Form className="my-3">
               <p>
-                Permite activar los precios en el catálogo. Si indica un
-                porcentaje de ganancia de 0 podrá ver el precio mayorista.
-                Recuerde que los precios pueden variar a los publicados.
+                Permite mostrar los precios en el{' '}
+                <em>catálogo digital Marca Blanca</em>
               </p>
               <Form.Check
                 onChange={(e) => handleShowGanacia(e)}
@@ -70,7 +65,15 @@ function ListaPrecio() {
               />
             </Form>
             <Form>
-              <Form.Label>Porcentaje de ganancia:</Form.Label>
+              <Form.Label>
+                Porcentaje de ganancia:{' '}
+                <span className="text-muted texto-14 text-danger">
+                  <strong>
+                    (Si indica un porcentaje de ganancia de 0 podrá ver el{' '}
+                    precio mayorista)
+                  </strong>
+                </span>
+              </Form.Label>
               <Row className="align-items-center my-2">
                 <Col xs={12} sm={4}>
                   <InputGroup>
@@ -111,13 +114,15 @@ function ListaPrecio() {
         </Modal.Header>
         <Modal.Body>
           <p>
-            Está por mostrar los precios en el catálogo, configurados para
+            Está por mostrar los precios en el catálogo, configurado para
             mostrar el:{' '}
           </p>
           <h5>
             <strong>
               {' '}
-              {ganancia ? 'Precio mayorista' : 'Precio revendedor'}
+              {ganancia === '0'
+                ? 'Precio mayorista'
+                : `Precio revendedor con %${ganancia} de ganancia`}
             </strong>
           </h5>
         </Modal.Body>
@@ -130,7 +135,7 @@ function ListaPrecio() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </>
   )
 }
 

@@ -10,7 +10,7 @@ import ClientesCRUD from './CRUDS/Clientes_CRUD/ClientesCRUD'
 import NotFound from '../404/NotFund'
 
 const Admin = () => {
-  const [selectedEntity, setSelectedEntity] = useState('tallas')
+  const [selectedEntity, setSelectedEntity] = useState('productos')
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
@@ -62,17 +62,6 @@ const Admin = () => {
                   >
                     Clientes
                   </Link>
-                </li>
-                <li>
-                  <Button
-                    variant="light"
-                    size="sm"
-                    as={Link}
-                    to={'/welcome'}
-                    className="mt-3"
-                  >
-                    Catálogo
-                  </Button>
                 </li>
               </ul>
             </Col>

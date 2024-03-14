@@ -121,6 +121,7 @@ li button span.material-symbols-outlined{
 
 p, li, a.btn {
   letter-spacing: 0.30px!important;
+  line-height: 160%;
 }
 
 .tipoproducto-preview {
