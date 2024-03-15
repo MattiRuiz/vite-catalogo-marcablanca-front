@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import { Container, Row, Col, Button, Ratio, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import empresasLogo from '../../Images/logos-empresas.jpg'
+import maschico from '../../Images/maschico.jpg'
 import catalogo from '../../Images/mockup_catalogo.png'
 import Footer from '../Footer/Footer'
 
@@ -17,81 +17,25 @@ function Home() {
 
   return (
     <Container fluid>
-      <Row className="text-center">
+      <Row className="text-center shadow-lg">
         <Col
           xs={12}
           lg={6}
-          className="p-5 text-white bg-primario d-flex flex-column justify-content-center"
+          className="p-0 text-white bg-primario d-flex flex-column justify-content-center"
         >
-          <h5 className="display-5">
-            <strong>Mayorista textil</strong>
-          </h5>
-          <p className="mb-1">En nuestros locales encontrarás:</p>
-          <p className="letterspacing">
-            <strong>
-              Sábanas | Acolchados | Frazadas | Almohadas | Cortinas | Manteles
-              | Accesorios para baño | y más...
-            </strong>
-          </p>
+          <Image src={maschico} fluid />
         </Col>
-        <Col xs={12} lg={6} className="text-center bg-white p-4 p-md-5">
-          <p className="fs-4 lh-sm">
-            Con los mejores precios en las <strong>siguientes marcas:</strong>
-          </p>
-          <Row className="justify-content-center">
-            <Col xs={11} md={8}>
-              <Image src={empresasLogo} fluid />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <Row className="justify-content-center align-items-center align-items-stretch">
-        <Col
-          xs={11}
-          md={8}
-          lg={6}
-          className="text-center py-5 text-white bg-primario"
-          id="contacto"
-        >
-          <p className="fs-4">Encontranos en:</p>
-          <Row className="justify-content-center">
-            <Col xs={11} sm={9} lg={8} xl={7}>
-              <div>
-                <div className="mapouter">
-                  <div className="gmap_canvas">
-                    <Ratio aspectRatio="1x1">
-                      <iframe
-                        className="gmap_iframe"
-                        width="100%"
-                        title="Mapa de Blanqueria MarcaBlanca"
-                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Blanqueria MarcaBlanca&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                      ></iframe>
-                    </Ratio>
-                  </div>
-                  <style>
-                    .mapouter
-                    {
-                      'position:relative;text-align:right;width:100%;height:400px;'
-                    }
-                    .gmap_canvas{' '}
-                    {
-                      'overflow:hidden;background:none!important;width:100%;height:400px;'
-                    }
-                    .gmap_iframe {'height:400px!important;'}
-                  </style>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Col>
-        <Col xs={12} lg={6} className="bg-white py-5">
+        <Col xs={12} lg={6} className="py-5 d-flex align-items-center">
           <Row className="text-center justify-content-center">
-            <Col xs={8}>
-              <Image src={catalogo} fluid />
-            </Col>
             <Col xs={10}>
-              <h4>¡Nuevo catálogo digital!</h4>
-              <p>Suscribite a Marca Blanca y llevá tu catalogo en el celular</p>
+              <h5 className="display-5 mb-1">
+                <strong>¡Bienvenidos!</strong>
+              </h5>
+              <h4 className="lh-sm">
+                A la versión <span className="text-danger fw-bold">Beta</span>{' '}
+                de nuestro <strong>catálogo digital</strong>
+              </h4>
+              <p>Con él podras llevar tu catalogo a todas partes.</p>
             </Col>
             <Col xs={11}>
               <Button as={Link} to={'/welcome'}>
@@ -100,6 +44,94 @@ function Home() {
             </Col>
           </Row>
         </Col>
+      </Row>
+      <Row className="justify-content-center align-items-center align-items-stretch py-5">
+        <Col xs={12} lg={12} className="text-center mb-3">
+          <p className="fs-4 lh-sm">
+            Accedé a nuestro catálogo y disfruta de todos sus{' '}
+            <strong>beneficios:</strong>
+          </p>
+        </Col>
+        <Row className="text-center justify-content-evenly">
+          <Col
+            xs={12}
+            md={6}
+            lg={3}
+            xl={2}
+            className="d-flex flex-column align-items-center"
+          >
+            <div
+              style={{ width: '80px', height: '80px' }}
+              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+            >
+              <span class="material-symbols-outlined fs-2">dashboard</span>
+            </div>
+            <h5>Consultar stock</h5>
+            <p>
+              Los productos que no se encuentran disponibles no se muestran en
+              el catálogo.
+            </p>
+          </Col>
+          <Col
+            xs={12}
+            md={6}
+            lg={3}
+            xl={2}
+            className="d-flex flex-column align-items-center"
+          >
+            <div
+              style={{ width: '80px', height: '80px' }}
+              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+            >
+              <span class="material-symbols-outlined fs-2">image</span>
+            </div>
+            <h5>Banco de fotos</h5>
+            <p>
+              Cada producto cuenta con varias fotos para mostrar a tus clientes.
+            </p>
+          </Col>
+          <Col
+            xs={12}
+            md={6}
+            lg={3}
+            xl={2}
+            className="d-flex flex-column align-items-center"
+          >
+            <div
+              style={{ width: '80px', height: '80px' }}
+              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+            >
+              <span class="material-symbols-outlined fs-2">view_list</span>
+            </div>
+            <h5>Lista de precios</h5>
+            <p>Descargá en el momento la lista de precios actualizada.</p>
+          </Col>
+          <Col
+            xs={12}
+            md={6}
+            lg={3}
+            xl={2}
+            className="d-flex flex-column align-items-center"
+          >
+            <div
+              style={{ width: '80px', height: '80px' }}
+              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+            >
+              <span class="material-symbols-outlined fs-2">price_check</span>
+            </div>
+            <h5>Precios revendedor</h5>
+            <p>
+              Configurá tu cuenta y comenzá a mostrar los precios revendedor en
+              tu catálogo.
+            </p>
+          </Col>
+          <Col xs={12} lg={12} className="text-center mb-3">
+            <p className="fs-4 lh-sm mb-0">
+              Todo eso junto a{' '}
+              <strong>los mejores precios y la mejor atención.</strong>
+            </p>
+          </Col>
+        </Row>
       </Row>
       <Footer />
     </Container>

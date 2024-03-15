@@ -137,11 +137,13 @@ function Login() {
               <Image src={catalogo} fluid />
             </Col>
             <Col xs={11}>
-              <h4>¡Nuevo catálogo digital!</h4>
+              <h4>
+                ¡Bienvenidos a nuestro <strong>catálogo digital!</strong>
+              </h4>
               <p>
-                Pasá por nuestro local para suscribite a{' '}
-                <strong>Marca Blanca</strong> y comenzar a utilizar nuestro{' '}
-                <strong>Catálogo digital.</strong>
+                En estos momentos el catálogo se encuentra en etapa de testeo.
+                Para mas información pueden enviarnos un mensaje de{' '}
+                <strong>Contacto</strong>.
               </p>
             </Col>
           </Row>

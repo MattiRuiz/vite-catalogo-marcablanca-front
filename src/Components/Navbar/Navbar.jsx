@@ -15,9 +15,9 @@ function Navbar() {
   const { menu } = useContext(LoginContext)
 
   return (
-    <Container fluid>
-      <Row className="bg-primario py-3 text-center text-white px-3 shadow">
-        <Col xs={6}>
+    <Container fluid className="shadow">
+      <Row className="bg-primario py-3 text-center text-white px-3">
+        <Col xs={6} className="ps-0">
           <Link to={'/'}>
             <Image src={imageLogo} className="logo-home d-block" />
           </Link>
@@ -37,8 +37,11 @@ function Navbar() {
               </li>
               <li>
                 <Link onClick={handleOpen} className="text-white d-flex">
-                  <span className="material-symbols-outlined me-0 px-2 d-none d-md-block">
+                  <span className="material-symbols-outlined me-0 ps-2 d-none d-md-block">
                     settings
+                  </span>
+                  <span class="material-symbols-outlined d-none d-md-block">
+                    arrow_drop_down
                   </span>
                   <span className="material-symbols-outlined me-0 d-md-none">
                     menu

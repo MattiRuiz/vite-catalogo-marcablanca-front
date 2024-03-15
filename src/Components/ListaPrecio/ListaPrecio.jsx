@@ -92,16 +92,16 @@ function ListaPrecio() {
               Aplicar cambios
             </Button>
           </Col>
-          {/* <Col xs={12} className="border rounded p-4 mt-4">
-          <h4>Lista de precios *</h4>
-          <p>Descarga la lista de precios en formato PDF</p>
-          <Button
-            href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf"
-            download
-          >
-            Descargar PDF
-          </Button>
-        </Col> */}
+          <Col xs={12} className="border rounded p-4 mt-4">
+            <h4>Lista de precios *</h4>
+            <p>Descarga la lista de precios en formato PDF</p>
+            <Button
+              href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf"
+              download
+            >
+              Descargar PDF
+            </Button>
+          </Col>
           <p className="texto-14 fst-italic mt-3 mb-0">
             * Los precios pueden variar y están sujetos a cambio.
           </p>
@@ -113,18 +113,27 @@ function ListaPrecio() {
           <Modal.Title>¡Atención!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            Está por mostrar los precios en el catálogo, configurado para
-            mostrar el:{' '}
-          </p>
-          <h5>
-            <strong>
-              {' '}
-              {ganancia === '0'
-                ? 'Precio mayorista'
-                : `Precio revendedor con %${ganancia} de ganancia`}
-            </strong>
-          </h5>
+          {showGanancia ? (
+            <>
+              <p>
+                Está por mostrar los precios en el catálogo, configurado para
+                mostrar el:{' '}
+              </p>
+              <h5>
+                <strong>
+                  {' '}
+                  {ganancia === '0'
+                    ? 'Precio mayorista'
+                    : `Precio revendedor con %${ganancia} de ganancia`}
+                </strong>
+              </h5>
+            </>
+          ) : (
+            <p>
+              Está por <strong>ocultar</strong> los precios en el catálogo
+              ¿Desea continuar?.
+            </p>
+          )}
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
           <Button variant="secondary" onClick={handleClose}>
