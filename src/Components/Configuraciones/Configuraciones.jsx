@@ -9,7 +9,7 @@ import {
   InputGroup,
 } from 'react-bootstrap'
 
-function ListaPrecio() {
+function Configuraciones() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
@@ -148,4 +148,4 @@ function ListaPrecio() {
   )
 }
 
-export default ListaPrecio
+export default Configuraciones

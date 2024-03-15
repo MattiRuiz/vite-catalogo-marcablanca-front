@@ -9,7 +9,7 @@ import Home from './Components/Home/Home'
 import Login from './Components/Login/Login'
 import Welcome from './Components/Welcome/Welcome'
 import Catalog from './Components/Catalog/Catalog'
-import ListaPrecio from './Components/ListaPrecio/ListaPrecio'
+import Configuraciones from './Components/Configuraciones/Configuraciones'
 import Admin from './Components/Admin/Admin'
 import NotFound from './Components/404/NotFund'
 
@@ -63,7 +63,7 @@ function App() {
             path="/configuracion"
             element={
               <>
-                <ListaPrecio />
+                <Configuraciones />
               </>
             }
           />

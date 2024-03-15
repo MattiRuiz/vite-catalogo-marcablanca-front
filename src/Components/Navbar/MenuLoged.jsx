@@ -48,7 +48,7 @@ function MenuLoged({ close }) {
           </li>
           <li className="mb-3">
             <Link to={'/configuracion'} onClick={close}>
-              Panel de control
+              Configuraciones
             </Link>
           </li>
           <li className="mb-3">
