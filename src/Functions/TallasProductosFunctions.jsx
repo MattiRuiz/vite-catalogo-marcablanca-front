@@ -1,29 +1,16 @@
 import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_NAME
-
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-})
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers['Authorization'] = `${token}`
-    }
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+const token = window.localStorage.getItem('token')
 
 const deleteTallaProducto = async (id) => {
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas/${id}`,
       method: 'DELETE',
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {
@@ -38,6 +25,9 @@ const createTallaProducto = async (data) => {
       url: `${baseUrl}/api/productosTallas`,
       method: 'POST',
       data: data,
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {

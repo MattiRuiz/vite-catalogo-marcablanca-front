@@ -1,37 +1,10 @@
 import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_NAME
-
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-})
-
-// Interceptar las solicitudes para incluir el token de autorización en el encabezado
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers['Authorization'] = `${token}`
-    }
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
-
-const setAuthToken = (token) => {
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `${token}`
-  } else {
-    delete axios.defaults.headers.common['Authorization']
-  }
-}
+const token = window.localStorage.getItem('token')
 
 const getAllTallas = async () => {
   try {
-    const token = localStorage.getItem('token')
-    setAuthToken(token)
     const respuesta = await axios.get(`${baseUrl}/api/tallas`)
     return respuesta
   } catch (error) {
@@ -39,44 +12,53 @@ const getAllTallas = async () => {
   }
 }
 
-const getOneTalla = async (id) => {
+const getOneTalla = async (_id) => {
   try {
-    const token = localStorage.getItem('token')
-    setAuthToken(token)
-    const respuesta = await axios.get(`${baseUrl}/api/tallas/${id}`)
+    const respuesta = await axios.get(`${baseUrl}/api/tallas/${_id}`)
     return respuesta
   } catch (error) {
     console.error(error)
   }
 }
 
-const createTalla = async (data) => {
+const createTalla = async (_data) => {
   try {
-    const token = localStorage.getItem('token')
-    setAuthToken(token)
-    const respuesta = await axios.post(`${baseUrl}/api/tallas`, data)
+    const respuesta = await axios(`${baseUrl}/api/tallas`, {
+      method: 'POST',
+      data: _data,
+      headers: {
+        'Authorization': token
+      }
+    })
     return respuesta
   } catch (error) {
     return error.response.status
   }
 }
 
-const updateTalla = async (id, data) => {
+const updateTalla = async (_id, _data) => {
   try {
-    const token = localStorage.getItem('token')
-    setAuthToken(token)
-    const respuesta = await axios.put(`${baseUrl}/api/tallas/${id}`, data)
+    const respuesta = await axios(`${baseUrl}/api/tallas/${_id}`, {
+      method: 'PUT',
+      data: _data,
+      headers: {
+        'Authorization': token
+      }
+    })
     return respuesta
   } catch (error) {
     console.error(error)
   }
 }
 
-const deleteTalla = async (id) => {
+const deleteTalla = async (_id) => {
   try {
-    const token = localStorage.getItem('token')
-    setAuthToken(token)
-    const respuesta = await axios.delete(`${baseUrl}/api/tallas/${id}`)
+    const respuesta = await axios(`${baseUrl}/api/tallas/${_id}`, {
+      method: 'DELETE',
+      headers:{
+        'Authorization': token
+      }
+    })
     return respuesta
   } catch (error) {
     console.error(error)

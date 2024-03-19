@@ -1,55 +1,52 @@
 import axios from 'axios';
 
 const baseUrl = import.meta.env.VITE_NAME;
-
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-});
-
-// Interceptar las solicitudes para incluir el token de autorización en el encabezado
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+const token = window.localStorage.getItem('token')
 
 const getAllMarcas = async () => {
   try {
-    const respuesta = await axiosInstance.get('/api/marcas');
+    const respuesta = await axios.get(`${baseUrl}/api/marcas`);
     return respuesta;
   } catch (error) {
     console.error(error);
   }
 };
 
-const getOneMarca = async (id) => {
+const getOneMarca = async (_id) => {
   try {
-    const respuesta = await axiosInstance.get(`/api/marcas/${id}`);
+    const respuesta = await axios.get(`${baseUrl}/api/marcas/${_id}`);
     return respuesta;
   } catch (error) {
     console.error(error);
   }
 };
 
-const createMarca = async (data) => {
+const createMarca = async (_data) => {
   try {
-    const respuesta = await axiosInstance.post('/api/marcas', data);
+    const respuesta = await axios(`${baseUrl}/api/marcas`, {
+      data: _data,
+      method: 'POST',
+      headers: {
+        'Authorization': token
+      }
+    });
+
     return respuesta;
   } catch (error) {
     console.error(error);
   }
 };
 
-const updateMarca = async (id, data) => {
+const updateMarca = async (_id, _data) => {
   try {
-    const respuesta = await axiosInstance.put(`/api/marcas/${id}`, data);
+    const respuesta = await axios(`${baseUrl}/api/marcas/${_id}`, {
+      data: _data,
+      method: 'PUT',
+      headers: {
+        'Authorization': token
+      }
+    });
+
     return respuesta;
   } catch (error) {
     console.error(error);
@@ -58,7 +55,13 @@ const updateMarca = async (id, data) => {
 
 const deleteMarca = async (id) => {
   try {
-    const respuesta = await axiosInstance.delete(`/api/marcas/${id}`);
+    const respuesta = await axios(`${baseUrl}/api/marcas/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token
+      }
+    });
+
     return respuesta;
   } catch (error) {
     console.error(error);

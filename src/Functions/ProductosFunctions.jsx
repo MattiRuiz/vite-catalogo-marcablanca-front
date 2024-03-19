@@ -1,24 +1,7 @@
 import axios from 'axios'
 
+const token = window.localStorage.getItem('token')
 const baseUrl = import.meta.env.VITE_NAME
-
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-})
-
-// Interceptar las solicitudes para incluir el token de autorización en el encabezado
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers['Authorization'] = `${token}`
-    }
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
 
 const getAllProductosSinTallas = async () => {
   const respuesta = await axios.get(`${baseUrl}/api/productos`)
@@ -41,12 +24,14 @@ const getOneProducto = async (id) => {
   return respuesta
 }
 
-const createProducto = async (data) => {
+const createProducto = async (_data) => {
   try {
-    const respuesta = await axios({
-      url: `${baseUrl}/api/productos`,
+    const respuesta = await axios(`${baseUrl}/api/productos`, {
       method: 'POST',
-      data: data,
+      data: _data,
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {
@@ -54,12 +39,14 @@ const createProducto = async (data) => {
   }
 }
 
-const updateProducto = async (id, data) => {
+const updateProducto = async (id, _data) => {
   try {
-    const respuesta = await axios({
-      url: `${baseUrl}/api/productos/${id}`,
+    const respuesta = await axios(`${baseUrl}/api/productos/${id}`, {
       method: 'PUT',
-      data: data,
+      data: _data,
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {
@@ -67,12 +54,13 @@ const updateProducto = async (id, data) => {
   }
 }
 
-const deleteProducto = async (id, data) => {
+const deleteProducto = async (_id) => {
   try {
-    const respuesta = await axios({
-      url: `${baseUrl}/api/productos/${id}`,
+    const respuesta = await axios(`${baseUrl}/api/productos/${_id}`, {
       method: 'DELETE',
-      data: data,
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {
@@ -80,22 +68,24 @@ const deleteProducto = async (id, data) => {
   }
 }
 
-const getAllImages = async (id) => {
-  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${id}`)
+const getAllImages = async (_id) => {
+  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${_id}`)
   return respuesta
 }
 
-const getImagenesPorProducto = async (id) => {
-  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${id}`)
+const getImagenesPorProducto = async (_id) => {
+  const respuesta = await axios.get(`${baseUrl}/api/imagenes/byproducts/${_id}`)
   return respuesta
 }
 
-const createImagen = async (data) => {
+const createImagen = async (_data) => {
   try {
-    const respuesta = await axios({
-      url: `${baseUrl}/api/imagenes`,
+    const respuesta = await axios(`${baseUrl}/api/imagenes`, {
       method: 'POST',
-      data: data,
+      data: _data,
+      headers: {
+        'Authorization': token
+      }
     })
     return respuesta
   } catch (errors) {
@@ -103,9 +93,14 @@ const createImagen = async (data) => {
   }
 }
 
-const deleteImagen = async (id) => {
+const deleteImagen = async (_id) => {
   try {
-    const respuesta = await axiosInstance.delete(`/api/imagenes/${id}`)
+    const respuesta = await axios(`${baseUrl}/api/imagenes/${_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token
+      }
+    })
     return respuesta
   } catch (errors) {
     console.log(errors)

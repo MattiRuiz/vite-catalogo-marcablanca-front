@@ -1,26 +1,9 @@
 import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_NAME
+const token = window.localStorage.getItem('token')
 
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-})
-
-// Interceptar las solicitudes para incluir el token de autorización en el encabezado
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers['Authorization'] = `${token}`
-    }
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
-
-//Logout del admin si no tiene token
+//#region Logout del admin si no tiene token
 const clearData = () => {
   try {
     localStorage.removeItem('token')
@@ -30,6 +13,7 @@ const clearData = () => {
     console.log('clearData error', e)
   }
 }
+//#endregion
 
 const getAllClientes = async () => {
   const respuesta = await axios.get(`${baseUrl}/api/clientes`)
@@ -41,12 +25,14 @@ const getOneCliente = async (id) => {
   return respuesta
 }
 
-const createCliente = async (data) => {
+const createCliente = async (_data) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/clientes`,
+    const response = await axios(`${baseUrl}/api/clientes`, {
       method: 'POST',
-      data: data,
+      data: _data,
+      headers:{
+        'Authorization': token
+      }
     })
     return response.data
   } catch (errors) {
@@ -54,12 +40,14 @@ const createCliente = async (data) => {
   }
 }
 
-const updateCliente = async (id, data) => {
+const updateCliente = async (_id, _data) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/clientes/${id}`,
+    const response = await axios(`${baseUrl}/api/clientes/${_id}`, {
       method: 'PUT',
-      data: data,
+      data: _data,
+      headers:{
+        'Authorization': token
+      }
     })
     return response
   } catch (errors) {
@@ -67,12 +55,13 @@ const updateCliente = async (id, data) => {
   }
 }
 
-const deleteCliente = async (id, data) => {
+const deleteCliente = async (_id) => {
   try {
-    const response = await axios({
-      url: `${baseUrl}/api/clientes/${id}`,
+    const response = await axios(`${baseUrl}/api/clientes/${_id}`, {
       method: 'DELETE',
-      data: data,
+      headers:{
+        'Authorization': token
+      }
     })
     return response
   } catch (errors) {
