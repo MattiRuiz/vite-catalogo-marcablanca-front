@@ -30,8 +30,8 @@ const createProducto = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -45,8 +45,8 @@ const updateProducto = async (id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -59,8 +59,8 @@ const deleteProducto = async (_id) => {
     const respuesta = await axios(`${baseUrl}/api/productos/${_id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -84,8 +84,8 @@ const createImagen = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -98,8 +98,8 @@ const deleteImagen = async (_id) => {
     const respuesta = await axios(`${baseUrl}/api/imagenes/${_id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {

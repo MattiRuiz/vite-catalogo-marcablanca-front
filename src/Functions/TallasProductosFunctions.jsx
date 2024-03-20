@@ -9,8 +9,8 @@ const deleteTallaProducto = async (id) => {
       url: `${baseUrl}/api/productosTallas/${id}`,
       method: 'DELETE',
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -26,8 +26,8 @@ const createTallaProducto = async (data) => {
       method: 'POST',
       data: data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {

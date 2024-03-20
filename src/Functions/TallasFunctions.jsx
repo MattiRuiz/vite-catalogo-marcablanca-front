@@ -27,8 +27,8 @@ const createTalla = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (error) {
@@ -42,8 +42,8 @@ const updateTalla = async (_id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (error) {
@@ -55,9 +55,9 @@ const deleteTalla = async (_id) => {
   try {
     const respuesta = await axios(`${baseUrl}/api/tallas/${_id}`, {
       method: 'DELETE',
-      headers:{
-        'Authorization': token
-      }
+      headers: {
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (error) {

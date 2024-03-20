@@ -30,9 +30,9 @@ const createCliente = async (_data) => {
     const response = await axios(`${baseUrl}/api/clientes`, {
       method: 'POST',
       data: _data,
-      headers:{
-        'Authorization': token
-      }
+      headers: {
+        Authorization: token,
+      },
     })
     return response.data
   } catch (errors) {
@@ -45,9 +45,9 @@ const updateCliente = async (_id, _data) => {
     const response = await axios(`${baseUrl}/api/clientes/${_id}`, {
       method: 'PUT',
       data: _data,
-      headers:{
-        'Authorization': token
-      }
+      headers: {
+        Authorization: token,
+      },
     })
     return response
   } catch (errors) {
@@ -59,9 +59,9 @@ const deleteCliente = async (_id) => {
   try {
     const response = await axios(`${baseUrl}/api/clientes/${_id}`, {
       method: 'DELETE',
-      headers:{
-        'Authorization': token
-      }
+      headers: {
+        Authorization: token,
+      },
     })
     return response
   } catch (errors) {
