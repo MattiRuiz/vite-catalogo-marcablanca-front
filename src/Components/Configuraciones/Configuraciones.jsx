@@ -44,12 +44,12 @@ function Configuraciones() {
   return (
     <>
       <Row className="justify-content-center">
-        <Col xs={12} lg={8} className="py-5">
+        <Col xs={11} lg={8} className="py-5">
           <h3 className="fw-bold">Configuraciones</h3>
           <p className="mb-0">
             Recuerde que los precios pueden variar y están sujetos a cambio.
           </p>
-          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
             <h4 className="fw-bold">Lista de precios</h4>
             <p>Descarga la lista de precios en formato PDF</p>
             <Button
@@ -59,7 +59,7 @@ function Configuraciones() {
               Descargar PDF
             </Button>
           </Col>
-          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
             <h4 className="fw-bold">Activar precios en el catálogo</h4>
             <Form className="">
               <p>
@@ -102,7 +102,7 @@ function Configuraciones() {
               Aplicar cambios
             </Button>
           </Col>
-          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
             <h4 className="fw-bold ">Cambiar contraseña</h4>
             <p className="mb-0">
               Para cambiar la contraseña haga click en el siguiente botón:

@@ -2,11 +2,10 @@ import { useState, useContext } from 'react'
 import { Modal, Button, Spinner, Form, Alert } from 'react-bootstrap'
 
 import { changePassword } from '../../Functions/ClienteFunctions'
-
 import LoginContext from '../../Context/LoginContext'
 
 const ModalCambiarPassword = ({ closePopUp }) => {
-  const { auth } = useContext(LoginContext)
+  const { unauthorize } = useContext(LoginContext)
   const [loading, setLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertVariant, setAlertVariant] = useState('danger')
@@ -29,23 +28,30 @@ const ModalCambiarPassword = ({ closePopUp }) => {
   }
 
   const handleChangePassword = async () => {
+    const userData = JSON.parse(window.localStorage.getItem('userData'))
     setLoading(true)
     setShowAlert(false)
-    if (newPass != newPassRep) {
+    if (!userData) {
+      setAlertVariant('danger')
+      setAlertHeader('Cuenta no logueada')
+      setAlertMessage(
+        'Su cuenta no se encuentra logueada, por favor acceda nuevamente para poder cambiar la contraseña.'
+      )
+      setShowAlert(true)
+      setTimeout(() => unauthorize(), 4000)
+    } else if (newPass != newPassRep) {
       setAlertVariant('danger')
       setAlertHeader('Error')
       setAlertMessage(
         'Las contraseñas nuevas no coinciden, por favor revise esa información e intente de nuevo.'
       )
       setShowAlert(true)
-    }
-    if (!oldPass || !newPass || !newPassRep) {
+    } else if (!oldPass || !newPass || !newPassRep) {
       setAlertVariant('danger')
       setAlertHeader('Error')
       setAlertMessage('Hay campos que se encuentran vacíos.')
       setShowAlert(true)
-    }
-    if (newPass.length < 2) {
+    } else if (newPass.length < 2) {
       setAlertVariant('danger')
       setAlertHeader('Error')
       setAlertMessage(
@@ -53,7 +59,6 @@ const ModalCambiarPassword = ({ closePopUp }) => {
       )
       setShowAlert(true)
     } else {
-      const userData = JSON.parse(window.localStorage.getItem('userData'))
       const dataToSend = {
         newPassword: newPass,
         password: oldPass,
