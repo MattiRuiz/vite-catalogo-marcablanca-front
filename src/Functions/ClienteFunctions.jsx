@@ -69,6 +69,21 @@ const deleteCliente = async (_id) => {
   }
 }
 
+const changePassword = async (_id, _data) => {
+  try {
+    const response = await axios(
+      `${baseUrl}/api/clientes/updatepassword/${_id}`,
+      {
+        method: 'PUT',
+        data: _data,
+      }
+    )
+    return response
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export {
   getAllClientes,
   createCliente,
@@ -76,4 +91,5 @@ export {
   getOneCliente,
   deleteCliente,
   clearData,
+  changePassword,
 }

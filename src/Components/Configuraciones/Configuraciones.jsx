@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react'
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Modal,
-  InputGroup,
-} from 'react-bootstrap'
+import { Row, Col, Button, Form, Modal, InputGroup } from 'react-bootstrap'
+
+import ModalCambiarPassword from './ModalCambiarPassword'
+import Footer from '../Footer/Footer'
 
 function Configuraciones() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
+  const [modalCambiarPass, setModalCambiarPass] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -49,10 +45,23 @@ function Configuraciones() {
     <>
       <Row className="justify-content-center">
         <Col xs={12} lg={8} className="py-5">
-          <h3 className="fw-bold">Panel de control</h3>
-          <Col xs={12} className="mt-3 border rounded p-4">
-            <h4>Activar precios en el catálogo *</h4>
-            <Form className="my-3">
+          <h3 className="fw-bold">Configuraciones</h3>
+          <p className="mb-0">
+            Recuerde que los precios pueden variar y están sujetos a cambio.
+          </p>
+          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+            <h4 className="fw-bold">Lista de precios</h4>
+            <p>Descarga la lista de precios en formato PDF</p>
+            <Button
+              href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf"
+              download
+            >
+              Descargar PDF
+            </Button>
+          </Col>
+          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+            <h4 className="fw-bold">Activar precios en el catálogo</h4>
+            <Form className="">
               <p>
                 Permite mostrar los precios en el{' '}
                 <em>catálogo digital Marca Blanca</em>
@@ -62,6 +71,7 @@ function Configuraciones() {
                 checked={showGanancia}
                 type="switch"
                 label="Mostrar precios"
+                className="my-3"
               />
             </Form>
             <Form>
@@ -92,22 +102,23 @@ function Configuraciones() {
               Aplicar cambios
             </Button>
           </Col>
-          <Col xs={12} className="border rounded p-4 mt-4">
-            <h4>Lista de precios *</h4>
-            <p>Descarga la lista de precios en formato PDF</p>
-            <Button
-              href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf"
-              download
-            >
-              Descargar PDF
+          <Col xs={12} className="border rounded p-4 p-lg-5 mt-4">
+            <h4 className="fw-bold ">Cambiar contraseña</h4>
+            <p className="mb-0">
+              Para cambiar la contraseña haga click en el siguiente botón:
+            </p>
+            <Button className="mt-3" onClick={() => setModalCambiarPass(true)}>
+              Cambiar la contraseña
             </Button>
           </Col>
-          <p className="texto-14 fst-italic mt-3 mb-0">
-            * Los precios pueden variar y están sujetos a cambio.
-          </p>
         </Col>
       </Row>
-
+      <Footer />
+      {modalCambiarPass ? (
+        <ModalCambiarPassword closePopUp={() => setModalCambiarPass(false)} />
+      ) : (
+        <></>
+      )}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header className="border-0 bg-warning" closeButton>
           <Modal.Title>¡Atención!</Modal.Title>

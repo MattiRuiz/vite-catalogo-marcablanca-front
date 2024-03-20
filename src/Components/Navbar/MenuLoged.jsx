@@ -36,6 +36,18 @@ function MenuLoged({ close }) {
     <>
       <Offcanvas.Body>
         <ul className="list-unstyled">
+          {user ? (
+            <li className="mb-3">
+              <Button
+                as={Link}
+                to={'/admin'}
+                variant="secondary"
+                onClick={close}
+              >
+                Administrar
+              </Button>
+            </li>
+          ) : null}
           <li className="mb-3 d-md-none">
             <Link to={'/'} onClick={close}>
               Inicio
@@ -56,18 +68,6 @@ function MenuLoged({ close }) {
               <strong>Cerrar sesión</strong>
             </Link>
           </li>
-          {user ? (
-            <li className="mt-5">
-              <Button
-                as={Link}
-                to={'/admin'}
-                variant="secondary"
-                onClick={close}
-              >
-                Administrar
-              </Button>
-            </li>
-          ) : null}
         </ul>
       </Offcanvas.Body>
       <Modal show={show} onHide={handleClose} centered>
