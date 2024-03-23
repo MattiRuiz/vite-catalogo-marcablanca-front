@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
-import { createTallaProducto } from '../../../../Functions/TallasProductosFunctions'
+import {
+  createTallaProducto,
+  updateTallaProducto,
+} from '../../../../Functions/TallasProductosFunctions'
 import { getAllTallas } from '../../../../Functions/TallasFunctions'
 
 const TallaProductoCreate_popup = ({
+  selectedTallaProducto,
   producto,
   onProductoUpdated,
   closePopUp,
 }) => {
-  const [precio, setPrecio] = useState()
-  const [talla, setTalla] = useState()
-  const [stock, setStock] = useState(0)
   const [tallas, setTallas] = useState({})
-
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
-
   const [alertVariant, setAlertVariant] = useState('danger')
   const alertDanger = () => setAlertVariant('danger')
   const alertSuccess = () => setAlertVariant('success')
@@ -25,15 +24,6 @@ const TallaProductoCreate_popup = ({
     'Ha ocurrido un error, por favor intente más tarde'
   )
   const [alertHeader, setAlertHeader] = useState('Error')
-
-  const handleStock = (e) => {
-    if (e.target.checked) {
-      setStock(1)
-    } else {
-      setStock(0)
-    }
-  }
-
   useEffect(() => {
     const getTallas = async () => {
       try {
@@ -46,35 +36,96 @@ const TallaProductoCreate_popup = ({
     getTallas()
   }, [])
 
-  const createMedidaProducto = async () => {
+  const [tallaSelected, setTallaSelected] = useState({
+    stock: 0,
+    precio: '',
+    tallas_id: '',
+    productos_id: producto.id,
+  })
+
+  useEffect(() => {
+    if (selectedTallaProducto) {
+      setTallaSelected({
+        stock: selectedTallaProducto.stock || 0,
+        precio: selectedTallaProducto.precio || '',
+        tallas_id: selectedTallaProducto.tallas.id || '',
+        productos_id: producto.id,
+      })
+    }
+  }, [selectedTallaProducto])
+
+  //#region Handle de todos los inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setTallaSelected((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+  //#endregion
+
+  const handleStock = (e) => {
+    if (e.target.checked) {
+      setTallaSelected((prevData) => ({
+        ...prevData,
+        stock: 1,
+      }))
+    } else {
+      setTallaSelected((prevData) => ({
+        ...prevData,
+        stock: 0,
+      }))
+    }
+  }
+
+  const handleGuardar = async () => {
     setLoading(true)
-    const newMedidaProducto = {
-      precio: precio,
-      tallas_id: talla,
-      productos_id: producto,
-      stock: stock,
+    handleCloseAlert()
+
+    const dataToSend = {
+      ...tallaSelected,
     }
 
-    try {
-      const response = await createTallaProducto(newMedidaProducto)
+    if (selectedTallaProducto) {
+      const id = selectedTallaProducto.id
+      const response = await updateTallaProducto(id, dataToSend)
       setLoading(false)
       if (!response) {
         alertDanger()
         setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear una medida')
+        setAlertMessage('Hubo un problema al querer actualizar la información.')
         handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
       } else {
         alertSuccess()
-        setAlertHeader('Medida producto creada')
-        setAlertMessage('La medida ha sido creada con éxito')
+        setAlertHeader('Medida actualizada')
+        setAlertMessage('La medida de este producto ha sido actualizada')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+        onProductoUpdated()
       }
-    } catch (e) {
-      console.log('Error al crear una talla producto', e)
+    } else {
+      try {
+        console.log('data', dataToSend)
+        const response = await createTallaProducto(dataToSend)
+        setLoading(false)
+        if (!response) {
+          alertDanger()
+          setAlertHeader('Error')
+          setAlertMessage('Hubo un problema al crear una medida')
+          handleShowAlert()
+          setTimeout(() => handleCloseAlert(), 3000)
+        } else {
+          alertSuccess()
+          setAlertHeader('Medida producto creada')
+          setAlertMessage('La medida ha sido creada con éxito')
+          handleShowAlert()
+          setTimeout(() => closePopUp(), 2000)
+          onProductoUpdated()
+        }
+      } catch (e) {
+        console.log('Error al crear una talla producto', e)
+      }
     }
-    onProductoUpdated()
   }
 
   return (
@@ -88,8 +139,9 @@ const TallaProductoCreate_popup = ({
             <Form.Label>Medida:</Form.Label>
             <Form.Select
               className="mb-3"
-              value={talla}
-              onChange={(e) => setTalla(e.target.value)}
+              name="tallas_id"
+              value={tallaSelected.tallas_id}
+              onChange={handleInputChange}
             >
               <option value="">Selecciona una medida</option>
               {tallas.length > 0 ? (
@@ -108,15 +160,15 @@ const TallaProductoCreate_popup = ({
               className="mb-3"
               placeholder="precio"
               name="precio"
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
+              value={tallaSelected.precio}
+              onChange={handleInputChange}
             />
           </Form.Group>
           <Form.Check
             type="checkbox"
             label="¿Hay stock?"
             className="mb-2 mt-1"
-            value={stock}
+            checked={tallaSelected.stock}
             onChange={handleStock}
           />
         </Form>
@@ -142,7 +194,7 @@ const TallaProductoCreate_popup = ({
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button onClick={createMedidaProducto}>Crear medida</Button>
+        <Button onClick={handleGuardar}>Guardar</Button>
       </Modal.Footer>
     </Modal>
   )

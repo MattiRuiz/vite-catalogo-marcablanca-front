@@ -59,6 +59,11 @@ function MenuLoged({ close }) {
             </Link>
           </li>
           <li className="mb-3">
+            <Link to={'/contacto'} onClick={close}>
+              Contacto
+            </Link>
+          </li>
+          <li className="mb-3">
             <Link to={'/configuracion'} onClick={close}>
               Configuraciones
             </Link>

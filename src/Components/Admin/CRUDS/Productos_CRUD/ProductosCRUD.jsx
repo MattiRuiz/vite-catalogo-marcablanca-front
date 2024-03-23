@@ -83,8 +83,9 @@ const ProductoCRUD = () => {
   }
   //#endregion
 
-  const openPopupTalla = (idProducto) => {
-    setSelectedIdProducto(idProducto)
+  const openPopupTalla = (productoTalla, producto) => {
+    setSelectedProducto(producto)
+    setSelectedTallaProducto(productoTalla)
     setPopUpTalla(true)
   }
 
@@ -243,10 +244,7 @@ const ProductoCRUD = () => {
                                         size="sm"
                                         className="ms-1"
                                         onClick={() =>
-                                          openPopUpBorrarTallaProducto(
-                                            talla,
-                                            producto
-                                          )
+                                          openPopupTalla(talla, producto)
                                         }
                                       >
                                         <span className="material-symbols-outlined text-dark">
@@ -290,7 +288,7 @@ const ProductoCRUD = () => {
                             <Button
                               className="w-100"
                               variant="outline-secondary"
-                              onClick={() => openPopupTalla(producto.id)}
+                              onClick={() => openPopupTalla(null, producto)}
                             >
                               + Agregar medida
                             </Button>
@@ -333,7 +331,8 @@ const ProductoCRUD = () => {
       }
       {popUpTalla ? (
         <TallaProductoCreate_popup
-          producto={selectedIdProducto}
+          selectedTallaProducto={selectedTallaProducto}
+          producto={selectedProducto}
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUpTalla(false)}
         />

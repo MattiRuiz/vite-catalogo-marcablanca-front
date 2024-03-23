@@ -46,25 +46,25 @@ const LoginProvider = ({ children }) => {
     checkUser()
 
     // Interceptor de estado 403
-    const responseInterceptor = axios.interceptors.response.use(
-      (response) => {
-        return response
-      },
-      (error) => {
-        if (error.response && error.response.status === 403) {
-          localStorage.removeItem('token')
-          localStorage.removeItem('userData')
-          setAuth({})
-          setMenu(false)
-          setPopUpUnauthorize(true)
-          navigate('/')
-        }
-        return Promise.reject(error)
-      }
-    )
-    return () => {
-      axios.interceptors.response.eject(responseInterceptor)
-    }
+    // const responseInterceptor = axios.interceptors.response.use(
+    //   (response) => {
+    //     return response
+    //   },
+    //   (error) => {
+    //     if (error.response && error.response.status === 403) {
+    //       localStorage.removeItem('token')
+    //       localStorage.removeItem('userData')
+    //       setAuth({})
+    //       setMenu(false)
+    //       setPopUpUnauthorize(true)
+    //       navigate('/')
+    //     }
+    //     return Promise.reject(error)
+    //   }
+    // )
+    // return () => {
+    //   axios.interceptors.response.eject(responseInterceptor)
+    // }
   }, [])
 
   const data = { handleLogin, checkUser, menu, unauthorize }

@@ -48,19 +48,6 @@ const MarcasCRUD = () => {
     setPopUpBorrar(true)
   }
 
-  //#region Handle elminar cliente
-  const handleDelete = async (idMarca) => {
-    try {
-      const response = await deleteMarca(idMarca)
-      console.log('Usuario eliminado', response)
-      setPopUp(false)
-    } catch (e) {
-      return e.message
-    }
-    fetchData()
-  }
-  //#endregion
-
   return (
     <>
       <Col xs={12}>
