@@ -1,7 +1,7 @@
 import axios from 'axios';
+import {token} from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME;
-const token = window.localStorage.getItem('token')
 
 const getAllMarcas = async () => {
   try {
@@ -16,7 +16,7 @@ const getOneMarca = async (_id) => {
   try {
     const respuesta = await axios.get(`${baseUrl}/api/marcas/${_id}`);
     return respuesta;
-  } catch (error) {
+  } catch (error) { 
     console.error(error);
   }
 };

@@ -1,6 +1,6 @@
 import axios from 'axios'
+import {token} from '../helpers/updateToken.jsx'
 
-const token = window.localStorage.getItem('token')
 const baseUrl = import.meta.env.VITE_NAME
 
 const getAllProductosSinTallas = async () => {

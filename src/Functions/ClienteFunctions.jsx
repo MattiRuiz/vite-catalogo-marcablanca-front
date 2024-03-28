@@ -1,7 +1,7 @@
 import axios from 'axios'
+import {token} from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
-const token = window.localStorage.getItem('token')
 
 //#region Logout del admin si no tiene token
 const clearData = () => {
@@ -39,7 +39,6 @@ const createCliente = async (_data) => {
     console.log(errors)
   }
 }
-
 const updateCliente = async (_id, _data) => {
   try {
     const response = await axios(`${baseUrl}/api/clientes/${_id}`, {

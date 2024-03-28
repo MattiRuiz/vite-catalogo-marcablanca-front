@@ -1,23 +1,41 @@
 import axios from "axios";
+import {token} from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME;
-const token = window.localStorage.getItem('token')
-
 
 const getAllTipoProductos = async () => {
-  const respuesta = await axios.get(`${baseUrl}/api/tipoProductos`)
-  
+  try{
+    const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
+    method: "GET",
+    headers: {
+      'Authorization': token
+    }
+  })
   return respuesta
+}
+catch(errors){
+  console.log(errors);
+}
 }
 
 const getOneTipoProducto = async (id) => {
-    const respuesta = await axios.get(`${baseUrl}/api/tipoProductos/${id}`)
+  try{
+    const respuesta = await axios(`${baseUrl}/api/tipoProductos/${id}`, {
+      method: "GET",
+      headers: {
+        'Authorization': token
+      }
+    })
     return respuesta;
+  }
+  catch(errors){
+    console.log(errors);
+  }
 }
 
 const createTipoProducto = async (data) => {
     try {
-      const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
+    const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
         method: "POST",
         data: data,
         headers: {
