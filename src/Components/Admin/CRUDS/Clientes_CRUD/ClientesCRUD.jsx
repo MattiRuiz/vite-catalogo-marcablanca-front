@@ -48,19 +48,6 @@ const ClientesCRUD = () => {
     setPopUpBorrar(true)
   }
 
-  //#region Handle elminar cliente
-  const handleDelete = async (idCliente) => {
-    try {
-      const response = await deleteCliente(idCliente)
-      console.log('Usuario eliminado', response)
-      setPopUp(false)
-    } catch (e) {
-      return e.message
-    }
-    fetchData()
-  }
-  //#endregion
-
   return (
     <>
       <Col xs={12}>

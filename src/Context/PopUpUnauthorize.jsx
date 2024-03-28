@@ -9,10 +9,10 @@ const PopUpUnauthorize = ({ closePopUp }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Su cuenta expiró</Modal.Title>
+        <Modal.Title className="text-dark">Su cuenta expiró</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Por favor inicie sesión nuevamente.</p>
+        <p className="text-dark">Por favor inicie sesión nuevamente.</p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={() => closePopUp()}>

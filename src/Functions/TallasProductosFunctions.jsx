@@ -9,8 +9,8 @@ const deleteTallaProducto = async (id) => {
       url: `${baseUrl}/api/productosTallas/${id}`,
       method: 'DELETE',
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -19,15 +19,14 @@ const deleteTallaProducto = async (id) => {
 }
 
 const createTallaProducto = async (data) => {
-  console.log('entra a la función', data)
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas`,
       method: 'POST',
       data: data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
     return respuesta
   } catch (errors) {
@@ -35,4 +34,19 @@ const createTallaProducto = async (data) => {
   }
 }
 
-export { deleteTallaProducto, createTallaProducto }
+const updateTallaProducto = async (id, _data) => {
+  try {
+    const respuesta = await axios(`${baseUrl}/api/productosTallas/${id}`, {
+      method: 'PUT',
+      data: _data,
+      headers: {
+        Authorization: token,
+      },
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+export { deleteTallaProducto, createTallaProducto, updateTallaProducto }

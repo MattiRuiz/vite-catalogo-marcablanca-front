@@ -12,6 +12,7 @@ import Catalog from './Components/Catalog/Catalog'
 import Configuraciones from './Components/Configuraciones/Configuraciones'
 import Admin from './Components/Admin/Admin'
 import NotFound from './Components/404/NotFund'
+import Contacto from './Components/Contacto/Contacto'
 
 function App() {
   return (
@@ -80,6 +81,14 @@ function App() {
             element={
               <>
                 <NotFound />
+              </>
+            }
+          />
+          <Route
+            path="/contacto"
+            element={
+              <>
+                <Contacto />
               </>
             }
           />

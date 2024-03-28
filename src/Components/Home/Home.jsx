@@ -17,7 +17,7 @@ function Home() {
 
   return (
     <Container fluid>
-      <Row className="text-center shadow-lg">
+      <Row className="text-center shadow-sm">
         <Col
           xs={12}
           lg={6}
@@ -44,9 +44,14 @@ function Home() {
             </Col>
           </Row>
         </Col>
+        <Col xs={12} className="bg-secondary text-white p-2">
+          <p className="mb-0">
+            ¡Accedé a las <strong>mejores ofertas</strong>!
+          </p>
+        </Col>
       </Row>
       <Row className="justify-content-center align-items-center align-items-stretch py-5">
-        <Col xs={12} lg={12} className="text-center mb-3">
+        <Col xs={12} lg={12} className="text-center mb-4">
           <p className="fs-4 lh-sm">
             Accedé a nuestro catálogo y disfruta de todos sus{' '}
             <strong>beneficios:</strong>
@@ -125,10 +130,10 @@ function Home() {
               tu catálogo.
             </p>
           </Col>
-          <Col xs={12} lg={12} className="text-center mb-3">
-            <p className="fs-4 lh-sm mb-0">
-              Todo eso junto a{' '}
-              <strong>los mejores precios y la mejor atención.</strong>
+          <Col xs={12} lg={12} className="text-center mt-2">
+            <p className="fs-5 lh-sm">
+              Junto a los mejores precios y la mejor atención{' '}
+              <strong>¡te esperamos!</strong>
             </p>
           </Col>
         </Row>

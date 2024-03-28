@@ -40,7 +40,7 @@ function Navbar() {
                   <span className="material-symbols-outlined me-0 ps-2 d-none d-md-block">
                     settings
                   </span>
-                  <span class="material-symbols-outlined d-none d-md-block">
+                  <span className="material-symbols-outlined d-none d-md-block">
                     arrow_drop_down
                   </span>
                   <span className="material-symbols-outlined me-0 d-md-none">

@@ -51,15 +51,15 @@ const createTipoProducto = async (data) => {
 const updateTipoProducto = async (id, data) => {
   try {
     const respuesta = await axios(`${baseUrl}/api/tipoProductos/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       data: data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
-    return respuesta;
+    return respuesta
   } catch (errors) {
-    console.log(errors);
+    console.log(errors)
   }
 }
 
@@ -67,22 +67,22 @@ const deleteTipoProducto = async (id, data) => {
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/tipoProductos/${id}`,
-      method: "DELETE",
+      method: 'DELETE',
       data: data,
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
-    return respuesta;
+    return respuesta
   } catch (errors) {
-    console.log(errors);
+    console.log(errors)
   }
 }
-    
+
 export {
-    getAllTipoProductos,
-    getOneTipoProducto,
-    createTipoProducto,
-    updateTipoProducto,
-    deleteTipoProducto
+  getAllTipoProductos,
+  getOneTipoProducto,
+  createTipoProducto,
+  updateTipoProducto,
+  deleteTipoProducto,
 }

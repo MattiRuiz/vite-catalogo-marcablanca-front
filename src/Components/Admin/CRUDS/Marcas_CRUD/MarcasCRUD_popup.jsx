@@ -56,6 +56,7 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
         setAlertMessage('Hubo un problema al querer actualizar la marca')
         handleShowAlert()
         setTimeout(() => handleCloseAlert(), 3000)
+        console.log(response)
       } else {
         alertSuccess()
         setAlertHeader('Marca actualizada')
@@ -63,6 +64,7 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
         onMarcaUpdated()
+        console.log(response)
       }
     } else {
       const response = await createMarca(dataToSend)
