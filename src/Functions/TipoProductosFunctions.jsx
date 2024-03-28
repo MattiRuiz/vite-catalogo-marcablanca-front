@@ -1,52 +1,50 @@
-import axios from "axios";
-import {token} from '../helpers/updateToken.jsx'
+import axios from 'axios'
+import { token } from '../helpers/updateToken.jsx'
 
-const baseUrl = import.meta.env.VITE_NAME;
+const baseUrl = import.meta.env.VITE_NAME
 
 const getAllTipoProductos = async () => {
-  try{
+  try {
     const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
-    method: "GET",
-    headers: {
-      'Authorization': token
-    }
-  })
-  return respuesta
-}
-catch(errors){
-  console.log(errors);
-}
+      method: 'GET',
+      headers: {
+        Authorization: token,
+      },
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
 }
 
 const getOneTipoProducto = async (id) => {
-  try{
+  try {
     const respuesta = await axios(`${baseUrl}/api/tipoProductos/${id}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        'Authorization': token
-      }
+        Authorization: token,
+      },
     })
-    return respuesta;
-  }
-  catch(errors){
-    console.log(errors);
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
   }
 }
 
 const createTipoProducto = async (data) => {
-    try {
+  try {
     const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
-        method: "POST",
-        data: data,
-        headers: {
-          'Authorization': token
-        }
-      })
-      return respuesta;
-    } catch (errors) {
-      console.log(errors);
-    }
+      method: 'POST',
+      data: data,
+      headers: {
+        Authorization: token,
+      },
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
   }
+}
 
 const updateTipoProducto = async (id, data) => {
   try {

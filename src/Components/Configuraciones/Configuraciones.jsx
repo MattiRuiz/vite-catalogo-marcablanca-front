@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Row, Col, Button, Form, Modal, InputGroup } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 import ModalCambiarPassword from './ModalCambiarPassword'
 import Footer from '../Footer/Footer'
@@ -9,6 +10,8 @@ function Configuraciones() {
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
   const [modalCambiarPass, setModalCambiarPass] = useState(false)
+  const navigate = useNavigate()
+  const baseUrl = import.meta.env.VITE_NAME
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -24,6 +27,7 @@ function Configuraciones() {
     localStorage.setItem('ganancia', ganancia)
     localStorage.setItem('showGanancia', showGanancia)
     setShow(false)
+    navigate('/welcome')
   }
   const dataSave = () => {
     const showGananciaCase = localStorage.getItem('showGanancia')
@@ -53,8 +57,9 @@ function Configuraciones() {
             <h4 className="fw-bold">Lista de precios</h4>
             <p>Descarga la lista de precios en formato PDF</p>
             <Button
-              href="https://api-catalogo-tvqn.onrender.com/opt/render/project/src/uploads/lista_de_productos.pdf"
+              href={`${baseUrl}/uploads/lista_de_productos.pdf`}
               download
+              target="_blank"
             >
               Descargar PDF
             </Button>

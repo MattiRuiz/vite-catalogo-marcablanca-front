@@ -46,12 +46,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
       ...clienteData,
     }
 
-    if (
-      !dataToSend.nombre ||
-      !dataToSend.apellido ||
-      !dataToSend.username ||
-      !dataToSend.password
-    ) {
+    if (!dataToSend.nombre || !dataToSend.apellido || !dataToSend.username) {
       alertDanger()
       setAlertHeader('Error')
       setAlertMessage(

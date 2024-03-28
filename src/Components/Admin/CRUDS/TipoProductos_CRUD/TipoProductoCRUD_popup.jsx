@@ -99,7 +99,7 @@ const TallasCRUD_popup = ({
         setAlertMessage('El tipo de producto ha sido creado con éxito.')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
-        onTipoProductoUpdated()
+        //onTipoProductoUpdated()
       }
     }
   }

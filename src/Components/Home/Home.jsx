@@ -25,7 +25,11 @@ function Home() {
         >
           <Image src={maschico} fluid />
         </Col>
-        <Col xs={12} lg={6} className="py-5 d-flex align-items-center">
+        <Col
+          xs={12}
+          lg={6}
+          className="py-5 d-flex align-items-center justify-content-center"
+        >
           <Row className="text-center justify-content-center">
             <Col xs={10}>
               <h5 className="display-5 mb-1">
@@ -69,7 +73,7 @@ function Home() {
               style={{ width: '80px', height: '80px' }}
               className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
             >
-              <span class="material-symbols-outlined fs-2">dashboard</span>
+              <span className="material-symbols-outlined fs-2">dashboard</span>
             </div>
             <h5>Consultar stock</h5>
             <p>
@@ -88,7 +92,7 @@ function Home() {
               style={{ width: '80px', height: '80px' }}
               className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
             >
-              <span class="material-symbols-outlined fs-2">image</span>
+              <span className="material-symbols-outlined fs-2">image</span>
             </div>
             <h5>Banco de fotos</h5>
             <p>
@@ -106,7 +110,7 @@ function Home() {
               style={{ width: '80px', height: '80px' }}
               className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
             >
-              <span class="material-symbols-outlined fs-2">view_list</span>
+              <span className="material-symbols-outlined fs-2">view_list</span>
             </div>
             <h5>Lista de precios</h5>
             <p>Descargá en el momento la lista de precios actualizada.</p>
@@ -122,7 +126,9 @@ function Home() {
               style={{ width: '80px', height: '80px' }}
               className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
             >
-              <span class="material-symbols-outlined fs-2">price_check</span>
+              <span className="material-symbols-outlined fs-2">
+                price_check
+              </span>
             </div>
             <h5>Precios revendedor</h5>
             <p>
