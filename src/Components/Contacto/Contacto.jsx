@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
+
+import LoginContext from '../../Context/LoginContext'
 
 import {
   Col,
@@ -11,11 +14,8 @@ import {
 } from 'react-bootstrap'
 
 const Contacto = () => {
-  const [messageData, setMessageData] = useState({
-    nombre: '',
-    email: '',
-    mensaje: '',
-  })
+  const form = useRef()
+
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
@@ -29,26 +29,49 @@ const Contacto = () => {
   )
   const [alertHeader, setAlertHeader] = useState('Hubo un problema')
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setMessageData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }))
-  }
+  // const handleEnviar = () => {
+  //   handleCloseAlert()
+  //   setLoading(true)
+  //   if (!messageData.nombre || !messageData.email || !messageData.mensaje) {
+  //     alertDanger()
+  //     setAlertHeader('Hubo un problema')
+  //     setAlertMessage(
+  //       'Hay campos que se encuentran vacíos, por favor rellene todos los datos para enviar el mensaje.'
+  //     )
+  //     handleShowAlert()
+  //     onTimeout(() => handleCloseAlert(), 3000)
+  //   }
+  //   setLoading(false)
+  // }
 
-  const handleEnviar = () => {
+  const sendEmail = (e) => {
+    e.preventDefault()
     handleCloseAlert()
     setLoading(true)
-    if (!messageData.nombre || !messageData.email || !messageData.mensaje) {
-      alertDanger()
-      setAlertHeader('Hubo un problema')
-      setAlertMessage(
-        'Hay campos que se encuentran vacíos, por favor rellene todos los datos para enviar el mensaje.'
+
+    emailjs
+      .sendForm('service_p5d2n28', 'template_w6y7yub', form.current, {
+        publicKey: '9Lx1ZzKqr2d0THYPw',
+      })
+      .then(
+        () => {
+          alertSuccess()
+          setAlertHeader('Mensaje enviado')
+          setAlertMessage('Su mensaje ha sido enviado con éxito.')
+          handleShowAlert()
+          console.log('SUCCESS!')
+        },
+        (error) => {
+          alertDanger()
+          setAlertHeader('Error')
+          setAlertMessage(
+            'Hubo un problema al enviar un mensaje, por favor intente más tarde.'
+          )
+          handleShowAlert()
+          console.log('FAILED...', error.text)
+        }
       )
-      handleShowAlert()
-      onTimeout(() => handleCloseAlert(), 3000)
-    }
+
     setLoading(false)
   }
 
@@ -62,34 +85,31 @@ const Contacto = () => {
               ¿Tenes consultas, dudas o recomendaciones? No dudes en
               escribirnos.
             </p>
-            <Form>
+            <Form ref={form} onSubmit={sendEmail}>
               <Form.Label>Nombre:</Form.Label>
               <Form.Control
                 type="text"
-                name="nombre"
+                name="user_name"
                 placeholder="Nombre"
                 className="mb-3"
-                onChange={handleInputChange}
               />
               <Form.Label>Email:</Form.Label>
               <Form.Control
                 type="text"
-                name="email"
+                name="user_email"
                 placeholder="Email"
                 className="mb-3"
-                onChange={handleInputChange}
               />
               <Form.Label>Mensaje:</Form.Label>
               <Form.Control
                 as="textarea"
                 type="text"
-                name="mensaje"
+                name="message"
                 placeholder="Escriba su mensaje aquí"
                 className="mb-3"
                 style={{ height: '100px' }}
-                onChange={handleInputChange}
               />
-              <Button className="mt-2" onClick={() => handleEnviar()}>
+              <Button type="submit" value="Send" className="mt-2">
                 Enviar
               </Button>
             </Form>
