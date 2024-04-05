@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {token} from './LoginFunctions.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -31,7 +30,7 @@ const createCliente = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return response.data
@@ -45,7 +44,7 @@ const updateCliente = async (_id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return response
@@ -59,7 +58,7 @@ const deleteCliente = async (_id) => {
     const response = await axios(`${baseUrl}/api/clientes/${_id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return response

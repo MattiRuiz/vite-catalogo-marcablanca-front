@@ -1,7 +1,6 @@
 import axios from 'axios'
-import {token} from './LoginFunctions.jsx'
 
-const baseUrl = import.meta.env.VITE_NAME
+const baseUrl = import.meta.env.VITE_NAME;
 
 const getAllTallas = async () => {
   try {
@@ -27,7 +26,7 @@ const createTalla = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -42,7 +41,7 @@ const updateTalla = async (_id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -56,7 +55,7 @@ const deleteTalla = async (_id) => {
     const respuesta = await axios(`${baseUrl}/api/tallas/${_id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {token} from './LoginFunctions.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -30,7 +29,7 @@ const createProducto = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -45,7 +44,7 @@ const updateProducto = async (id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -59,7 +58,7 @@ const deleteProducto = async (_id) => {
     const respuesta = await axios(`${baseUrl}/api/productos/${_id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -84,7 +83,7 @@ const createImagen = async (_data) => {
       method: 'POST',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -98,7 +97,7 @@ const deleteImagen = async (_id) => {
     const respuesta = await axios(`${baseUrl}/api/imagenes/${_id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta

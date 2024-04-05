@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { updateToken } from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -21,7 +20,6 @@ const loginCliente = async (data) => {
     localStorage.setItem('token', response.data.token)
     localStorage.setItem('userData', userData)
     localStorage.setItem('exp', response.data.expirationDate)
-    updateToken()
 
     return response
   } catch (errors) {

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {token} from './LoginFunctions.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -9,7 +8,7 @@ const deleteTallaProducto = async (id) => {
       url: `${baseUrl}/api/productosTallas/${id}`,
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -22,10 +21,10 @@ const createTallaProducto = async (data) => {
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas`,
-      method: 'POST',
+      method: 'POST',   
       data: data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -40,7 +39,7 @@ const updateTallaProducto = async (id, _data) => {
       method: 'PUT',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
@@ -55,7 +54,7 @@ const exportToExcel = async (id, _data) => {
       method: 'GET',
       data: _data,
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
     return respuesta
