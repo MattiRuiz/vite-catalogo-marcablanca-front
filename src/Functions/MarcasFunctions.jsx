@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {token} from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME;
 
@@ -27,7 +26,7 @@ const createMarca = async (_data) => {
       data: _data,
       method: 'POST',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
 
@@ -43,7 +42,7 @@ const updateMarca = async (_id, _data) => {
       data: _data,
       method: 'PUT',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
 
@@ -58,7 +57,7 @@ const deleteMarca = async (id) => {
     const respuesta = await axios(`${baseUrl}/api/marcas/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: window.localStorage.getItem('token'),
       },
     })
 

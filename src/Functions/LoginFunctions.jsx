@@ -1,8 +1,6 @@
 import axios from 'axios';
-import {updateToken} from '../helpers/updateToken.jsx'
-
+let token = 'qasd'
 const baseUrl = import.meta.env.VITE_NAME;
-
 const loginCliente = async (data) => {
   try {
     const response = await axios({
@@ -20,8 +18,6 @@ const loginCliente = async (data) => {
     const userData = JSON.stringify(userDataObject);
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('userData', userData);
-    updateToken(); 
-
     return response;
   } catch (errors) {
     console.log(errors);
@@ -29,3 +25,4 @@ const loginCliente = async (data) => {
 };
 
 export default loginCliente;
+export {token}

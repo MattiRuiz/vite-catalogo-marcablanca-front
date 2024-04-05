@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {token} from '../helpers/updateToken.jsx'
+import {token} from './LoginFunctions.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
@@ -49,4 +49,19 @@ const updateTallaProducto = async (id, _data) => {
   }
 }
 
-export { deleteTallaProducto, createTallaProducto, updateTallaProducto }
+const exportToExcel = async (id, _data) => {
+  try {
+    const respuesta = await axios(`${baseUrl}/api/productosTallas/exportar`, {
+      method: 'GET',
+      data: _data,
+      headers: {
+        Authorization: token,
+      },
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+export { deleteTallaProducto, createTallaProducto, updateTallaProducto, exportToExcel }

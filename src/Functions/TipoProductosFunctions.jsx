@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { token } from '../helpers/updateToken.jsx'
+import {token} from './LoginFunctions.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
