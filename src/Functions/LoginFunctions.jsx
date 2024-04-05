@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-import axios from 'axios';
-let token = 'qasd'
-const baseUrl = import.meta.env.VITE_NAME;
-=======
 import axios from 'axios'
 import { updateToken } from '../helpers/updateToken.jsx'
 
 const baseUrl = import.meta.env.VITE_NAME
 
->>>>>>> 00c7590a26c0aa76f00550b4940a0df2c31a867b
 const loginCliente = async (data) => {
   try {
     const response = await axios({
@@ -23,12 +17,6 @@ const loginCliente = async (data) => {
       username: response.data.username,
     }
 
-<<<<<<< HEAD
-    const userData = JSON.stringify(userDataObject);
-    localStorage.setItem('token', response.data.token);
-    localStorage.setItem('userData', userData);
-    return response;
-=======
     const userData = JSON.stringify(userDataObject)
     localStorage.setItem('token', response.data.token)
     localStorage.setItem('userData', userData)
@@ -36,15 +24,9 @@ const loginCliente = async (data) => {
     updateToken()
 
     return response
->>>>>>> 00c7590a26c0aa76f00550b4940a0df2c31a867b
   } catch (errors) {
     console.log(errors)
   }
 }
 
-<<<<<<< HEAD
-export default loginCliente;
-export {token}
-=======
 export default loginCliente
->>>>>>> 00c7590a26c0aa76f00550b4940a0df2c31a867b
