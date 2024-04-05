@@ -1,12 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import { Offcanvas, Modal, Button } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import LoginContext from '../../Context/LoginContext'
 
 function MenuLoged({ close }) {
   const [show, setShow] = useState(false)
-  const navigate = useNavigate()
   const [user, setUser] = useState(false)
   const { unauthorize } = useContext(LoginContext)
 
@@ -34,20 +33,8 @@ function MenuLoged({ close }) {
 
   return (
     <>
-      <Offcanvas.Body>
+      <Offcanvas.Body className="d-flex flex-column justify-content-between">
         <ul className="list-unstyled">
-          {user ? (
-            <li className="mb-3">
-              <Button
-                as={Link}
-                to={'/admin'}
-                variant="secondary"
-                onClick={close}
-              >
-                Administrar
-              </Button>
-            </li>
-          ) : null}
           <li className="mb-3 d-md-none">
             <Link to={'/'} onClick={close}>
               Inicio
@@ -74,6 +61,17 @@ function MenuLoged({ close }) {
             </Link>
           </li>
         </ul>
+        {user ? (
+          <Button
+            className="mb-4"
+            as={Link}
+            to={'/admin'}
+            variant="secondary"
+            onClick={close}
+          >
+            Administrar
+          </Button>
+        ) : null}
       </Offcanvas.Body>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header className="border-0 bg-primario text-white" closeButton>

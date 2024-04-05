@@ -126,13 +126,18 @@ function Catalog() {
           .map((categoria) => (
             <Col key={categoria.id} xs={12} className="mb-1">
               <h2 className="mb-2">{categoria.nombre}</h2>
-              {categoria.productos.length == 0 ? (
+              {categoria.productos.length === 0 ||
+              categoria.productos.filter((producto) =>
+                producto.productos_tallas.some((talla) => talla.stock !== 0)
+              ).length === 0 ? (
                 <p>
                   <em>No se encontraron productos en esta categoría.</em>
                 </p>
               ) : (
                 <p>
-                  Haga click en el producto para ver la galería de imágenes.
+                  <em>
+                    Haga click en el producto para ver la galería de imágenes.
+                  </em>
                 </p>
               )}
               <Row>

@@ -1,7 +1,5 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-
-import LoginContext from '../../Context/LoginContext'
 
 import {
   Col,
@@ -28,6 +26,8 @@ const Contacto = () => {
     'Ha ocurrido un error y no se ha podido enviar el mensaje, por favor intente más tarde.'
   )
   const [alertHeader, setAlertHeader] = useState('Hubo un problema')
+
+  const [user, setUser] = useState()
 
   // const handleEnviar = () => {
   //   handleCloseAlert()
@@ -75,6 +75,14 @@ const Contacto = () => {
     setLoading(false)
   }
 
+  useEffect(() => {
+    const userLoged = localStorage.getItem('userData')
+    if (userLoged) {
+      setUser(JSON.parse(userLoged))
+    }
+    console.log('effect', userLoged)
+  }, [])
+
   return (
     <>
       <Container>
@@ -87,12 +95,24 @@ const Contacto = () => {
             </p>
             <Form ref={form} onSubmit={sendEmail}>
               <Form.Label>Nombre:</Form.Label>
-              <Form.Control
-                type="text"
-                name="user_name"
-                placeholder="Nombre"
-                className="mb-3"
-              />
+              {console.log(user)}
+              {user ? (
+                <Form.Control
+                  type="text"
+                  name="user_name"
+                  placeholder="Nombre"
+                  className="mb-3"
+                  value={user.username}
+                  disabled
+                />
+              ) : (
+                <Form.Control
+                  type="text"
+                  name="user_name"
+                  placeholder="Nombre"
+                  className="mb-3"
+                />
+              )}
               <Form.Label>Email:</Form.Label>
               <Form.Control
                 type="text"

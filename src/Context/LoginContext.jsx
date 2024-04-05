@@ -20,6 +20,7 @@ const LoginProvider = ({ children }) => {
   const unauthorize = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userData')
+    localStorage.removeItem('exp')
     setAuth({})
     setMenu(false)
     navigate('/')

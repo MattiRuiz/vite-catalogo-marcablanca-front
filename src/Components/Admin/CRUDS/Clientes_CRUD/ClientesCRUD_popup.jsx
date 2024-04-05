@@ -12,6 +12,7 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
     username: '',
     password: '',
   })
+  const [edit, setEdit] = useState(false)
 
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
@@ -143,14 +144,36 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
               onChange={handleInputChange}
             />
             <Form.Label>Contraseña:</Form.Label>
-            <Form.Control
-              type="password"
-              className="mb-3"
-              placeholder="Password"
-              name="password"
-              value={clienteData.password}
-              onChange={handleInputChange}
-            />
+            {cliente ? (
+              <>
+                <Form.Control
+                  type="password"
+                  className="mb-3"
+                  placeholder="Password"
+                  name="password"
+                  value={clienteData.password}
+                  onChange={handleInputChange}
+                  disabled={!edit}
+                />
+                <Form.Check
+                  type="checkbox"
+                  label="Modificar contraseña"
+                  value={edit}
+                  onChange={() => {
+                    setEdit(!edit)
+                  }}
+                />
+              </>
+            ) : (
+              <Form.Control
+                type="password"
+                className="mb-3"
+                placeholder="Password"
+                name="password"
+                value={clienteData.password}
+                onChange={handleInputChange}
+              />
+            )}
           </Form.Group>
         </Form>
         {loading ? (
