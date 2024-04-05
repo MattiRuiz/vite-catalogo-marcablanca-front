@@ -49,11 +49,12 @@ function Configuraciones() {
     <>
       <Row className="justify-content-center">
         <Col xs={11} lg={8} className="py-5">
-          <h3 className="fw-bold">Configuraciones</h3>
+          <h3 className="fw-bold">Lista de precios</h3>
           <p className="mb-0">
-            Recuerde que los precios pueden variar y están sujetos a cambio.
+            Descarga la lista de precio o modifica la configuración de tu
+            catálogo digital.
           </p>
-          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-3">
             <h4 className="fw-bold">Lista de precios</h4>
             <p>Descarga la lista de precios en formato PDF</p>
             <Button
@@ -64,7 +65,7 @@ function Configuraciones() {
               Descargar PDF
             </Button>
           </Col>
-          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-2 mb-5">
             <h4 className="fw-bold">Activar precios en el catálogo</h4>
             <Form className="">
               <p>
@@ -98,6 +99,7 @@ function Configuraciones() {
                       value={ganancia}
                       type="number"
                       placeholder="Ingrese un valor"
+                      disabled={!showGanancia}
                     />
                   </InputGroup>
                 </Col>
@@ -107,8 +109,9 @@ function Configuraciones() {
               Aplicar cambios
             </Button>
           </Col>
-          <Col xs={12} className="border rounded p-3 p-lg-4 mt-4">
-            <h4 className="fw-bold ">Cambiar contraseña</h4>
+          <h3 className="fw-bold">Otras configuraciones</h3>
+          <Col xs={12} className="border rounded p-3 p-lg-4 mt-3">
+            <h4 className="fw-bold ">Cambia la contraseña</h4>
             <p className="mb-0">
               Para cambiar la contraseña haga click en el siguiente botón:
             </p>
