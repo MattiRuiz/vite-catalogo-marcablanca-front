@@ -27,20 +27,27 @@ const LoginProvider = ({ children }) => {
   }
 
   const checkUser = () => {
-    const token = localStorage.getItem('token')
-    if (auth && token) {
-      setMenu(true)
-    } else if (!auth && token) {
-      const user = {
-        token: token,
-        userData: localStorage.getItem('userData'),
-      }
-      handleLogin(user)
-      setMenu(true)
+    const exp = localStorage.getItem('exp')
+    if (Number(exp) < Date.now()) {
+      unauthorize()
+      console.log('Su sesión ha expirado.')
     } else {
-      handleLogin({})
-      setMenu(false)
+      const token = localStorage.getItem('token')
+      if (auth && token) {
+        setMenu(true)
+      } else if (!auth && token) {
+        const user = {
+          token: token,
+          userData: localStorage.getItem('userData'),
+        }
+        handleLogin(user)
+        setMenu(true)
+      } else {
+        unauthorize()
+        console.log('Su sesión ha terminado | !auth&&!token')
+      }
     }
+    console.log('Dentro de checkuser', Number(exp) < Date.now())
   }
 
   useEffect(() => {

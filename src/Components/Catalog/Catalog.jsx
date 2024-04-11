@@ -185,7 +185,6 @@ function Catalog() {
                               .filter((talla) => talla.stock == 1)
                               .map((talla, index) => (
                                 <div key={index}>
-                                  {console.log(talla.stock)}
                                   <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
                                     {talla.tallas.nombre}
                                   </p>
