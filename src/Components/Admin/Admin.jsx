@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import TallasCRUD from './CRUDS/TallasCRUD/TallasCRUD'
@@ -8,9 +8,11 @@ import MarcasCRUD from './CRUDS/Marcas_CRUD/MarcasCRUD'
 import ProductosCRUD from './CRUDS/Productos_CRUD/ProductosCRUD'
 import ClientesCRUD from './CRUDS/Clientes_CRUD/ClientesCRUD'
 import NotFound from '../404/NotFund'
+import PopUpEditPrecio from './CRUDS/PopUpEditPrecio'
 
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState('productos')
+  const [popUp, setPopUp] = useState(false)
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
@@ -63,6 +65,14 @@ const Admin = () => {
                     Clientes
                   </Link>
                 </li>
+                <li className="text-white">
+                  <Link
+                    className="text-white fw-medium"
+                    onClick={() => setPopUp(true)}
+                  >
+                    Aumento en grupo
+                  </Link>
+                </li>
               </ul>
             </Col>
             <Col xs={12} lg={10}>
@@ -90,6 +100,13 @@ const Admin = () => {
               {selectedEntity === 'marcas' && <MarcasCRUD />}
               {selectedEntity === 'productos' && <ProductosCRUD />}
               {selectedEntity === 'clientes' && <ClientesCRUD />}
+              {popUp && (
+                <PopUpEditPrecio
+                  closePopUp={() => {
+                    setPopUp(false)
+                  }}
+                />
+              )}
             </Col>
           </Row>
         </Container>
