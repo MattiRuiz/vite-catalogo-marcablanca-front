@@ -47,7 +47,6 @@ const LoginProvider = ({ children }) => {
         console.log('Su sesión ha terminado | !auth&&!token')
       }
     }
-    console.log('Dentro de checkuser', Number(exp) < Date.now())
   }
 
   useEffect(() => {

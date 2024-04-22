@@ -106,6 +106,21 @@ const deleteImagen = async (_id) => {
   }
 }
 
+const editPrecioEnGrupo = async (_data) => {
+  try {
+    const respuesta = await axios(`${baseUrl}/api/productosTallas/precios`, {
+      method: 'PUT',
+      data: _data,
+      headers: {
+        Authorization: window.localStorage.getItem('token'),
+      },
+    })
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export {
   getAllProductos,
   getAllProductosSinTallas,
@@ -118,4 +133,5 @@ export {
   getImagenesPorProducto,
   createImagen,
   deleteImagen,
+  editPrecioEnGrupo,
 }
