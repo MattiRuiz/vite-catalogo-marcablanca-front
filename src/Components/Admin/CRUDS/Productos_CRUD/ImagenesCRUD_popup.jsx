@@ -68,7 +68,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                 <Col xs={4} key={index} className="position-relative">
                   <Ratio aspectRatio="1x1">
                     <Image
-                      src={baseUrl + '/' + imagen.rutaImagen}
+                      src={imagen.rutaImagen}
                       alt={imagen.rutaImagen}
                       fluid
                     />

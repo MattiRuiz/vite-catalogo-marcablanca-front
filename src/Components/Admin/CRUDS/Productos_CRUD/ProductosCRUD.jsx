@@ -152,7 +152,7 @@ const ProductoCRUD = () => {
                                   <Image
                                     fluid
                                     className="object-fit-cover"
-                                    src={`${baseUrl}${producto.rutaImagen}`}
+                                    src={producto.rutaImagen}
                                     onError={() =>
                                       handleImageError(producto.id)
                                     }

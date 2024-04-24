@@ -236,7 +236,7 @@ const ProductosCRUD_popup = ({
                       style={{ borderRadius: '8px 0 0 8px' }}
                       fluid
                       className="object-fit-cover"
-                      src={`${baseUrl}${producto.rutaImagen}`}
+                      src={producto.rutaImagen}
                     />
                   </Ratio>
                 </Col>
