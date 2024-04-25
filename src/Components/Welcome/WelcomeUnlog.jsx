@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 function WelcomeUnlog() {
   const [listaCategorias, setListaCategorias] = useState([])
-  const baseUrl = import.meta.env.VITE_NAME
 
   const [loading, setLoading] = useState(false)
 
@@ -74,7 +73,7 @@ function WelcomeUnlog() {
                 </div>
               ) : (
                 <Image
-                  src={baseUrl + producto.rutaImagen}
+                  src={producto.rutaImagen}
                   className="object-fit-cover rounded-circle"
                   fluid
                   onError={() => handleImageError(producto.id)}

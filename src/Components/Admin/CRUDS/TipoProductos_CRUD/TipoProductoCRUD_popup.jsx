@@ -25,8 +25,6 @@ const TallasCRUD_popup = ({
     imagen: '',
   })
 
-  const baseUrl = import.meta.env.VITE_NAME
-
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)

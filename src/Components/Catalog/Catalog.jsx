@@ -30,8 +30,6 @@ function Catalog() {
   const [loading, setLoading] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('all')
 
-  const baseUrl = import.meta.env.VITE_NAME
-
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({

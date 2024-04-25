@@ -23,8 +23,6 @@ import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
 
-const baseUrl = import.meta.env.VITE_NAME
-
 const ProductoCRUD = () => {
   //#region Declaracion useState's
   const [productos, setProductos] = useState([])

@@ -4,7 +4,6 @@ import { Modal, Button, Carousel, Image, Ratio } from 'react-bootstrap'
 import { getImagenesPorProducto } from '../../Functions/ProductosFunctions'
 
 const PopUpCarousel = ({ producto, closePopUp }) => {
-  const baseUrl = import.meta.env.VITE_NAME
   const [imagenesCarousel, setImagenesCarousel] = useState(null)
 
   const fetchImagenes = async () => {
@@ -30,7 +29,7 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
           {producto && (
             <Carousel.Item>
               <Image
-                src={baseUrl + producto.rutaImagen}
+                src={producto.rutaImagen}
                 alt={producto.nombre}
                 style={{ maxHeight: '70vh' }}
                 className="d-block mx-auto"
@@ -42,7 +41,7 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
             imagenesCarousel.map((imagen, index) => (
               <Carousel.Item key={index}>
                 <Image
-                  src={baseUrl + '/' + imagen.rutaImagen}
+                  src={imagen.rutaImagen}
                   alt={imagen.rutaImagen}
                   style={{ maxHeight: '70vh' }}
                   fluid

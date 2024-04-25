@@ -27,7 +27,6 @@ function WelcomeLog() {
   const user = JSON.parse(userData)
 
   const username = user.username
-  const baseUrl = import.meta.env.VITE_NAME
 
   useEffect(() => {
     const fetchData = async () => {

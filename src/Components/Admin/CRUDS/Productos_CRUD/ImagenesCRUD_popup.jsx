@@ -10,7 +10,6 @@ import {
 import PopUpBorrarImagen from './PopUpBorrarImagen'
 
 const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
-  const baseUrl = import.meta.env.VITE_NAME
   const [loading, setLoading] = useState(false)
   const [imagenes, setImagenes] = useState(null)
   const [popUpBorrar, setPopUpBorrar] = useState(false)

@@ -9,8 +9,6 @@ import {
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
 import PopUpBorrarTipoProducto from './PopUpBorrarTipoProducto'
 
-const baseUrl = import.meta.env.VITE_NAME
-
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
   const [tipoProductos, setTipoProductos] = useState([])
