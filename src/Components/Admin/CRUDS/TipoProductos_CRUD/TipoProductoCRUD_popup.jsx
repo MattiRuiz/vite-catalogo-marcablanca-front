@@ -170,7 +170,7 @@ const TallasCRUD_popup = ({
                     <Image
                       fluid
                       className="object-fit-cover rounded-circle"
-                      src={`${baseUrl}${tipoProducto.rutaImagen}`}
+                      src={tipoProducto.rutaImagen}
                     />
                   </Ratio>
                 </Col>

@@ -100,7 +100,7 @@ const TipoProductoCRUD = () => {
                     <Image
                       fluid
                       className="object-fit-cover rounded-circle"
-                      src={`${baseUrl}${tipoProducto.rutaImagen}`}
+                      src={tipoProducto.rutaImagen}
                       onError={() => handleImageError(tipoProducto.id)}
                     />
                   )}
