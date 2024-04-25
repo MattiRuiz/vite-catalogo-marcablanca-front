@@ -85,7 +85,7 @@ function WelcomeLog() {
                 </div>
               ) : (
                 <Image
-                  src={baseUrl + producto.rutaImagen}
+                  src={producto.rutaImagen}
                   className="object-fit-cover rounded-circle"
                   fluid
                   onError={() => handleImageError(producto.id)}

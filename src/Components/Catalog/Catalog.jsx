@@ -168,7 +168,7 @@ function Catalog() {
                                 className="object-fit-cover"
                                 alt={producto.nombre}
                                 variant="top"
-                                src={baseUrl + producto.rutaImagen}
+                                src={producto.rutaImagen}
                                 onError={() => handleImageError(producto.id)}
                               />
                             )}

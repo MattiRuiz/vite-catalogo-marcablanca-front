@@ -40,7 +40,7 @@ function ProductModal({ selectedProduct }) {
         {productImages.map((image, index) => (
           <Image
             key={index}
-            src={baseUrl + "/" +  image.rutaImagen}
+            src={image.rutaImagen}
             alt={selectedProduct.nombre}
             fluid
           />
