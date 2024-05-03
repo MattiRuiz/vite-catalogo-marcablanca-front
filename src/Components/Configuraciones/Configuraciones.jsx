@@ -58,7 +58,7 @@ function Configuraciones() {
             <h4 className="fw-bold">Lista de precios</h4>
             <p>Descarga la lista de precios en formato PDF</p>
             <Button
-              href={`${baseUrl}/uploads/lista_de_productos.pdf`}
+              href={`https://catalogo-marcablanca.s3.sa-east-1.amazonaws.com/Lista_de_productos.pdf`}
               download
               target="_blank"
             >
