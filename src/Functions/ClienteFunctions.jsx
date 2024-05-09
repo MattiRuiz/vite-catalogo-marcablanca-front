@@ -73,6 +73,9 @@ const changePassword = async (_id, _data) => {
       `${baseUrl}/api/clientes/updatepassword/${_id}`,
       {
         method: 'PUT',
+        headers:{
+          Authorization: window.localStorage.getItem('token'),
+        },
         data: _data,
       }
     )
