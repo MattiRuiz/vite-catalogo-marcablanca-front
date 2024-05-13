@@ -40,12 +40,10 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       ...tallaData,
     }
 
-    if (!dataToSend.nombre) {
+    if (!dataToSend.nombre && !dataToSend.dimensiones) {
       alertDanger()
       setAlertHeader('Error')
-      setAlertMessage(
-        'Hay campos vacios, por favor complete todos los datos para continuar.'
-      )
+      setAlertMessage('Ambos campos no pueden encontrarse vacíos.')
       setLoading(false)
       handleShowAlert()
     } else if (talla) {
@@ -105,7 +103,9 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       <Modal.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Nombre de la medida:</Form.Label>
+            <Form.Label>
+              Nombre de la medida <span className="text-danger">*</span>:
+            </Form.Label>
             <Form.Control
               type="text"
               className="mb-3"
@@ -128,7 +128,8 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
           </Form.Group>
           <p className="texto-14">
             <em>
-              <span className="text-danger">*</span> Puede estar vacío
+              <span className="text-danger">*</span> Uno de los valores puede
+              encontrarse en vacío pero no ambos.
             </em>
           </p>
         </Form>
