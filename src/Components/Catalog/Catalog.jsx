@@ -123,7 +123,7 @@ function Catalog() {
           )
           .map((categoria) => (
             <Col key={categoria.id} xs={12} className="mb-1">
-              <h2 className="mb-2">{categoria.nombre}</h2>
+              <h2 className="mb-1 border-bottom pb-2">{categoria.nombre}</h2>
               {categoria.productos.length === 0 ||
               categoria.productos.filter((producto) =>
                 producto.productos_tallas.some((talla) => talla.stock !== 0)
@@ -132,11 +132,7 @@ function Catalog() {
                   <em>No se encontraron productos en esta categoría.</em>
                 </p>
               ) : (
-                <p>
-                  <em>
-                    Haga click en el producto para ver la galería de imágenes.
-                  </em>
-                </p>
+                <p></p>
               )}
               <Row>
                 {categoria.productos
@@ -183,14 +179,16 @@ function Catalog() {
                               .filter((talla) => talla.stock == 1)
                               .map((talla, index) => (
                                 <div key={index}>
-                                  <p className="border-bottom mb-1 texto-14 text-uppercase fw-bold text-gray">
-                                    {talla.tallas.nombre}
+                                  <p className="border-bottom mb-0 texto-14 text-uppercase fw-bold text-gray">
+                                    {talla.tallas.nombre
+                                      ? talla.tallas.nombre
+                                      : 'Medidas'}
                                   </p>
                                   <ul
                                     key={index}
-                                    className="list-unstyled d-flex justify-content-between align-items-end"
+                                    className="list-unstyled d-flex justify-content-between align-items-center mb-2"
                                   >
-                                    <li className="text-muted">
+                                    <li className="text-muted lh-sm">
                                       {talla.tallas.dimensiones}
                                     </li>
                                     {showGanancia == 'true' ? (
