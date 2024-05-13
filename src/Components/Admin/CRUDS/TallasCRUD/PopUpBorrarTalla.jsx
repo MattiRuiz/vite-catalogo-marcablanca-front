@@ -35,7 +35,11 @@ const PopUpBorrarTalla = ({ talla, onTallaUpdated, closePopUp }) => {
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={() => handleDelete(talla.id)}>
+        <Button
+          variant="danger"
+          onClick={() => handleDelete(talla.id)}
+          disabled={loading}
+        >
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (

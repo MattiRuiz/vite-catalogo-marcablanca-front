@@ -23,7 +23,7 @@ const PopUpBorrarImagen = ({ imagen, onImagenUpdated, closePopUp }) => {
   return (
     <Modal show={true} onHide={closePopUp} centered>
       <Modal.Header className="bg-danger text-white border-0" closeButton>
-        <Modal.Title>Borrar marca</Modal.Title>
+        <Modal.Title>Borrar imagen</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>¿Está seguro que desea borrar esa imagen?</p>
@@ -32,7 +32,11 @@ const PopUpBorrarImagen = ({ imagen, onImagenUpdated, closePopUp }) => {
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={() => handleDelete()}>
+        <Button
+          variant="danger"
+          onClick={() => handleDelete()}
+          disabled={loading}
+        >
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (

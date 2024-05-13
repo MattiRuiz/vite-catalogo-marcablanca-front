@@ -117,11 +117,6 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
             />
           </Form.Group>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -140,9 +135,21 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
           Cancelar
         </Button>
         {marca ? (
-          <Button onClick={handleGuardar}>Guardar cambios</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Guardar cambios'
+            )}
+          </Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear marca</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Crear marca'
+            )}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>

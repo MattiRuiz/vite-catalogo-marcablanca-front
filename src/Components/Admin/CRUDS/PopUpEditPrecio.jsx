@@ -146,11 +146,6 @@ const PopUpEditPrecio = ({ closePopUp }) => {
             </Form.Select>
           </Form.Group>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -168,7 +163,13 @@ const PopUpEditPrecio = ({ closePopUp }) => {
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button onClick={handleGuardar}>Enviar</Button>
+        <Button onClick={handleGuardar} disabled={loading}>
+          {loading ? (
+            <Spinner animation="border" variant="light" size="sm" />
+          ) : (
+            'Enviar'
+          )}
+        </Button>
       </Modal.Footer>
     </Modal>
   )

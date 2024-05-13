@@ -179,7 +179,7 @@ const TallasCRUD_popup = ({
                 >
                   <p className="mb-2">Imágen:</p>
                   <label htmlFor="fileInput">
-                    <Button as="span">
+                    <Button as="span" disabled={loadingImagen}>
                       {loadingImagen ? (
                         <Spinner
                           animation="border"
@@ -215,11 +215,6 @@ const TallasCRUD_popup = ({
             )}
           </Form.Group>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -238,9 +233,21 @@ const TallasCRUD_popup = ({
           Cancelar
         </Button>
         {tipoProducto ? (
-          <Button onClick={handleGuardar}>Guardar cambios</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Guardar cambios'
+            )}
+          </Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear tipo producto</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Crear tipo de producto'
+            )}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>

@@ -38,7 +38,11 @@ const PopUpBorrarCliente = ({ cliente, onClienteUpdated, closePopUp }) => {
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={() => handleDelete(cliente.id)}>
+        <Button
+          variant="danger"
+          onClick={() => handleDelete(cliente.id)}
+          disabled={loading}
+        >
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (

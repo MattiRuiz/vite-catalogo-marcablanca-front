@@ -172,11 +172,6 @@ const TallaProductoCreate_popup = ({
             onChange={handleStock}
           />
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -194,7 +189,14 @@ const TallaProductoCreate_popup = ({
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button onClick={handleGuardar}>Guardar</Button>
+        <Button onClick={handleGuardar} disabled={loading}>
+          {' '}
+          {loading ? (
+            <Spinner animation="border" variant="light" size="sm" />
+          ) : (
+            'Guardar'
+          )}
+        </Button>
       </Modal.Footer>
     </Modal>
   )

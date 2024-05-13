@@ -133,11 +133,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
             </em>
           </p>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -156,9 +151,21 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
           Cancelar
         </Button>
         {talla ? (
-          <Button onClick={handleGuardar}>Guardar cambios</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Guardar cambios'
+            )}
+          </Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear medida</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Crear medida'
+            )}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>

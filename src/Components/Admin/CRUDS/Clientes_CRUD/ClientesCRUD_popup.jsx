@@ -176,11 +176,6 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             )}
           </Form.Group>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -199,9 +194,21 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
           Cancelar
         </Button>
         {cliente ? (
-          <Button onClick={handleGuardar}>Guardar cambios</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Guardar cambios'
+            )}
+          </Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear cliente</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Crear cliente'
+            )}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>

@@ -307,9 +307,21 @@ const ProductosCRUD_popup = ({
           Cancelar
         </Button>
         {producto ? (
-          <Button onClick={handleGuardar}>Guardar cambios</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Guardar cambios'
+            )}
+          </Button>
         ) : (
-          <Button onClick={handleGuardar}>Crear Producto</Button>
+          <Button onClick={handleGuardar} disabled={loading}>
+            {loading ? (
+              <Spinner animation="border" variant="light" size="sm" />
+            ) : (
+              'Crear Producto'
+            )}
+          </Button>
         )}
       </Modal.Footer>
     </Modal>

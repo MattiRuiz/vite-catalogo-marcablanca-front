@@ -41,7 +41,11 @@ const PopUpBorrarTallaProducto = ({
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={() => handleDelete()}>
+        <Button
+          variant="danger"
+          onClick={() => handleDelete()}
+          disabled={loading}
+        >
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (

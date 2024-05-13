@@ -34,7 +34,11 @@ const PopUpBorrarMarca = ({ marca, onMarcaUpdated, closePopUp }) => {
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={() => handleDelete(marca.id)}>
+        <Button
+          variant="danger"
+          onClick={() => handleDelete(marca.id)}
+          disabled={loading}
+        >
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (
