@@ -55,35 +55,46 @@ const TallasCRUD = () => {
         >
           Crear medida
         </Button>
-        <div className="mt-3 bg-white rounded">
-          {tallas.map((talla) => (
-            <div
-              key={talla.id}
-              className="px-3 d-flex justify-content-between align-items-center px-3 py-2 border-bottom"
-            >
-              <p className="mb-0">
-                <strong>{talla.nombre ? talla.nombre : 'Medida'}</strong>:{' '}
-                {talla.dimensiones ? talla.dimensiones : <em>(Sin medida)</em>}
-              </p>
-              <div>
+        <div className="mt-3">
+          <h3 className="text-white mb-3 border-bottom pb-1">
+            Medidas creadas
+          </h3>
+          {tallas
+            .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
+            .map((talla) => (
+              <div
+                key={talla.id}
+                className="bg-white py-2 px-3 d-inline-flex me-2 mb-2 rounded align-items-center"
+              >
+                <p className="mb-0 me-2">
+                  <strong>{talla.nombre ? talla.nombre : 'Medida'}</strong>:{' '}
+                  {talla.dimensiones ? (
+                    talla.dimensiones
+                  ) : (
+                    <em>(Sin medida)</em>
+                  )}
+                </p>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(talla)}
                 >
-                  Editar
+                  <span className="material-symbols-outlined lh-sm text-white">
+                    edit
+                  </span>
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(talla)}
                 >
-                  Borrar
+                  <span className="material-symbols-outlined lh-sm">
+                    delete
+                  </span>
                 </Button>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         {loading ? (
           <Spinner

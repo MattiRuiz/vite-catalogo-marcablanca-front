@@ -58,30 +58,39 @@ const MarcasCRUD = () => {
         >
           Crear marca
         </Button>
-        <Accordion className="mt-3">
-          {marcas.map((marca) => (
-            <Accordion.Item eventKey={marca.id} key={marca.id}>
-              <Accordion.Header>{marca.nombre}</Accordion.Header>
-              <Accordion.Body>
+        <div className="mt-3">
+          <h3 className="text-white mb-3 border-bottom pb-2">Marcas creadas</h3>
+          {marcas
+            .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
+            .map((marca) => (
+              <div
+                eventKey={marca.id}
+                key={marca.id}
+                className="bg-white py-2 px-3 d-inline-flex me-2 mb-2 rounded align-items-center"
+              >
+                <p className="d-inline me-2 mb-0">{marca.nombre}</p>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(marca)}
                 >
-                  Editar
+                  <span className="material-symbols-outlined lh-sm text-white">
+                    edit
+                  </span>
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(marca)}
                 >
-                  Borrar
+                  <span className="material-symbols-outlined lh-sm">
+                    delete
+                  </span>
                 </Button>
-              </Accordion.Body>
-            </Accordion.Item>
-          ))}
-        </Accordion>
+              </div>
+            ))}
+        </div>
         {loading ? (
           <Spinner
             variant="light"

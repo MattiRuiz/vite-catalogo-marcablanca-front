@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+import { Col, Button, Accordion, Spinner, Row } from 'react-bootstrap'
 
 import {
   getAllClientes,
@@ -58,40 +58,52 @@ const ClientesCRUD = () => {
         >
           Crear cliente
         </Button>
-        <Accordion className="mt-3">
+        <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top">
+          <Col>
+            <p className="mb-0">User</p>
+          </Col>
+          <Col>
+            <p className="mb-0">Nombre</p>
+          </Col>
+          <Col xs={2}>
+            <p className="mb-0">Opciones</p>
+          </Col>
+        </div>
+        <div className="bg-white">
           {clientes.map((cliente) => (
-            <Accordion.Item eventKey={cliente.id} key={cliente.id}>
-              <Accordion.Header>
-                <ul className="list-unstyled my-0">
-                  <li className="mb-1">
-                    <strong>User:</strong> {cliente.username}
-                  </li>
-                  <li>
-                    <strong>Nombre:</strong> {cliente.clientes.nombre}{' '}
-                    {cliente.clientes.apellido}
-                  </li>
-                </ul>
-              </Accordion.Header>
-              <Accordion.Body>
+            <div
+              eventKey={cliente.id}
+              key={cliente.id}
+              className="border-bottom d-flex align-items-center justify-content-between p-2"
+            >
+              <Col>{cliente.username}</Col>
+              <Col>
+                {cliente.clientes.nombre} {cliente.clientes.apellido}
+              </Col>
+              <Col xs={2}>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(cliente)}
                 >
-                  Editar
+                  <span className="material-symbols-outlined lh-sm text-white">
+                    edit
+                  </span>
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(cliente)}
                 >
-                  Borrar
+                  <span className="material-symbols-outlined lh-sm">
+                    delete
+                  </span>
                 </Button>
-              </Accordion.Body>
-            </Accordion.Item>
+              </Col>
+            </div>
           ))}
-        </Accordion>
+        </div>
         {loading ? (
           <Spinner
             variant="light"

@@ -115,27 +115,47 @@ const ProductoCRUD = () => {
         </Button>
         <Row>
           {categorias.map((categoria) => (
-            <Col key={categoria.id} xs={12} className="mb-1">
-              <h3 className="mt-4 mb-0 pb-2 text-white border-bottom">
+            <Col key={categoria.id} xs={12}>
+              <h4 className="mt-4 mb-0 pb-1 text-white border-bottom">
                 {categoria.nombre}
-              </h3>
+              </h4>
               <Row>
                 {categoria.productos.map((producto) => (
                   <Col key={producto.id} xs={12} md={6}>
-                    <Accordion className="mt-3">
+                    <Accordion className="mt-2">
                       <Accordion.Item eventKey={producto.id}>
-                        <Accordion.Header>
-                          <Badge className="me-3">{producto.id}</Badge>{' '}
-                          <ul className="list-unstyled mb-0">
-                            <li className="texto-14">
-                              {producto.marcas.nombre}
-                            </li>
-                            <li>
-                              <strong>{producto.nombre}</strong>
-                            </li>
-                          </ul>
+                        <Accordion.Header className="d-flex align-items-center">
+                          <Badge className="me-3">
+                            {producto.marcas.nombre}
+                          </Badge>
+                          <strong>{producto.nombre}</strong>
                         </Accordion.Header>
                         <Accordion.Body>
+                          <div className="mb-3">
+                            <Button
+                              variant="success"
+                              size="sm"
+                              className="me-1"
+                              onClick={() => openPopUpImagenes(producto)}
+                            >
+                              Editar imágenes
+                            </Button>
+                            <Button
+                              variant="warning"
+                              size="sm"
+                              className="me-1"
+                              onClick={() => openPopup(producto, categoria.id)}
+                            >
+                              Editar producto
+                            </Button>
+                            <Button
+                              variant="danger"
+                              size="sm"
+                              onClick={() => openPopUpBorrar(producto)}
+                            >
+                              Borrar
+                            </Button>
+                          </div>
                           <Row className="align-items-center">
                             <Col xs={12} sm={6}>
                               <Ratio aspectRatio="4x3" className="mb-3 mx-auto">
@@ -171,33 +191,8 @@ const ProductoCRUD = () => {
                               </ul>
                             </Col>
                           </Row>
-                          <Button
-                            variant="success"
-                            size="sm"
-                            className="me-1"
-                            onClick={() => openPopUpImagenes(producto)}
-                          >
-                            Editar imágenes
-                          </Button>
-                          <Button
-                            variant="warning"
-                            size="sm"
-                            className="me-1"
-                            onClick={() => openPopup(producto, categoria.id)}
-                          >
-                            Editar producto
-                          </Button>
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={() => openPopUpBorrar(producto)}
-                          >
-                            Borrar
-                          </Button>
-
-                          <Row className="mt-4 border-top pt-4">
+                          <Row className="mt-2">
                             <h6 className="mb-2 fw-bold">Medidas:</h6>
-
                             {producto.productos_tallas &&
                             producto.productos_tallas.length > 0 ? (
                               producto.productos_tallas.map((talla) => (
