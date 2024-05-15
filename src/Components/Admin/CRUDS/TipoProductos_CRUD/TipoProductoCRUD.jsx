@@ -79,53 +79,58 @@ const TipoProductoCRUD = () => {
         >
           Crear tipo de producto
         </Button>
-        <Accordion className="mt-3">
+        <div className="mt-3">
           {tipoProductos.map((tipoProducto) => (
-            <Accordion.Item eventKey={tipoProducto.id} key={tipoProducto.id}>
-              <Accordion.Header>
-                <Ratio
-                  aspectRatio="1x1"
-                  className="tipoproducto-preview me-3 rounded-circle"
-                >
-                  {imagenErrors[tipoProducto.id] ? (
-                    // Mostrar elemento alternativo en caso de error
-                    <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-circle text-center">
-                      <p className="texto-14 mb-0 color-grisclaro">
-                        <strong>Sin imágen</strong>
-                      </p>
-                    </div>
-                  ) : (
-                    <Image
-                      fluid
-                      className="object-fit-cover rounded-circle"
-                      src={tipoProducto.rutaImagen}
-                      onError={() => handleImageError(tipoProducto.id)}
-                    />
-                  )}
-                </Ratio>
-
-                {tipoProducto.nombre}
-              </Accordion.Header>
-              <Accordion.Body>
+            <div
+              eventKey={tipoProducto.id}
+              key={tipoProducto.id}
+              className="bg-white py-2 px-3 me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
+            >
+              <Ratio
+                aspectRatio="1x1"
+                className="tipoproducto-preview rounded-circle"
+              >
+                {imagenErrors[tipoProducto.id] ? (
+                  // Mostrar elemento alternativo en caso de error
+                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-circle text-center">
+                    <p className="texto-14 mb-0 color-grisclaro">
+                      <strong>Sin imágen</strong>
+                    </p>
+                  </div>
+                ) : (
+                  <Image
+                    fluid
+                    className="object-fit-cover rounded-circle mx-auto"
+                    src={tipoProducto.rutaImagen}
+                    onError={() => handleImageError(tipoProducto.id)}
+                  />
+                )}
+              </Ratio>
+              <p className="fw-semibold mb-1">{tipoProducto.nombre}</p>
+              <div>
                 <Button
                   variant="warning"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(tipoProducto)}
                 >
-                  Editar
+                  <span className="material-symbols-outlined lh-sm text-white">
+                    edit
+                  </span>
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(tipoProducto)}
                 >
-                  Borrar
+                  <span className="material-symbols-outlined lh-sm text-white">
+                    delete
+                  </span>
                 </Button>
-              </Accordion.Body>
-            </Accordion.Item>
+              </div>
+            </div>
           ))}
-        </Accordion>
+        </div>
         {loading ? (
           <Spinner
             variant="light"

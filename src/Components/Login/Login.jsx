@@ -104,7 +104,12 @@ function Login() {
               <Form.Control type="password" onChange={passwordHandler} />
             </Form.Group>
 
-            <Button type="submit" className="my-3 w-100" onClick={dataSender}>
+            <Button
+              type="submit"
+              className="my-3 w-100"
+              onClick={dataSender}
+              disabled={loading}
+            >
               {loading ? (
                 <Spinner animation="border" variant="light" size="sm" />
               ) : (

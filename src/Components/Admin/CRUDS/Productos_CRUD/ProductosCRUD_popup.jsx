@@ -284,11 +284,6 @@ const ProductosCRUD_popup = ({
             )}
           </Form.Group>
         </Form>
-        {loading ? (
-          <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
-        )}
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
