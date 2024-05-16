@@ -68,8 +68,8 @@ color: #999;
 }
 
 .btn-primary {
-  background-color: var(--primary)!important;
-  border-color: var(--primary)!important;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .btn-secondary {
@@ -162,17 +162,17 @@ min-height: 80vh;
 }
 
 .carousel-control-next-icon, .carousel-control-prev-icon {
-  background-color: rgba(27,100,179,0.9);
-  border-radius: 8px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
   background-size: 75% 75%;
 }
 
 .carousel-control-next, .carousel-control-prev {
-  width: 12%;
+  width: 10%;
 }
 
 .carousel-indicators [data-bs-target] {
-  background-color: rgba(27,100,179,0.9);
+  background-color: rgba(0,0,0,0.5);
 }
 
 .carousel-indicators {
@@ -181,6 +181,10 @@ min-height: 80vh;
 
 .form-select:focus {
   box-shadow: none;
+}
+
+.modal {
+  --bs-modal-width: 600px;
 }
 
 @media (min-width: 992px) {

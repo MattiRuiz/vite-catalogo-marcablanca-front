@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Modal, Button, Carousel, Image, Ratio } from 'react-bootstrap'
+import { Modal, Carousel, Image, Ratio, Badge, Button } from 'react-bootstrap'
 
 import { getImagenesPorProducto } from '../../Functions/ProductosFunctions'
 
@@ -21,40 +21,53 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp}>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>{producto && producto.nombre}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="p-0">
+      <Modal.Body className="p-0 rounded-top overflow-hidden position-relative">
         <Carousel>
           {producto && (
             <Carousel.Item>
-              <Image
-                src={producto.rutaImagen}
-                alt={producto.nombre}
-                style={{ maxHeight: '70vh' }}
-                className="d-block mx-auto"
-                fluid
-              />
+              <Ratio aspectRatio="4x3">
+                <Image
+                  src={producto.rutaImagen}
+                  alt={producto.nombre}
+                  className="d-block mx-auto object-fit-cover"
+                  fluid
+                />
+              </Ratio>
             </Carousel.Item>
           )}
           {imagenesCarousel ? (
             imagenesCarousel.map((imagen, index) => (
               <Carousel.Item key={index}>
-                <Image
-                  src={imagen.rutaImagen}
-                  alt={imagen.rutaImagen}
-                  style={{ maxHeight: '70vh' }}
-                  fluid
-                  className="d-block mx-auto"
-                />
+                <Ratio aspectRatio="4x3">
+                  <Image
+                    src={imagen.rutaImagen}
+                    alt={imagen.rutaImagen}
+                    fluid
+                    className="d-block mx-auto object-fit-cover"
+                  />
+                </Ratio>
               </Carousel.Item>
             ))
           ) : (
             <></>
           )}
         </Carousel>
+        <Button
+          onClick={closePopUp}
+          className="position-absolute top-0 end-0"
+          style={{
+            backgroundColor: 'rgba(0,0,0,0)',
+            color: '#222',
+            border: 'none',
+            zIndex: 999,
+          }}
+        >
+          <span className="material-symbols-outlined">close</span>
+        </Button>
       </Modal.Body>
-      <Modal.Footer className="border-0 justify-content-start texto-14">
+      <Modal.Footer className="border-0 flex-column align-items-start">
+        <Badge>{producto.marcas.nombre}</Badge>
+        <h4 className="mb-0">{producto.nombre}</h4>
         <p>
           <em>{producto.descripcion}</em>
         </p>

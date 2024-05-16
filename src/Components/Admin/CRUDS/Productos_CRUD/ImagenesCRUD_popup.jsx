@@ -4,7 +4,6 @@ import { Modal, Button, Image, Row, Col, Spinner, Ratio } from 'react-bootstrap'
 import {
   getImagenesPorProducto,
   createImagen,
-  deleteImagen,
 } from '../../../../Functions/ProductosFunctions'
 
 import PopUpBorrarImagen from './PopUpBorrarImagen'
@@ -16,11 +15,14 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   const [selectedImagen, setSelectedImagen] = useState(null)
 
   const fetchImagenes = async () => {
+    setLoading(true)
     try {
       const response = await getImagenesPorProducto(producto.id)
       setImagenes(response.data)
     } catch (e) {
       console.error(e.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -56,30 +58,36 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
           <Modal.Title>Editar carrusel de imágenes</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <p className="texto-14">
+            En esta sección se puede agregar o borrar imágenes en el carrusel.
+            Para cambiar la imágen de portada hay ir a{' '}
+            <strong>editar producto</strong>.
+          </p>
           <Row>
-            <p className="texto-14">
-              En esta sección se puede agregar o borrar imágenes en el carrusel.
-              Para cambiar la imágen de portada hay ir a{' '}
-              <strong>editar producto</strong>.
-            </p>
             {imagenes ? (
               imagenes.map((imagen, index) => (
-                <Col xs={4} key={index} className="position-relative">
-                  <Ratio aspectRatio="1x1">
+                <Col xs={4} key={index} className="position-relative mb-3">
+                  <Ratio aspectRatio="1x1" className="border">
                     <Image
                       src={imagen.rutaImagen}
                       alt={imagen.rutaImagen}
+                      className="object-fit-cover"
                       fluid
                     />
                   </Ratio>
                   <Button
                     variant="danger"
                     size="sm"
-                    className="position-absolute"
-                    style={{ bottom: '5px', right: '16px' }}
+                    className="position-absolute rounded-circle shadow-sm"
+                    style={{ bottom: '5px', right: '16px', padding: '2px 7px' }}
                     onClick={() => openPopUpBorrar(imagen)}
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontSize: '14px', lineHeight: 1.7 }}
+                    >
+                      delete
+                    </span>
                   </Button>
                 </Col>
               ))
@@ -87,7 +95,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
               <></>
             )}
             {loading ? (
-              <Col xs={4}>
+              <Col xs={4} className="d-flex align-items-center">
                 <Spinner className="my-3 d-block mx-auto" animation="border" />
               </Col>
             ) : (

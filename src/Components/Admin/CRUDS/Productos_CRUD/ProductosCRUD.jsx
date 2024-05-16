@@ -138,7 +138,7 @@ const ProductoCRUD = () => {
                               className="me-1"
                               onClick={() => openPopUpImagenes(producto)}
                             >
-                              Editar imágenes
+                              Editar carrusel
                             </Button>
                             <Button
                               variant="warning"
