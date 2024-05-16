@@ -109,14 +109,14 @@ const ProductoCRUD = () => {
       <Col xs={12}>
         <Button
           variant="secondary"
-          className="mt-3 me-2"
+          className="mb-1 me-2"
           onClick={() => openPopup(null)}
         >
           Crear producto
         </Button>
         <Button
           variant="light"
-          className="mt-3"
+          className="mb-1"
           onClick={() => setPopUpEditarPrecio(true)}
         >
           Editar grupos de precio
@@ -143,7 +143,7 @@ const ProductoCRUD = () => {
                             <Button
                               variant="secondary"
                               size="sm"
-                              className="me-1"
+                              className="me-1 mb-1"
                               onClick={() => openPopUpImagenes(producto)}
                             >
                               Editar carrusel
@@ -151,7 +151,7 @@ const ProductoCRUD = () => {
                             <Button
                               variant="primary"
                               size="sm"
-                              className="me-1"
+                              className="me-1 mb-1"
                               onClick={() => openPopup(producto, categoria.id)}
                             >
                               Editar producto
@@ -160,6 +160,7 @@ const ProductoCRUD = () => {
                               variant="danger"
                               size="sm"
                               onClick={() => openPopUpBorrar(producto)}
+                              className=" mb-1"
                             >
                               Borrar
                             </Button>

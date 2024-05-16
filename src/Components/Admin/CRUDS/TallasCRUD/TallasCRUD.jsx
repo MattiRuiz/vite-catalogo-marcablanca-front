@@ -48,11 +48,7 @@ const TallasCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button
-          variant="secondary"
-          className="mt-3"
-          onClick={() => openPopup(null)}
-        >
+        <Button variant="secondary" onClick={() => openPopup(null)}>
           Crear medida
         </Button>
         <div className="mt-3">

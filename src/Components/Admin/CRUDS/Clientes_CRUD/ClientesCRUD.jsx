@@ -51,11 +51,7 @@ const ClientesCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button
-          variant="secondary"
-          className="mt-3"
-          onClick={() => openPopup(null)}
-        >
+        <Button variant="secondary" onClick={() => openPopup(null)}>
           Crear cliente
         </Button>
         <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">

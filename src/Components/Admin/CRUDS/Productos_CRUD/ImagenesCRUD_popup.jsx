@@ -105,7 +105,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
           <label htmlFor="fileInput">
-            <Button as="span">Agregar una imagen</Button>
+            <Button as="span">Agregar imagen</Button>
             <input
               id="fileInput"
               type="file"
