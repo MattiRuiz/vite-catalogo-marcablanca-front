@@ -104,12 +104,10 @@ function Catalog() {
 
       {loading ? (
         <Row className="justify-content-start my-3 g-3">
-          <h3 className="mb-1">
-            <Placeholder xs={5} md={3} />
+          <h3 className="mb-1 border-bottom pb-2">
+            <Placeholder xs={5} md={3} xl={2} />
           </h3>
-          <p className="mb-1">
-            <Placeholder xs={10} />
-          </p>
+          <CardLoading />
           <CardLoading />
           <CardLoading />
           <CardLoading />
@@ -168,7 +166,7 @@ function Catalog() {
                             )}
                           </Ratio>
                           <Card.Body className="pb-0">
-                            <Badge className="texto-14 mb-2">
+                            <Badge className="mb-2">
                               {producto.marcas.nombre}
                             </Badge>
                             <Card.Title>{producto.nombre}</Card.Title>

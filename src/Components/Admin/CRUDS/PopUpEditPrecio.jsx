@@ -97,7 +97,7 @@ const PopUpEditPrecio = ({ closePopUp }) => {
   }
 
   return (
-    <Modal show={true} onHide={closePopUp}>
+    <Modal show={true} onHide={closePopUp} centered>
       <Modal.Header className="border-0 bg-primario text-white" closeButton>
         <Modal.Title>Editar precios en grupo</Modal.Title>
       </Modal.Header>

@@ -49,7 +49,7 @@ const TallasCRUD = () => {
     <>
       <Col xs={12}>
         <Button
-          variant="outline-light"
+          variant="secondary"
           className="mt-3"
           onClick={() => openPopup(null)}
         >

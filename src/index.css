@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap');
 
-/* @font-face {
-  font-family: 'Material Symbols Outlined';
-  font-style: normal;
-  src: url(https://example.com/material-symbols.woff) format('woff');
-} */
-
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   font-weight: 500;
@@ -22,8 +16,8 @@
 
 :root {
   --primary: #1b64b3;
-  --secondary: #D9D9D9;
-  --black: #666;
+  --secondary: #cecece;
+  --black: #333;
 }
 
 .btn-warning {
@@ -32,7 +26,7 @@
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Baldimore', 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--black)!important;
@@ -66,16 +60,33 @@ color: #999;
 .black {
   font-weight: 800;
 }
+.btn {
+  letter-spacing: 1.15px;
+  font-weight: 500;
+  font-size: .9rem;
+  text-transform: uppercase;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+.btn-light, .btn-warning {
+  font-weight: 500;
+}
 
 .btn-primary {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
+.btn-primary:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
 .btn-secondary {
-  background-color: var(--secondary)!important;
-  border-color: var(--secondary)!important;
-  color: var(--black)!important;
+  background-color: var(--black)!important;
+  border-color: var(--black)!important;
+  color: var(--secondary)!important;
 }
 
 .text-primary {
@@ -86,6 +97,23 @@ color: #999;
   color: #8a8a8a
 }
 
+.badge {
+  font-weight: 500;
+  font-size: .9rem;
+  letter-spacing: .25px;
+  line-height: 1.25; 
+}
+
+.navbar-tab {
+  background-color: rgba(0,0,0,0);
+  border: none;
+}
+
+.navbar-tab:hover {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  border-radius: 0;
+}
 
 .bg-secondary {
   background-color: var(--secondary);
@@ -117,11 +145,6 @@ li button span.material-symbols-outlined{
 
 .form-check-input {
   border: var(--bs-border-width) solid #aeaeae!important;
-}
-
-p, li, a.btn {
-  letter-spacing: 0.30px!important;
-  line-height: 160%;
 }
 
 .tipoproducto-preview {

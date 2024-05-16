@@ -52,7 +52,7 @@ const MarcasCRUD = () => {
     <>
       <Col xs={12}>
         <Button
-          variant="outline-light"
+          variant="secondary"
           className="mt-3"
           onClick={() => openPopup(null)}
         >
@@ -68,7 +68,7 @@ const MarcasCRUD = () => {
                 key={marca.id}
                 className="bg-white py-2 px-3 d-inline-flex me-2 mb-2 rounded align-items-center"
               >
-                <p className="d-inline me-2 mb-0">{marca.nombre}</p>
+                <p className="d-inline me-2 mb-0 fw-bold">{marca.nombre}</p>
                 <Button
                   variant="warning"
                   size="sm"

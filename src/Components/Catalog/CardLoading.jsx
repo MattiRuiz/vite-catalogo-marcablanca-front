@@ -5,12 +5,12 @@ function CardLoading() {
     <>
       <Col xs={12} md={6} lg={4} xl={3} className="mb-4">
         <Card className="mb-3 h-100">
-          <Ratio aspectRatio="16x9" className="rounded-top">
+          <Ratio aspectRatio="4x3" className="rounded-top">
             <Placeholder as={Card.Img} className="fondo-imagen rounded-top" />
           </Ratio>
           <Card.Body className="pb-0">
             <Placeholder as={Card.Title} animation="glow">
-              <Placeholder xs={8} />
+              <Placeholder xs={3} />
             </Placeholder>
             <Placeholder
               as={Card.Subtitle}

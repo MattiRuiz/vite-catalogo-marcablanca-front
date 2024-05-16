@@ -52,13 +52,13 @@ const ClientesCRUD = () => {
     <>
       <Col xs={12}>
         <Button
-          variant="outline-light"
+          variant="secondary"
           className="mt-3"
           onClick={() => openPopup(null)}
         >
           Crear cliente
         </Button>
-        <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top">
+        <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
             <p className="mb-0">User</p>
           </Col>

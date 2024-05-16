@@ -3,7 +3,10 @@ import { Container, Row, Col, Button, Ratio, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import maschico from '../../Images/maschico.jpg'
-import catalogo from '../../Images/mockup_catalogo.png'
+import analitico from '../../Images/analitico.png'
+import analisis from '../../Images/analisis.png'
+import negocios from '../../Images/negocios-en-linea.png'
+import reporte from '../../Images/reporte-de-negocios.png'
 import Footer from '../Footer/Footer'
 
 import LoginContext from '../../Context/LoginContext'
@@ -32,14 +35,20 @@ function Home() {
         >
           <Row className="text-center justify-content-center">
             <Col xs={10}>
-              <h5 className="display-5 mb-1">
+              <h5
+                className="display-5 mb-1 fw-bold"
+                style={{ fontStretch: 'condensed' }}
+              >
                 <strong>¡Bienvenidos!</strong>
               </h5>
-              <h4 className="lh-sm">
+              <h4 className="lh-sm mb-1">
                 A la versión <span className="text-danger fw-bold">Beta</span>{' '}
                 de nuestro <strong>catálogo digital</strong>
               </h4>
-              <p>Con él podras llevar tu catalogo a todas partes.</p>
+              <p>
+                Con él podras llevar tu catalogo a todas partes, ver fotos,
+                precios y más...
+              </p>
             </Col>
             <Col xs={11}>
               <Button as={Link} to={'/welcome'}>
@@ -48,17 +57,18 @@ function Home() {
             </Col>
           </Row>
         </Col>
-        <Col xs={12} className="bg-secondary text-white p-2">
-          <p className="mb-0">
-            ¡Accedé a las <strong>mejores ofertas</strong>!
+        <Col xs={12} className="bg-secondary text-white p-2 fs-5">
+          <p className="mb-0 fw-light" style={{ letterSpacing: '.75px' }}>
+            ¡El mejor precio{' '}
+            <span className="fw-medium">en el rubro blanco!</span>
           </p>
         </Col>
       </Row>
       <Row className="justify-content-center align-items-center align-items-stretch py-5">
         <Col xs={12} lg={12} className="text-center mb-4">
-          <p className="fs-4 lh-sm">
-            Accedé a nuestro catálogo y disfruta de todos sus{' '}
-            <strong>beneficios:</strong>
+          <p className="fs-4 lh-sm mb-1">
+            Accedé a nuestro catálogo y disfruta de todos{' '}
+            <strong>sus beneficios</strong>
           </p>
         </Col>
         <Row className="text-center justify-content-evenly">
@@ -71,11 +81,13 @@ function Home() {
           >
             <div
               style={{ width: '80px', height: '80px' }}
-              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+              className="d-flex text-white justify-content-center align-items-center mb-3"
             >
-              <span className="material-symbols-outlined fs-2">dashboard</span>
+              <Image src={analitico} fluid />
             </div>
-            <h5>Consultar stock</h5>
+            <h4 className="fw-bold" style={{ fontStretch: 'condensed' }}>
+              Consultar stock
+            </h4>
             <p>
               Los productos que no se encuentran disponibles no se muestran en
               el catálogo.
@@ -90,11 +102,13 @@ function Home() {
           >
             <div
               style={{ width: '80px', height: '80px' }}
-              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+              className="d-flex text-white justify-content-center align-items-center mb-3"
             >
-              <span className="material-symbols-outlined fs-2">image</span>
+              <Image src={analisis} fluid />
             </div>
-            <h5>Banco de fotos</h5>
+            <h4 className="fw-bold" style={{ fontStretch: 'condensed' }}>
+              Banco de fotos
+            </h4>
             <p>
               Cada producto cuenta con varias fotos para mostrar a tus clientes.
             </p>
@@ -108,11 +122,13 @@ function Home() {
           >
             <div
               style={{ width: '80px', height: '80px' }}
-              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+              className="d-flex text-white justify-content-center align-items-center mb-3"
             >
-              <span className="material-symbols-outlined fs-2">view_list</span>
+              <Image src={reporte} fluid />
             </div>
-            <h5>Lista de precios</h5>
+            <h4 className="fw-bold" style={{ fontStretch: 'condensed' }}>
+              Lista de precios
+            </h4>
             <p>Descargá en el momento la lista de precios actualizada.</p>
           </Col>
           <Col
@@ -124,22 +140,16 @@ function Home() {
           >
             <div
               style={{ width: '80px', height: '80px' }}
-              className="bg-primario d-flex text-white rounded-circle justify-content-center align-items-center mb-3"
+              className="d-flex text-white justify-content-center align-items-center mb-3"
             >
-              <span className="material-symbols-outlined fs-2">
-                price_check
-              </span>
+              <Image src={negocios} fluid />
             </div>
-            <h5>Precios revendedor</h5>
+            <h4 className="fw-bold" style={{ fontStretch: 'condensed' }}>
+              Precios revendedor
+            </h4>
             <p>
               Configurá tu cuenta y comenzá a mostrar los precios revendedor en
               tu catálogo.
-            </p>
-          </Col>
-          <Col xs={12} lg={12} className="text-center mt-2">
-            <p className="fs-5 lh-sm">
-              Junto a los mejores precios y la mejor atención{' '}
-              <strong>¡te esperamos!</strong>
             </p>
           </Col>
         </Row>

@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
+import { PiArrowFatLineRightFill } from 'react-icons/pi'
 
 function WelcomeLog() {
   const [clienteLista, setClienteLista] = useState([])
@@ -47,14 +48,20 @@ function WelcomeLog() {
     <Container className="py-4">
       <Row className="text-center justify-content-around pb-3 pt-4">
         <Col xs={12}>
-          <h3 className="mb-2">
-            {' '}
-            ¡Bienvenido <strong> {username}!</strong>{' '}
-          </h3>
-          <Button as={Link} to={'/catalogo'} className="mt-2 mb-4">
-            Click aquí para ver todo el catálogo
+          <h1 className="mb-2" style={{ fontStretch: 'condensed' }}>
+            ¡Hola <span style={{ fontWeight: 800 }}> {username}!</span>
+          </h1>
+          <Button
+            as={Link}
+            to={'/catalogo'}
+            className="mt-2 mb-3 d-flex-inline align-items-end"
+          >
+            <PiArrowFatLineRightFill className="me-2" />
+            Ver todo el catálogo
           </Button>
-          <p className="mb-1">O seleccione una categoría para comenzar:</p>
+          <p className="mb-1 fs-5">
+            O seleccione <span className="fw-semibold">una categoría:</span>
+          </p>
         </Col>
         {loading ? (
           <Spinner className="my-5 d-block mx-auto" animation="border" />
@@ -72,7 +79,7 @@ function WelcomeLog() {
             md={4}
             lg={3}
             xl={2}
-            className="text-center"
+            className="text-center py-2"
           >
             <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
               {imagenErrors[producto.id] ? (
@@ -91,7 +98,13 @@ function WelcomeLog() {
                 />
               )}
             </Ratio>
-            <h6 className="mt-2 mb-4">- {producto.nombre} -</h6>
+            <p
+              className="mt-2 fs-4"
+              style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
+            >
+              <span style={{ color: '#bbb' }}>-</span> {producto.nombre}{' '}
+              <span style={{ color: '#bbb' }}>-</span>
+            </p>
           </Col>
         ))}
       </Row>

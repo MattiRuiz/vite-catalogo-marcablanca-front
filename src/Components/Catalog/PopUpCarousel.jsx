@@ -20,7 +20,7 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
   }, [])
 
   return (
-    <Modal show={true} onHide={closePopUp}>
+    <Modal show={true} onHide={closePopUp} centered>
       <Modal.Body className="p-0 rounded-top overflow-hidden position-relative">
         <Carousel>
           {producto && (

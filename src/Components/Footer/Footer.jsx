@@ -1,48 +1,50 @@
-import { Row, Col, Image, Ratio } from 'react-bootstrap'
+import { Row, Col, Image } from 'react-bootstrap'
+
+import {
+  PiEnvelopeOpenFill,
+  PiWhatsappLogoBold,
+  PiCityBold,
+  PiMapPinLineBold,
+} from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
 
 function Footer() {
   return (
     <>
-      <Row className="pb-5 pt-4 text-white bg-primario align-items-center justify-content-center">
-        <Col
-          xs={12}
-          lg={6}
-          className="d-flex align-items-center justify-content-center"
-        >
-          <div style={{ width: '250px', height: 'auto' }}>
-            <div className="mapouter">
-              <div className="gmap_canvas">
-                <Ratio aspectRatio="1x1">
-                  <iframe
-                    className="gmap_iframe"
-                    width="100%"
-                    title="Mapa de Blanqueria MarcaBlanca"
-                    src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Blanqueria MarcaBlanca&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                  ></iframe>
-                </Ratio>
-              </div>
-              <style>
-                .mapouter
-                {'position:relative;text-align:right;width:100%;height:400px;'}
-                .gmap_canvas{' '}
-                {
-                  'overflow:hidden;background:none!important;width:100%;height:400px;'
-                }
-                .gmap_iframe {'height:400px!important;'}
-              </style>
-            </div>
-          </div>
-          <div className="ms-4">
-            <Image src={imageLogo} className="logo-home d-block me-auto mb-2" />
-            <ul className="list-unstyled ms-2">
-              <li>San Luis 1917</li>
-              <li>Rosario - Santa Fe</li>
-              <li>(0341) 4212690</li>
+      <Row className="py-5 text-white bg-primario">
+        <Col xs={12} className="d-flex justify-content-around">
+          <Image src={imageLogo} className="mb-2" style={{ width: '150px' }} />
+          <div>
+            <h6 className="text-uppercase">Dónde estamos</h6>
+            <ul
+              className="list-unstyled fw-light"
+              style={{ letterSpacing: '.5px' }}
+            >
+              <li className="d-flex align-items-center">
+                <PiMapPinLineBold className="me-2" /> San Luis 1927
+              </li>
+              <li className="d-flex align-items-center">
+                <PiCityBold className="me-2" />
+                Rosario, Santa Fe
+              </li>
             </ul>
-            <h4 className="ms-2 mb-1">Horario de atención</h4>
-            <p className="ms-2">Lunes a viernes de 9:00 a 18:00hs.</p>
+          </div>
+          <div>
+            <h6 className="text-uppercase">Contacto</h6>
+            <ul
+              className="list-unstyled fw-light"
+              style={{ letterSpacing: '.5px' }}
+            >
+              <li className="d-flex align-items-center">
+                <PiEnvelopeOpenFill className="me-2" />
+                email@marcablanca.com.ar
+              </li>
+              <li className="d-flex align-items-center">
+                <PiWhatsappLogoBold className="me-2" />
+                341-3278887
+              </li>
+            </ul>
           </div>
         </Col>
       </Row>

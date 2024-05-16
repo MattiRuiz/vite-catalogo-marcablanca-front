@@ -22,6 +22,7 @@ import ImagenesCRUD_popup from './ImagenesCRUD_popup'
 import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
+import PopUpEditPrecio from '../PopUpEditPrecio'
 
 const ProductoCRUD = () => {
   //#region Declaracion useState's
@@ -34,9 +35,9 @@ const ProductoCRUD = () => {
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [popUpBorrarTallaProducto, setPopUpBorrarTallaProducto] =
     useState(false)
+  const [popUpEditarPrecio, setPopUpEditarPrecio] = useState(false)
   const [selectedProducto, setSelectedProducto] = useState({})
   const [selectedCategoria, setSelectedCategoria] = useState()
-  const [selectedIdProducto, setSelectedIdProducto] = useState()
   const [selectedTallaProducto, setSelectedTallaProducto] = useState(null)
   //#endregion
 
@@ -107,11 +108,18 @@ const ProductoCRUD = () => {
     <>
       <Col xs={12}>
         <Button
-          variant="outline-light"
-          className="mt-3"
+          variant="secondary"
+          className="mt-3 me-2"
           onClick={() => openPopup(null)}
         >
           Crear producto
+        </Button>
+        <Button
+          variant="light"
+          className="mt-3"
+          onClick={() => setPopUpEditarPrecio(true)}
+        >
+          Editar grupos de precio
         </Button>
         <Row>
           {categorias.map((categoria) => (
@@ -133,7 +141,7 @@ const ProductoCRUD = () => {
                         <Accordion.Body>
                           <div className="mb-3">
                             <Button
-                              variant="success"
+                              variant="secondary"
                               size="sm"
                               className="me-1"
                               onClick={() => openPopUpImagenes(producto)}
@@ -141,7 +149,7 @@ const ProductoCRUD = () => {
                               Editar carrusel
                             </Button>
                             <Button
-                              variant="warning"
+                              variant="primary"
                               size="sm"
                               className="me-1"
                               onClick={() => openPopup(producto, categoria.id)}
@@ -207,8 +215,11 @@ const ProductoCRUD = () => {
                                         <>
                                           <Badge
                                             bg="success"
-                                            size="sm"
                                             className="mb-1"
+                                            style={{
+                                              fontSize: '.75rem',
+                                              letterSpacing: '.5px',
+                                            }}
                                           >
                                             En stock
                                           </Badge>
@@ -219,9 +230,12 @@ const ProductoCRUD = () => {
                                       ) : (
                                         <>
                                           <Badge
-                                            bg="danger"
-                                            size="sm"
+                                            bg="secondary"
                                             className="mb-1"
+                                            style={{
+                                              fontSize: '.75rem',
+                                              letterSpacing: '.5px',
+                                            }}
                                           >
                                             Sin stock
                                           </Badge>
@@ -233,14 +247,14 @@ const ProductoCRUD = () => {
                                     </li>
                                     <li className="mb-2">
                                       <Button
-                                        variant="warning"
+                                        variant="primary"
                                         size="sm"
                                         className="ms-1"
                                         onClick={() =>
                                           openPopupTalla(talla, producto)
                                         }
                                       >
-                                        <span className="material-symbols-outlined text-dark">
+                                        <span className="material-symbols-outlined">
                                           edit
                                         </span>
                                       </Button>
@@ -358,6 +372,13 @@ const ProductoCRUD = () => {
         />
       ) : (
         <></>
+      )}
+      {popUpEditarPrecio && (
+        <PopUpEditPrecio
+          closePopUp={() => {
+            setPopUpEditarPrecio(false)
+          }}
+        />
       )}
     </>
   )
