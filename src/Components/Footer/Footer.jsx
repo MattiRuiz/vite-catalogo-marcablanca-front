@@ -13,7 +13,10 @@ function Footer() {
   return (
     <>
       <Row className="py-5 text-white bg-primario">
-        <Col xs={12} className="d-flex justify-content-around">
+        <Col
+          xs={12}
+          className="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-around ms-5 ms-sm-0"
+        >
           <Image src={imageLogo} className="mb-2" style={{ width: '150px' }} />
           <div>
             <h6 className="text-uppercase">Dónde estamos</h6>

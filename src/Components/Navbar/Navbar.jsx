@@ -34,10 +34,14 @@ function Navbar() {
   }
 
   useEffect(() => {
-    const typeUser = JSON.parse(localStorage.getItem('userData'))
-    if (typeUser.esAdmin == 1) {
-      setUser(true)
-    } else {
+    try {
+      const typeUser = JSON.parse(localStorage.getItem('userData'))
+      if (typeUser.esAdmin == 1) {
+        setUser(true)
+      } else {
+        setUser(false)
+      }
+    } catch {
       setUser(false)
     }
   }, [])
@@ -51,7 +55,7 @@ function Navbar() {
           </Link>
         </Col>
         {menu ? (
-          <Col xs={6} className="d-flex  justify-content-end">
+          <Col xs={6} className="d-flex justify-content-end">
             <div className="d-flex align-items-center">
               <Button as={Link} to={'/catalogo'} className="me-2 navbar-tab">
                 Catálogo
@@ -105,17 +109,10 @@ function Navbar() {
             </div>
           </Col>
         ) : (
-          <Col xs={6} className="d-flex  justify-content-end">
-            <ul className="list-unstyled d-flex mb-0 align-items-center">
-              <li>
-                <Link
-                  to={'/login'}
-                  className="text-white px-4 py-2 border border-white rounded texto-14"
-                >
-                  Ingresar
-                </Link>
-              </li>
-            </ul>
+          <Col xs={6} className="d-flex justify-content-end align-items-center">
+            <Button as={Link} to={'/login'}>
+              Ingresar
+            </Button>
           </Col>
         )}
       </Row>
