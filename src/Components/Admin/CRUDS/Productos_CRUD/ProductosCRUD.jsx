@@ -201,7 +201,7 @@ const ProductoCRUD = () => {
                             </Col>
                           </Row>
                           <Row className="mt-2">
-                            <h6 className="mb-2 fw-bold">Medidas:</h6>
+                            <h6 className="mb-2 fw-bold">Variedad:</h6>
                             {producto.productos_tallas &&
                             producto.productos_tallas.length > 0 ? (
                               producto.productos_tallas.map((talla) => (
@@ -241,7 +241,9 @@ const ProductoCRUD = () => {
                                             Sin stock
                                           </Badge>
                                           <p className="mb-0">
-                                            {talla.tallas.nombre}
+                                            {talla.tallas.nombre
+                                              ? talla.tallas.nombre
+                                              : 'Medida'}
                                           </p>
                                         </>
                                       )}
