@@ -8,10 +8,11 @@ const PopUpForgotPassword = ({ closePopUp }) => {
         <Modal.Title>¿Olvidaste tu contraseña?</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
-          Por una cuestión de seguridad, para poder recuperar su cuenta debe
-          dirigirse con su <strong>nombre de usuario a nuestro local</strong>{' '}
-          para que podamos reiniciar su contraseña manualmente.
+        <p className="mb-0">
+          Para garantizar la seguridad de tu cuenta, te pedimos que te acerques
+          a nuestro establecimiento con los <strong>datos de tu cuenta.</strong>{' '}
+          De esta manera, podremos restablecer tu contraseña manualmente y
+          asegurarnos de que solo tú tengas acceso.
         </p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">

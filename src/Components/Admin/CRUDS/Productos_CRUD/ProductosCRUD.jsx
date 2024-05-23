@@ -162,7 +162,7 @@ const ProductoCRUD = () => {
                               onClick={() => openPopUpBorrar(producto)}
                               className=" mb-1"
                             >
-                              Borrar
+                              Borrar producto
                             </Button>
                           </div>
                           <Row className="align-items-center">

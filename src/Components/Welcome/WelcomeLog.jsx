@@ -7,10 +7,13 @@ import {
   Button,
   Ratio,
   Spinner,
+  Alert,
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { PiArrowFatLineRightFill } from 'react-icons/pi'
+
+import imagenCatalogo from '../../Images/mockup_catalogo.png'
 
 function WelcomeLog() {
   const [clienteLista, setClienteLista] = useState([])
@@ -47,20 +50,31 @@ function WelcomeLog() {
   return (
     <Container className="py-4">
       <Row className="text-center justify-content-around pb-3 pt-4">
+        <Col xs={12} md={8} lg={6}>
+          <Alert variant="warning mb-4 p-4" dismissible>
+            <Alert.Heading className="fs-5">
+              Catálogo en <strong>fase de pruebas</strong>
+            </Alert.Heading>
+            <p className="mb-0">
+              El catálogo se encuentra actualmente en etapa de prueba. Para
+              reportar problemas, enviar comentarios u opiniones, puede
+              enviarnos un mensaje en la sección de{' '}
+              <Link
+                to={'/contacto'}
+                className="fw-bold"
+                style={{ color: 'inherit' }}
+              >
+                contacto.
+              </Link>
+            </p>
+          </Alert>
+        </Col>
         <Col xs={12}>
           <h1 className="mb-2" style={{ fontStretch: 'condensed' }}>
             ¡Hola <span style={{ fontWeight: 800 }}> {username}!</span>
           </h1>
-          <Button
-            as={Link}
-            to={'/catalogo'}
-            className="mt-2 mb-3 d-flex-inline align-items-end"
-          >
-            <PiArrowFatLineRightFill className="me-2" />
-            Ver todo el catálogo
-          </Button>
           <p className="mb-1 fs-5">
-            O seleccione <span className="fw-semibold">una categoría:</span>
+            Seleccione <span className="fw-semibold">una categoría:</span>
           </p>
         </Col>
         {loading ? (
@@ -70,6 +84,30 @@ function WelcomeLog() {
         )}
       </Row>
       <Row className="text-center pb-4 link-articulos justify-content-center">
+        <Col
+          as={Link}
+          to={`/catalogo`}
+          xs={6}
+          md={4}
+          lg={3}
+          xl={2}
+          className="text-center py-2"
+        >
+          <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
+            <Image
+              src={imagenCatalogo}
+              className="object-fit-cover rounded-circle"
+              fluid
+            />
+          </Ratio>
+          <p
+            className="mt-2 fs-4"
+            style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
+          >
+            <span style={{ color: '#bbb' }}>-</span> Ver todo{' '}
+            <span style={{ color: '#bbb' }}>-</span>
+          </p>
+        </Col>
         {clienteLista.map((producto) => (
           <Col
             key={producto.id}

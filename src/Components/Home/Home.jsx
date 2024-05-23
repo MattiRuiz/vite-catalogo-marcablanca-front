@@ -1,6 +1,8 @@
-import { useContext, useEffect } from 'react'
-import { Container, Row, Col, Button, Ratio, Image } from 'react-bootstrap'
+import { useContext, useEffect, useState } from 'react'
+import { Container, Row, Col, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+
+import useIntersectionObserver from '../../Functions/IntersectionObserver'
 
 import maschico from '../../Images/maschico.jpg'
 import analitico from '../../Images/analitico.png'
@@ -18,6 +20,15 @@ function Home() {
     checkUser()
   }, [])
 
+  const [isVisible, setIsVisible] = useState(false)
+
+  const ref = useIntersectionObserver(
+    (target) => {
+      setIsVisible(true)
+    },
+    { threshold: 0.1 }
+  )
+
   return (
     <Container fluid>
       <Row className="text-center shadow-sm py-5 justify-content-center align-items-center">
@@ -27,7 +38,7 @@ function Home() {
           xl={5}
           className="p-0 text-white bg-primario d-flex flex-column justify-content-center rounded overflow-hidden"
         >
-          <Image src={maschico} fluid />
+          <Image src={maschico} fluid className="animated-image" />
         </Col>
         <Col xs={12} lg={6} xl={5} className="py-5 text-start ms-xl-5">
           <h5
@@ -55,8 +66,8 @@ function Home() {
             Accedé a nuestro catálogo y disfruta de todos sus beneficios:
           </p>
         </Col>
-        <Row className="text-center justify-content-evenly">
-          <Col xs={12} md={6} lg={3}>
+        <Row className="text-center justify-content-evenly overflow-hidden">
+          <Col xs={12} md={6} lg={3} className="card-container">
             <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
               <div
                 style={{ width: '70px', height: '70px' }}
@@ -68,7 +79,7 @@ function Home() {
               <p>Encuentra todos los productos disponibles en tiempo real.</p>
             </div>
           </Col>
-          <Col xs={12} md={6} lg={3}>
+          <Col xs={12} md={6} lg={3} className="card-container">
             <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
               <div
                 style={{ width: '70px', height: '70px' }}
@@ -83,7 +94,7 @@ function Home() {
               </p>
             </div>
           </Col>
-          <Col xs={12} md={6} lg={3}>
+          <Col xs={12} md={6} lg={3} className="card-container">
             <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
               <div
                 style={{ width: '70px', height: '70px' }}
@@ -95,7 +106,7 @@ function Home() {
               <p>Descarga al instante la lista de precios actualizada.</p>
             </div>
           </Col>
-          <Col xs={12} md={6} lg={3}>
+          <Col xs={12} md={6} lg={3} className="card-container">
             <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
               <div
                 style={{ width: '70px', height: '70px' }}

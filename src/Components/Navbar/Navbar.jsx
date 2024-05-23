@@ -48,7 +48,7 @@ function Navbar() {
 
   return (
     <Container fluid className="shadow">
-      <Row className="bg-primario pt-3 pb-2 text-center text-white px-3">
+      <Row className="bg-primary pt-3 pb-2 text-center text-white px-3">
         <Col xs={6} className="ps-0">
           <Link to={'/'}>
             <Image src={imageLogo} className="logo-home d-block" />

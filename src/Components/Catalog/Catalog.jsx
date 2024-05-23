@@ -6,20 +6,15 @@ import {
   Col,
   Ratio,
   Card,
-  Carousel,
   Button,
   Form,
   Placeholder,
-  Modal,
-  Image,
   Badge,
   InputGroup,
+  Alert,
 } from 'react-bootstrap'
 
-import {
-  getAllProductos,
-  getAllImages,
-} from '../../Functions/ProductosFunctions'
+import { getAllProductos } from '../../Functions/ProductosFunctions'
 
 import CardLoading from './CardLoading'
 import PopUpCarousel from './PopUpCarousel'
@@ -49,6 +44,7 @@ function Catalog() {
 
   //#region GANANCIAS/PRECIOS
   const showGanancia = localStorage.getItem('showGanancia')
+  const gananciaCheck = localStorage.getItem('ganancia')
   let ganancia = 1
   let porcentual = 1.0
 
@@ -115,6 +111,27 @@ function Catalog() {
       ) : null}
 
       <Row className="justify-content-start mb-2 mt-2 g-3">
+        <Col xs={12}>
+          {showGanancia === 'true' && gananciaCheck === '0' ? (
+            <Alert variant="danger" className="p-4" dismissible>
+              <Alert.Heading className="fs-5">
+                <strong>¡Atención!</strong>
+              </Alert.Heading>
+              <p className="mb-0">
+                Actualmente se encuentra mostrando los{' '}
+                <strong>precios mayoristas.</strong> Para ocultarlos o para
+                mostrar los precios de revendedor haga{' '}
+                <Link
+                  to={'/configuracion'}
+                  className="fw-bold"
+                  style={{ color: 'inherit' }}
+                >
+                  click aquí.
+                </Link>
+              </p>
+            </Alert>
+          ) : null}
+        </Col>
         {categorias
           .filter(
             (categoria) => !selectedCategory || categoria.id == selectedCategory

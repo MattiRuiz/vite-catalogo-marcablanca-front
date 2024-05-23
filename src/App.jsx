@@ -15,19 +15,13 @@ import NotFound from './Components/404/NotFund'
 import Contacto from './Components/Contacto/Contacto'
 
 function App() {
+  const auth = localStorage.getItem('token')
   return (
     <>
       <Navbar />
       <Container fluid className="px-0 bg-white alto-container">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Home />
-              </>
-            }
-          />
+          <Route path="/" element={<>{auth ? <Welcome /> : <Home />}</>} />
           <Route
             path="/login"
             element={
