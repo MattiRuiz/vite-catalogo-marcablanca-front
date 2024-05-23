@@ -35,17 +35,17 @@ function WelcomeUnlog() {
       <Row className="text-center justify-content-around pb-3 pt-4">
         <Col xs={12} className="py-3">
           <h3 className="mb-2">
-            {' '}
-            ¡Bienvenido al <strong>cátalogo de Marca Blanca!</strong>
+            Catálogo digital <strong>Marca Blanca</strong>
           </h3>
-          <h6 className="mb-1">
-            {' '}
+          <p className="mb-1">
             Se requiere{' '}
             <strong>
-              <Link to={'/login'}>inicio de sesion</Link>
+              <Link to={'/login'} className="text-dark">
+                inicio de sesion
+              </Link>
             </strong>{' '}
             para explorar. En él encontrarás:
-          </h6>
+          </p>
         </Col>
         {loading ? (
           <Spinner className="my-5 d-block mx-auto" animation="border" />

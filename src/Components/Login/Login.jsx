@@ -5,15 +5,12 @@ import {
   Col,
   Button,
   Form,
-  Image,
   Alert,
   Spinner,
 } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
-
-import catalogo from '../../Images/mockup_catalogo.png'
 
 import Footer from '../Footer/Footer'
 import PopUpForgotPassword from './PopUpForgotPassword'
@@ -93,8 +90,7 @@ function Login() {
       <Row className="py-5 justify-content-center justify-content-md-around align-items-center alto-container">
         <Col xs={11} md={5} lg={4}>
           <Form onSubmit={handleSubmit}>
-            <h4>INGRESAR</h4>
-
+            <h4 className="fw-semibold">INGRESAR</h4>
             <Form.Group className="pt-2">
               <Form.Label>Nombre de usuario:</Form.Label>
               <Form.Control type="text" onChange={userNameHandler} />
@@ -117,7 +113,7 @@ function Login() {
               )}
             </Button>
             <Link
-              className="text-dark texto-14"
+              className="text-dark fst-italic"
               onClick={() => setPopUpForgotPassword(true)}
             >
               ¿Olvidaste tu contraseña?
@@ -135,23 +131,22 @@ function Login() {
             </Alert.Heading>
             {alertMessage}
           </Alert>
-        </Col>
-        <Col xs={12} md={6} lg={5}>
-          <Row className="justify-content-center text-center">
-            <Col xs={8} md={6} lg={4}>
-              <Image src={catalogo} fluid />
-            </Col>
-            <Col xs={11}>
-              <h4>
-                ¡Bienvenidos a nuestro <strong>catálogo digital!</strong>
-              </h4>
-              <p>
-                En estos momentos el catálogo se encuentra en etapa de testeo.
-                Para mas información pueden enviarnos un mensaje de{' '}
-                <strong>Contacto</strong>.
-              </p>
-            </Col>
-          </Row>
+          <Alert variant="warning mt-3 p-4">
+            <Alert.Heading className="fs-5">
+              Catálogo en <strong>fase de pruebas</strong>
+            </Alert.Heading>
+            <p className="mb-0">
+              En estos momentos el catálogo se encuentra en etapa de testeo.
+              Para mas información pueden enviarnos un mensaje de{' '}
+              <Link
+                to={'/contacto'}
+                className="fw-bold"
+                style={{ color: 'inherit' }}
+              >
+                contacto.
+              </Link>
+            </p>
+          </Alert>
         </Col>
       </Row>
 

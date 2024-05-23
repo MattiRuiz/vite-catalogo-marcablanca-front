@@ -17,7 +17,7 @@
 :root {
   --primary: #1b64b3;
   --secondary: #cecece;
-  --black: #333;
+  --black: #24353f;
 }
 
 .btn-warning {
@@ -31,6 +31,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--black)!important;
   background-color: var(--primary)!important;
+  letter-spacing: .25px
 }
 
 a {
@@ -49,6 +50,10 @@ a {
   background-color: var(--primary);
 }
 
+.bg-claro {
+  background-color: #f3efea;
+}
+
 .color-primario {
   color: var(--primary)
 }
@@ -63,9 +68,9 @@ color: #999;
 .btn {
   letter-spacing: .9px;
   font-weight: 500;
-  font-size: .9rem;
-  text-transform: uppercase;
+  font-size: 1.1rem;
   border-radius: 4px;
+  padding: .5rem 1rem
 }
 
 .btn-light, .btn-warning {

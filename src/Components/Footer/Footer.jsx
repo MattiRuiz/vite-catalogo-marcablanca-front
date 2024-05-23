@@ -19,7 +19,7 @@ function Footer() {
         >
           <Image src={imageLogo} className="mb-2" style={{ width: '150px' }} />
           <div>
-            <h6 className="text-uppercase">Dónde estamos</h6>
+            <h5>Dónde estamos</h5>
             <ul
               className="list-unstyled fw-light"
               style={{ letterSpacing: '.5px' }}
@@ -34,7 +34,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h6 className="text-uppercase">Contacto</h6>
+            <h5>Contacto</h5>
             <ul
               className="list-unstyled fw-light"
               style={{ letterSpacing: '.5px' }}

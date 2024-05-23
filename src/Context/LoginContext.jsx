@@ -30,7 +30,6 @@ const LoginProvider = ({ children }) => {
     const exp = localStorage.getItem('exp')
     if (Number(exp) < Date.now()) {
       unauthorize()
-      console.log('Su sesión ha expirado.')
     } else {
       const token = localStorage.getItem('token')
       if (auth && token) {
@@ -44,7 +43,7 @@ const LoginProvider = ({ children }) => {
         setMenu(true)
       } else {
         unauthorize()
-        console.log('Su sesión ha terminado | !auth&&!token')
+        console.log('Su sesión ha terminado')
       }
     }
   }
