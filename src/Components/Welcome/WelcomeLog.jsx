@@ -4,14 +4,12 @@ import {
   Row,
   Col,
   Image,
-  Button,
   Ratio,
   Spinner,
   Alert,
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
-import { PiArrowFatLineRightFill } from 'react-icons/pi'
 
 import imagenCatalogo from '../../Images/mockup_catalogo.png'
 
@@ -57,7 +55,7 @@ function WelcomeLog() {
             </Alert.Heading>
             <p className="mb-0">
               El catálogo se encuentra actualmente en etapa de prueba. Para
-              reportar problemas, enviar comentarios u opiniones, puede
+              reportar problemas, enviar comentarios u opiniones, puedes
               enviarnos un mensaje en la sección de{' '}
               <Link
                 to={'/contacto'}

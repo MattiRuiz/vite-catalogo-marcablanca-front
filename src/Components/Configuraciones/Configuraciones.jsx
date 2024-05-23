@@ -125,7 +125,7 @@ function Configuraciones() {
                 />
                 Descargar PDF
               </Button>
-              <p className="text-muted">
+              <p className="text-muted mb-0">
                 Los precios están actualizados al momento de descargar la lista
                 y se encuentran sujetos a cambio.
               </p>
@@ -162,23 +162,27 @@ function Configuraciones() {
           <Modal.Body>
             {showGanancia ? (
               <>
-                <p>
-                  Está por mostrar los precios en el catálogo, configurado para
-                  mostrar el:{' '}
+                <p className="mb-2">
+                  Estás a punto de mostrar los precios en el catálogo. El precio
+                  a mostrar está configurado como:
                 </p>
-                <h5>
-                  <strong>
-                    {' '}
-                    {ganancia === '0'
-                      ? 'Precio mayorista'
-                      : `Precio revendedor con %${ganancia} de ganancia`}
-                  </strong>
-                </h5>
+                <ul>
+                  <li>
+                    <h5 className="mb-0">
+                      <strong>
+                        {' '}
+                        {ganancia === '0'
+                          ? 'Precio mayorista'
+                          : `Precio revendedor con un %${ganancia} de ganancia`}
+                      </strong>
+                    </h5>
+                  </li>
+                </ul>
               </>
             ) : (
-              <p>
-                Está por <strong>ocultar</strong> los precios en el catálogo
-                ¿Desea continuar?.
+              <p className="mb-0">
+                Estás a punto de <strong>ocultar</strong> los precios en el
+                catálogo. ¿Deseas continuar?
               </p>
             )}
           </Modal.Body>
@@ -192,7 +196,6 @@ function Configuraciones() {
           </Modal.Footer>
         </Modal>
       </Container>
-      <Footer />{' '}
     </>
   )
 }

@@ -67,7 +67,6 @@ color: #999;
 }
 
 .btn {
-  letter-spacing: .9px;
   font-weight: 500;
   font-size: 1.1rem;
   border-radius: 4px;
@@ -212,19 +211,10 @@ min-height: 80vh;
   box-shadow: none;
 }
 
-.modal {
-  --bs-modal-width: 600px;
-}
 
-@media (min-width: 992px) {
-  .offcanvas {
-    width: 25% !important;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .offcanvas {
-    width: 40% !important;
+@media (min-width: 768px) {
+  .modal {
+    --bs-modal-width: 600px;
   }
 }
 

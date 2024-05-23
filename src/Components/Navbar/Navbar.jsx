@@ -63,9 +63,9 @@ function Navbar() {
               <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-basic"
-                  className="d-flex align-items-center mb-1"
+                  className="d-flex align-items-center mb-1 p-1"
                 >
-                  <PiUserFill className="me-2 fs-6" />
+                  <PiUserFill className="me-1 fs-6" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {user ? (
@@ -75,7 +75,7 @@ function Navbar() {
                         to={'/admin'}
                         className="fw-bold d-flex align-items-center"
                       >
-                        <PiUserCircleGearFill className="me-1" /> Administrar
+                        <PiUserCircleGearFill className="me-2" /> Administrar
                       </Dropdown.Item>
                       <Dropdown.Divider />
                     </>
@@ -87,14 +87,14 @@ function Navbar() {
                     to={'/contacto'}
                     className="d-flex align-items-center"
                   >
-                    <PiNoteFill className="me-1" /> Contacto
+                    <PiNoteFill className="me-2" /> Contacto
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
                     to={'/configuracion'}
                     className="d-flex align-items-center"
                   >
-                    <PiGearFill className="me-1" /> Configuración
+                    <PiGearFill className="me-2" /> Configuración
                   </Dropdown.Item>
 
                   <Dropdown.Divider />
@@ -102,7 +102,7 @@ function Navbar() {
                     onClick={handleOpen}
                     className="d-flex align-items-center"
                   >
-                    <PiXCircleFill className="me-1 text-danger" /> Cerrar sesión
+                    <PiXCircleFill className="me-2 text-danger" /> Cerrar sesión
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

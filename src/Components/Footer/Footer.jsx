@@ -12,7 +12,7 @@ import imageLogo from '../../Images/logo-marca.svg'
 function Footer() {
   return (
     <>
-      <Row className="py-5 text-white bg-primary">
+      <Row className="py-5 text-white bg-primario">
         <Col
           xs={12}
           className="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-around ms-5 ms-sm-0"
