@@ -121,7 +121,7 @@ function Navbar() {
           <Modal.Title>¡Atención!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Deseas cerrar sesión?</p>
+          <p className="mb-0">¿Deseas cerrar sesión?</p>
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
           <Button variant="secondary" onClick={handleClose}>

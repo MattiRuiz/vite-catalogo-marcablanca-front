@@ -49,7 +49,7 @@ function WelcomeLog() {
     <Container className="py-4">
       <Row className="text-center justify-content-around pb-3 pt-4">
         <Col xs={12} md={8} lg={6}>
-          <Alert variant="warning mb-4 p-4" dismissible>
+          <Alert variant="warning mb-4 p-4">
             <Alert.Heading className="fs-5">
               Catálogo en <strong>fase de pruebas</strong>
             </Alert.Heading>

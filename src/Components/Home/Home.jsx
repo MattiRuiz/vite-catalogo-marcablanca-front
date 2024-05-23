@@ -25,7 +25,7 @@ function Home() {
           xs={12}
           lg={6}
           xl={5}
-          className="p-0 text-white bg-primario d-flex flex-column justify-content-center rounded overflow-hidden"
+          className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden"
         >
           <Image src={maschico} fluid className="animated-image " />
         </Col>

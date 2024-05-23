@@ -136,14 +136,6 @@ li button span.material-symbols-outlined{
   font-size: 18px
 }
 
-.offcanvas {
-  width: 55%!important;
-}
-
-.offcanvas a{
-  color: var(--black)!important;
-}
-
 .form-control{
   border: var(--bs-border-width) solid #aeaeae!important;
 }
