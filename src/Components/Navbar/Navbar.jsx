@@ -57,7 +57,7 @@ function Navbar() {
         {menu ? (
           <Col xs={6} className="d-flex justify-content-end">
             <div className="d-flex align-items-center">
-              <Button as={Link} to={'/catalogo'} className="me-2 navbar-tab">
+              <Button as={Link} to={'/welcome'} className="me-2 navbar-tab">
                 Catálogo
               </Button>
               <Dropdown>
