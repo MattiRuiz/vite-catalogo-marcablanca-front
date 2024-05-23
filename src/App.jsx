@@ -21,7 +21,14 @@ function App() {
       <Navbar />
       <Container fluid className="px-0 bg-white alto-container">
         <Routes>
-          <Route path="/" element={<>{auth ? <Welcome /> : <Home />}</>} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+              </>
+            }
+          />
           <Route
             path="/login"
             element={

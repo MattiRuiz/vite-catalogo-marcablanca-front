@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import useIntersectionObserver from '../../Functions/IntersectionObserver'
-
 import maschico from '../../Images/maschico.jpg'
 import analitico from '../../Images/analitico.png'
 import analisis from '../../Images/analisis.png'
@@ -20,29 +18,20 @@ function Home() {
     checkUser()
   }, [])
 
-  const [isVisible, setIsVisible] = useState(false)
-
-  const ref = useIntersectionObserver(
-    (target) => {
-      setIsVisible(true)
-    },
-    { threshold: 0.1 }
-  )
-
   return (
     <Container fluid>
-      <Row className="text-center shadow-sm py-5 justify-content-center align-items-center">
+      <Row className="text-center shadow-sm py-5 justify-content-center align-items-center px-2 px-md-0">
         <Col
           xs={12}
           lg={6}
           xl={5}
           className="p-0 text-white bg-primario d-flex flex-column justify-content-center rounded overflow-hidden"
         >
-          <Image src={maschico} fluid className="animated-image" />
+          <Image src={maschico} fluid className="animated-image " />
         </Col>
-        <Col xs={12} lg={6} xl={5} className="py-5 text-start ms-xl-5">
+        <Col xs={12} lg={6} xl={5} className="pt-4 pt-md-0 text-start ms-xl-5">
           <h5
-            className="display-5 mb- fw-bold"
+            className="display-5 fw-bold"
             style={{ fontStretch: 'condensed' }}
           >
             <strong>¡Bienvenidos!</strong>

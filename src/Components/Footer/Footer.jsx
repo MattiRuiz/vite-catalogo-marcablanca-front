@@ -15,10 +15,10 @@ function Footer() {
       <Row className="py-5 text-white bg-primario">
         <Col
           xs={12}
-          className="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-around ms-5 ms-sm-0"
+          className="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-around"
         >
           <Image src={imageLogo} className="mb-2" style={{ width: '150px' }} />
-          <div>
+          <div className="ms-4 ms-sm-0">
             <h5>Dónde estamos</h5>
             <ul
               className="list-unstyled fw-light"
@@ -33,7 +33,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="ms-4 ms-sm-0">
             <h5>Contacto</h5>
             <ul
               className="list-unstyled fw-light"
