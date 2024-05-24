@@ -11,6 +11,11 @@ const getAllProductos = async () => {
   return respuesta
 }
 
+const getAllProductosAdmin = async () => {
+  const respuesta = await axios.get(`${baseUrl}/api/productosAdmin`)
+  return respuesta
+}
+
 const getProductosPorCategoria = async (id) => {
   const respuesta = await axios.get(
     `${baseUrl}/api/productostallas/categoria/${id}`
@@ -18,8 +23,8 @@ const getProductosPorCategoria = async (id) => {
   return respuesta
 }
 
-const getOneProducto = async (id) => {
-  const respuesta = await axios.get(`${baseUrl}/api/productos/${id}`)
+const getProductoById = async (id) => {
+  const respuesta = await axios.get(`${baseUrl}/api/productoTallaId/${id}`)
   return respuesta
 }
 
@@ -127,11 +132,12 @@ export {
   getProductosPorCategoria,
   createProducto,
   updateProducto,
-  getOneProducto,
+  getProductoById,
   deleteProducto,
   getAllImages,
   getImagenesPorProducto,
   createImagen,
   deleteImagen,
   editPrecioEnGrupo,
+  getAllProductosAdmin,
 }

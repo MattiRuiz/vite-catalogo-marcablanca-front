@@ -21,7 +21,7 @@ const createTallaProducto = async (data) => {
   try {
     const respuesta = await axios({
       url: `${baseUrl}/api/productosTallas`,
-      method: 'POST',   
+      method: 'POST',
       data: data,
       headers: {
         Authorization: window.localStorage.getItem('token'),
@@ -48,19 +48,4 @@ const updateTallaProducto = async (id, _data) => {
   }
 }
 
-const exportToExcel = async (id, _data) => {
-  try {
-    const respuesta = await axios(`${baseUrl}/api/productosTallas/exportar`, {
-      method: 'GET',
-      data: _data,
-      headers: {
-        Authorization: window.localStorage.getItem('token'),
-      },
-    })
-    return respuesta
-  } catch (errors) {
-    console.log(errors)
-  }
-}
-
-export { deleteTallaProducto, createTallaProducto, updateTallaProducto, exportToExcel }
+export { deleteTallaProducto, createTallaProducto, updateTallaProducto }

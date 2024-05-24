@@ -13,12 +13,12 @@ import {
 import {
   createProducto,
   updateProducto,
+  getAllProductos,
 } from '../../../../Functions/ProductosFunctions'
+import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 
 const ProductosCRUD_popup = ({
   producto,
-  categorias,
-  marcas,
   selectedCategoria,
   onProductoUpdated,
   closePopUp,
@@ -31,6 +31,8 @@ const ProductosCRUD_popup = ({
     tipoProductoId: '',
     adminsId: '',
   })
+  const [marcas, setMarcas] = useState([])
+  const [categorias, setCategorias] = useState([])
 
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
@@ -60,6 +62,25 @@ const ProductosCRUD_popup = ({
     }
   }, [producto])
   //#endregion
+
+  const fetchData = async () => {
+    setLoading(true)
+    try {
+      const responseMarcas = await getAllMarcas()
+      setMarcas(responseMarcas.data)
+
+      const responseCategorias = await getAllProductos()
+      setCategorias(responseCategorias.data)
+    } catch (e) {
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {

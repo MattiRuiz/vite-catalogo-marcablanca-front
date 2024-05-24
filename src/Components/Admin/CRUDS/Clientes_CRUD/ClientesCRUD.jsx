@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Accordion, Spinner, Row } from 'react-bootstrap'
+import { Col, Button, Spinner } from 'react-bootstrap'
 
-import {
-  getAllClientes,
-  deleteCliente,
-} from '../../../../Functions/ClienteFunctions'
+import { getAllClientes } from '../../../../Functions/ClienteFunctions'
 
 import ClientesPopup from './ClientesCRUD_popup'
 import PopUpBorrarCliente from './PopUpBorrarCliente'
+
+import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
 
 const ClientesCRUD = () => {
   //#region Declaracion useState's
@@ -78,23 +77,19 @@ const ClientesCRUD = () => {
               </Col>
               <Col xs={2}>
                 <Button
-                  variant="warning"
+                  variant="secondary"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(cliente)}
                 >
-                  <span className="material-symbols-outlined lh-sm text-white">
-                    edit
-                  </span>
+                  <PiNotePencilBold />
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(cliente)}
                 >
-                  <span className="material-symbols-outlined lh-sm">
-                    delete
-                  </span>
+                  <PiTrashBold />
                 </Button>
               </Col>
             </div>

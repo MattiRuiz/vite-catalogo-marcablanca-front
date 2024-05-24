@@ -46,8 +46,8 @@ function WelcomeLog() {
   }, [])
 
   return (
-    <Container className="py-4">
-      <Row className="text-center justify-content-around pb-3 pt-4">
+    <Container className="py-3">
+      <Row className="justify-content-around pb-3 pt-4">
         <Col xs={12} md={8} lg={6}>
           <Alert variant="warning mb-4 p-4">
             <Alert.Heading className="fs-5">
@@ -67,7 +67,7 @@ function WelcomeLog() {
             </p>
           </Alert>
         </Col>
-        <Col xs={12}>
+        <Col xs={12} className="text-center">
           <h1 className="mb-2" style={{ fontStretch: 'condensed' }}>
             ¡Hola <span style={{ fontWeight: 800 }}> {username}!</span>
           </h1>

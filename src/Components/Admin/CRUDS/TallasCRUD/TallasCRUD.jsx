@@ -6,6 +6,8 @@ import { getAllTallas } from '../../../../Functions/TallasFunctions'
 import TallasPopUp from './TallasCRUD_popup'
 import PopUpBorrarTalla from './PopUpBorrarTalla'
 
+import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
+
 const TallasCRUD = () => {
   //#region Declaracion useState's
   const [tallas, setTallas] = useState([])
@@ -71,23 +73,19 @@ const TallasCRUD = () => {
                   )}
                 </p>
                 <Button
-                  variant="warning"
+                  variant="secondary"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(talla)}
                 >
-                  <span className="material-symbols-outlined lh-sm text-white">
-                    edit
-                  </span>
+                  <PiNotePencilBold />
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(talla)}
                 >
-                  <span className="material-symbols-outlined lh-sm">
-                    delete
-                  </span>
+                  <PiTrashBold />
                 </Button>
               </div>
             ))}

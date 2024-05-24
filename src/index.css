@@ -15,7 +15,7 @@
 }
 
 :root {
-  --primary: #1b64b3;
+  --primary: #0053ad;
   --secondary: #cecece;
   --black: #24353f;
 }
@@ -50,6 +50,10 @@ a {
   background-color: var(--primary);
 }
 
+.bg-primary {
+  background-color: var(--primary)!important;
+}
+
 .bg-claro {
   background-color: #f3efea;
 }
@@ -82,11 +86,11 @@ color: #999;
   font-weight: 500;
 }
 
-/* .btn-primary {
+.btn-primary {
   background-color: var(--primary);
   border-color: var(--primary);
 }
-
+/* 
 .btn-primary:hover {
   background-color: var(--primary);
   border-color: var(--primary);

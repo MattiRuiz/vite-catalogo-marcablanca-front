@@ -15,14 +15,19 @@ const clearData = () => {
 //#endregion
 
 const getAllClientes = async () => {
-  const respuesta = await axios.get(`${baseUrl}/api/clientes`)
+  const respuesta = await axios.get(`${baseUrl}/api/clientes`, {
+    method: 'GET',
+    headers: {
+      Authorization: window.localStorage.getItem('token'),
+    },
+  })
   return respuesta
 }
 
-const getOneCliente = async (id) => {
-  const respuesta = await axios.get(`${baseUrl}/api/clientes/${id}`)
-  return respuesta
-}
+// const getOneCliente = async (id) => {
+//   const respuesta = await axios.get(`${baseUrl}/api/clientes/${id}`)
+//   return respuesta
+// }
 
 const createCliente = async (_data) => {
   try {
@@ -73,7 +78,7 @@ const changePassword = async (_id, _data) => {
       `${baseUrl}/api/clientes/updatepassword/${_id}`,
       {
         method: 'PUT',
-        headers:{
+        headers: {
           Authorization: window.localStorage.getItem('token'),
         },
         data: _data,
@@ -89,7 +94,6 @@ export {
   getAllClientes,
   createCliente,
   updateCliente,
-  getOneCliente,
   deleteCliente,
   clearData,
   changePassword,

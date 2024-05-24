@@ -9,6 +9,8 @@ import {
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
 import PopUpBorrarTipoProducto from './PopUpBorrarTipoProducto'
 
+import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
+
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
   const [tipoProductos, setTipoProductos] = useState([])
@@ -80,7 +82,7 @@ const TipoProductoCRUD = () => {
             <div
               eventKey={tipoProducto.id}
               key={tipoProducto.id}
-              className="bg-white py-2 px-3 me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
+              className="bg-white py-3 px-3 me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
             >
               <Ratio
                 aspectRatio="1x1"
@@ -105,23 +107,19 @@ const TipoProductoCRUD = () => {
               <p className="fw-semibold mb-1">{tipoProducto.nombre}</p>
               <div>
                 <Button
-                  variant="warning"
+                  variant="secondary"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(tipoProducto)}
                 >
-                  <span className="material-symbols-outlined lh-sm text-white">
-                    edit
-                  </span>
+                  <PiNotePencilBold />
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(tipoProducto)}
                 >
-                  <span className="material-symbols-outlined lh-sm text-white">
-                    delete
-                  </span>
+                  <PiTrashBold />
                 </Button>
               </div>
             </div>

@@ -12,9 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 import ModalCambiarPassword from './ModalCambiarPassword'
-import Footer from '../Footer/Footer'
 
-import { VscFilePdf } from 'react-icons/vsc'
 import PDFIcon from '../../Images/pdf.png'
 
 function Configuraciones() {
@@ -23,13 +21,16 @@ function Configuraciones() {
   const [showGanancia, setShowGanancia] = useState(false)
   const [modalCambiarPass, setModalCambiarPass] = useState(false)
   const navigate = useNavigate()
-  const baseUrl = import.meta.env.VITE_NAME
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
   const handleValor = (e) => {
-    setGanancia(e.target.value)
+    if (!e.target.value) {
+      setGanancia(0)
+    } else {
+      setGanancia(e.target.value)
+    }
   }
   const handleShowGanacia = (e) => {
     setShowGanancia(e.target.checked)
@@ -102,7 +103,7 @@ function Configuraciones() {
                   </Form.Text>
                 </Row>
               </Form>
-              <Button className="mt-3" onClick={handleShow}>
+              <Button className="mt-3" onClick={handleShow} type="button">
                 Aplicar cambios
               </Button>
             </div>
@@ -173,7 +174,7 @@ function Configuraciones() {
                         {' '}
                         {ganancia === '0'
                           ? 'Precio mayorista'
-                          : `Precio revendedor con un %${ganancia} de ganancia`}
+                          : `Precio revendedor con un ${ganancia}% de ganancia`}
                       </strong>
                     </h5>
                   </li>

@@ -24,9 +24,8 @@ function Navbar() {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleOpen = () => setShow(true)
-  const [user, setUser] = useState(false)
 
-  const { menu, unauthorize } = useContext(LoginContext)
+  const { menu, setMenu, unauthorize } = useContext(LoginContext)
 
   const logout = () => {
     handleClose()
@@ -35,14 +34,18 @@ function Navbar() {
 
   useEffect(() => {
     try {
-      const typeUser = JSON.parse(localStorage.getItem('userData'))
-      if (typeUser.esAdmin == 1) {
-        setUser(true)
+      const token = localStorage.getItem('token')
+      if (token) {
+        const user = {
+          token: token,
+          userData: JSON.parse(localStorage.getItem('userData')),
+        }
+        setMenu(user)
       } else {
-        setUser(false)
+        setMenu()
       }
     } catch {
-      setUser(false)
+      setMenu()
     }
   }, [])
 
@@ -68,7 +71,7 @@ function Navbar() {
                   <PiUserFill className="me-1 fs-6" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {user ? (
+                  {menu.userData?.esAdmin && (
                     <>
                       <Dropdown.Item
                         as={Link}
@@ -79,8 +82,6 @@ function Navbar() {
                       </Dropdown.Item>
                       <Dropdown.Divider />
                     </>
-                  ) : (
-                    <></>
                   )}
                   <Dropdown.Item
                     as={Link}
@@ -117,18 +118,18 @@ function Navbar() {
         )}
       </Row>
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header className="border-0 bg-primario text-white" closeButton>
-          <Modal.Title>¡Atención!</Modal.Title>
+        <Modal.Header className="border-0" closeButton>
+          <Modal.Title className="fw-bold">¡Atención!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p className="mb-0">¿Deseas cerrar sesión?</p>
+        <Modal.Body className="py-0">
+          <p className="mb-0">¿Desea cerrar la sesión de su cuenta?</p>
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={() => logout()}>
-            Aceptar
+          <Button variant="danger" onClick={() => logout()}>
+            Cerrar sesión
           </Button>
         </Modal.Footer>
       </Modal>

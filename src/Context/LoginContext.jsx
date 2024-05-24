@@ -8,13 +8,22 @@ const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
   const [auth, setAuth] = useState({})
-  const [menu, setMenu] = useState(false)
+  const [menu, setMenu] = useState()
   const [popUpUnauthorized, setPopUpUnauthorize] = useState(false)
   const navigate = useNavigate()
 
   const handleLogin = (resp) => {
     setAuth(resp)
-    setMenu(true)
+    const token = localStorage.getItem('token')
+    if (token) {
+      const user = {
+        token: token,
+        userData: JSON.parse(localStorage.getItem('userData')),
+      }
+      setMenu(user)
+    } else {
+      setMenu()
+    }
   }
 
   const unauthorize = () => {
@@ -33,14 +42,14 @@ const LoginProvider = ({ children }) => {
     } else {
       const token = localStorage.getItem('token')
       if (auth && token) {
-        setMenu(true)
+        setMenu(auth)
       } else if (!auth && token) {
         const user = {
           token: token,
           userData: localStorage.getItem('userData'),
         }
         handleLogin(user)
-        setMenu(true)
+        setMenu(user)
       } else {
         unauthorize()
         console.log('Su sesión ha terminado')
@@ -73,7 +82,7 @@ const LoginProvider = ({ children }) => {
     }
   }, [])
 
-  const data = { handleLogin, checkUser, menu, unauthorize }
+  const data = { handleLogin, checkUser, menu, setMenu, unauthorize }
 
   return (
     <>

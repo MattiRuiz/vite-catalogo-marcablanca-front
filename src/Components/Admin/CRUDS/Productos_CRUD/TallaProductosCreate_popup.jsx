@@ -86,6 +86,15 @@ const TallaProductoCreate_popup = ({
       ...tallaSelected,
     }
 
+    if (!dataToSend.precio) {
+      alertDanger()
+      setAlertHeader('Error')
+      setAlertMessage('No puedes crear un tipo de producto sin precio.')
+      handleShowAlert()
+      setLoading(false)
+      return console.log('Error al crear un tipo de producto')
+    }
+
     if (selectedTallaProducto) {
       const id = selectedTallaProducto.id
       const response = await updateTallaProducto(id, dataToSend)

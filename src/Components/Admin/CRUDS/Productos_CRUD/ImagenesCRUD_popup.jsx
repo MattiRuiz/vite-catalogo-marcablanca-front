@@ -8,6 +8,8 @@ import {
 
 import PopUpBorrarImagen from './PopUpBorrarImagen'
 
+import { PiTrashBold } from 'react-icons/pi'
+
 const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   const [loading, setLoading] = useState(false)
   const [imagenes, setImagenes] = useState(null)
@@ -57,7 +59,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
         <Modal.Header className="border-0 bg-primario text-white" closeButton>
           <Modal.Title>Editar carrusel de imágenes</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="pb-0">
           <p className="texto-14">
             En esta sección se puede agregar o borrar imágenes en el carrusel.
             Para cambiar la imágen de portada hay ir a{' '}
@@ -78,16 +80,11 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                   <Button
                     variant="danger"
                     size="sm"
-                    className="position-absolute rounded-circle shadow-sm"
-                    style={{ bottom: '5px', right: '16px', padding: '2px 7px' }}
+                    className="position-absolute"
+                    style={{ bottom: '5px', right: '16px' }}
                     onClick={() => openPopUpBorrar(imagen)}
                   >
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ fontSize: '14px', lineHeight: 1.7 }}
-                    >
-                      delete
-                    </span>
+                    <PiTrashBold />
                   </Button>
                 </Col>
               ))

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+import { Col, Button, Spinner } from 'react-bootstrap'
 
-import {
-  getAllMarcas,
-  deleteMarca,
-} from '../../../../Functions/MarcasFunctions'
+import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 
 import MarcasPopUp from './MarcasCRUD_popup'
 import PopUpBorrarMarca from './PopUpBorrarMarca'
+
+import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
 
 const MarcasCRUD = () => {
   //#region Declaracion useState's
@@ -66,23 +65,19 @@ const MarcasCRUD = () => {
               >
                 <p className="d-inline me-2 mb-0 fw-bold">{marca.nombre}</p>
                 <Button
-                  variant="warning"
+                  variant="secondary"
                   size="sm"
                   className="me-1"
                   onClick={() => openPopup(marca)}
                 >
-                  <span className="material-symbols-outlined lh-sm text-white">
-                    edit
-                  </span>
+                  <PiNotePencilBold />
                 </Button>
                 <Button
                   variant="danger"
                   size="sm"
                   onClick={() => openPopUpBorrar(marca)}
                 >
-                  <span className="material-symbols-outlined lh-sm">
-                    delete
-                  </span>
+                  <PiTrashBold />
                 </Button>
               </div>
             ))}
