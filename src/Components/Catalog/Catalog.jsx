@@ -12,9 +12,13 @@ import {
   Badge,
   InputGroup,
   Alert,
+  Pagination,
 } from 'react-bootstrap'
 
-import { getAllProductos } from '../../Functions/ProductosFunctions'
+import {
+  getAllProductos,
+  getProductosCatalogo,
+} from '../../Functions/ProductosFunctions'
 
 import CardLoading from './CardLoading'
 import PopUpCarousel from './PopUpCarousel'
@@ -75,8 +79,126 @@ function Catalog() {
     setSelectedCategory(e.target.value === 'all' ? null : e.target.value)
   }
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPaginas, setTotalPaginas] = useState(0)
+  const [productos, setProductos] = useState()
+
+  const fetch = async () => {
+    const respuesta = await getProductosCatalogo(currentPage)
+    setTotalPaginas(respuesta.data.totalPaginas)
+    setProductos(respuesta.data.productos)
+  }
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
+  useEffect(() => {
+    fetch()
+  }, [currentPage])
+
   return (
     <Container className="py-4">
+      <Row className="mt-4">
+        <Col lg={3} xl={2} className="d-none d-lg-flex mt-5">
+          <ul className="list-unstyled mt-2">
+            <li className="border-bottom py-2">
+              <Link className="text-dark fs-5" style={{ fontWeight: 500 }}>
+                Productos
+              </Link>
+            </li>
+            {categorias.map((categoria) => (
+              <li className="border-bottom py-2" key={categoria.id}>
+                <Link className="text-dark fs-5" style={{ fontWeight: 500 }}>
+                  {categoria.nombre}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Col>
+        <Col xs={12} lg={9} xl={10}>
+          <h1 className="mb-3 border-bottom pb-1">Catálogo</h1>
+          <Row>
+            {productos
+              ? productos.map((producto) => (
+                  <Col key={producto.id} xs={12} sm={6} lg={4} className="mb-4">
+                    <Link onClick={() => openPopUpCarrusel(producto)}>
+                      <Card className="mb-3 h-100">
+                        <Ratio aspectRatio="4x3" className="fondo-imagen">
+                          {imagenErrors[producto.id] ? (
+                            <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                              <p className="mb-0 color-grisclaro">
+                                <strong>Sin imágen</strong>
+                              </p>
+                            </div>
+                          ) : (
+                            <Card.Img
+                              className="object-fit-cover"
+                              alt={producto.nombre}
+                              variant="top"
+                              src={producto.rutaImagen}
+                              onError={() => handleImageError(producto.id)}
+                            />
+                          )}
+                        </Ratio>
+                        <Card.Body className="pb-0">
+                          <Badge className="mb-2">
+                            {producto.marcas.nombre}
+                          </Badge>
+                          <Card.Title>{producto.nombre}</Card.Title>
+                          <Card.Subtitle className="text-muted pb-3 fst-italic">
+                            {producto.descripcion}
+                          </Card.Subtitle>
+                          {producto.tallas
+                            .filter((talla) => talla.stock == 1)
+                            .map((talla, index) => (
+                              <div key={index}>
+                                <p className="border-bottom mb-0 texto-14 text-uppercase fw-bold text-gray">
+                                  {talla.nombre ? talla.nombre : 'Medidas'}
+                                </p>
+                                <ul
+                                  key={index}
+                                  className="list-unstyled d-flex justify-content-between align-items-center mb-2"
+                                >
+                                  <li className="text-muted lh-sm">
+                                    {talla.dimensiones}
+                                  </li>
+                                  {showGanancia == 'true' ? (
+                                    <li className="fw-semibold">
+                                      $
+                                      {Math.trunc(
+                                        parseInt(talla.precio) * porcentual
+                                      )}
+                                    </li>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </ul>
+                              </div>
+                            ))}
+                        </Card.Body>
+                      </Card>
+                    </Link>
+                  </Col>
+                ))
+              : 'loading'}
+          </Row>
+          <Pagination>
+            {totalPaginas > 0
+              ? Array.from({ length: totalPaginas }, (_, index) => (
+                  <Pagination.Item
+                    key={index + 1}
+                    active={index + 1 === currentPage}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                ))
+              : 'loading'}
+          </Pagination>
+        </Col>
+      </Row>
+
       <Row>
         <Col xs={12} className="d-flex align-items-center">
           <InputGroup>

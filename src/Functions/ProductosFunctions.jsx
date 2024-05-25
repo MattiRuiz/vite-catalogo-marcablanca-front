@@ -28,6 +28,13 @@ const getProductoById = async (id) => {
   return respuesta
 }
 
+const getProductosCatalogo = async (page) => {
+  const respuesta = await axios.get(
+    `${baseUrl}/api/getProductosCatalogoPaginados/${page}`
+  )
+  return respuesta
+}
+
 const createProducto = async (_data) => {
   try {
     const respuesta = await axios(`${baseUrl}/api/productos`, {
@@ -140,4 +147,5 @@ export {
   deleteImagen,
   editPrecioEnGrupo,
   getAllProductosAdmin,
+  getProductosCatalogo,
 }
