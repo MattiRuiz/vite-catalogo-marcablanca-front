@@ -3,6 +3,7 @@ import { Col, Row, Button, Accordion, Badge, Spinner } from 'react-bootstrap'
 
 import { getAllProductosAdmin } from '../../../../Functions/ProductosFunctions'
 
+import ProductosPopUp from './ProductosCRUD_popup'
 import ProductoCard from './ProductoCard'
 
 const ProductoCRUD = () => {
@@ -36,13 +37,18 @@ const ProductoCRUD = () => {
     fetchData()
   }, [])
 
+  const [popUp, setPopUp] = useState(false)
+  const openPopup = () => {
+    setPopUp(true)
+  }
+
   return (
     <>
       <Col xs={12}>
         <Button
           variant="secondary"
           className="mb-1 me-2"
-          onClick={() => openPopup(null)}
+          onClick={() => openPopup()}
         >
           Crear producto
         </Button>
@@ -71,7 +77,7 @@ const ProductoCRUD = () => {
                     </Accordion.Header>
                     <Accordion.Body>
                       {showProducto[producto.id] && (
-                        <ProductoCard id={producto.id} />
+                        <ProductoCard key={producto.id} id={producto.id} />
                       )}
                     </Accordion.Body>
                   </Accordion.Item>
@@ -90,6 +96,12 @@ const ProductoCRUD = () => {
           ''
         )}
       </Col>
+      {popUp && (
+        <ProductosPopUp
+          onProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+        />
+      )}
     </>
   )
 }

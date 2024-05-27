@@ -98,7 +98,6 @@ const ProductosCRUD_popup = ({
     formDataForAPI.append('admins_id', dataToSend.adminsId)
 
     if (producto) {
-      console.log(producto)
       const id = producto.id
 
       const response = await updateProducto(id, formDataForAPI)
@@ -118,7 +117,6 @@ const ProductosCRUD_popup = ({
       }
       onProductoUpdated()
     } else {
-      console.log(dataToSend)
       const response = await createProducto(formDataForAPI)
       setLoading(false)
       if (!response) {
