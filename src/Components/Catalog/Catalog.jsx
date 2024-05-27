@@ -18,6 +18,7 @@ import {
 import {
   getAllProductos,
   getProductosCatalogo,
+  getProductosPorCategoria,
 } from '../../Functions/ProductosFunctions'
 
 import CardLoading from './CardLoading'
@@ -82,15 +83,24 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
+  const [categoria, setCategoria] = useState()
 
   const fetch = async () => {
     const respuesta = await getProductosCatalogo(currentPage)
     setTotalPaginas(respuesta.data.totalPaginas)
     setProductos(respuesta.data.productos)
+    console.log(respuesta.data.productos)
   }
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
+  }
+
+  const handleCategories = async (value) => {
+    const respuesta = await getProductosPorCategoria(value)
+    setTotalPaginas(1)
+    setCurrentPage(1)
+    console.log(respuesta.data)
   }
 
   useEffect(() => {
@@ -109,7 +119,11 @@ function Catalog() {
             </li>
             {categorias.map((categoria) => (
               <li className="border-bottom py-2" key={categoria.id}>
-                <Link className="text-dark fs-5" style={{ fontWeight: 500 }}>
+                <Link
+                  className="text-dark fs-5"
+                  style={{ fontWeight: 500 }}
+                  onClick={() => handleCategories(categoria.id)}
+                >
                   {categoria.nombre}
                 </Link>
               </li>
