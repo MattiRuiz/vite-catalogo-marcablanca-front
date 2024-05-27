@@ -4,12 +4,7 @@ const baseUrl = import.meta.env.VITE_NAME
 
 const getAllTipoProductos = async () => {
   try {
-    const respuesta = await axios(`${baseUrl}/api/tipoProductos`, {
-      method: 'GET',
-      headers: {
-        Authorization: window.localStorage.getItem('token'),
-      },
-    })
+    const respuesta = await axios(`${baseUrl}/api/tipoProductos`)
     return respuesta
   } catch (errors) {
     console.log(errors)
