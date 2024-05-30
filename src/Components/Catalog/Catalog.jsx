@@ -25,7 +25,10 @@ function Catalog() {
   const { id } = useParams()
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
-
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPaginas, setTotalPaginas] = useState(0)
+  const [productos, setProductos] = useState()
+  const [title, setTitle] = useState('Todos los productos')
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
@@ -33,8 +36,6 @@ function Catalog() {
       [productId]: true,
     }))
   }
-
-  //Modal
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [popUpCarrusel, setPopUpCarrusel] = useState(false)
 
@@ -43,7 +44,7 @@ function Catalog() {
     setPopUpCarrusel(true)
   }
 
-  //#region GANANCIAS/PRECIOS
+  //ganancias/precios
   const showGanancia = localStorage.getItem('showGanancia')
   let ganancia = 1
   let porcentual = 1.0
@@ -53,12 +54,6 @@ function Catalog() {
     ganancia = JSON.parse(gananciaStr)
     porcentual = (ganancia + 100) / 100
   }
-  //#endregion
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPaginas, setTotalPaginas] = useState(0)
-  const [productos, setProductos] = useState()
-  const [title, setTitle] = useState('Todos los productos')
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
