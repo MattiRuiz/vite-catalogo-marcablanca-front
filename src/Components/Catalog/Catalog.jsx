@@ -6,13 +6,10 @@ import {
   Col,
   Ratio,
   Card,
-  Button,
-  Form,
   Placeholder,
   Badge,
-  InputGroup,
-  Alert,
   Pagination,
+  Spinner,
 } from 'react-bootstrap'
 
 import {
@@ -28,7 +25,6 @@ function Catalog() {
   const { id } = useParams()
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState('all')
 
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
@@ -62,68 +58,83 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
+  const [title, setTitle] = useState('Todos los productos')
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
+    handleProducts(pageNumber)
   }
 
   const handleCategories = async (value) => {
-    setProductos('')
     const respuesta = await getProductosPorCategoria(value)
     setTotalPaginas(1)
     setCurrentPage(1)
     setProductos(respuesta.data.productos)
+    setTitle(respuesta.data.productos[0].tipo_producto.nombre)
+    window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
   }
 
-  const fetch = async () => {
-    const respuesta = await getProductosCatalogo(currentPage)
-    setTotalPaginas(respuesta.data.totalPaginas)
-    setProductos(respuesta.data.productos)
+  const handleProducts = async (pageNumber) => {
+    const response = await getProductosCatalogo(pageNumber)
+    setTotalPaginas(response.data.totalPaginas)
+    setProductos(response.data.productos)
+    setTitle('Todos los productos')
+    window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAllTipoProductos() // Ajusta según tu API
+    const fetchCategorias = async () => {
+      setLoading(true)
+      const response = await getAllTipoProductos()
       setCategorias(response.data)
-      console.log('categoria', response.data)
+      setLoading(false)
     }
-    fetchData()
-  }, [])
+    fetchCategorias()
 
-  useEffect(() => {
-    fetch()
-  }, [currentPage])
+    if (id) {
+      handleCategories(id)
+    } else {
+      handleProducts(1)
+    }
+  }, [])
 
   return (
     <Container className="py-4">
       <Row className="mt-4">
-        <Col lg={3} xl={2} className="d-none d-lg-flex mt-5">
-          <ul className="list-unstyled mt-2">
-            <li className="border-bottom py-2">
-              <Link className="text-dark fs-5" style={{ fontWeight: 500 }}>
-                Productos
-              </Link>
-            </li>
-            {categorias.map((categoria) => (
-              <li
-                className="border-bottom py-2"
-                key={categoria.id}
-                value={categoria.id}
-              >
-                {console.log(`categoria ${categoria.id}`, categoria)}
+        <Col lg={3} xl={2} className="d-none d-lg-flex">
+          {!loading ? (
+            <ul className="list-unstyled">
+              <li className="border-bottom py-2">
                 <Link
                   className="text-dark fs-5"
                   style={{ fontWeight: 500 }}
-                  onClick={() => handleCategories(categoria.id)}
+                  onClick={() => handleProducts(1)}
                 >
-                  {categoria.nombre}
+                  Productos
                 </Link>
               </li>
-            ))}
-          </ul>
+              {categorias.map((categoria) => (
+                <li
+                  className="border-bottom py-2"
+                  key={categoria.id}
+                  value={categoria.id}
+                >
+                  <Link
+                    className="text-dark fs-5"
+                    style={{ fontWeight: 500 }}
+                    onClick={() => handleCategories(categoria.id)}
+                  >
+                    {categoria.nombre}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Spinner className="m-5" animation="border" />
+          )}
         </Col>
         <Col xs={12} lg={9} xl={10}>
-          <h1 className="mb-3 border-bottom pb-1">Catálogo</h1>
+          {productos && <h2 className="pb-2 mb-3 border-bottom">{title}</h2>}
           <Row>
             {productos ? (
               productos.map((producto) => (
@@ -186,18 +197,18 @@ function Catalog() {
                 </Col>
               ))
             ) : (
-              <Row className="justify-content-start my-3 g-3">
-                {/* <h3 className="mb-1 border-bottom pb-2">
+              <Row className="justify-content-start g-x-3">
+                <h2 className="mb-3 border-bottom pb-2">
                   <Placeholder xs={5} md={3} xl={2} />
-                </h3> */}
+                </h2>
                 <CardLoading />
                 <CardLoading />
                 <CardLoading />
               </Row>
             )}
           </Row>
-          <Pagination>
-            {totalPaginas > 0
+          <Pagination className="d-flex justify-content-center">
+            {totalPaginas > 1
               ? Array.from({ length: totalPaginas }, (_, index) => (
                   <Pagination.Item
                     key={index + 1}
@@ -207,22 +218,10 @@ function Catalog() {
                     {index + 1}
                   </Pagination.Item>
                 ))
-              : 'loading'}
+              : ''}
           </Pagination>
         </Col>
       </Row>
-
-      {loading ? (
-        <Row className="justify-content-start my-3 g-3">
-          <h3 className="mb-1 border-bottom pb-2">
-            <Placeholder xs={5} md={3} xl={2} />
-          </h3>
-          <CardLoading />
-          <CardLoading />
-          <CardLoading />
-          <CardLoading />
-        </Row>
-      ) : null}
       {popUpCarrusel ? (
         <PopUpCarousel
           producto={selectedProduct}
