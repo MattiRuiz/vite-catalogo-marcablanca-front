@@ -77,7 +77,10 @@ const ProductoCRUD = () => {
                     </Accordion.Header>
                     <Accordion.Body>
                       {showProducto[producto.id] && (
-                        <ProductoCard key={producto.id} id={producto.id} />
+                        <ProductoCard
+                          id={producto.id}
+                          onProductUpdate={() => fetchData()}
+                        />
                       )}
                     </Accordion.Body>
                   </Accordion.Item>

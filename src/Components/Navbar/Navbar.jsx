@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Container,
   Row,
@@ -8,9 +9,9 @@ import {
   Dropdown,
   Modal,
 } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 import LoginContext from '../../Context/LoginContext'
+
 import {
   PiUserFill,
   PiGearFill,

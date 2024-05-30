@@ -12,14 +12,14 @@ import PopUpEditPrecio from '../PopUpEditPrecio'
 
 import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
 
-const ProductoCard = ({ id }) => {
+const ProductoCard = ({ id, onProductUpdate }) => {
   const [producto, setProducto] = useState()
 
   useEffect(() => {
-    fetch()
+    fetchData()
   }, [])
 
-  const fetch = async () => {
+  const fetchData = async () => {
     const producto = await getProductoById(id)
     setProducto(producto.data)
   }
@@ -103,7 +103,7 @@ const ProductoCard = ({ id }) => {
                 </li>
                 <li>
                   <strong>Categoría: </strong>
-                  {producto.tipo_producto.nombre}
+                  {producto.tipo_producto?.nombre}
                 </li>
               </ul>
             </Col>
@@ -219,7 +219,10 @@ const ProductoCard = ({ id }) => {
         <ProductosPopUp
           producto={selectedProducto}
           selectedCategoria={selectedCategoria}
-          onProductoUpdated={() => fetchData()}
+          onProductoUpdated={() => {
+            onProductUpdate()
+            fetchData()
+          }}
           closePopUp={() => setPopUp(false)}
         />
       ) : (
