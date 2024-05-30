@@ -11,7 +11,7 @@ import {
 import { Link } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
-import imagenCatalogo from '../../Images/mockup_catalogo.png'
+import todosLosProductos from '../../Images/all.webp'
 
 function WelcomeLog() {
   const [clienteLista, setClienteLista] = useState([])
@@ -75,74 +75,78 @@ function WelcomeLog() {
             Seleccione <span className="fw-semibold">una categoría:</span>
           </p>
         </Col>
+      </Row>
+      <Row className="text-center pb-4 link-articulos justify-content-center">
         {loading ? (
           <Spinner className="my-5 d-block mx-auto" animation="border" />
         ) : (
-          ''
-        )}
-      </Row>
-      <Row className="text-center pb-4 link-articulos justify-content-center">
-        <Col
-          as={Link}
-          to={`/catalogo`}
-          xs={6}
-          md={4}
-          lg={3}
-          xl={2}
-          className="text-center py-2"
-        >
-          <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
-            <Image
-              src={imagenCatalogo}
-              className="object-fit-cover rounded-circle"
-              fluid
-            />
-          </Ratio>
-          <p
-            className="mt-2 fs-4"
-            style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
-          >
-            <span style={{ color: '#bbb' }}>-</span> Ver todo{' '}
-            <span style={{ color: '#bbb' }}>-</span>
-          </p>
-        </Col>
-        {clienteLista.map((producto) => (
-          <Col
-            key={producto.id}
-            as={Link}
-            to={`/catalogo/${producto.id}`}
-            xs={6}
-            md={4}
-            lg={3}
-            xl={2}
-            className="text-center py-2"
-          >
-            <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
-              {imagenErrors[producto.id] ? (
-                // Mostrar elemento alternativo en caso de error
-                <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                  <p className="mb-0 color-grisclaro">
-                    <strong>Sin imágen</strong>
-                  </p>
-                </div>
-              ) : (
+          <>
+            <Col
+              as={Link}
+              to={`/catalogo`}
+              xs={6}
+              md={4}
+              lg={3}
+              xl={2}
+              className="text-center py-2"
+            >
+              <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
                 <Image
-                  src={producto.rutaImagen}
+                  src={todosLosProductos}
                   className="object-fit-cover rounded-circle"
                   fluid
-                  onError={() => handleImageError(producto.id)}
                 />
-              )}
-            </Ratio>
-            <p
-              className="mt-2 fs-4"
-              style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
-            >
-              <span style={{ color: '#bbb' }}>-</span> {producto.nombre}{' '}
-              <span style={{ color: '#bbb' }}>-</span>
-            </p>
-          </Col>
-        ))}
+              </Ratio>
+              <p
+                className="mt-2 fs-4"
+                style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
+              >
+                <span style={{ color: '#bbb' }}>-</span> Ver todo{' '}
+                <span style={{ color: '#bbb' }}>-</span>
+              </p>
+            </Col>
+            {clienteLista.map((producto) => (
+              <Col
+                key={producto.id}
+                as={Link}
+                to={`/catalogo/${producto.id}`}
+                xs={6}
+                md={4}
+                lg={3}
+                xl={2}
+                className="text-center py-2"
+              >
+                <Ratio
+                  aspectRatio="1x1"
+                  className="rounded-circle fondo-imagen"
+                >
+                  {imagenErrors[producto.id] ? (
+                    // Mostrar elemento alternativo en caso de error
+                    <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                      <p className="mb-0 color-grisclaro">
+                        <strong>Sin imágen</strong>
+                      </p>
+                    </div>
+                  ) : (
+                    <Image
+                      src={producto.rutaImagen}
+                      className="object-fit-cover rounded-circle"
+                      fluid
+                      onError={() => handleImageError(producto.id)}
+                    />
+                  )}
+                </Ratio>
+                <p
+                  className="mt-2 fs-4"
+                  style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
+                >
+                  <span style={{ color: '#bbb' }}>-</span> {producto.nombre}{' '}
+                  <span style={{ color: '#bbb' }}>-</span>
+                </p>
+              </Col>
+            ))}
+          </>
+        )}
       </Row>
     </Container>
   )

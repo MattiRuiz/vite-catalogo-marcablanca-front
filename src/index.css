@@ -90,6 +90,20 @@ color: #999;
   background-color: var(--primary);
   border-color: var(--primary);
 }
+
+.active.nav-link{
+  background-color: #cfe2ff!important;
+  color: var(--black)!important
+}
+
+.menu.active{
+  background-color: #cfe2ff!important;
+  color: var(--black)!important
+}
+
+.nav-link {
+  color: var(--black)
+}
 /* 
 .btn-primary:hover {
   background-color: var(--primary);
