@@ -71,7 +71,7 @@ function Navbar() {
                   <PiUserFill className="me-1 fs-6" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {menu.userData?.esAdmin && (
+                  {menu.userData?.esAdmin ? (
                     <>
                       <Dropdown.Item
                         as={Link}
@@ -82,6 +82,8 @@ function Navbar() {
                       </Dropdown.Item>
                       <Dropdown.Divider />
                     </>
+                  ) : (
+                    ''
                   )}
                   <Dropdown.Item
                     as={Link}

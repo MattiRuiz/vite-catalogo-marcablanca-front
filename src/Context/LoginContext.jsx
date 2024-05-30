@@ -7,7 +7,7 @@ import PopUpUnauthorize from './PopUpUnauthorize'
 const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useState()
   const [menu, setMenu] = useState()
   const [popUpUnauthorized, setPopUpUnauthorize] = useState(false)
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ const LoginProvider = ({ children }) => {
     localStorage.removeItem('token')
     localStorage.removeItem('userData')
     localStorage.removeItem('exp')
-    setAuth({})
+    setAuth()
     setMenu(false)
     navigate('/')
   }
@@ -46,9 +46,8 @@ const LoginProvider = ({ children }) => {
       } else if (!auth && token) {
         const user = {
           token: token,
-          userData: localStorage.getItem('userData'),
+          userData: JSON.parse(localStorage.getItem('userData')),
         }
-        handleLogin(user)
         setMenu(user)
       } else {
         unauthorize()
