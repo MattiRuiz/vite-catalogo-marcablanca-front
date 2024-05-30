@@ -33,14 +33,16 @@ function Catalog() {
   const [productos, setProductos] = useState()
   const [title, setTitle] = useState('Todos los productos')
   const [imagenErrors, setImagenErrors] = useState({})
+  const [activeCategory, setActiveCategory] = useState()
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [popUpCarrusel, setPopUpCarrusel] = useState(false)
+
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
       ...prevErrors,
       [productId]: true,
     }))
   }
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [popUpCarrusel, setPopUpCarrusel] = useState(false)
 
   const openPopUpCarrusel = (producto) => {
     setSelectedProduct(producto)
@@ -71,6 +73,7 @@ function Catalog() {
     setCurrentPage(1)
     setProductos(respuesta.data.productos)
     setTitle(respuesta.data.productos[0].tipo_producto.nombre)
+    setActiveCategory(value)
   }
 
   const handleProducts = async (pageNumber) => {
@@ -80,6 +83,7 @@ function Catalog() {
     setTotalPaginas(response.data.totalPaginas)
     setProductos(response.data.productos)
     setTitle('Todos los productos')
+    setActiveCategory(null)
   }
 
   useEffect(() => {
@@ -100,13 +104,15 @@ function Catalog() {
 
   return (
     <Container className="py-4">
-      <Row className="mt-4">
+      <Row>
         <Col lg={2} className="d-none d-lg-flex">
           {!loading ? (
-            <ul className="list-unstyled">
-              <li className="border-bottom py-2">
+            <ul className="list-unstyled mt-5">
+              <li className="mt-4">
                 <Link
-                  className="text-dark fs-5"
+                  className={`text-dark fs-5 px-2 py-1 mb-1 d-block rounded menu ${
+                    activeCategory === null ? 'active' : ''
+                  }`}
                   style={{ fontWeight: 500 }}
                   onClick={() => handleProducts(1)}
                 >
@@ -114,13 +120,11 @@ function Catalog() {
                 </Link>
               </li>
               {categorias.map((categoria) => (
-                <li
-                  className="border-bottom py-2"
-                  key={categoria.id}
-                  value={categoria.id}
-                >
+                <li key={categoria.id} value={categoria.id}>
                   <Link
-                    className="text-dark fs-5"
+                    className={`text-dark fs-5 px-2 py-1 mb-1 d-block rounded menu ${
+                      activeCategory === categoria.id ? 'active' : ''
+                    }`}
                     style={{ fontWeight: 500 }}
                     onClick={() => handleCategories(categoria.id)}
                   >
@@ -143,7 +147,7 @@ function Catalog() {
               <Nav justify variant="pills" className="justify-content-center">
                 <Nav.Item>
                   <Nav.Link
-                    className="text-dark"
+                    className={`${activeCategory === null ? 'active' : ''}`}
                     style={{ fontWeight: 500 }}
                     onClick={() => handleProducts(1)}
                   >
@@ -153,7 +157,9 @@ function Catalog() {
                 {categorias.map((categoria) => (
                   <Nav.Item key={categoria.id}>
                     <Nav.Link
-                      className="text-dark"
+                      className={`${
+                        activeCategory === categoria.id ? 'active' : ''
+                      }`}
                       style={{ fontWeight: 500 }}
                       onClick={() => handleCategories(categoria.id)}
                     >
@@ -166,7 +172,7 @@ function Catalog() {
           </Accordion>
           {!loading ? <></> : ''}
         </Col>
-        <Col xs={12} lg={10}>
+        <Col xs={12} lg={10} className="mt-0 mt-lg-4">
           {productos && <h2 className="pb-2 mb-3 border-bottom">{title}</h2>}
           <Row>
             {productos ? (
