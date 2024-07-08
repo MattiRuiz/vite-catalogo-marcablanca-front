@@ -55,7 +55,7 @@ const ProductosCRUD_popup = ({
         nombre: producto.nombre || '',
         descripcion: producto.descripcion || '',
         imagen: producto.imagen,
-        marcasId: producto.marcas.id,
+        marcasId: producto.marcas ? producto.marcas.id : '',
         tipoProductoId: selectedCategoria,
         adminsId: 1,
       })
@@ -119,18 +119,18 @@ const ProductosCRUD_popup = ({
     } else {
       const response = await createProducto(formDataForAPI)
       setLoading(false)
-      if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear un producto nuevo')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
-      } else {
+      if (response.status === 200) {
         alertSuccess()
         setAlertHeader('Producto creado')
         setAlertMessage('El producto ha sido creado con éxito')
         handleShowAlert()
         setTimeout(() => closePopUp(), 2000)
+      } else {
+        alertDanger()
+        setAlertHeader('Error al crear un producto:')
+        setAlertMessage(`${response.data}`)
+        handleShowAlert()
+        setTimeout(() => handleCloseAlert(), 4000)
       }
       onProductoUpdated()
     }
@@ -190,7 +190,9 @@ const ProductosCRUD_popup = ({
       <Modal.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Nombre del producto:</Form.Label>
+            <Form.Label>
+              Nombre del producto<span className="text-danger">*</span>:
+            </Form.Label>
             <Form.Control
               type="text"
               className="mb-3"
@@ -208,7 +210,9 @@ const ProductosCRUD_popup = ({
               value={productoData.descripcion}
               onChange={handleInputChange}
             />
-            <Form.Label>Tipo de producto:</Form.Label>
+            <Form.Label>
+              Tipo de producto<span className="text-danger">*</span>:
+            </Form.Label>
             <Form.Select
               className="mb-3"
               value={productoData.tipoProductoId}
@@ -262,7 +266,9 @@ const ProductosCRUD_popup = ({
                   className="d-flex align-items-start flex-column justify-content-center border border-start-0"
                   style={{ borderRadius: '0 8px 8px 0' }}
                 >
-                  <p className="mb-2">Imágen de portada:</p>
+                  <p className="mb-2">
+                    Imágen de portada<span className="text-danger">*</span>:
+                  </p>
                   <label htmlFor="fileInput">
                     <Button as="span">
                       {loadingImagen ? (
@@ -287,7 +293,9 @@ const ProductosCRUD_popup = ({
               </Row>
             ) : (
               <>
-                <Form.Label>Imágen de portada:</Form.Label>
+                <Form.Label>
+                  Imágen de portada<span className="text-danger">*</span>:
+                </Form.Label>
                 <Form.Control
                   className="mb-3"
                   type="file"
@@ -303,6 +311,9 @@ const ProductosCRUD_popup = ({
             )}
           </Form.Group>
         </Form>
+        <p className="mb-0 mt-2 texto-14">
+          <span className="text-danger">*</span> Elementos obligatorios
+        </p>
         <Alert
           variant={alertVariant}
           className="mt-3 mb-0"
@@ -329,7 +340,7 @@ const ProductosCRUD_popup = ({
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button onClick={handleGuardar} disabled={loading} type="submit">
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

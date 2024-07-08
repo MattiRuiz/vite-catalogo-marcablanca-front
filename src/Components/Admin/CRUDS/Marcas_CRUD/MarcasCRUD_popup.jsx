@@ -143,7 +143,7 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button onClick={handleGuardar} disabled={loading} type="submit">
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

@@ -249,7 +249,10 @@ const ProductoCard = ({ id, onProductUpdate }) => {
       {popUpBorrar ? (
         <PopUpBorrar
           producto={selectedProducto}
-          onProductoUpdated={() => fetchData()}
+          onProductoUpdated={() => {
+            onProductUpdate()
+            fetchData()
+          }}
           closePopUp={() => setPopUpBorrar(false)}
         />
       ) : (

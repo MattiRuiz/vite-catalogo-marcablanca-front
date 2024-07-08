@@ -46,7 +46,7 @@ const createProducto = async (_data) => {
     })
     return respuesta
   } catch (errors) {
-    console.log(errors)
+    return errors.response
   }
 }
 

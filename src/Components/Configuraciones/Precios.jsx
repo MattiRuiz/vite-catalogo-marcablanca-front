@@ -11,15 +11,12 @@ import {
 } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
-import ModalCambiarPassword from './ModalCambiarPassword'
-
 import PDFIcon from '../../Images/pdf.png'
 
-function Configuraciones() {
+function Precios() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
-  const [modalCambiarPass, setModalCambiarPass] = useState(false)
   const navigate = useNavigate()
 
   const handleClose = () => setShow(false)
@@ -133,29 +130,6 @@ function Configuraciones() {
             </div>
           </Col>
         </Row>
-        <Row className="pt-5">
-          <h3 className="fw-bold mb-3">Otras configuraciones</h3>
-          <Col xs={12} lg={6}>
-            <div className="p-4 rounded border">
-              <h4 className="fw-semibold ">Cambiar la contraseña</h4>
-              <p className="mb-0">
-                Para cambiar la contraseña, haga clic en el siguiente botón y
-                rellene el formulario:
-              </p>
-              <Button
-                className="mt-3"
-                onClick={() => setModalCambiarPass(true)}
-              >
-                Cambiar la contraseña
-              </Button>
-            </div>
-          </Col>
-        </Row>
-        {modalCambiarPass ? (
-          <ModalCambiarPassword closePopUp={() => setModalCambiarPass(false)} />
-        ) : (
-          <></>
-        )}
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header className="border-0 bg-warning" closeButton>
             <Modal.Title>¡Atención!</Modal.Title>
@@ -201,4 +175,4 @@ function Configuraciones() {
   )
 }
 
-export default Configuraciones
+export default Precios

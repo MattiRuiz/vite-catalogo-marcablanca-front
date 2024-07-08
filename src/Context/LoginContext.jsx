@@ -30,6 +30,8 @@ const LoginProvider = ({ children }) => {
     localStorage.removeItem('token')
     localStorage.removeItem('userData')
     localStorage.removeItem('exp')
+    localStorage.removeItem('ganancia')
+    localStorage.removeItem('showGanancia')
     setAuth()
     setMenu(false)
     navigate('/')

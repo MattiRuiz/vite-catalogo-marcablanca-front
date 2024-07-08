@@ -18,6 +18,7 @@ import {
   PiNoteFill,
   PiUserCircleGearFill,
   PiXCircleFill,
+  PiCoinsFill,
 } from 'react-icons/pi'
 import imageLogo from '../../Images/logo-marca.svg'
 
@@ -95,12 +96,18 @@ function Navbar() {
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
-                    to={'/configuracion'}
+                    to={'/configurar-precios'}
                     className="d-flex align-items-center"
                   >
-                    <PiGearFill className="me-2" /> Configuración
+                    <PiCoinsFill className="me-2" /> Configurar precios
                   </Dropdown.Item>
-
+                  <Dropdown.Item
+                    as={Link}
+                    to={'/mi-cuenta'}
+                    className="d-flex align-items-center"
+                  >
+                    <PiGearFill className="me-2" /> Mi cuenta
+                  </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item
                     onClick={handleOpen}

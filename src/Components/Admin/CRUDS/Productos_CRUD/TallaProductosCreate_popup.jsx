@@ -198,7 +198,7 @@ const TallaProductoCreate_popup = ({
         <Button variant="secondary" onClick={() => closePopUp()}>
           Cancelar
         </Button>
-        <Button onClick={handleGuardar} disabled={loading}>
+        <Button onClick={handleGuardar} disabled={loading} type="submit">
           {' '}
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
