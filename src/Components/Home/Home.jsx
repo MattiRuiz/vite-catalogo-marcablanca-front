@@ -7,9 +7,10 @@ import analitico from '../../Images/analitico.png'
 import analisis from '../../Images/analisis.png'
 import negocios from '../../Images/negocios-en-linea.png'
 import reporte from '../../Images/reporte-de-negocios.png'
-import Footer from '../Footer/Footer'
 
 import LoginContext from '../../Context/LoginContext'
+
+import { PiArrowRightBold } from 'react-icons/pi'
 
 function Home() {
   const { checkUser } = useContext(LoginContext)
@@ -19,37 +20,48 @@ function Home() {
   }, [])
 
   return (
-    <Container fluid>
-      <Row className="text-center shadow-sm py-5 justify-content-center align-items-center px-2 px-md-0">
+    <>
+      <Row className="text-center shadow-sm py-3 justify-content-center align-items-center px-2 px-md-0">
         <Col
           xs={12}
           lg={6}
-          xl={5}
           className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden"
         >
           <Image src={maschico} fluid className="animated-image " />
         </Col>
         <Col xs={12} lg={6} xl={5} className="pt-4 pt-md-0 text-start ms-xl-5">
+          <p className="mb-2 border d-inline-block px-3 py-1 rounded-5 fw-semibold">
+            ¡Atención revendedores!
+          </p>
           <h5
-            className="display-5 fw-bold"
+            className="display-3 lh-1 fw-bold mb-4"
             style={{ fontStretch: 'condensed' }}
           >
-            <strong>¡Bienvenidos!</strong>
+            Impulsa tu negocio con nuestro catálogo digital
           </h5>
-          <h4 className="lh-sm mb-1">
-            A la versión <span className="text-danger fw-bold">Beta</span> de
-            nuestro catálogo digital.
-          </h4>
-          <p>
-            Con él podras llevar tu catalogo a todas partes, ver fotos, precios
-            y más...
+          <p className="fs-5">
+            Accedé a los{' '}
+            <span className="fw-bold text-primary opacity-75">
+              productos disponibles
+            </span>
+            , sus fotos, precio y disponibilidad al momento.
           </p>
-          <Button as={Link} to={'/welcome'}>
-            Ver catálogo
-          </Button>
+          <div className="d-flex gap-2">
+            <Button as={Link} to={'/welcome'}>
+              Ver catálogo
+            </Button>
+            <Button
+              as={Link}
+              to={'/welcome'}
+              variant="light"
+              className="d-flex align-items-center"
+            >
+              Ver ventajas <PiArrowRightBold className="ms-2" />
+            </Button>
+          </div>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center align-items-stretch py-5 bg-claro">
+      {/* <Row className="justify-content-center align-items-center align-items-stretch py-5 bg-claro">
         <Col xs={12} lg={12} className="text-center mb-4">
           <p className="fs-2 lh-sm mb-3 fw-light">
             Accedé a nuestro catálogo y disfruta de todos sus beneficios:
@@ -111,9 +123,8 @@ function Home() {
             </div>
           </Col>
         </Row>
-      </Row>
-      <Footer />
-    </Container>
+      </Row> */}
+    </>
   )
 }
 

@@ -14,13 +14,13 @@ import Precios from './Components/Configuraciones/Precios'
 import Admin from './Components/Admin/Admin'
 import NotFound from './Components/404/NotFund'
 import Contacto from './Components/Contacto/Contacto'
+import Footer from './Components/Footer/Footer'
 
 function App() {
-  const auth = localStorage.getItem('token')
   return (
     <>
-      <Navbar />
-      <Container fluid className="px-0 bg-white alto-container">
+      <Container fluid className="bg-white alto-container">
+        <Navbar />
         <Routes>
           <Route
             path="/"
@@ -103,6 +103,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </Container>
     </>
   )

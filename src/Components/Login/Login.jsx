@@ -87,19 +87,24 @@ function Login() {
 
   return (
     <>
-      <Row className="py-5 justify-content-center justify-content-md-around align-items-center alto-container">
-        <Col xs={11} md={5} lg={4}>
+      <Row className="justify-content-center justify-content-md-around align-items-center alto-container">
+        <Col xs={11} sm={8} md={5} lg={4}>
           <Form onSubmit={handleSubmit}>
-            <h4 className="fw-semibold">INGRESAR</h4>
-            <Form.Group className="pt-2">
-              <Form.Label>Nombre de usuario:</Form.Label>
+            <h1 className="fw-bold mb-4">Iniciar sesión</h1>
+            <Form.Group className="py-2">
+              <Form.Label>Nombre de usuario</Form.Label>
               <Form.Control type="text" onChange={userNameHandler} />
             </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label>Contraseña:</Form.Label>
+            <Form.Group className="py-2">
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control type="password" onChange={passwordHandler} />
             </Form.Group>
-
+            <Link
+              className="fst-italic d-block py-1 fw-semibold text-primary opacity-75"
+              onClick={() => setPopUpForgotPassword(true)}
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
             <Button
               type="submit"
               className="my-3 w-100"
@@ -112,12 +117,6 @@ function Login() {
                 'Ingresar'
               )}
             </Button>
-            <Link
-              className="text-dark fst-italic"
-              onClick={() => setPopUpForgotPassword(true)}
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
           </Form>
           <Alert
             variant="danger"
@@ -131,26 +130,8 @@ function Login() {
             </Alert.Heading>
             {alertMessage}
           </Alert>
-          <Alert variant="warning mt-3 p-4">
-            <Alert.Heading className="fs-5">
-              Catálogo en <strong>fase de pruebas</strong>
-            </Alert.Heading>
-            <p className="mb-0">
-              En estos momentos el catálogo se encuentra en etapa de testeo.
-              Para mas información pueden enviarnos un mensaje de{' '}
-              <Link
-                to={'/contacto'}
-                className="fw-bold"
-                style={{ color: 'inherit' }}
-              >
-                contacto.
-              </Link>
-            </p>
-          </Alert>
         </Col>
       </Row>
-
-      <Footer />
       {popUpForgotPassword ? (
         <PopUpForgotPassword closePopUp={() => setPopUpForgotPassword(false)} />
       ) : (

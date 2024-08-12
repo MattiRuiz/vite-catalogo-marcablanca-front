@@ -1,14 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Container,
-  Row,
-  Col,
-  Image,
-  Button,
-  Dropdown,
-  Modal,
-} from 'react-bootstrap'
+import { Row, Col, Image, Button, Dropdown, Modal } from 'react-bootstrap'
 
 import LoginContext from '../../Context/LoginContext'
 
@@ -52,8 +44,8 @@ function Navbar() {
   }, [])
 
   return (
-    <Container fluid className="shadow">
-      <Row className="bg-primary pt-3 pb-2 text-center text-white px-3">
+    <>
+      <Row className="bg-primary py-2 text-center text-white px-3 shadow-lg">
         <Col xs={6} className="ps-0">
           <Link to={'/'}>
             <Image src={imageLogo} className="logo-home d-block" />
@@ -120,8 +112,17 @@ function Navbar() {
             </div>
           </Col>
         ) : (
-          <Col xs={6} className="d-flex justify-content-end align-items-center">
-            <Button as={Link} to={'/login'}>
+          <Col
+            xs={6}
+            className="d-flex justify-content-end align-items-center gap-1"
+          >
+            <Button as={Link} to={'/'}>
+              Inicio
+            </Button>
+            <Button as={Link} to={'/contacto'}>
+              Contacto
+            </Button>
+            <Button as={Link} to={'/login'} className="border">
               Ingresar
             </Button>
           </Col>
@@ -143,7 +144,7 @@ function Navbar() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </>
   )
 }
 export default Navbar
