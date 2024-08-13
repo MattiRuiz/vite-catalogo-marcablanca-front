@@ -16,6 +16,7 @@ import NotFound from './Components/404/NotFund'
 import Contacto from './Components/Contacto/Contacto'
 import Footer from './Components/Footer/Footer'
 import Suscripcion from './Components/Suscripcion/Suscripcion'
+import Terminos from './Components/Terminos/Terminos'
 
 function App() {
   return (
@@ -108,6 +109,14 @@ function App() {
             element={
               <>
                 <Contacto />
+              </>
+            }
+          />
+          <Route
+            path="/terminos-y-condiciones"
+            element={
+              <>
+                <Terminos />
               </>
             }
           />

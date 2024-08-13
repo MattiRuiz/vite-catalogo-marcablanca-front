@@ -118,6 +118,12 @@ function Login() {
               )}
             </Button>
           </Form>
+          <p>
+            ¿No tenés cuenta? Consulta las{' '}
+            <Link to={'/suscripciones'} className="fw-bold text-primary">
+              Suscripciones
+            </Link>
+          </p>
           <Alert
             variant="danger"
             className="mt-3 mb-0"

@@ -40,6 +40,9 @@ a {
   color: var(--black)
 }
 
+p {
+  line-height: 150%;
+}
 
 /* .link-articulos a {
   color: var(--black)!important;
@@ -86,6 +89,11 @@ color: #999;
 
 .btn-light, .btn-warning {
   font-weight: 500;
+}
+
+.btn-light {
+  background-color: white;
+  border: 1px solid white;
 }
 
 .btn-primary {
