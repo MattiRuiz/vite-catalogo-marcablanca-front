@@ -47,8 +47,8 @@ function Home() {
             , sus fotos, precio y disponibilidad al momento.
           </p>
           <div className="d-flex gap-2">
-            <Button as={Link} to={'/welcome'}>
-              Ver catálogo
+            <Button as={Link} to={'/suscripciones'}>
+              Suscripciones
             </Button>
             <Button
               as={Link}

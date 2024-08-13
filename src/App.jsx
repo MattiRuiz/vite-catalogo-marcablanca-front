@@ -15,6 +15,7 @@ import Admin from './Components/Admin/Admin'
 import NotFound from './Components/404/NotFund'
 import Contacto from './Components/Contacto/Contacto'
 import Footer from './Components/Footer/Footer'
+import Suscripcion from './Components/Suscripcion/Suscripcion'
 
 function App() {
   return (
@@ -51,6 +52,14 @@ function App() {
             element={
               <>
                 <Catalog />
+              </>
+            }
+          />
+          <Route
+            path="/suscripciones"
+            element={
+              <>
+                <Suscripcion />
               </>
             }
           />
@@ -103,8 +112,8 @@ function App() {
             }
           />
         </Routes>
-        <Footer />
       </Container>
+      <Footer />
     </>
   )
 }

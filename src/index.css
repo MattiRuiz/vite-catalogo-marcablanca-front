@@ -18,6 +18,7 @@
   --primary: #0053ad;
   --secondary: #cecece;
   --black: #24353f;
+  --bs-border-color:#d2d8de;
 }
 
 .btn-warning {
@@ -153,6 +154,10 @@ color: #999;
 
 li span.material-symbols-outlined {
   font-size: 16px;
+}
+
+button {
+  border: none;
 }
 
 li button span.material-symbols-outlined{
