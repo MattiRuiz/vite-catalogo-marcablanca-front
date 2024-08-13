@@ -24,12 +24,21 @@ function Home() {
       <Row className="text-center shadow-sm py-3 justify-content-center align-items-center px-2 px-md-0">
         <Col
           xs={12}
+          sm={10}
+          md={8}
           lg={6}
           className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden"
         >
           <Image src={maschico} fluid className="animated-image " />
         </Col>
-        <Col xs={12} lg={6} xl={5} className="pt-4 pt-md-0 text-start ms-xl-5">
+        <Col
+          xs={12}
+          sm={10}
+          md={8}
+          lg={6}
+          xl={5}
+          className="py-4 text-start ms-lg-2 ms-xl-5"
+        >
           <p className="mb-2 border d-inline-block px-3 py-1 rounded-5 fw-semibold">
             ¡Atención revendedores!
           </p>
