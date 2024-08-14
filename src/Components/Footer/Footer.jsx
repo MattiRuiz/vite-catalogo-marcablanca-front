@@ -2,7 +2,10 @@ import { Container } from 'react-bootstrap'
 
 function Footer() {
   return (
-    <Container className="py-3 text-center text-white bg-primary texto-14">
+    <Container
+      fluid
+      className="py-3 text-center text-white bg-primary bg-gradient texto-14"
+    >
       <p className="mb-0 fw-semibold">
         ©2024 Blanquería Marca Blanca. Todos los derechos reservados.
       </p>

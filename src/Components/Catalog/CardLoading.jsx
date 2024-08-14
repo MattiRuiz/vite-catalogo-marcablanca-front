@@ -4,13 +4,13 @@ function CardLoading() {
   return (
     <>
       <Col xs={12} sm={6} lg={4} className="mb-4">
-        <Card className="mb-3 h-100">
-          <Ratio aspectRatio="4x3" className="rounded-top">
-            <Placeholder as={Card.Img} className="fondo-imagen rounded-top" />
+        <Card className="mb-3 h-100 border-0">
+          <Ratio aspectRatio="4x3" className="rounded-3 shadow">
+            <Placeholder as={Card.Img} className="fondo-imagen rounded-3" />
           </Ratio>
-          <Card.Body className="pb-0">
+          <Card.Body className="pb-0 px-2 pt-2">
             <Placeholder as={Card.Title} animation="glow">
-              <Placeholder xs={3} />
+              <Placeholder xs={8} />
             </Placeholder>
             <Placeholder
               as={Card.Subtitle}
@@ -19,10 +19,11 @@ function CardLoading() {
             >
               <Placeholder xs={6} />
             </Placeholder>
+            <Placeholder as={Card.Text} animation="glow" className="mb-0">
+              <Placeholder xs={3} /> <Placeholder xs={4} />{' '}
+            </Placeholder>
             <Placeholder as={Card.Text} animation="glow">
-              <Placeholder xs={7} /> <Placeholder xs={4} />{' '}
               <Placeholder xs={4} /> <Placeholder xs={6} />{' '}
-              <Placeholder xs={8} />
             </Placeholder>
           </Card.Body>
         </Card>

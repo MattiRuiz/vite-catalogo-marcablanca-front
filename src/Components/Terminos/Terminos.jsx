@@ -67,7 +67,7 @@ const Terminos = () => {
           continuado del Catálogo constituirá la aceptación de los nuevos
           Términos.
         </p>
-        <h3 className="fw-bold mt-4 mb-3">5. Modificaciones de los Términos</h3>
+        <h3 className="fw-bold mt-4 mb-3">6. Contacto</h3>
         <p>
           Para consultas relacionadas con estos Términos, por favor{' '}
           <Link to={'/contacto'} className="fw-bold text-primary">

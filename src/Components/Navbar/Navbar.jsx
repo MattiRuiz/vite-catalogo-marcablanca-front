@@ -45,7 +45,7 @@ function Navbar() {
 
   return (
     <>
-      <Row className="bg-primary py-2 text-center text-white px-3 shadow-lg">
+      <Row className="bg-primary bg-gradient py-2 text-center text-white px-3 shadow-lg">
         <Col xs={6} className="ps-0">
           <Link to={'/'}>
             <Image src={imageLogo} className="logo-home d-block" />
@@ -60,7 +60,7 @@ function Navbar() {
               <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-basic"
-                  className="d-flex align-items-center mb-1 p-1"
+                  className="d-flex align-items-center mb-1 p-1 bg-transparent border-0"
                 >
                   <PiUserFill className="me-1 fs-6" />
                 </Dropdown.Toggle>
@@ -116,7 +116,7 @@ function Navbar() {
             xs={6}
             className="d-flex justify-content-end align-items-center gap-1"
           >
-            <Button as={Link} to={'/'}>
+            <Button as={Link} to={'/'} className="d-none d-md-block">
               Inicio
             </Button>
             <Button as={Link} to={'/contacto'}>

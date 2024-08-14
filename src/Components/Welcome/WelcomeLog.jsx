@@ -1,21 +1,30 @@
 import { useEffect, useState } from 'react'
 import {
-  Container,
   Row,
   Col,
   Image,
   Ratio,
   Spinner,
-  Alert,
+  Card,
+  Badge,
+  Button,
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
+import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 
 import todosLosProductos from '../../Images/all.webp'
 
+import { PiArrowRightBold } from 'react-icons/pi'
+
+import CardProductos from '../../ui/CardProductos'
+
 function WelcomeLog() {
-  const [clienteLista, setClienteLista] = useState([])
+  const [categorias, setCategorias] = useState([])
+  const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(false)
+  const [mostrarMas, setMostrarMas] = useState(false)
 
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
@@ -35,7 +44,9 @@ function WelcomeLog() {
       setLoading(true)
       try {
         const response = await getAllTipoProductos()
-        setClienteLista(response.data)
+        setCategorias(response.data)
+        const respProductos = await getProductosCatalogo(1)
+        setProductos(respProductos.data.productos)
       } catch (error) {
         console.error('Error al obtener los productos:', error)
       } finally {
@@ -45,110 +56,225 @@ function WelcomeLog() {
     fetchData()
   }, [])
 
+  // Limitar la cantidad de categorías a mostrar
+  const categoriasAMostrar = mostrarMas ? categorias : categorias.slice(0, 5)
+
+  const showGanancia = localStorage.getItem('showGanancia')
+  let ganancia = 1
+  let porcentual = 1.0
+
+  if (showGanancia == 'true') {
+    const gananciaStr = localStorage.getItem('ganancia')
+    ganancia = JSON.parse(gananciaStr)
+    porcentual = (ganancia + 100) / 100
+  }
+
   return (
-    <Container className="py-3">
-      <Row className="justify-content-around pb-3 pt-4">
-        <Col xs={12} md={8} lg={6}>
-          <Alert variant="warning mb-4 p-4">
-            <Alert.Heading className="fs-5">
-              Catálogo en <strong>fase de pruebas</strong>
-            </Alert.Heading>
-            <p className="mb-0">
-              El catálogo se encuentra actualmente en etapa de prueba. Para
-              reportar problemas, enviar comentarios u opiniones, puedes
-              enviarnos un mensaje en la sección de{' '}
-              <Link
-                to={'/contacto'}
-                className="fw-bold"
-                style={{ color: 'inherit' }}
-              >
-                contacto.
-              </Link>
-            </p>
-          </Alert>
-        </Col>
-        <Col xs={12} className="text-center">
-          <h1 className="mb-2" style={{ fontStretch: 'condensed' }}>
-            ¡Hola <span style={{ fontWeight: 800 }}> {username}!</span>
+    <>
+      <Row className="justify-content-around py-4">
+        <Col xs={11} className="">
+          <h1 className="mb-0 display-4 fw-normal">
+            Hola <span className="fw-bold"> {username}</span>
           </h1>
-          <p className="mb-1 fs-5">
-            Seleccione <span className="fw-semibold">una categoría:</span>
-          </p>
+          <h5 className="mb-0">¡Te damos la bienvenida nuevamente!</h5>
         </Col>
       </Row>
-      <Row className="text-center pb-4 link-articulos justify-content-center">
-        {loading ? (
-          <Spinner className="my-5 d-block mx-auto" animation="border" />
-        ) : (
-          <>
-            <Col
-              as={Link}
-              to={`/catalogo`}
-              xs={6}
-              md={4}
-              lg={3}
-              xl={2}
-              className="text-center py-2"
+      <Row className="pb-4 justify-content-center">
+        <Col xs={11}>
+          <div className="d-flex justify-content-between align-items-end mb-3">
+            <h2 className="fw-bold mb-0">Categorías</h2>
+            <Button
+              className="fw-bold text-primary d-flex align-items-center py-0 px-1"
+              onClick={() => setMostrarMas(!mostrarMas)}
+              variant="light"
             >
-              <Ratio aspectRatio="1x1" className="rounded-circle fondo-imagen">
-                <Image
-                  src={todosLosProductos}
-                  className="object-fit-cover rounded-circle"
-                  fluid
-                />
-              </Ratio>
-              <p
-                className="mt-2 fs-4"
-                style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
-              >
-                <span style={{ color: '#bbb' }}>-</span> Ver todo{' '}
-                <span style={{ color: '#bbb' }}>-</span>
-              </p>
-            </Col>
-            {clienteLista.map((producto) => (
-              <Col
-                key={producto.id}
-                as={Link}
-                to={`/catalogo/${producto.id}`}
-                xs={6}
-                md={4}
-                lg={3}
-                xl={2}
-                className="text-center py-2"
-              >
-                <Ratio
-                  aspectRatio="1x1"
-                  className="rounded-circle fondo-imagen"
+              {mostrarMas ? 'Ver menos' : 'Ver más'}{' '}
+              <PiArrowRightBold className="ms-2" />
+            </Button>
+          </div>
+          <Row>
+            {loading ? (
+              <Spinner className="my-5 d-block mx-auto" animation="border" />
+            ) : (
+              <>
+                <Col
+                  as={Link}
+                  to={`/catalogo`}
+                  xs={6}
+                  md={4}
+                  lg={3}
+                  xl={2}
+                  className="py-2"
                 >
-                  {imagenErrors[producto.id] ? (
-                    // Mostrar elemento alternativo en caso de error
-                    <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                      <p className="mb-0 color-grisclaro">
-                        <strong>Sin imágen</strong>
+                  <div className="position-relative">
+                    {/* Superposición de fondo oscuro */}
+                    <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3"></div>
+                    {/* Texto sobre la imagen */}
+
+                    <p
+                      className="fs-5 position-absolute bottom-0 start-0 ms-4 z-3 fw-semibold text-white"
+                      style={{ letterSpacing: '.5px', lineHeight: 1.1 }}
+                    >
+                      Catalogo
+                      <br />
+                      <span className="fw-normal fs-6">Ver productos</span>
+                    </p>
+                    <Ratio aspectRatio="1x1" className="rounded-3 fondo-imagen">
+                      <Image
+                        src={todosLosProductos}
+                        className="object-fit-cover rounded-3"
+                        fluid
+                      />
+                    </Ratio>
+                  </div>
+                </Col>
+
+                {categoriasAMostrar.map((producto) => (
+                  <Col
+                    key={producto.id}
+                    as={Link}
+                    to={`/catalogo/${producto.id}`}
+                    xs={6}
+                    md={4}
+                    lg={3}
+                    xl={2}
+                    className="py-2"
+                  >
+                    <div className="position-relative">
+                      {/* Superposición de fondo oscuro */}
+                      <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3"></div>
+                      {/* Texto sobre la imagen */}
+                      <p
+                        className="fs-5 position-absolute bottom-0 start-0 ms-4 z-3 fw-semibold text-white"
+                        style={{ letterSpacing: '.5px' }}
+                      >
+                        {producto.nombre}
                       </p>
+                      <Ratio
+                        aspectRatio="1x1"
+                        className="rounded-3 fondo-imagen"
+                      >
+                        {imagenErrors[producto.id] ? (
+                          <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                            <p className="mb-0 color-grisclaro">
+                              <strong>Sin imágen</strong>
+                            </p>
+                          </div>
+                        ) : (
+                          <Image
+                            src={producto.rutaImagen}
+                            className="object-fit-cover rounded-3"
+                            fluid
+                            onError={() => handleImageError(producto.id)}
+                          />
+                        )}
+                      </Ratio>
                     </div>
-                  ) : (
-                    <Image
-                      src={producto.rutaImagen}
-                      className="object-fit-cover rounded-circle"
-                      fluid
-                      onError={() => handleImageError(producto.id)}
-                    />
-                  )}
-                </Ratio>
-                <p
-                  className="mt-2 fs-4"
-                  style={{ letterSpacing: '.5px', fontStretch: 'condensed' }}
-                >
-                  <span style={{ color: '#bbb' }}>-</span> {producto.nombre}{' '}
-                  <span style={{ color: '#bbb' }}>-</span>
-                </p>
-              </Col>
-            ))}
-          </>
-        )}
+                  </Col>
+                ))}
+              </>
+            )}
+          </Row>
+        </Col>
+
+        <Col xs={11} className="mt-4">
+          <div className="d-flex justify-content-between align-items-end mb-3">
+            <h2 className="fw-bold mb-0">Últimos productos</h2>
+            <Button
+              className="fw-bold text-primary d-flex align-items-center py-0 px-1"
+              variant="light"
+              as={Link}
+              to={'/catalogo'}
+            >
+              {mostrarMas ? 'Ver menos' : 'Ver más'}{' '}
+              <PiArrowRightBold className="ms-2" />
+            </Button>
+          </div>
+          <Row>
+            {loading ? (
+              <Spinner className="my-5 d-block mx-auto" animation="border" />
+            ) : (
+              productos.map((producto) => (
+                <Col key={producto.id} xs={12} sm={6} lg={3} className="mb-4">
+                  <Link onClick={() => openPopUpCarrusel(producto)}>
+                    <Card className="mb-3 h-100 border-0">
+                      <Ratio
+                        aspectRatio="4x3"
+                        className="fondo-imagen position-relative rounded-3 shadow"
+                      >
+                        {imagenErrors[producto.id] ? (
+                          <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+                            <p className="mb-0 color-grisclaro">
+                              <strong>Sin imágen</strong>
+                            </p>
+                          </div>
+                        ) : (
+                          <Card.Img
+                            className="object-fit-cover rounded-3"
+                            alt={producto.nombre}
+                            variant="top"
+                            src={producto.rutaImagen}
+                            onError={() => handleImageError(producto.id)}
+                          />
+                        )}
+                      </Ratio>
+                      {producto.marcas.nombre === 'Otros' ? (
+                        ''
+                      ) : (
+                        <p
+                          className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
+                          style={{ letterSpacing: '.25px' }}
+                        >
+                          {producto.marcas.nombre}
+                        </p>
+                      )}
+                      <Card.Body className="pb-0 px-2 pt-2">
+                        <Card.Title className="fw-semibold mb-2">
+                          {producto.nombre}
+                        </Card.Title>
+                        <Card.Subtitle className="text-muted mb-2 fst-italic">
+                          {producto.descripcion}
+                        </Card.Subtitle>
+                        {producto.tallas
+                          .filter((talla) => talla.stock == 1)
+                          .map((talla, index) => (
+                            <div key={index}>
+                              <div className="d-flex justify-content-between gap-2 mb-1">
+                                <div className="d-flex justify-content-center flex-column">
+                                  {talla.nombre && (
+                                    <p className="fw-bold text-uppercase mb-0">
+                                      {talla.nombre}
+                                    </p>
+                                  )}
+                                  <p className="mb-0"> {talla.dimensiones}</p>
+                                </div>
+                                <div>
+                                  {showGanancia == 'true' ? (
+                                    <div className="">
+                                      <p className="fw-bold mb-0">
+                                        $
+                                        {Math.trunc(
+                                          parseInt(talla.precio) * porcentual
+                                        )}
+                                      </p>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                </Col>
+              ))
+            )}
+          </Row>
+        </Col>
       </Row>
-    </Container>
+    </>
   )
 }
 
