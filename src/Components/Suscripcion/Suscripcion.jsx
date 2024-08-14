@@ -25,7 +25,9 @@ const Suscripcion = () => {
             <button
               id="mensual"
               className={`fw-bold texto-14 px-3 py-2 rounded-5 ${
-                plan === 'mensual' ? 'bg-primary text-white' : 'bg-white'
+                plan === 'mensual'
+                  ? 'bg-primary bg-gradient text-white'
+                  : 'bg-white'
               }`}
               onClick={() => setPlan('mensual')}
             >
@@ -34,7 +36,9 @@ const Suscripcion = () => {
             <button
               id="anual"
               className={`fw-bold texto-14 px-3 py-2 rounded-5 ${
-                plan === 'anual' ? 'bg-primary text-white' : 'bg-white'
+                plan === 'anual'
+                  ? 'bg-primary bg-gradient text-white'
+                  : 'bg-white'
               }`}
               onClick={() => setPlan('anual')}
             >
@@ -57,7 +61,11 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button className="w-100" as={Link} to="/contacto">
+              <Button
+                className="w-100 bg-gradient border-0"
+                as={Link}
+                to="/contacto"
+              >
                 Comprar plan
               </Button>
               <ul className="list-unstyled mt-4">
@@ -88,7 +96,11 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button className="w-100" as={Link} to="/contacto">
+              <Button
+                className="w-100 bg-gradient border-0"
+                as={Link}
+                to="/contacto"
+              >
                 Comprar plan
               </Button>
               <ul className="list-unstyled mt-4">
@@ -112,7 +124,7 @@ const Suscripcion = () => {
             </div>
           </Col>
           <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
-            <div className="border rounded-4 p-4 bg-dark text-white h-100">
+            <div className="border rounded-4 p-4 bg-dark bg-gradient text-white h-100">
               <h5 className="fw-bold">Pack revendedores</h5>
               <p>Controla hasta 5 cuentas, ideal para grupos de reventa.</p>
               <div className="d-flex align-items-end mb-3">
@@ -123,7 +135,7 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button className="w-100" variant="light">
+              <Button className="w-100 border-0" variant="light">
                 Proximamente...
               </Button>
               <ul className="list-unstyled mt-4">

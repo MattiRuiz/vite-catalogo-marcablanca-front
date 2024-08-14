@@ -189,40 +189,6 @@ function Catalog() {
                 <Spinner className="m-5" animation="border" />
               )}
             </Col>
-            {/* <Col xs={12} className="d-lg-none mb-4">
-          <Accordion>
-            <Accordion.Header className="">
-              <PiFadersBold className="me-2 fs-5" />
-              <span className="fw-semibold">Filtros</span>
-            </Accordion.Header>
-            <Accordion.Body className="px-0 py-2 border-0 ">
-              <Nav justify variant="pills" className="justify-content-center">
-                <Nav.Item>
-                  <Nav.Link
-                    className={`${activeCategory === null ? 'active' : ''}`}
-                    style={{ fontWeight: 500 }}
-                    onClick={() => handleProducts(1)}
-                  >
-                    Productos
-                  </Nav.Link>
-                </Nav.Item>
-                {categorias.map((categoria) => (
-                  <Nav.Item key={categoria.id}>
-                    <Nav.Link
-                      className={`${
-                        activeCategory === categoria.id ? 'active' : ''
-                      }`}
-                      style={{ fontWeight: 500 }}
-                      onClick={() => handleCategories(categoria.id)}
-                    >
-                      {categoria.nombre}
-                    </Nav.Link>
-                  </Nav.Item>
-                ))}
-              </Nav>
-            </Accordion.Body>
-          </Accordion>
-        </Col> */}
             <Col xs={12} lg={10} className="mt-0 mt-lg-4">
               <Row>
                 {productos ? (
@@ -266,7 +232,7 @@ function Catalog() {
                               {producto.marcas.nombre}
                             </p>
                           )}
-                          <Card.Body className="pb-0 px-2 pt-2">
+                          <Card.Body className="pb-0 px-2 pt-3">
                             <Card.Title className="fw-semibold mb-2">
                               {producto.nombre}
                             </Card.Title>
@@ -341,40 +307,6 @@ function Catalog() {
             </Col>
           </Row>
         </Col>
-        {/* <Col xs={12} className="d-lg-none mb-4">
-          <Accordion>
-            <Accordion.Header className="">
-              <PiFadersBold className="me-2 fs-5" />
-              <span className="fw-semibold">Filtros</span>
-            </Accordion.Header>
-            <Accordion.Body className="px-0 py-2 border-0 ">
-              <Nav justify variant="pills" className="justify-content-center">
-                <Nav.Item>
-                  <Nav.Link
-                    className={`${activeCategory === null ? 'active' : ''}`}
-                    style={{ fontWeight: 500 }}
-                    onClick={() => handleProducts(1)}
-                  >
-                    Productos
-                  </Nav.Link>
-                </Nav.Item>
-                {categorias.map((categoria) => (
-                  <Nav.Item key={categoria.id}>
-                    <Nav.Link
-                      className={`${
-                        activeCategory === categoria.id ? 'active' : ''
-                      }`}
-                      style={{ fontWeight: 500 }}
-                      onClick={() => handleCategories(categoria.id)}
-                    >
-                      {categoria.nombre}
-                    </Nav.Link>
-                  </Nav.Item>
-                ))}
-              </Nav>
-            </Accordion.Body>
-          </Accordion>
-        </Col> */}
       </Row>
       {popUpCarrusel ? (
         <PopUpCarousel

@@ -211,13 +211,12 @@ background: linear-gradient(180deg, rgba(34, 34, 34, 0) 0%, rgba(34, 34, 34,0.6)
 }
 
 .carousel-control-next-icon, .carousel-control-prev-icon {
-  background-color: rgba(0,0,0,0.5);
-  border-radius: 4px;
-  background-size: 75% 75%;
+  background-image: none;
 }
 
 .carousel-control-next, .carousel-control-prev {
   width: 10%;
+  opacity: .75;
 }
 
 .carousel-indicators [data-bs-target] {

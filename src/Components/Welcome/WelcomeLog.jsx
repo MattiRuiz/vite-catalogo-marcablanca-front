@@ -71,8 +71,8 @@ function WelcomeLog() {
 
   return (
     <>
-      <Row className="justify-content-around py-4">
-        <Col xs={11} className="">
+      <Row className="justify-content-around pt-4 pb-3">
+        <Col xs={11} className="border-bottom pb-3">
           <h1 className="mb-0 display-4 fw-normal">
             Hola <span className="fw-bold"> {username}</span>
           </h1>

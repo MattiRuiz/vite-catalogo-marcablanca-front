@@ -116,13 +116,21 @@ function Navbar() {
             xs={6}
             className="d-flex justify-content-end align-items-center gap-1"
           >
-            <Button as={Link} to={'/'} className="d-none d-md-block">
+            <Button
+              as={Link}
+              to={'/'}
+              className="d-none d-md-block bg-transparent border-0"
+            >
               Inicio
             </Button>
-            <Button as={Link} to={'/contacto'}>
+            <Button
+              as={Link}
+              to={'/contacto'}
+              className="bg-transparent border-0"
+            >
               Contacto
             </Button>
-            <Button as={Link} to={'/login'} className="border">
+            <Button as={Link} to={'/login'} className="border bg-transparent">
               Ingresar
             </Button>
           </Col>
