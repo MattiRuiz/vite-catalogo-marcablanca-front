@@ -20,7 +20,7 @@ const Admin = () => {
     <>
       {auth === 1 ? (
         <>
-          <Row className="justify-content-center gap-3 bg-secondary-subtle">
+          <Row className="justify-content-center gap-3 bg-secondary-subtle alto-container">
             <Col lg={2} className="d-none d-lg-flex border-end py-5">
               <ul className="list-unstyled">
                 <li className="mb-2">
@@ -65,12 +65,14 @@ const Admin = () => {
                 </li>
               </ul>
             </Col>
-            <Col xs={9} className="py-5">
+            <Col xs={12} sm={11} md={10} lg={9} className="py-5">
               <Col xs={12} className="">
                 <h6 className="fw-bold text-primary mb-0">
                   Panel de Administración
                 </h6>
-                <h2 className="display-3 fw-bold">Lista de {selectedEntity}</h2>
+                <h2 className="display-3 fw-bold lh-sm">
+                  Lista de {selectedEntity}
+                </h2>
                 <Form.Group className="d-lg-none mb-3">
                   <Form.Label className="" htmlFor="entity">
                     Selecciona una seccion:

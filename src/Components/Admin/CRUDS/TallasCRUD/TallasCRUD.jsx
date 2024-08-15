@@ -50,13 +50,15 @@ const TallasCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button variant="secondary" onClick={() => openPopup(null)}>
-          Crear medida
-        </Button>
+        <div className="mb-2 border-bottom pb-2">
+          <Button
+            className="border-0 bg-gradient"
+            onClick={() => openPopup(null)}
+          >
+            Crear medida
+          </Button>
+        </div>
         <div className="mt-3">
-          <h3 className="text-white mb-3 border-bottom pb-1">
-            Medidas creadas
-          </h3>
           {tallas
             .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
             .map((talla) => (
@@ -92,7 +94,7 @@ const TallasCRUD = () => {
         </div>
         {loading ? (
           <Spinner
-            variant="light"
+            variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />

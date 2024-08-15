@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Accordion, Image, Spinner, Ratio } from 'react-bootstrap'
+import { Col, Button, Image, Spinner, Ratio } from 'react-bootstrap'
 
 import {
   getAllTipoProductos,
@@ -74,9 +74,14 @@ const TipoProductoCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button variant="secondary" onClick={() => openPopup(null)}>
-          Crear tipo de producto
-        </Button>
+        <div className="mb-2 border-bottom pb-2">
+          <Button
+            className="me-2 bg-gradient border-0"
+            onClick={() => openPopup(null)}
+          >
+            Crear tipo de producto
+          </Button>
+        </div>
         <div className="mt-3">
           {tipoProductos.map((tipoProducto) => (
             <div
@@ -127,7 +132,7 @@ const TipoProductoCRUD = () => {
         </div>
         {loading ? (
           <Spinner
-            variant="light"
+            variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />

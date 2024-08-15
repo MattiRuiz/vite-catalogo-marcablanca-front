@@ -50,11 +50,15 @@ const MarcasCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button variant="secondary" onClick={() => openPopup(null)}>
-          Crear marca
-        </Button>
+        <div className="mb-2 border-bottom pb-2">
+          <Button
+            className="me-2 bg-gradient border-0"
+            onClick={() => openPopup(null)}
+          >
+            Crear marca
+          </Button>
+        </div>
         <div className="mt-3">
-          <h3 className="text-white mb-3 border-bottom pb-2">Marcas creadas</h3>
           {marcas
             .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
             .map((marca) => (
@@ -84,7 +88,7 @@ const MarcasCRUD = () => {
         </div>
         {loading ? (
           <Spinner
-            variant="light"
+            variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />

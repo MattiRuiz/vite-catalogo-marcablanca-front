@@ -50,18 +50,23 @@ const ClientesCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button variant="secondary" onClick={() => openPopup(null)}>
-          Crear cliente
-        </Button>
+        <div className="mb-2 border-bottom pb-2">
+          <Button
+            className="me-2 bg-gradient border-0"
+            onClick={() => openPopup(null)}
+          >
+            Crear cliente
+          </Button>
+        </div>
         <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
-            <p className="mb-0">User</p>
+            <p className="mb-0 texto-14 fw-bold">User</p>
           </Col>
           <Col>
-            <p className="mb-0">Nombre</p>
+            <p className="mb-0 texto-14 fw-bold">Nombre</p>
           </Col>
           <Col xs={2}>
-            <p className="mb-0">Opciones</p>
+            <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
           </Col>
         </div>
         <div className="bg-white">
@@ -75,29 +80,26 @@ const ClientesCRUD = () => {
               <Col>
                 {cliente.clientes.nombre} {cliente.clientes.apellido}
               </Col>
-              <Col xs={2}>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="me-1"
+              <Col xs={2} className="d-flex justify-content-center">
+                <button
+                  className="texto-14 fw-semibold py-0"
                   onClick={() => openPopup(cliente)}
                 >
-                  <PiNotePencilBold />
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
+                  Editar
+                </button>
+                <button
+                  className="texto-14 fw-semibold py-0"
                   onClick={() => openPopUpBorrar(cliente)}
                 >
-                  <PiTrashBold />
-                </Button>
+                  Borrar
+                </button>
               </Col>
             </div>
           ))}
         </div>
         {loading ? (
           <Spinner
-            variant="light"
+            variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />

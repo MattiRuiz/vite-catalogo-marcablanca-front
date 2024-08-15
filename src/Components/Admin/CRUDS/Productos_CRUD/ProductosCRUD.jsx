@@ -47,14 +47,14 @@ const ProductoCRUD = () => {
       <Col xs={12}>
         <div className="mb-2 border-bottom pb-2">
           <Button
-            className="mb-1 me-2 bg-gradient border-0"
+            className="me-2 bg-gradient border-0"
             onClick={() => openPopup()}
           >
             Crear producto
           </Button>
           <Button
             variant="light"
-            className="mb-1 border-0"
+            className="border-0"
             onClick={() => setPopUpEditarPrecio(true)}
           >
             Editar grupos de precio
@@ -94,7 +94,7 @@ const ProductoCRUD = () => {
         ))}
         {loading ? (
           <Spinner
-            variant="light"
+            variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
