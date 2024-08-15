@@ -87,15 +87,15 @@ const TipoProductoCRUD = () => {
             <div
               eventKey={tipoProducto.id}
               key={tipoProducto.id}
-              className="bg-white py-3 px-3 me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
+              className="bg-white me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
             >
               <Ratio
                 aspectRatio="1x1"
-                className="tipoproducto-preview rounded-circle"
+                className="tipoproducto-preview rounded-top"
               >
                 {imagenErrors[tipoProducto.id] ? (
                   // Mostrar elemento alternativo en caso de error
-                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-circle text-center">
+                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-3toptext-center">
                     <p className="texto-14 mb-0 color-grisclaro">
                       <strong>Sin imágen</strong>
                     </p>
@@ -103,29 +103,26 @@ const TipoProductoCRUD = () => {
                 ) : (
                   <Image
                     fluid
-                    className="object-fit-cover rounded-circle mx-auto"
+                    className="object-fit-cover rounded-top mx-auto"
                     src={tipoProducto.rutaImagen}
                     onError={() => handleImageError(tipoProducto.id)}
                   />
                 )}
               </Ratio>
-              <p className="fw-semibold mb-1">{tipoProducto.nombre}</p>
-              <div>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="me-1"
+              <p className="fw-semibold my-1">{tipoProducto.nombre}</p>
+              <div className="border-top">
+                <button
+                  className="bg-transparent texto-14 border-end"
                   onClick={() => openPopup(tipoProducto)}
                 >
-                  <PiNotePencilBold />
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
+                  Editar
+                </button>
+                <button
+                  className="bg-transparent texto-14"
                   onClick={() => openPopUpBorrar(tipoProducto)}
                 >
-                  <PiTrashBold />
-                </Button>
+                  Borrar
+                </button>
               </div>
             </div>
           ))}

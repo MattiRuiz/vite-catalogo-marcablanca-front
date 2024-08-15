@@ -82,13 +82,13 @@ const ClientesCRUD = () => {
               </Col>
               <Col xs={2} className="d-flex justify-content-center">
                 <button
-                  className="texto-14 fw-semibold py-0"
+                  className="texto-14 fw-semibold py-0 border-end bg-transparent"
                   onClick={() => openPopup(cliente)}
                 >
                   Editar
                 </button>
                 <button
-                  className="texto-14 fw-semibold py-0"
+                  className="texto-14 fw-semibold py-0 bg-transparent"
                   onClick={() => openPopUpBorrar(cliente)}
                 >
                   Borrar
