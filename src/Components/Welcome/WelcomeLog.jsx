@@ -1,14 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  Row,
-  Col,
-  Image,
-  Ratio,
-  Spinner,
-  Card,
-  Badge,
-  Button,
-} from 'react-bootstrap'
+import { Row, Col, Image, Ratio, Spinner, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
@@ -17,8 +8,6 @@ import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 import todosLosProductos from '../../Images/all.webp'
 
 import { PiArrowRightBold } from 'react-icons/pi'
-
-import CardProductos from '../../ui/CardProductos'
 
 function WelcomeLog() {
   const [categorias, setCategorias] = useState([])

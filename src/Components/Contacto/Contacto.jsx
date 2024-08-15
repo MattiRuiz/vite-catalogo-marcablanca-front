@@ -117,7 +117,7 @@ const Contacto = () => {
 
           <li className="my-3">
             <Button
-              className="d-inline-flex align-items-center"
+              className="d-inline-flex align-items-center bg-gradient border-0"
               href="https://api.whatsapp.com/send?phone=5493413278887"
               target="_blank"
             >
@@ -166,7 +166,11 @@ const Contacto = () => {
             className="mb-3"
             style={{ height: '100px' }}
           />
-          <Button type="submit" value="Send" className="mt-2">
+          <Button
+            type="submit"
+            value="Send"
+            className="mt-2 bg-gradient border-0"
+          >
             Enviar
           </Button>
         </Form>

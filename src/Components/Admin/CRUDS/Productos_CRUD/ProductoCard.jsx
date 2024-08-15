@@ -10,7 +10,12 @@ import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
 import PopUpEditPrecio from '../PopUpEditPrecio'
 
-import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
+import {
+  PiTrashBold,
+  PiNotePencilBold,
+  PiCheckCircleDuotone,
+  PiXCircleDuotone,
+} from 'react-icons/pi'
 
 const ProductoCard = ({ id, onProductUpdate }) => {
   const [producto, setProducto] = useState()
@@ -75,12 +80,12 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     <>
       {producto ? (
         <>
-          <Row className="align-items-center">
-            <Col xs={12} sm={6}>
-              <Ratio aspectRatio="4x3" className="mb-3 mx-auto">
+          <Row className="">
+            <Col xs={12} sm={6} className="position-relative">
+              <Ratio aspectRatio="4x3" className="rounded-3">
                 {imagenErrors[producto.id] ? (
                   // Mostrar elemento alternativo en caso de error
-                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border">
+                  <div className="w-100 h-100 d-flex align-items-center justify-content-center border  rounded-3">
                     <p className="mb-0 color-grisclaro">
                       <strong>Sin imágen</strong>
                     </p>
@@ -88,128 +93,150 @@ const ProductoCard = ({ id, onProductUpdate }) => {
                 ) : (
                   <Image
                     fluid
-                    className="object-fit-cover"
+                    className="object-fit-cover rounded-3"
                     src={producto.rutaImagen}
                     onError={() => handleImageError(producto.id)}
                   />
                 )}
               </Ratio>
+              <Button
+                className="position-absolute bottom-0 left-0 z-3 bg-opacity-10 border-0 rounded bg-gradient mb-2 ms-2"
+                size="sm"
+                onClick={() => openPopUpImagenes(producto)}
+              >
+                Editar carrusel
+              </Button>
             </Col>
-            <Col xs={12} sm={6}>
-              <ul className="list-unstyled">
-                <li>
-                  <strong>Descripción: </strong>
-                  {producto.descripcion}
-                </li>
-                <li>
-                  <strong>Categoría: </strong>
-                  {producto.tipo_producto?.nombre}
-                </li>
-              </ul>
+            <Col
+              xs={12}
+              sm={6}
+              className="d-flex flex-column justify-content-around"
+            >
+              <div>
+                <ul className="list-unstyled mb-1">
+                  <li className="">
+                    <strong>Categoría</strong>
+                  </li>
+                  <li className="lh-sm">{producto.tipo_producto?.nombre}</li>
+                </ul>
+                <ul className="list-unstyled">
+                  <li className="">
+                    <strong>Descripción</strong>
+                  </li>
+                  <li className="lh-sm fst-italic">{producto.descripcion}</li>
+                </ul>
+              </div>
+              <div>
+                <button
+                  className="fw-semibold text-primary ps-0 pe-4 bg-transparent border-end"
+                  onClick={() => openPopup(producto, producto.tipo_producto.id)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="fw-semibold text-primary px-4 bg-transparent"
+                  onClick={() => openPopUpBorrar(producto)}
+                >
+                  Borrar
+                </button>
+              </div>
             </Col>
           </Row>
-          <div className="mb-2">
-            <Button
-              variant="primary"
-              size="sm"
-              className="me-1 mb-1"
-              onClick={() => openPopup(producto, producto.tipo_producto.id)}
-            >
-              Editar producto
-            </Button>{' '}
-            <Button
-              variant="secondary"
-              size="sm"
-              className="me-1 mb-1"
-              onClick={() => openPopUpImagenes(producto)}
-            >
-              Editar carrusel de imágenes
-            </Button>
-          </div>
-          <Row className="mt-2">
-            <h6 className="mb-2 fw-bold">Medidas:</h6>
+          <Row className="mt-3">
+            <Col xs={12}>
+              <h6 className="mb-1 fw-bold">Medidas</h6>
+            </Col>
             {producto.productos_tallas &&
             producto.productos_tallas.length > 0 ? (
               producto.productos_tallas.map((talla) => (
-                <Col xs="12" className="border rounded p-3 mb-2" key={talla.id}>
-                  <ul className="list-unstyled d-flex justify-content-between align-items-end mb-1 pb-2 border-bottom">
-                    <li className="mb-1 d-flex align-items-center">
-                      {talla.stock ? (
-                        <Badge
-                          bg="success"
-                          className="me-1"
-                          style={{
-                            fontSize: '.75rem',
-                            letterSpacing: '.5px',
-                          }}
+                <Col xs="12" key={talla.id}>
+                  <div className="my-1 pt-1">
+                    <div className="d-flex justify-content-between align-items-center border rounded-top bg-secondary-subtle">
+                      <div className="d-flex align-items-center">
+                        <p className="texto-14 lh-1 fw-semibold text-muted mb-0 ps-3">
+                          STOCK
+                        </p>{' '}
+                        {talla.stock ? (
+                          <PiCheckCircleDuotone className="text-success fs-5 ms-1" />
+                        ) : (
+                          <PiXCircleDuotone className="text-danger fs-5 ms-1" />
+                        )}
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <button
+                          className="bg-transparent texto-14 border-start px-3 fw-semibold text-muted"
+                          onClick={() => openPopupTalla(talla, producto)}
                         >
-                          En stock
-                        </Badge>
-                      ) : (
-                        <Badge
-                          bg="secondary"
-                          className="me-1"
-                          style={{
-                            fontSize: '.75rem',
-                            letterSpacing: '.5px',
-                          }}
+                          Editar
+                        </button>
+                        <button
+                          className="bg-transparent texto-14 border-start px-3 fw-semibold text-muted"
+                          onClick={() =>
+                            openPopUpBorrarTallaProducto(talla, producto)
+                          }
                         >
-                          Sin stock
-                        </Badge>
-                      )}
-                      <p className="mb-0 text-uppercase fw-bold text-gray">
-                        {talla.tallas.nombre ? talla.tallas.nombre : 'Medida'}
-                      </p>
-                    </li>
-                    <li>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="ms-1"
-                        onClick={() => openPopupTalla(talla, producto)}
-                      >
-                        <PiNotePencilBold />
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        className="ms-1"
-                        onClick={() =>
-                          openPopUpBorrarTallaProducto(talla, producto)
-                        }
-                      >
-                        <PiTrashBold />
-                      </Button>
-                    </li>
-                  </ul>
-                  <ul className="list-unstyled d-flex justify-content-between align-items-end mb-0">
-                    <li className="text-muted">{talla.tallas.dimensiones}</li>
-                    <li className="fw-semibold">${talla.precio}</li>
-                  </ul>
+                          Borrar
+                        </button>
+                      </div>
+                    </div>
+                    {/* <ul className="list-unstyled d-flex justify-content-between align-items-start mb-0">
+                      <li className="d-flex align-items-center">
+                        <span className="texto-14 lh-1 fw-semibold text-muted">
+                          STOCK
+                        </span>{' '}
+                        {talla.stock ? (
+                          <PiCheckCircleDuotone className="text-success fs-5 ms-1" />
+                        ) : (
+                          <PiXCircleDuotone className="text-danger fs-5 ms-1" />
+                        )}
+                        <button
+                          className="me-1 py-0"
+                          onClick={() => openPopupTalla(talla, producto)}
+                        >
+                          <PiNotePencilBold />
+                        </button>
+                        <button
+                          className="me-1 py-0"
+                          onClick={() =>
+                            openPopUpBorrarTallaProducto(talla, producto)
+                          }
+                        >
+                          <PiTrashBold />
+                        </button>
+                      </li>
+                    </ul> */}
+                    <div className="border border-top-0 rounded-bottom px-3 py-2">
+                      <ul className="list-unstyled d-flex justify-content-between align-items-end mb-0">
+                        <li>
+                          <strong className="text-muted">
+                            {talla.tallas.nombre ? talla.tallas.nombre : ''}
+                          </strong>{' '}
+                          {talla.tallas.dimensiones}
+                        </li>
+
+                        <li className="fw-bold">${talla.precio}</li>
+                      </ul>
+                    </div>
+                  </div>
                 </Col>
               ))
             ) : (
-              <p className="fst-italic texto-14 mb-4 mt-0">
-                Este producto no tiene medidas vinculadas, por favor cree una
-                para que el producto sea mostrado en el catálogo.
-              </p>
+              <Col xs={12}>
+                <p className="fst-italic texto-14 mb-4 mt-0">
+                  Este producto no tiene medidas vinculadas, por favor cree una
+                  para que el producto sea mostrado en el catálogo.
+                </p>
+              </Col>
             )}
-            <Button
-              className="w-100"
-              size="sm"
-              variant="outline-secondary"
-              onClick={() => openPopupTalla(null, producto)}
-            >
-              + Agregar medida
-            </Button>
-            <Button
-              className="w-100 mt-1"
-              size="sm"
-              variant="outline-danger"
-              onClick={() => openPopUpBorrar(producto)}
-            >
-              Borrar producto
-            </Button>
+            <Col xs={12} className="mt-1">
+              <button
+                className="w-100 rounded texto-14 bg-white py-1 fw-semibold text-muted"
+                style={{ border: '2px dashed var(--bs-border-color)' }}
+                onClick={() => openPopupTalla(null, producto)}
+              >
+                + Agregar medida
+              </button>
+            </Col>
           </Row>
         </>
       ) : (

@@ -45,35 +45,38 @@ const ProductoCRUD = () => {
   return (
     <>
       <Col xs={12}>
-        <Button
-          variant="secondary"
-          className="mb-1 me-2"
-          onClick={() => openPopup()}
-        >
-          Crear producto
-        </Button>
-        <Button
-          variant="light"
-          className="mb-1"
-          onClick={() => setPopUpEditarPrecio(true)}
-        >
-          Editar grupos de precio
-        </Button>
+        <div className="mb-2 border-bottom pb-2">
+          <Button
+            className="mb-1 me-2 bg-gradient border-0"
+            onClick={() => openPopup()}
+          >
+            Crear producto
+          </Button>
+          <Button
+            variant="light"
+            className="mb-1 border-0"
+            onClick={() => setPopUpEditarPrecio(true)}
+          >
+            Editar grupos de precio
+          </Button>
+        </div>
         {categorias.map((categoria) => (
-          <Row className="py-2" key={categoria.id}>
-            <h4 className="text-white pb-1 mb-0 border-bottom">
-              {categoria.categoria}
-            </h4>
+          <Row className="py-3" key={categoria.id}>
+            <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
             {categoria.productos.map((producto) => (
               <Col key={producto.id} xs={12} md={6}>
                 <Accordion className="mt-2">
-                  <Accordion.Item eventKey={producto.id}>
+                  <Accordion.Item eventKey={producto.id} className="">
                     <Accordion.Header
                       className="d-flex align-items-center"
                       onClick={() => handleShowProducto(producto.id)}
                     >
-                      <Badge className="me-2">{producto.marca}</Badge>
-                      <strong>{producto.nombre}</strong>
+                      {producto.nombre}
+                      {producto.marca === 'Otros' ? (
+                        ''
+                      ) : (
+                        <strong className="ms-1"> - {producto.marca}</strong>
+                      )}
                     </Accordion.Header>
                     <Accordion.Body>
                       {showProducto[producto.id] && (

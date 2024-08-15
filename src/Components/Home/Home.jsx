@@ -56,7 +56,11 @@ function Home() {
             , sus fotos, precio y disponibilidad al momento.
           </p>
           <div className="d-flex gap-2">
-            <Button as={Link} to={'/suscripciones'}>
+            <Button
+              as={Link}
+              to={'/suscripciones'}
+              className="bg-gradient border-0"
+            >
               Suscripciones
             </Button>
             <Button
