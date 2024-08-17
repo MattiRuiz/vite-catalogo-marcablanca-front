@@ -10,10 +10,13 @@ import {
   Col,
   Ratio,
 } from 'react-bootstrap'
+
 import {
   createTipoProducto,
   updateTipoProducto,
 } from '../../../../Functions/TipoProductosFunctions'
+
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const TallasCRUD_popup = ({
   tipoProducto,
@@ -139,9 +142,18 @@ const TallasCRUD_popup = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>
-          {tipoProducto ? 'Editar Tipo de producto' : 'Añadir Tipo de producto'}
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          {tipoProducto ? (
+            <>
+              <PiGearSixDuotone className="me-2" /> Editar un tipo de producto
+            </>
+          ) : (
+            <>
+              <PiPlusCircleDuotone className="me-2" /> Añadir un tipo de
+              producto
+            </>
+          )}
         </Modal.Title>
       </Modal.Header>
 
@@ -164,10 +176,10 @@ const TallasCRUD_popup = ({
                   className="border border-end-0 py-2"
                   style={{ borderRadius: '8px 0 0 8px' }}
                 >
-                  <Ratio aspectRatio="1x1" className="rounded-circle">
+                  <Ratio aspectRatio="1x1" className="rounded-3">
                     <Image
                       fluid
-                      className="object-fit-cover rounded-circle"
+                      className="object-fit-cover rounded-3"
                       src={tipoProducto.rutaImagen}
                     />
                   </Ratio>
@@ -177,9 +189,13 @@ const TallasCRUD_popup = ({
                   className="d-flex align-items-start flex-column justify-content-center border border-start-0"
                   style={{ borderRadius: '0 8px 8px 0' }}
                 >
-                  <p className="mb-2">Imágen:</p>
+                  <p className="mb-3">Imágen seleccionada</p>
                   <label htmlFor="fileInput">
-                    <Button as="span" disabled={loadingImagen}>
+                    <Button
+                      as="span"
+                      disabled={loadingImagen}
+                      className="bg-gradient border-0"
+                    >
                       {loadingImagen ? (
                         <Spinner
                           animation="border"
@@ -229,11 +245,19 @@ const TallasCRUD_popup = ({
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="bg-gradient border-0"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         {tipoProducto ? (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
@@ -241,7 +265,12 @@ const TallasCRUD_popup = ({
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading} type="submit">
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            type="submit"
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

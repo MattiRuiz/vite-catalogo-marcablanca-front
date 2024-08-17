@@ -3,6 +3,8 @@ import { Modal, Button, Spinner } from 'react-bootstrap'
 
 import { deleteImagen } from '../../../../Functions/ProductosFunctions'
 
+import { PiXCircleDuotone } from 'react-icons/pi'
+
 const PopUpBorrarImagen = ({ imagen, onImagenUpdated, closePopUp }) => {
   const [loading, setLoading] = useState(false)
 
@@ -22,18 +24,26 @@ const PopUpBorrarImagen = ({ imagen, onImagenUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="bg-danger text-white border-0" closeButton>
-        <Modal.Title>Borrar imagen</Modal.Title>
+      <Modal.Header className="pb-2 bg-secondary-subtle border-0" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          <PiXCircleDuotone className="me-2 text-danger" />
+          Borrar imagen
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>¿Está seguro que desea borrar esa imagen?</p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="border-0 bg-gradient"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         <Button
           variant="danger"
+          className="border-0 bg-gradient"
           onClick={() => handleDelete()}
           disabled={loading}
         >

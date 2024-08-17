@@ -85,7 +85,6 @@ const TipoProductoCRUD = () => {
         <div className="mt-3">
           {tipoProductos.map((tipoProducto) => (
             <div
-              eventKey={tipoProducto.id}
               key={tipoProducto.id}
               className="bg-white me-2 mb-2 rounded d-inline-flex flex-column align-items-center"
             >

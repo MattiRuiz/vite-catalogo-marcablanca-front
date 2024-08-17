@@ -3,6 +3,8 @@ import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
 
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
   const [tallaData, setTallaData] = useState({
     nombre: '',
@@ -97,8 +99,18 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>{talla ? 'Editar medida' : 'Añadir medida'}</Modal.Title>
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          {talla ? (
+            <>
+              <PiGearSixDuotone className="me-2" /> Editar una medida
+            </>
+          ) : (
+            <>
+              <PiPlusCircleDuotone className="me-2" /> Añadir una medida
+            </>
+          )}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -147,11 +159,19 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          className="bg-gradient border-0"
+          variant="secondary"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         {talla ? (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
@@ -159,7 +179,12 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading} type="submit">
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            type="submit"
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

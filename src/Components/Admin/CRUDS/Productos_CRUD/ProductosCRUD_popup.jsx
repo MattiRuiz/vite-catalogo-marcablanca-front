@@ -10,12 +10,15 @@ import {
   Col,
   Ratio,
 } from 'react-bootstrap'
+
 import {
   createProducto,
   updateProducto,
   getAllProductos,
 } from '../../../../Functions/ProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
+
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ProductosCRUD_popup = ({
   producto,
@@ -181,9 +184,17 @@ const ProductosCRUD_popup = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>
-          {producto ? 'Editar producto' : 'Añadir producto'}
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          {producto ? (
+            <>
+              <PiGearSixDuotone className="me-2" /> Editar un producto
+            </>
+          ) : (
+            <>
+              <PiPlusCircleDuotone className="me-2" /> Añadir un producto
+            </>
+          )}
         </Modal.Title>
       </Modal.Header>
 
@@ -270,7 +281,7 @@ const ProductosCRUD_popup = ({
                     Imágen de portada<span className="text-danger">*</span>:
                   </p>
                   <label htmlFor="fileInput">
-                    <Button as="span">
+                    <Button as="span" className="bg-gradient border-0">
                       {loadingImagen ? (
                         <Spinner
                           animation="border"
@@ -328,11 +339,19 @@ const ProductosCRUD_popup = ({
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="bg-gradient border-0"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         {producto ? (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
@@ -340,7 +359,12 @@ const ProductosCRUD_popup = ({
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading} type="submit">
+          <Button
+            className="bg-gradient border-0"
+            onClick={handleGuardar}
+            disabled={loading}
+            type="submit"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

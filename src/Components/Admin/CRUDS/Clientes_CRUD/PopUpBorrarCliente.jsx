@@ -3,6 +3,8 @@ import { Modal, Button, Spinner } from 'react-bootstrap'
 
 import { deleteCliente } from '../../../../Functions/ClienteFunctions'
 
+import { PiXCircleDuotone } from 'react-icons/pi'
+
 const PopUpBorrarCliente = ({ cliente, onClienteUpdated, closePopUp }) => {
   const [loading, setLoading] = useState(false)
 
@@ -21,8 +23,11 @@ const PopUpBorrarCliente = ({ cliente, onClienteUpdated, closePopUp }) => {
   }
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="bg-danger text-white border-0" closeButton>
-        <Modal.Title>Borrar cliente</Modal.Title>
+      <Modal.Header className="pb-2 bg-secondary-subtle border-0" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          <PiXCircleDuotone className="me-2 text-danger" />
+          Borrar cliente
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
@@ -35,11 +40,16 @@ const PopUpBorrarCliente = ({ cliente, onClienteUpdated, closePopUp }) => {
         </p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="border-0 bg-gradient"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         <Button
           variant="danger"
+          className="border-0 bg-gradient"
           onClick={() => handleDelete(cliente.id)}
           disabled={loading}
         >

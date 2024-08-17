@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+
 const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
   const [showAlert, setShowAlert] = useState(false)
   const handleShowAlert = () => setShowAlert(true)
@@ -99,8 +101,18 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>{marca ? 'Editar marca' : 'Añadir marca'}</Modal.Title>
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          {marca ? (
+            <>
+              <PiGearSixDuotone className="me-2" /> Editar una marca
+            </>
+          ) : (
+            <>
+              <PiPlusCircleDuotone className="me-2" /> Añadir una marca
+            </>
+          )}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -131,11 +143,19 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          onClick={() => closePopUp()}
+          className="bg-gradient border-0"
+        >
           Cancelar
         </Button>
         {marca ? (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button
+            className="bg-gradient border-0"
+            onClick={handleGuardar}
+            disabled={loading}
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
@@ -143,7 +163,12 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading} type="submit">
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            type="submit"
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

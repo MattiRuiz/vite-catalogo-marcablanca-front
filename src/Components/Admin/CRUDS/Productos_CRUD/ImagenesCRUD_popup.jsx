@@ -8,7 +8,7 @@ import {
 
 import PopUpBorrarImagen from './PopUpBorrarImagen'
 
-import { PiTrashBold } from 'react-icons/pi'
+import { PiTrashBold, PiGearSixDuotone, PiImageDuotone } from 'react-icons/pi'
 
 const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   const [loading, setLoading] = useState(false)
@@ -56,8 +56,11 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   return (
     <>
       <Modal show={true} onHide={closePopUp} centered>
-        <Modal.Header className="border-0 bg-primario text-white" closeButton>
-          <Modal.Title>Editar carrusel de imágenes</Modal.Title>
+        <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+          <Modal.Title className="fw-bold d-flex align-items-center">
+            <PiGearSixDuotone className="me-2" />
+            Editar carrusel de imágenes
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className="pb-0">
           <p className="texto-14">
@@ -66,22 +69,39 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
             <strong>editar producto</strong>.
           </p>
           <Row>
+            <Col xs={4} className="position-relative mb-3">
+              <label htmlFor="fileInput" className="w-100 h-100">
+                <Ratio
+                  aspectRatio="1x1"
+                  className="rounded"
+                  style={{
+                    border: '1px dashed var(--bs-border-color)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                    <PiImageDuotone className="fs-1 opacity-75" />
+                    <p>Añadir una imagen</p>
+                  </div>
+                </Ratio>
+              </label>
+            </Col>
             {imagenes ? (
               imagenes.map((imagen, index) => (
                 <Col xs={4} key={index} className="position-relative mb-3">
-                  <Ratio aspectRatio="1x1" className="border">
+                  <Ratio aspectRatio="1x1" className="border rounded">
                     <Image
                       src={imagen.rutaImagen}
                       alt={imagen.rutaImagen}
-                      className="object-fit-cover"
+                      className="object-fit-cover rounded"
                       fluid
                     />
                   </Ratio>
                   <Button
                     variant="danger"
                     size="sm"
-                    className="position-absolute"
-                    style={{ bottom: '5px', right: '16px' }}
+                    className="position-absolute bg-gradient border-0"
+                    style={{ top: '5px', right: '16px' }}
                     onClick={() => openPopUpBorrar(imagen)}
                   >
                     <PiTrashBold />
@@ -100,9 +120,11 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
             )}
           </Row>
         </Modal.Body>
-        <Modal.Footer className="border-0 pt-0">
+        {/* <Modal.Footer className="border-0 pt-0">
           <label htmlFor="fileInput">
-            <Button as="span">Agregar imagen</Button>
+            <Button className="bg-gradient border-0" as="span">
+              Agregar imagen
+            </Button>
             <input
               id="fileInput"
               type="file"
@@ -110,10 +132,14 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
               onChange={handleAgregarImagen}
             />
           </label>
-          <Button variant="secondary" onClick={() => closePopUp()}>
+          <Button
+            variant="secondary"
+            className="bg-gradient border-0"
+            onClick={() => closePopUp()}
+          >
             Cerrar
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
       {popUpBorrar ? (
         <PopUpBorrarImagen

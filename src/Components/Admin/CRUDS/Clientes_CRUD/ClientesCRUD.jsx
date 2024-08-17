@@ -60,10 +60,10 @@ const ClientesCRUD = () => {
         </div>
         <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
-            <p className="mb-0 texto-14 fw-bold">User</p>
+            <p className="mb-0 texto-14 fw-bold">Usuario</p>
           </Col>
           <Col>
-            <p className="mb-0 texto-14 fw-bold">Nombre</p>
+            <p className="mb-0 texto-14 fw-bold">Nombre y apellido</p>
           </Col>
           <Col xs={2}>
             <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
@@ -72,7 +72,6 @@ const ClientesCRUD = () => {
         <div className="bg-white">
           {clientes.map((cliente) => (
             <div
-              eventKey={cliente.id}
               key={cliente.id}
               className="border-bottom d-flex align-items-center justify-content-between p-2"
             >

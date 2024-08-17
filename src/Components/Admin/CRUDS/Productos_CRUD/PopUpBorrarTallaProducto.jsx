@@ -3,6 +3,8 @@ import { Modal, Button, Spinner } from 'react-bootstrap'
 
 import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
 
+import { PiXCircleDuotone } from 'react-icons/pi'
+
 const PopUpBorrarTallaProducto = ({
   talla,
   producto,
@@ -27,8 +29,11 @@ const PopUpBorrarTallaProducto = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="bg-danger text-white border-0" closeButton>
-        <Modal.Title>Borrar medida de un producto</Modal.Title>
+      <Modal.Header className="pb-2 bg-secondary-subtle border-0" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          <PiXCircleDuotone className="me-2 text-danger" />
+          Borrar medida de un producto
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
@@ -38,11 +43,16 @@ const PopUpBorrarTallaProducto = ({
         </p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="border-0 bg-gradient"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         <Button
           variant="danger"
+          className="border-0 bg-gradient"
           onClick={() => handleDelete()}
           disabled={loading}
         >

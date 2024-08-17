@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Spinner } from 'react-bootstrap'
+import { Col, Button, Spinner, Row } from 'react-bootstrap'
 
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 
@@ -49,7 +49,7 @@ const MarcasCRUD = () => {
 
   return (
     <>
-      <Col xs={12}>
+      <Col xs={12} md={10} lg={8}>
         <div className="mb-2 border-bottom pb-2">
           <Button
             className="me-2 bg-gradient border-0"
@@ -58,34 +58,40 @@ const MarcasCRUD = () => {
             Crear marca
           </Button>
         </div>
-        <div className="mt-3">
+        <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
+          <Col>
+            <p className="mb-0 texto-14 fw-bold">Empresa</p>
+          </Col>
+          <Col xs={2}>
+            <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
+          </Col>
+        </Row>
+        <Row>
           {marcas
             .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
             .map((marca) => (
               <div
-                eventKey={marca.id}
                 key={marca.id}
-                className="bg-white py-2 px-3 d-inline-flex me-2 mb-2 rounded align-items-center"
+                className="border-bottom d-flex align-items-center justify-content-between p-2 bg-white"
               >
-                <p className="d-inline me-2 mb-0 fw-bold">{marca.nombre}</p>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="me-1"
-                  onClick={() => openPopup(marca)}
-                >
-                  <PiNotePencilBold />
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => openPopUpBorrar(marca)}
-                >
-                  <PiTrashBold />
-                </Button>
+                <Col>{marca.nombre}</Col>
+                <Col xs={2} className="d-flex justify-content-center">
+                  <button
+                    className="texto-14 fw-semibold py-0 border-end bg-transparent"
+                    onClick={() => openPopup(marca)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="texto-14 fw-semibold py-0 bg-transparent"
+                    onClick={() => openPopUpBorrar(marca)}
+                  >
+                    Borrar
+                  </button>
+                </Col>
               </div>
             ))}
-        </div>
+        </Row>
         {loading ? (
           <Spinner
             variant="dark"

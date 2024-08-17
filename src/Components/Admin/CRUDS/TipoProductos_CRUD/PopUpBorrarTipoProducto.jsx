@@ -3,6 +3,8 @@ import { Modal, Button, Spinner } from 'react-bootstrap'
 
 import { deleteTipoProducto } from '../../../../Functions/TipoProductosFunctions'
 
+import { PiXCircleDuotone } from 'react-icons/pi'
+
 const PopUpBorrarTipoProducto = ({
   tipoProducto,
   onTipoProductoUpdated,
@@ -26,8 +28,11 @@ const PopUpBorrarTipoProducto = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="bg-danger text-white border-0" closeButton>
-        <Modal.Title>Borrar tipo de producto</Modal.Title>
+      <Modal.Header className="pb-2 bg-secondary-subtle border-0" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          <PiXCircleDuotone className="me-2 text-danger" />
+          Borrar tipo de producto
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
@@ -36,11 +41,16 @@ const PopUpBorrarTipoProducto = ({
         </p>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="border-0 bg-gradient"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
         <Button
           variant="danger"
+          className="border-0 bg-gradient"
           onClick={() => handleDelete(tipoProducto.id)}
           disabled={loading}
         >

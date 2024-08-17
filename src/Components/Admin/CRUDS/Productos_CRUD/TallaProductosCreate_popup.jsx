@@ -6,6 +6,8 @@ import {
 } from '../../../../Functions/TallasProductosFunctions'
 import { getAllTallas } from '../../../../Functions/TallasFunctions'
 
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+
 const TallaProductoCreate_popup = ({
   selectedTallaProducto,
   producto,
@@ -139,8 +141,20 @@ const TallaProductoCreate_popup = ({
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>Añadir medida al producto</Modal.Title>
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+        <Modal.Title className="fw-bold d-flex align-items-center">
+          {selectedTallaProducto ? (
+            <>
+              <PiGearSixDuotone className="me-2" /> Editar una medida de
+              producto
+            </>
+          ) : (
+            <>
+              <PiPlusCircleDuotone className="me-2" /> Añadir una medida al
+              producto
+            </>
+          )}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -195,10 +209,19 @@ const TallaProductoCreate_popup = ({
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          className="bg-gradient border-0"
+          onClick={() => closePopUp()}
+        >
           Cancelar
         </Button>
-        <Button onClick={handleGuardar} disabled={loading} type="submit">
+        <Button
+          onClick={handleGuardar}
+          disabled={loading}
+          type="submit"
+          className="bg-gradient border-0"
+        >
           {' '}
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />

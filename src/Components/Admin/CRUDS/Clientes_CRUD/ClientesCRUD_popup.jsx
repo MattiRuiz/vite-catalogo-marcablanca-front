@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+
 import {
   createCliente,
   updateCliente,
 } from '../../../../Functions/ClienteFunctions'
+
+import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
   const [clienteData, setClienteData] = useState({
@@ -106,11 +109,17 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
+      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
         {cliente ? (
-          <Modal.Title>Editar cliente</Modal.Title>
+          <Modal.Title className="fw-bold d-flex align-items-center">
+            <PiGearSixDuotone className="me-2" />
+            Editar cliente
+          </Modal.Title>
         ) : (
-          <Modal.Title>Añadir cliente</Modal.Title>
+          <Modal.Title className="fw-bold d-flex align-items-center">
+            <PiPlusCircleDuotone className="me-2" />
+            Añadir cliente
+          </Modal.Title>
         )}
       </Modal.Header>
       <Modal.Body>
@@ -190,11 +199,19 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Button
+          variant="secondary"
+          onClick={() => closePopUp()}
+          className="bg-gradient border-0"
+        >
           Cancelar
         </Button>
         {cliente ? (
-          <Button onClick={handleGuardar} disabled={loading}>
+          <Button
+            className="bg-gradient border-0"
+            onClick={handleGuardar}
+            disabled={loading}
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
@@ -202,7 +219,12 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             )}
           </Button>
         ) : (
-          <Button onClick={handleGuardar} disabled={loading} type="submit">
+          <Button
+            onClick={handleGuardar}
+            disabled={loading}
+            type="submit"
+            className="bg-gradient border-0"
+          >
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Accordion, Spinner } from 'react-bootstrap'
+import { Col, Button, Row, Spinner } from 'react-bootstrap'
 
 import { getAllTallas } from '../../../../Functions/TallasFunctions'
 
 import TallasPopUp from './TallasCRUD_popup'
 import PopUpBorrarTalla from './PopUpBorrarTalla'
-
-import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
 
 const TallasCRUD = () => {
   //#region Declaracion useState's
@@ -58,40 +56,50 @@ const TallasCRUD = () => {
             Crear medida
           </Button>
         </div>
-        <div className="mt-3">
+        <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
+          <Col>
+            <p className="mb-0 texto-14 fw-bold">Nombre de la medida</p>
+          </Col>
+          <Col>
+            <p className="mb-0 texto-14 fw-bold">Descripción</p>
+          </Col>
+          <Col xs={2}>
+            <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
+          </Col>
+        </Row>
+        <Row>
           {tallas
             .sort((a, b) => (a.nombre > b.nombre ? 1 : -1))
             .map((talla) => (
               <div
                 key={talla.id}
-                className="bg-white py-2 px-3 d-inline-flex me-2 mb-2 rounded align-items-center"
+                className="border-bottom d-flex align-items-center justify-content-between p-2 bg-white"
               >
-                <p className="mb-0 me-2">
-                  <strong>{talla.nombre ? talla.nombre : 'Medida'}</strong>:{' '}
+                <Col>{talla.nombre ? talla.nombre : <em>(Sin nombre)</em>}</Col>
+                <Col>
                   {talla.dimensiones ? (
                     talla.dimensiones
                   ) : (
                     <em>(Sin medida)</em>
                   )}
-                </p>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="me-1"
-                  onClick={() => openPopup(talla)}
-                >
-                  <PiNotePencilBold />
-                </Button>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => openPopUpBorrar(talla)}
-                >
-                  <PiTrashBold />
-                </Button>
+                </Col>
+                <Col xs={2} className="d-flex justify-content-center">
+                  <button
+                    className="texto-14 fw-semibold py-0 border-end bg-transparent"
+                    onClick={() => openPopup(talla)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="texto-14 fw-semibold py-0 bg-transparent"
+                    onClick={() => openPopUpBorrar(talla)}
+                  >
+                    Borrar
+                  </button>
+                </Col>
               </div>
             ))}
-        </div>
+        </Row>
         {loading ? (
           <Spinner
             variant="dark"
