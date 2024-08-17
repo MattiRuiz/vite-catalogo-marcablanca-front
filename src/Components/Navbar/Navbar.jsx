@@ -11,6 +11,8 @@ import {
   PiUserCircleGearFill,
   PiXCircleFill,
   PiCoinsFill,
+  PiXCircleDuotone,
+  PiDotsThreeVerticalBold,
 } from 'react-icons/pi'
 import imageLogo from '../../Images/logo-marca.svg'
 
@@ -60,9 +62,9 @@ function Navbar() {
               <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-basic"
-                  className="d-flex align-items-center mb-1 p-1 bg-transparent border-0"
+                  className="d-flex align-items-center py-1 px-2 border-0 bg-transparent"
                 >
-                  <PiUserFill className="me-1 fs-6" />
+                  <PiDotsThreeVerticalBold className="fs-5" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {menu.userData?.esAdmin ? (
@@ -72,7 +74,8 @@ function Navbar() {
                         to={'/admin'}
                         className="fw-bold d-flex align-items-center"
                       >
-                        <PiUserCircleGearFill className="me-2" /> Administrar
+                        <PiUserCircleGearFill className="text-secondary fs-5 me-3" />{' '}
+                        Administrar
                       </Dropdown.Item>
                       <Dropdown.Divider />
                     </>
@@ -82,30 +85,33 @@ function Navbar() {
                   <Dropdown.Item
                     as={Link}
                     to={'/contacto'}
-                    className="d-flex align-items-center"
+                    className="d-flex align-items-center py-2"
                   >
-                    <PiNoteFill className="me-2" /> Contacto
+                    <PiNoteFill className="text-secondary fs-5 me-3" /> Contacto
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
                     to={'/configurar-precios'}
-                    className="d-flex align-items-center"
+                    className="d-flex align-items-center py-2"
                   >
-                    <PiCoinsFill className="me-2" /> Configurar precios
+                    <PiCoinsFill className="text-secondary fs-5 me-3" />{' '}
+                    Configurar precios
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
                     to={'/mi-cuenta'}
-                    className="d-flex align-items-center"
+                    className="d-flex align-items-center py-2"
                   >
-                    <PiGearFill className="me-2" /> Mi cuenta
+                    <PiGearFill className="text-secondary fs-5 me-3" /> Mi
+                    cuenta
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item
                     onClick={handleOpen}
-                    className="d-flex align-items-center"
+                    className="d-flex align-items-center py-2"
                   >
-                    <PiXCircleFill className="me-2 text-danger" /> Cerrar sesión
+                    <PiXCircleFill className="text-secondary fs-5 me-3" />{' '}
+                    Cerrar sesión
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -137,17 +143,28 @@ function Navbar() {
         )}
       </Row>
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header className="border-0" closeButton>
-          <Modal.Title className="fw-bold">¡Atención!</Modal.Title>
+        <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
+          <Modal.Title className="fw-bold d-flex align-items-center">
+            <PiXCircleDuotone className="me-2 text-danger" />
+            ¡Atención!
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="py-0">
-          <p className="mb-0">¿Desea cerrar la sesión de su cuenta?</p>
+        <Modal.Body className="pb-0">
+          <p className="">¿Desea cerrar la sesión de su cuenta?</p>
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            variant="secondary"
+            className="bg-gradient border-0"
+            onClick={handleClose}
+          >
             Cancelar
           </Button>
-          <Button variant="danger" onClick={() => logout()}>
+          <Button
+            variant="danger"
+            className="bg-gradient border-0"
+            onClick={() => logout()}
+          >
             Cerrar sesión
           </Button>
         </Modal.Footer>

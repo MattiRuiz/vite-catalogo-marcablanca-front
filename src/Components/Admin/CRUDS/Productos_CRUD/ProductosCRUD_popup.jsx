@@ -14,9 +14,9 @@ import {
 import {
   createProducto,
   updateProducto,
-  getAllProductos,
 } from '../../../../Functions/ProductosFunctions'
 import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
+import { getAllTipoProductos } from '../../../../Functions/TipoProductosFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
@@ -72,7 +72,7 @@ const ProductosCRUD_popup = ({
       const responseMarcas = await getAllMarcas()
       setMarcas(responseMarcas.data)
 
-      const responseCategorias = await getAllProductos()
+      const responseCategorias = await getAllTipoProductos()
       setCategorias(responseCategorias.data)
     } catch (e) {
       console.error(e.message)

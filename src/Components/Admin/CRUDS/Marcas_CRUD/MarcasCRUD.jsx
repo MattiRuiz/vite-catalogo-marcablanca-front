@@ -6,8 +6,6 @@ import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
 import MarcasPopUp from './MarcasCRUD_popup'
 import PopUpBorrarMarca from './PopUpBorrarMarca'
 
-import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
-
 const MarcasCRUD = () => {
   //#region Declaracion useState's
   const [marcas, setMarcas] = useState([])

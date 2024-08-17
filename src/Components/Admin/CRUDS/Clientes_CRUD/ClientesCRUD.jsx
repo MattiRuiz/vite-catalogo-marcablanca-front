@@ -6,8 +6,6 @@ import { getAllClientes } from '../../../../Functions/ClienteFunctions'
 import ClientesPopup from './ClientesCRUD_popup'
 import PopUpBorrarCliente from './PopUpBorrarCliente'
 
-import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
-
 const ClientesCRUD = () => {
   //#region Declaracion useState's
   const [clientes, setClientes] = useState([])

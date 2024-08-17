@@ -10,12 +10,7 @@ import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
 import PopUpEditPrecio from '../PopUpEditPrecio'
 
-import {
-  PiTrashBold,
-  PiNotePencilBold,
-  PiCheckCircleDuotone,
-  PiXCircleDuotone,
-} from 'react-icons/pi'
+import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'
 
 const ProductoCard = ({ id, onProductUpdate }) => {
   const [producto, setProducto] = useState()
