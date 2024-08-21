@@ -4,6 +4,7 @@ import { Col, Row, Button, Accordion, Badge, Spinner } from 'react-bootstrap'
 import { getAllProductosAdmin } from '../../../../Functions/ProductosFunctions'
 
 import ProductosPopUp from './ProductosCRUD_popup'
+import PopUpEditarPrecio from '../PopUpEditPrecio'
 import ProductoCard from './ProductoCard'
 
 const ProductoCRUD = () => {
@@ -41,6 +42,8 @@ const ProductoCRUD = () => {
   const openPopup = () => {
     setPopUp(true)
   }
+
+  const [popUpEditarPrecio, setPopUpEditarPrecio] = useState(false)
 
   return (
     <>
@@ -106,6 +109,12 @@ const ProductoCRUD = () => {
         <ProductosPopUp
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUp(false)}
+        />
+      )}
+      {popUpEditarPrecio && (
+        <PopUpEditarPrecio
+          onProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUpEditarPrecio(false)}
         />
       )}
     </>
