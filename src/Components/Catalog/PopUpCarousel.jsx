@@ -105,14 +105,14 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
         </Button>
       </Modal.Body>
       <Modal.Footer className="border-0 flex-column align-items-start">
-        {producto.marcas.nombre === 'Otros' ? (
+        {producto.marca === 'Otros' ? (
           ''
         ) : (
           <p
             className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
             style={{ letterSpacing: '.25px' }}
           >
-            {producto.marcas.nombre}
+            {producto.marca}
           </p>
         )}
         <h4 className="mb-0">{producto.nombre}</h4>
