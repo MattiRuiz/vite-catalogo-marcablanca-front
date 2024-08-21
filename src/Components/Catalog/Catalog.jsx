@@ -69,8 +69,8 @@ function Catalog() {
     const respuesta = await getProductosPorCategoria(value)
     setTotalPaginas(1)
     setCurrentPage(1)
-    setProductos(respuesta.data.productos)
-    setTitle(respuesta.data.productos[0].tipo_producto.nombre)
+    setProductos(respuesta.data)
+    setTitle(respuesta.data[0].tipo_producto)
     setActiveCategory(value)
   }
 
@@ -79,7 +79,7 @@ function Catalog() {
     setProductos('')
     const response = await getProductosCatalogo(pageNumber)
     setTotalPaginas(response.data.totalPaginas)
-    setProductos(response.data.productos)
+    setProductos(response.data)
     setTitle('Todos los productos')
     setActiveCategory(null)
   }
@@ -222,14 +222,14 @@ function Catalog() {
                               />
                             )}
                           </Ratio>
-                          {producto.marcas.nombre === 'Otros' ? (
+                          {producto.marca === 'Otros' ? (
                             ''
                           ) : (
                             <p
                               className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
                               style={{ letterSpacing: '.25px' }}
                             >
-                              {producto.marcas.nombre}
+                              {producto.marca}
                             </p>
                           )}
                           <Card.Body className="pb-0 px-2 pt-3">
@@ -248,9 +248,9 @@ function Catalog() {
                                 <div key={index}>
                                   <div className="d-flex justify-content-between gap-2 mb-1">
                                     <div className="d-flex justify-content-center flex-column">
-                                      {talla.nombre && (
+                                      {talla.nombre_talla && (
                                         <p className="fw-bold text-uppercase mb-0">
-                                          {talla.nombre}
+                                          {talla.nombre_talla}
                                         </p>
                                       )}
                                       <p className="mb-0">

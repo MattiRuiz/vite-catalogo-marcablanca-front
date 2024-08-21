@@ -35,7 +35,8 @@ function WelcomeLog() {
         const response = await getAllTipoProductos()
         setCategorias(response.data)
         const respProductos = await getProductosCatalogo(1)
-        setProductos(respProductos.data.productos)
+        console.log(respProductos.data)
+        setProductos(respProductos.data)
       } catch (error) {
         console.error('Error al obtener los productos:', error)
       } finally {
@@ -207,14 +208,14 @@ function WelcomeLog() {
                           />
                         )}
                       </Ratio>
-                      {producto.marcas.nombre === 'Otros' ? (
+                      {producto.marca === 'Otros' ? (
                         ''
                       ) : (
                         <p
                           className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
                           style={{ letterSpacing: '.25px' }}
                         >
-                          {producto.marcas.nombre}
+                          {producto.marca}
                         </p>
                       )}
                       <Card.Body className="pb-0 px-2 pt-2">
@@ -230,9 +231,9 @@ function WelcomeLog() {
                             <div key={index}>
                               <div className="d-flex justify-content-between gap-2 mb-1">
                                 <div className="d-flex justify-content-center flex-column">
-                                  {talla.nombre && (
+                                  {talla.talla_nombre && (
                                     <p className="fw-bold text-uppercase mb-0">
-                                      {talla.nombre}
+                                      {talla.talla_nombre}
                                     </p>
                                   )}
                                   <p className="mb-0"> {talla.dimensiones}</p>
