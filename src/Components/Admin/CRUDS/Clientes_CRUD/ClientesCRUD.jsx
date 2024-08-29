@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Spinner } from 'react-bootstrap'
+import { Col, Spinner } from 'react-bootstrap'
 
-import { getAllClientes } from '../../../../Functions/ClienteFunctions'
+import {
+  getAllClientes,
+  deleteCliente,
+} from '../../../../Functions/ClienteFunctions'
 
 import ClientesPopup from './ClientesCRUD_popup'
-import PopUpBorrarCliente from './PopUpBorrarCliente'
+
+import { PiXCircleDuotone } from 'react-icons/pi'
+import { PopUp, Boton } from '../../../../ui'
 
 const ClientesCRUD = () => {
   //#region Declaracion useState's
@@ -45,16 +50,28 @@ const ClientesCRUD = () => {
     setPopUpBorrar(true)
   }
 
+  const handleDelete = async () => {
+    setLoading(true)
+    try {
+      const response = await deleteCliente(selectedCliente.id)
+      console.log('Cliente eliminado', response)
+      fetchData()
+    } catch (e) {
+      alert('Hubo un problema al eliminar un cliente.')
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+      setPopUpBorrar(false)
+    }
+  }
+
   return (
     <>
       <Col xs={12}>
         <div className="mb-2 border-bottom pb-2">
-          <Button
-            className="me-2 bg-gradient border-0"
-            onClick={() => openPopup(null)}
-          >
+          <Boton className="me-2" onClick={() => openPopup(null)}>
             Crear cliente
-          </Button>
+          </Boton>
         </div>
         <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
@@ -117,14 +134,29 @@ const ClientesCRUD = () => {
         )
         //#endregion
       }
-      {popUpBorrar ? (
-        <PopUpBorrarCliente
-          cliente={selectedCliente}
-          onClienteUpdated={() => fetchData()}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar cliente
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDelete}
+          loading={loading}
+        >
+          <p>
+            ¿Está seguro que desea borrar el usuario{' '}
+            <strong>{selectedCliente.username}</strong> del cliente{' '}
+            <strong>
+              {selectedCliente.clientes.nombre}{' '}
+              {selectedCliente.clientes.apellido}
+            </strong>
+            ?
+          </p>
+        </PopUp>
       )}
     </>
   )

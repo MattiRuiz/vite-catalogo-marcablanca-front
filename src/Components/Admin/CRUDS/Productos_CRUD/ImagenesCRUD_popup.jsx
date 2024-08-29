@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react'
-import { Modal, Button, Image, Row, Col, Spinner, Ratio } from 'react-bootstrap'
+import { Modal, Image, Row, Col, Spinner, Ratio } from 'react-bootstrap'
 
 import {
   getImagenesPorProducto,
   createImagen,
+  deleteImagen,
 } from '../../../../Functions/ProductosFunctions'
 
-import PopUpBorrarImagen from './PopUpBorrarImagen'
+import { PopUp, Boton } from '../../../../ui'
 
-import { PiTrashBold, PiGearSixDuotone, PiImageDuotone } from 'react-icons/pi'
+import {
+  PiTrashBold,
+  PiGearSixDuotone,
+  PiImageDuotone,
+  PiXCircleDuotone,
+} from 'react-icons/pi'
 
 const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   const [loading, setLoading] = useState(false)
@@ -28,17 +34,19 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
     }
   }
 
+  useEffect(() => {
+    fetchImagenes()
+  }, [])
+
   const handleAgregarImagen = async (event) => {
     setLoading(true)
     const dataToSend = {
       imagen: event.target.files[0],
       idProducto: producto.id,
     }
-
     const formDataForAPI = new FormData()
     formDataForAPI.append('imagen', dataToSend.imagen)
     formDataForAPI.append('idProducto', dataToSend.idProducto)
-
     const response = await createImagen(formDataForAPI)
     setLoading(false)
     fetchImagenes()
@@ -49,9 +57,20 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
     setPopUpBorrar(true)
   }
 
-  useEffect(() => {
-    fetchImagenes()
-  }, [])
+  const handleDelete = async () => {
+    setLoading(true)
+    try {
+      const response = await deleteImagen(selectedImagen.id)
+      console.log('Imagen eliminada', response)
+      fetchImagenes()
+    } catch (e) {
+      alert('Hubo un problema al eliminar la imagen.')
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+      setPopUpBorrar(false)
+    }
+  }
 
   return (
     <>
@@ -81,7 +100,13 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                 >
                   <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
                     <PiImageDuotone className="fs-1 opacity-75" />
-                    <p>Añadir una imagen</p>
+                    <p className="text-center lh-sm mb-0">Añadir una imagen</p>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      style={{ display: 'none' }}
+                      onChange={handleAgregarImagen}
+                    />
                   </div>
                 </Ratio>
               </label>
@@ -97,7 +122,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                       fluid
                     />
                   </Ratio>
-                  <Button
+                  {/* <Button
                     variant="danger"
                     size="sm"
                     className="position-absolute bg-gradient border-0"
@@ -105,7 +130,16 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                     onClick={() => openPopUpBorrar(imagen)}
                   >
                     <PiTrashBold />
-                  </Button>
+                  </Button> */}
+                  <Boton
+                    variant="danger"
+                    size="sm"
+                    className="position-absolute"
+                    style={{ top: '5px', right: '16px' }}
+                    onClick={() => openPopUpBorrar(imagen)}
+                  >
+                    <PiTrashBold />
+                  </Boton>
                 </Col>
               ))
             ) : (
@@ -120,35 +154,22 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
             )}
           </Row>
         </Modal.Body>
-        {/* <Modal.Footer className="border-0 pt-0">
-          <label htmlFor="fileInput">
-            <Button className="bg-gradient border-0" as="span">
-              Agregar imagen
-            </Button>
-            <input
-              id="fileInput"
-              type="file"
-              style={{ display: 'none' }}
-              onChange={handleAgregarImagen}
-            />
-          </label>
-          <Button
-            variant="secondary"
-            className="bg-gradient border-0"
-            onClick={() => closePopUp()}
-          >
-            Cerrar
-          </Button>
-        </Modal.Footer> */}
       </Modal>
-      {popUpBorrar ? (
-        <PopUpBorrarImagen
-          imagen={selectedImagen}
-          onImagenUpdated={() => fetchImagenes()}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar imagen
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDelete}
+          loading={loading}
+        >
+          <p>¿Está seguro que desea borrar esa imagen?</p>
+        </PopUp>
       )}
     </>
   )

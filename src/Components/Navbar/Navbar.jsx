@@ -5,7 +5,6 @@ import { Row, Col, Image, Button, Dropdown, Modal } from 'react-bootstrap'
 import LoginContext from '../../Context/LoginContext'
 
 import {
-  PiUserFill,
   PiGearFill,
   PiNoteFill,
   PiUserCircleGearFill,
@@ -14,7 +13,9 @@ import {
   PiXCircleDuotone,
   PiDotsThreeVerticalBold,
 } from 'react-icons/pi'
+
 import imageLogo from '../../Images/logo-marca.svg'
+import { Boton } from '../../ui'
 
 function Navbar() {
   const [show, setShow] = useState(false)
@@ -153,20 +154,12 @@ function Navbar() {
           <p className="">¿Desea cerrar la sesión de su cuenta?</p>
         </Modal.Body>
         <Modal.Footer className="border-0 pt-0">
-          <Button
-            variant="secondary"
-            className="bg-gradient border-0"
-            onClick={handleClose}
-          >
+          <Boton variant="secondary" onClick={handleClose}>
             Cancelar
-          </Button>
-          <Button
-            variant="danger"
-            className="bg-gradient border-0"
-            onClick={() => logout()}
-          >
+          </Boton>
+          <Boton variant="danger" onClick={() => logout()}>
             Cerrar sesión
-          </Button>
+          </Boton>
         </Modal.Footer>
       </Modal>
     </>

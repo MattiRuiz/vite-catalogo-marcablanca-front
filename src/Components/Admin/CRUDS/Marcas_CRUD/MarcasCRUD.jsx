@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Spinner, Row } from 'react-bootstrap'
+import { Col, Spinner, Row } from 'react-bootstrap'
 
-import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
+import {
+  getAllMarcas,
+  deleteMarca,
+} from '../../../../Functions/MarcasFunctions'
 
 import MarcasPopUp from './MarcasCRUD_popup'
-import PopUpBorrarMarca from './PopUpBorrarMarca'
+
+import { PiXCircleDuotone } from 'react-icons/pi'
+import { PopUp, Boton } from '../../../../ui'
 
 const MarcasCRUD = () => {
   //#region Declaracion useState's
@@ -45,16 +50,28 @@ const MarcasCRUD = () => {
     setPopUpBorrar(true)
   }
 
+  const handleDelete = async () => {
+    setLoading(true)
+    try {
+      const response = await deleteMarca(selectedMarca.id)
+      console.log('Marca eliminada', response)
+      fetchData()
+    } catch (e) {
+      alert('Hubo un problema al eliminar una marca.')
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+      setPopUpBorrar(false)
+    }
+  }
+
   return (
     <>
       <Col xs={12} md={10} lg={8}>
         <div className="mb-2 border-bottom pb-2">
-          <Button
-            className="me-2 bg-gradient border-0"
-            onClick={() => openPopup(null)}
-          >
+          <Boton className="me-2" onClick={() => openPopup(null)}>
             Crear marca
-          </Button>
+          </Boton>
         </div>
         <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
@@ -113,14 +130,24 @@ const MarcasCRUD = () => {
         )
         //#endregion
       }
-      {popUpBorrar ? (
-        <PopUpBorrarMarca
-          marca={selectedMarca}
-          onMarcaUpdated={() => fetchData()}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar marca
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDelete}
+          loading={loading}
+        >
+          <p>
+            ¿Está seguro que desea borrar la marca{' '}
+            <strong>{selectedMarca.nombre}</strong>?
+          </p>
+        </PopUp>
       )}
     </>
   )

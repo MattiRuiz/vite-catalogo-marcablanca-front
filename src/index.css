@@ -106,8 +106,7 @@ color: #999;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: #044d9b;
 } 
 
 .btn-light:hover {

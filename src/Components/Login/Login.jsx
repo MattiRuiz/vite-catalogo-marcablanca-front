@@ -1,19 +1,11 @@
-import { useState, useContext, useRef } from 'react'
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Alert,
-  Spinner,
-} from 'react-bootstrap'
+import { useState, useContext } from 'react'
+import { Row, Col, Form, Spinner } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
 
-import Footer from '../Footer/Footer'
-import PopUpForgotPassword from './PopUpForgotPassword'
+import { Boton, PopUp, Tostada } from '../../ui'
+import { PiWarningDuotone } from 'react-icons/pi'
 
 function Login() {
   const [userName, setUserName] = useState()
@@ -24,11 +16,11 @@ function Login() {
   const navigate = useNavigate()
 
   const [showAlert, setShowAlert] = useState(false)
-  const handleShow = () => setShowAlert(true)
-  const handleClose = () => setShowAlert(false)
+
   const [alertMessage, setAlertMessage] = useState(
     'Ha ocurrido un error, por favor intente más tarde'
   )
+  const [alertHeader, setAlertHeader] = useState('Hubo un problema')
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -53,9 +45,10 @@ function Login() {
 
       if (!data.username || !data.password) {
         setAlertMessage(
-          'Hay campos vacios, por favor complete todos los datos para continuar.'
+          'Hay campos vacios, por favor complete todos los datos para iniciar sesión.'
         )
-        handleShow()
+        setAlertHeader('Hubo un problema')
+        setShowAlert(true)
       } else {
         const response = await loginCliente(data)
         const user = {
@@ -79,7 +72,8 @@ function Login() {
       setAlertMessage(
         'Usuario o contraseña incorrectos. Por favor intente nuevamente.'
       )
-      handleShow()
+      setAlertHeader('Datos incorrectos')
+      setShowAlert(true)
     } finally {
       setLoading(false)
     }
@@ -105,7 +99,7 @@ function Login() {
             >
               ¿Olvidaste tu contraseña?
             </Link>
-            <Button
+            <Boton
               type="submit"
               className="my-3 w-100"
               onClick={dataSender}
@@ -116,7 +110,7 @@ function Login() {
               ) : (
                 'Ingresar'
               )}
-            </Button>
+            </Boton>
           </Form>
           <p>
             ¿No tenés cuenta? Consulta las{' '}
@@ -124,27 +118,34 @@ function Login() {
               Suscripciones
             </Link>
           </p>
-          <Alert
-            variant="danger"
-            className="mt-3 mb-0"
-            onClose={handleClose}
-            show={showAlert}
-            dismissible
-          >
-            <Alert.Heading className="fs-6">
-              <strong>Error</strong>
-            </Alert.Heading>
-            {alertMessage}
-          </Alert>
         </Col>
+        <Tostada
+          onClose={() => setShowAlert(false)}
+          show={showAlert}
+          header={alertHeader}
+        >
+          {alertMessage}
+        </Tostada>
       </Row>
-      {popUpForgotPassword ? (
-        <PopUpForgotPassword closePopUp={() => setPopUpForgotPassword(false)} />
-      ) : (
-        <></>
+      {popUpForgotPassword && (
+        <PopUp
+          header={
+            <>
+              <PiWarningDuotone className="me-2 text-danger" />
+              ¿Olvidaste tu contraseña?
+            </>
+          }
+          closePopUp={() => setPopUpForgotPassword(false)}
+        >
+          <p>
+            Para garantizar la seguridad de tu cuenta, te pedimos que te
+            acerques a nuestro establecimiento con los{' '}
+            <strong>datos de tu cuenta.</strong> De esta manera, podremos
+            restablecer tu contraseña manualmente.
+          </p>
+        </PopUp>
       )}
     </>
   )
 }
-
 export default Login

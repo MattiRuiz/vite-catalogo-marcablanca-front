@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Modal, Carousel, Image, Ratio, Button } from 'react-bootstrap'
+import { Modal, Carousel, Image, Ratio } from 'react-bootstrap'
 
 import { getImagenesPorProducto } from '../../Functions/ProductosFunctions'
 
 import { PiXBold, PiCaretRightBold, PiCaretLeftBold } from 'react-icons/pi'
+
+import { Boton } from '../../ui'
 
 const PopUpCarousel = ({ producto, closePopUp }) => {
   const [imagenesCarousel, setImagenesCarousel] = useState(null)
@@ -97,12 +99,12 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
             <></>
           )}
         </Carousel>
-        <Button
+        <Boton
           onClick={closePopUp}
-          className="position-absolute top-0 end-0 py-2 px-2 me-2 mt-2 bg-white opacity-75 text-dark border-0 z-3 rounded-5 d-flex justify-content-center align-items-center bg-gradient bg-opacity-50"
+          className="position-absolute top-0 end-0 py-2 px-2 me-2 mt-2 bg-white opacity-75 text-dark z-3 rounded-5 d-flex justify-content-center align-items-center bg-opacity-50"
         >
-          <PiXBold className="" />
-        </Button>
+          <PiXBold />
+        </Boton>
       </Modal.Body>
       <Modal.Footer className="border-0 flex-column align-items-start">
         {producto.marca === 'Otros' ? (

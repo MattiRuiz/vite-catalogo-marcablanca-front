@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Image, Spinner, Ratio } from 'react-bootstrap'
+import { Col, Image, Spinner, Ratio } from 'react-bootstrap'
 
 import {
   getAllTipoProductos,
@@ -7,9 +7,9 @@ import {
 } from '../../../../Functions/TipoProductosFunctions'
 
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
-import PopUpBorrarTipoProducto from './PopUpBorrarTipoProducto'
 
-import { PiTrashBold, PiNotePencilBold } from 'react-icons/pi'
+import { PiXCircleDuotone } from 'react-icons/pi'
+import { PopUp, Boton } from '../../../../ui'
 
 const TipoProductoCRUD = () => {
   //#region Declaracion useState's
@@ -59,15 +59,17 @@ const TipoProductoCRUD = () => {
   }
 
   //#region Handle elminar cliente
-  const handleDelete = async (idTipoProducto) => {
+  const handleDelete = async () => {
     try {
-      const response = await deleteTipoProducto(idTipoProducto)
+      const response = await deleteTipoProducto(selectedTipoProducto.id)
       console.log('Tipo producto eliminado', response)
-      setPopUp(false)
+      fetchData()
     } catch (e) {
-      return e.message
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+      setPopUpBorrar(false)
     }
-    fetchData()
   }
   //#endregion
 
@@ -75,12 +77,9 @@ const TipoProductoCRUD = () => {
     <>
       <Col xs={12}>
         <div className="mb-2 border-bottom pb-2">
-          <Button
-            className="me-2 bg-gradient border-0"
-            onClick={() => openPopup(null)}
-          >
+          <Boton className="me-2" onClick={() => openPopup(null)}>
             Crear tipo de producto
-          </Button>
+          </Boton>
         </div>
         <div className="mt-3">
           {tipoProductos.map((tipoProducto) => (
@@ -149,14 +148,24 @@ const TipoProductoCRUD = () => {
         )
         //#endregion
       }
-      {popUpBorrar ? (
-        <PopUpBorrarTipoProducto
-          tipoProducto={selectedTipoProducto}
-          onTipoProductoUpdated={() => fetchData()}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar tipo de producto
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDelete}
+          loading={loading}
+        >
+          <p>
+            ¿Está seguro que desea borrar el tipo de producto{' '}
+            <strong>{selectedTipoProducto.nombre}</strong>?
+          </p>
+        </PopUp>
       )}
     </>
   )

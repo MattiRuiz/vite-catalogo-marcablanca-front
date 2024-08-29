@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom'
 
 import PDFIcon from '../../Images/pdf.png'
 
+import { Boton } from '../../ui'
+
 function Precios() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
@@ -100,9 +102,9 @@ function Precios() {
                   </Form.Text>
                 </Row>
               </Form>
-              <Button className="mt-3" onClick={handleShow} type="button">
+              <Boton className="mt-3" onClick={handleShow} type="button">
                 Aplicar cambios
-              </Button>
+              </Boton>
             </div>
           </Col>
           <Col xs={12} lg={6}>
@@ -162,12 +164,12 @@ function Precios() {
             )}
           </Modal.Body>
           <Modal.Footer className="border-0 pt-0">
-            <Button variant="secondary" onClick={handleClose}>
+            <Boton variant="secondary" onClick={handleClose}>
               Cancelar
-            </Button>
-            <Button variant="warning" onClick={mostrarPrecios}>
+            </Boton>
+            <Boton variant="warning" onClick={mostrarPrecios}>
               Aceptar
-            </Button>
+            </Boton>
           </Modal.Footer>
         </Modal>
       </Container>

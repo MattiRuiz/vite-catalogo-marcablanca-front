@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import {
-  Button,
   Form,
   Modal,
   Alert,
@@ -17,6 +16,8 @@ import {
 } from '../../../../Functions/TipoProductosFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+
+import { Boton } from '../../../../ui'
 
 const TallasCRUD_popup = ({
   tipoProducto,
@@ -191,11 +192,7 @@ const TallasCRUD_popup = ({
                 >
                   <p className="mb-3">Imágen seleccionada</p>
                   <label htmlFor="fileInput">
-                    <Button
-                      as="span"
-                      disabled={loadingImagen}
-                      className="bg-gradient border-0"
-                    >
+                    <Boton as="span" disabled={loadingImagen}>
                       {loadingImagen ? (
                         <Spinner
                           animation="border"
@@ -206,7 +203,7 @@ const TallasCRUD_popup = ({
                       ) : (
                         'Cambiar imagen'
                       )}
-                    </Button>
+                    </Boton>
                     <input
                       id="fileInput"
                       type="file"
@@ -245,38 +242,25 @@ const TallasCRUD_popup = ({
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button
-          variant="secondary"
-          className="bg-gradient border-0"
-          onClick={() => closePopUp()}
-        >
+        <Boton variant="secondary" onClick={() => closePopUp()}>
           Cancelar
-        </Button>
+        </Boton>
         {tipoProducto ? (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            className="bg-gradient border-0"
-          >
+          <Boton onClick={handleGuardar} disabled={loading}>
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
               'Guardar cambios'
             )}
-          </Button>
+          </Boton>
         ) : (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            type="submit"
-            className="bg-gradient border-0"
-          >
+          <Boton onClick={handleGuardar} disabled={loading} type="submit">
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
               'Crear tipo de producto'
             )}
-          </Button>
+          </Boton>
         )}
       </Modal.Footer>
     </Modal>

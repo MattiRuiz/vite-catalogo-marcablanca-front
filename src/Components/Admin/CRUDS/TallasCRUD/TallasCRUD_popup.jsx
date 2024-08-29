@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
 
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+
+import { Boton } from '../../../../ui'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
   const [tallaData, setTallaData] = useState({
@@ -159,38 +161,25 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button
-          className="bg-gradient border-0"
-          variant="secondary"
-          onClick={() => closePopUp()}
-        >
-          Cancelar
-        </Button>
+        <Boton variant="secondary" onClick={() => closePopUp()}>
+          Cancel
+        </Boton>
         {talla ? (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            className="bg-gradient border-0"
-          >
+          <Boton onClick={handleGuardar} disabled={loading}>
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
               'Guardar cambios'
             )}
-          </Button>
+          </Boton>
         ) : (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            type="submit"
-            className="bg-gradient border-0"
-          >
+          <Boton onClick={handleGuardar} disabled={loading} type="submit">
             {loading ? (
               <Spinner animation="border" variant="light" size="sm" />
             ) : (
               'Crear medida'
             )}
-          </Button>
+          </Boton>
         )}
       </Modal.Footer>
     </Modal>

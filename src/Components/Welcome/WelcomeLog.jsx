@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Image, Ratio, Spinner, Card, Button } from 'react-bootstrap'
+import { Row, Col, Image, Ratio, Spinner, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 
-import todosLosProductos from '../../Images/all.webp'
-
 import { PiArrowRightBold } from 'react-icons/pi'
+
+import todosLosProductos from '../../Images/all.webp'
+import { Boton } from '../../ui'
 
 function WelcomeLog() {
   const [categorias, setCategorias] = useState([])
@@ -73,14 +74,14 @@ function WelcomeLog() {
         <Col xs={11}>
           <div className="d-flex justify-content-between align-items-end mb-3">
             <h2 className="fw-bold mb-0">Categorías</h2>
-            <Button
+            <Boton
               className="fw-bold text-primary d-flex align-items-center py-0 px-1"
               onClick={() => setMostrarMas(!mostrarMas)}
               variant="light"
             >
               {mostrarMas ? 'Ver menos' : 'Ver más'}{' '}
               <PiArrowRightBold className="ms-2" />
-            </Button>
+            </Boton>
           </div>
           <Row>
             {loading ? (
@@ -170,7 +171,7 @@ function WelcomeLog() {
         <Col xs={11} className="mt-4">
           <div className="d-flex justify-content-between align-items-end mb-3">
             <h2 className="fw-bold mb-0">Últimos productos</h2>
-            <Button
+            <Boton
               className="fw-bold text-primary d-flex align-items-center py-0 px-1"
               variant="light"
               as={Link}
@@ -178,7 +179,7 @@ function WelcomeLog() {
             >
               {mostrarMas ? 'Ver menos' : 'Ver más'}{' '}
               <PiArrowRightBold className="ms-2" />
-            </Button>
+            </Boton>
           </div>
           <Row>
             {loading ? (

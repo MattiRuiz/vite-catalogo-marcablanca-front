@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Col, Row, Button, Accordion, Badge, Spinner } from 'react-bootstrap'
+import { Col, Row, Accordion, Spinner } from 'react-bootstrap'
 
 import { getAllProductosAdmin } from '../../../../Functions/ProductosFunctions'
 
 import ProductosPopUp from './ProductosCRUD_popup'
 import PopUpEditarPrecio from '../PopUpEditPrecio'
 import ProductoCard from './ProductoCard'
+
+import { Boton } from '../../../../ui'
 
 const ProductoCRUD = () => {
   const [categorias, setCategorias] = useState([])
@@ -49,19 +51,12 @@ const ProductoCRUD = () => {
     <>
       <Col xs={12}>
         <div className="mb-2 border-bottom pb-2">
-          <Button
-            className="me-2 bg-gradient border-0"
-            onClick={() => openPopup()}
-          >
+          <Boton className="me-2" onClick={() => openPopup()}>
             Crear producto
-          </Button>
-          <Button
-            variant="light"
-            className="border-0"
-            onClick={() => setPopUpEditarPrecio(true)}
-          >
+          </Boton>
+          <Boton variant="light" onClick={() => setPopUpEditarPrecio(true)}>
             Editar grupos de precio
-          </Button>
+          </Boton>
         </div>
         {categorias.map((categoria) => (
           <Row className="py-3" key={categoria.id}>

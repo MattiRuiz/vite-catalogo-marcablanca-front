@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
 
 import { getAllMarcas } from '../../../Functions/MarcasFunctions'
 import { getAllTipoProductos } from '../../../Functions/TipoProductosFunctions'
 import { editPrecioEnGrupo } from '../../../Functions/ProductosFunctions'
+
+import { Boton } from '../../../ui'
 
 const PopUpEditPrecio = ({ closePopUp }) => {
   const [porcentaje, setPorcentaje] = useState('')
@@ -160,16 +162,16 @@ const PopUpEditPrecio = ({ closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Boton variant="secondary" onClick={() => closePopUp()}>
           Cancelar
-        </Button>
-        <Button onClick={handleGuardar} disabled={loading}>
+        </Boton>
+        <Boton onClick={handleGuardar} disabled={loading}>
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (
             'Enviar'
           )}
-        </Button>
+        </Boton>
       </Modal.Footer>
     </Modal>
   )

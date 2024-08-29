@@ -1,8 +1,10 @@
 import { useState, useContext } from 'react'
-import { Modal, Button, Spinner, Form, Alert } from 'react-bootstrap'
+import { Modal, Spinner, Form, Alert } from 'react-bootstrap'
 
 import { changePassword } from '../../Functions/ClienteFunctions'
 import LoginContext from '../../Context/LoginContext'
+
+import { Boton } from '../../ui'
 
 const ModalCambiarPassword = ({ closePopUp }) => {
   const { unauthorize } = useContext(LoginContext)
@@ -129,16 +131,16 @@ const ModalCambiarPassword = ({ closePopUp }) => {
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button variant="secondary" onClick={() => closePopUp()}>
+        <Boton variant="secondary" onClick={() => closePopUp()}>
           Cancelar
-        </Button>
-        <Button onClick={handleChangePassword}>
+        </Boton>
+        <Boton onClick={handleChangePassword}>
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (
             'Cambiar'
           )}
-        </Button>
+        </Boton>
       </Modal.Footer>
     </Modal>
   )

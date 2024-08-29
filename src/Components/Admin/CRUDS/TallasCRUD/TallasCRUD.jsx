@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Col, Button, Row, Spinner } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 
-import { getAllTallas } from '../../../../Functions/TallasFunctions'
+import {
+  getAllTallas,
+  deleteTalla,
+} from '../../../../Functions/TallasFunctions'
 
 import TallasPopUp from './TallasCRUD_popup'
-import PopUpBorrarTalla from './PopUpBorrarTalla'
+
+import { PiXCircleDuotone } from 'react-icons/pi'
+import { PopUp, Boton } from '../../../../ui'
 
 const TallasCRUD = () => {
   //#region Declaracion useState's
@@ -29,15 +34,15 @@ const TallasCRUD = () => {
     }
   }
 
-  const openPopUpBorrar = (talla) => {
-    setSelectedTalla(talla)
-    setPopUpBorrar(true)
-  }
-
   useEffect(() => {
     fetchData()
   }, [])
   //#endregion
+
+  const openPopUpBorrar = (talla) => {
+    setSelectedTalla(talla)
+    setPopUpBorrar(true)
+  }
 
   const openPopup = (marca) => {
     setSelectedTalla(marca)
@@ -45,16 +50,26 @@ const TallasCRUD = () => {
   }
   //#endregion
 
+  const handleDelete = async () => {
+    setLoading(true)
+    try {
+      const response = await deleteTalla(selectedTalla.id)
+      console.log('Medida eliminada', response)
+      fetchData()
+    } catch (e) {
+      alert('Hubo un problema al eliminar la medida')
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+      setPopUpBorrar(false)
+    }
+  }
+
   return (
     <>
       <Col xs={12}>
         <div className="mb-2 border-bottom pb-2">
-          <Button
-            className="border-0 bg-gradient"
-            onClick={() => openPopup(null)}
-          >
-            Crear medida
-          </Button>
+          <Boton onClick={() => openPopup(null)}>Crear medida</Boton>
         </div>
         <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>
@@ -123,14 +138,36 @@ const TallasCRUD = () => {
         )
         //#endregion
       }
-      {popUpBorrar ? (
-        <PopUpBorrarTalla
-          talla={selectedTalla}
-          onTallaUpdated={() => fetchData()}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar medida
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDelete}
+          loading={loading}
+        >
+          <p className="mb-2">¿Está seguro que desea borrar esta medida?</p>
+          <p className="mb-2 ms-1">
+            <strong>
+              {selectedTalla.nombre ? (
+                selectedTalla.nombre
+              ) : (
+                <em>(Sin nombre)</em>
+              )}{' '}
+            </strong>
+            -{' '}
+            {selectedTalla.dimensiones ? (
+              selectedTalla.dimensiones
+            ) : (
+              <em>(Sin medida)</em>
+            )}
+          </p>
+        </PopUp>
       )}
     </>
   )

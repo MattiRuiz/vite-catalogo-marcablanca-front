@@ -90,6 +90,11 @@ const changePassword = async (_id, _data) => {
   }
 }
 
+const getSuscripcion = async (_id) => {
+  const response = await axios(`${baseUrl}/api/subscripciones/${_id}`)
+  return response
+}
+
 export {
   getAllClientes,
   createCliente,
@@ -97,4 +102,5 @@ export {
   deleteCliente,
   clearData,
   changePassword,
+  getSuscripcion,
 }

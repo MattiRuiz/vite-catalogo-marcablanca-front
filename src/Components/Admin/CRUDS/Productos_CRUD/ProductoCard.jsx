@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
-import { Col, Row, Button, Image, Badge, Spinner, Ratio } from 'react-bootstrap'
+import { Col, Row, Image, Spinner, Ratio } from 'react-bootstrap'
 
-import { getProductoById } from '../../../../Functions/ProductosFunctions'
+import {
+  getProductoById,
+  deleteProducto,
+} from '../../../../Functions/ProductosFunctions'
+import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
 
-import PopUpBorrar from './PopUpBorrar'
+import { PopUp, Boton } from '../../../../ui'
+
 import ImagenesCRUD_popup from './ImagenesCRUD_popup'
 import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
-import PopUpBorrarTallaProducto from './PopUpBorrarTallaProducto'
 import PopUpEditPrecio from '../PopUpEditPrecio'
 
 import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'
@@ -52,6 +56,20 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     setPopUpBorrar(true)
   }
 
+  const handleDeleteProducto = async () => {
+    try {
+      const response = await deleteProducto(selectedProducto.id)
+      console.log('Producto eliminado', response)
+      onProductUpdate()
+      fetchData()
+    } catch (e) {
+      alert('Hubo un problema al eliminar un producto.')
+      console.error(e.message)
+    } finally {
+      setPopUpBorrar(false)
+    }
+  }
+
   const openPopUpImagenes = (producto) => {
     setSelectedProducto(producto)
     setPopUpImagenes(true)
@@ -61,6 +79,19 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     setSelectedTallaProducto(productoTalla)
     setSelectedProducto(producto)
     setPopUpBorrarTallaProducto(true)
+  }
+
+  const handleDeleteTallaProducto = async () => {
+    try {
+      const response = await deleteTallaProducto(selectedTallaProducto.id)
+      console.log('Talla producto eliminada', response)
+      fetchData()
+    } catch (e) {
+      alert('Hubo un problema al eliminar la medida del producto.')
+      console.error(e.message)
+    } finally {
+      setPopUpBorrarTallaProducto()
+    }
   }
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -94,13 +125,13 @@ const ProductoCard = ({ id, onProductUpdate }) => {
                   />
                 )}
               </Ratio>
-              <Button
-                className="position-absolute bottom-0 left-0 z-3 bg-opacity-10 border-0 rounded bg-gradient mb-2 ms-2"
+              <Boton
+                className="position-absolute bottom-0 left-0 mb-2 ms-2 z-3"
                 size="sm"
                 onClick={() => openPopUpImagenes(producto)}
               >
                 Editar carrusel
-              </Button>
+              </Boton>
             </Col>
             <Col
               xs={12}
@@ -174,32 +205,6 @@ const ProductoCard = ({ id, onProductUpdate }) => {
                         </button>
                       </div>
                     </div>
-                    {/* <ul className="list-unstyled d-flex justify-content-between align-items-start mb-0">
-                      <li className="d-flex align-items-center">
-                        <span className="texto-14 lh-1 fw-semibold text-muted">
-                          STOCK
-                        </span>{' '}
-                        {talla.stock ? (
-                          <PiCheckCircleDuotone className="text-success fs-5 ms-1" />
-                        ) : (
-                          <PiXCircleDuotone className="text-danger fs-5 ms-1" />
-                        )}
-                        <button
-                          className="me-1 py-0"
-                          onClick={() => openPopupTalla(talla, producto)}
-                        >
-                          <PiNotePencilBold />
-                        </button>
-                        <button
-                          className="me-1 py-0"
-                          onClick={() =>
-                            openPopUpBorrarTallaProducto(talla, producto)
-                          }
-                        >
-                          <PiTrashBold />
-                        </button>
-                      </li>
-                    </ul> */}
                     <div className="border border-top-0 rounded-bottom px-3 py-2">
                       <ul className="list-unstyled d-flex justify-content-between align-items-end mb-0">
                         <li>
@@ -268,27 +273,45 @@ const ProductoCard = ({ id, onProductUpdate }) => {
       ) : (
         <></>
       )}
-      {popUpBorrar ? (
-        <PopUpBorrar
-          producto={selectedProducto}
-          onProductoUpdated={() => {
-            onProductUpdate()
-            fetchData()
-          }}
+      {popUpBorrar && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar producto
+            </>
+          }
           closePopUp={() => setPopUpBorrar(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDeleteProducto}
+        >
+          <p>
+            ¿Está seguro que desea borrar el producto{' '}
+            <strong>{selectedProducto.nombre}</strong>?
+          </p>
+        </PopUp>
       )}
-      {popUpBorrarTallaProducto ? (
-        <PopUpBorrarTallaProducto
-          talla={selectedTallaProducto}
-          producto={selectedProducto}
-          onDataUpdated={() => fetchData()}
+      {popUpBorrarTallaProducto && (
+        <PopUp
+          header={
+            <>
+              <PiXCircleDuotone className="me-2 text-danger" />
+              Borrar medida de un producto
+            </>
+          }
           closePopUp={() => setPopUpBorrarTallaProducto(false)}
-        />
-      ) : (
-        <></>
+          buttonLabel="Borrar"
+          onAction={handleDeleteTallaProducto}
+        >
+          <p>
+            ¿Está seguro que desea borrar la medida{' '}
+            <strong>
+              {selectedTallaProducto.tallas.nombre}{' '}
+              {selectedTallaProducto.tallas.dimensiones}
+            </strong>{' '}
+            del producto <strong>{selectedProducto.nombre}</strong>?
+          </p>
+        </PopUp>
       )}
       {popUpEditarPrecio && (
         <PopUpEditPrecio

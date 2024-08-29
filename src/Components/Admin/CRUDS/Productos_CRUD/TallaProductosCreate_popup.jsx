@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
+
 import {
   createTallaProducto,
   updateTallaProducto,
@@ -7,6 +8,7 @@ import {
 import { getAllTallas } from '../../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+import { Boton } from '../../../../ui'
 
 const TallaProductoCreate_popup = ({
   selectedTallaProducto,
@@ -209,26 +211,16 @@ const TallaProductoCreate_popup = ({
         </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
-        <Button
-          variant="secondary"
-          className="bg-gradient border-0"
-          onClick={() => closePopUp()}
-        >
+        <Boton variant="secondary" onClick={() => closePopUp()}>
           Cancelar
-        </Button>
-        <Button
-          onClick={handleGuardar}
-          disabled={loading}
-          type="submit"
-          className="bg-gradient border-0"
-        >
-          {' '}
+        </Boton>
+        <Boton onClick={handleGuardar} disabled={loading} type="submit">
           {loading ? (
             <Spinner animation="border" variant="light" size="sm" />
           ) : (
             'Guardar'
           )}
-        </Button>
+        </Boton>
       </Modal.Footer>
     </Modal>
   )

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Col, Row, Button } from 'react-bootstrap'
-
+import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { PiCheckCircleDuotone } from 'react-icons/pi'
+
+import { Boton } from '../../ui'
 
 const Suscripcion = () => {
   const [plan, setPlan] = useState('mensual')
@@ -61,13 +62,9 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button
-                className="w-100 bg-gradient border-0"
-                as={Link}
-                to="/contacto"
-              >
+              <Boton className="w-100" as={Link} to="/contacto">
                 Comprar plan
-              </Button>
+              </Boton>
               <ul className="list-unstyled mt-4">
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
@@ -96,13 +93,9 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button
-                className="w-100 bg-gradient border-0"
-                as={Link}
-                to="/contacto"
-              >
+              <Boton className="w-100" as={Link} to="/contacto">
                 Comprar plan
-              </Button>
+              </Boton>
               <ul className="list-unstyled mt-4">
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
@@ -135,9 +128,9 @@ const Suscripcion = () => {
                   al {plan === 'mensual' ? 'mes' : 'año'}
                 </p>
               </div>
-              <Button className="w-100 border-0" variant="light">
+              <Boton variant="light" className="w-100">
                 Proximamente...
-              </Button>
+              </Boton>
               <ul className="list-unstyled mt-4">
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}

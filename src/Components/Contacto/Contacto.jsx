@@ -1,52 +1,43 @@
 import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-
-import { Col, Row, Form, Button, Alert, Spinner, Image } from 'react-bootstrap'
+import { Col, Row, Form, Spinner, Image } from 'react-bootstrap'
 
 import { PiMapPinLineDuotone, PiPhoneDuotone } from 'react-icons/pi'
-
 import { SiWhatsapp } from 'react-icons/si'
 
 import productos from '../../Images/all.webp'
 
+import { Boton, Input, Tostada } from '../../ui'
+
 const Contacto = () => {
   const form = useRef()
+  const [user, setUser] = useState()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
 
   const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
 
   const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
   const [alertMessage, setAlertMessage] = useState(
     'Ha ocurrido un error y no se ha podido enviar el mensaje, por favor intente más tarde.'
   )
   const [alertHeader, setAlertHeader] = useState('Hubo un problema')
 
-  const [user, setUser] = useState()
-
   const sendEmail = (e) => {
     e.preventDefault()
-    handleCloseAlert()
     setLoading(true)
 
-    // Validar si los campos requeridos están vacíos
-    const formData = new FormData(form.current)
-    const userName = formData.get('user_name')
-    const userEmail = formData.get('user_email')
-    const userMessage = formData.get('message')
-
-    if (!userName || !userEmail || !userMessage) {
-      alertDanger()
-      setAlertHeader('Error')
+    if (!name || !email || !message) {
+      setAlertVariant('danger')
+      setAlertHeader('Hubo un problema')
       setAlertMessage(
-        'Por favor, completa todos los campos antes de enviar el mensaje.'
+        'Por favor, complete todos los campos para enviar un mensaje.'
       )
-      handleShowAlert()
+      setShowAlert(true)
       setLoading(false)
-      return // Salir de la función si hay campos vacíos
+      return
     }
 
     emailjs
@@ -55,20 +46,20 @@ const Contacto = () => {
       })
       .then(
         () => {
-          alertSuccess()
-          setAlertHeader('Mensaje enviado')
+          setAlertVariant('success')
+          setAlertHeader('¡Mensaje enviado!')
           setAlertMessage('Su mensaje ha sido enviado con éxito.')
-          handleShowAlert()
-          console.log('SUCCESS!')
+          setShowAlert(true)
+
+          setName('')
+          setEmail('')
+          setMessage('')
         },
         (error) => {
-          alertDanger()
+          setAlertVariant('danger')
           setAlertHeader('Error')
-          setAlertMessage(
-            'Hubo un problema al enviar un mensaje, por favor intente más tarde.'
-          )
-          handleShowAlert()
-          console.log('FAILED...', error.text)
+          setAlertMessage(error.text)
+          setShowAlert(true)
         }
       )
 
@@ -79,8 +70,8 @@ const Contacto = () => {
     const userLoged = localStorage.getItem('userData')
     if (userLoged) {
       setUser(JSON.parse(userLoged))
+      setName(JSON.parse(userLoged).username) // Setear el nombre del usuario logueado
     }
-    console.log('effect', userLoged)
   }, [])
 
   return (
@@ -116,13 +107,13 @@ const Contacto = () => {
           </li>
 
           <li className="my-3">
-            <Button
-              className="d-inline-flex align-items-center bg-gradient border-0"
+            <Boton
+              className="d-inline-flex align-items-center"
               href="https://api.whatsapp.com/send?phone=5493413278887"
               target="_blank"
             >
               <SiWhatsapp className="fs-5 me-2" /> Envianos un Whatsapp
-            </Button>
+            </Boton>
           </li>
         </ul>
         <h3 className="fw-bold mt-4">O un mensaje:</h3>
@@ -132,30 +123,30 @@ const Contacto = () => {
         </p>
         <Form ref={form} onSubmit={sendEmail}>
           <Form.Label>Nombre:</Form.Label>
-          {console.log(user)}
           {user ? (
-            <Form.Control
+            <Input
               type="text"
               name="user_name"
               placeholder="Nombre"
-              className="mb-3"
-              value={user.username}
+              value={name}
               disabled
             />
           ) : (
-            <Form.Control
+            <Input
               type="text"
               name="user_name"
               placeholder="Nombre"
-              className="mb-3"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           )}
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
+          <Input
+            label="Email:"
             type="text"
             name="user_email"
             placeholder="Email"
-            className="mb-3"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Label>Mensaje:</Form.Label>
           <Form.Control
@@ -165,32 +156,26 @@ const Contacto = () => {
             placeholder="Escriba su mensaje aquí"
             className="mb-3"
             style={{ height: '100px' }}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
-          <Button
-            type="submit"
-            value="Send"
-            className="mt-2 bg-gradient border-0"
-          >
+          <Boton className="mt-2" type="submit" value="Send">
             Enviar
-          </Button>
+          </Boton>
         </Form>
         {loading ? (
           <Spinner className="my-3 d-block mx-auto" animation="border" />
         ) : (
           ''
         )}
-        <Alert
-          variant={alertVariant}
-          className="mt-4 mb-0"
-          onClose={handleCloseAlert}
+        <Tostada
           show={showAlert}
-          dismissible
+          onClose={() => setShowAlert(false)}
+          header={alertHeader}
+          variant={alertVariant}
         >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
           {alertMessage}
-        </Alert>
+        </Tostada>
       </Col>
     </Row>
   )

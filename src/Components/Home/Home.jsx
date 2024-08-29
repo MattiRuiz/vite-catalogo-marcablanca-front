@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Image } from 'react-bootstrap'
+import { useContext, useEffect } from 'react'
+import { Row, Col, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import maschico from '../../Images/maschico.jpg'
-import analitico from '../../Images/analitico.png'
-import analisis from '../../Images/analisis.png'
-import negocios from '../../Images/negocios-en-linea.png'
-import reporte from '../../Images/reporte-de-negocios.png'
+// import analitico from '../../Images/analitico.png'
+// import analisis from '../../Images/analisis.png'
+// import negocios from '../../Images/negocios-en-linea.png'
+// import reporte from '../../Images/reporte-de-negocios.png'
 
 import LoginContext from '../../Context/LoginContext'
+import { Boton } from '../../ui'
 
 import { PiArrowRightBold } from 'react-icons/pi'
 
@@ -56,21 +57,17 @@ function Home() {
             , sus fotos, precio y disponibilidad al momento.
           </p>
           <div className="d-flex gap-2">
-            <Button
-              as={Link}
-              to={'/suscripciones'}
-              className="bg-gradient border-0"
-            >
+            <Boton as={Link} to={'/suscripciones'}>
               Suscripciones
-            </Button>
-            <Button
+            </Boton>
+            <Boton
               as={Link}
               to={'/welcome'}
               variant="light"
               className="d-flex align-items-center"
             >
               Ver ventajas <PiArrowRightBold className="ms-2" />
-            </Button>
+            </Boton>
           </div>
         </Col>
       </Row>
