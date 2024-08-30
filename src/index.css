@@ -114,11 +114,9 @@ color: #999;
   border-color: white;
 } 
 
-/* .btn-secondary {
-  background-color: var(--black)!important;
-  border-color: var(--black)!important;
-  color: var(--secondary)!important;
-} */
+.modal-backdrop{
+  --bs-backdrop-opacity: 0.2;
+}
 
 .text-primary {
   color: var(--primary)
@@ -200,17 +198,6 @@ li button span.material-symbols-outlined{
 
 .alto-container {
 min-height: 90vh;
-}
-
-.overlay {
-  background: rgb(6,73,145);
-background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
-  z-index: 1; /* Asegura que esté encima de la imagen */
-}
-
-.overlay:hover {
-  background: rgb(6,73,145);
-background: linear-gradient(180deg, rgba(34, 34, 34, 0) 0%, rgba(34, 34, 34,0.6) 100%);
 }
 
 .carousel-control-next-icon, .carousel-control-prev-icon {

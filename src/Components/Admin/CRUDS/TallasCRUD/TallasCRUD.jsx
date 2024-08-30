@@ -11,23 +11,24 @@ import TallasPopUp from './TallasCRUD_popup'
 import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
-const TallasCRUD = () => {
-  //#region Declaracion useState's
+const TallasCRUD = ({ showToast }) => {
   const [tallas, setTallas] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedTalla, setSelectedTalla] = useState(null)
-  //#endregion
-
   const [loading, setLoading] = useState(false)
 
-  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     setLoading(true)
     try {
       const tallasRespone = await getAllTallas()
       setTallas(tallasRespone.data)
     } catch (e) {
+      showToast({
+        variant: 'danger',
+        header: 'Problema de carga',
+        message: 'Hubo un problema al actualizar la información.',
+      })
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -37,7 +38,6 @@ const TallasCRUD = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  //#endregion
 
   const openPopUpBorrar = (talla) => {
     setSelectedTalla(talla)
@@ -48,20 +48,23 @@ const TallasCRUD = () => {
     setSelectedTalla(marca)
     setPopUp(true)
   }
-  //#endregion
 
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const response = await deleteTalla(selectedTalla.id)
-      console.log('Medida eliminada', response)
+      await deleteTalla(selectedTalla.id)
+      showToast(
+        'success',
+        'Medida eliminada',
+        'La medida se ha eliminado con éxito.'
+      )
       fetchData()
+      setPopUpBorrar(false)
     } catch (e) {
-      alert('Hubo un problema al eliminar la medida')
+      showToast('danger', 'Error', 'Hubo un problema al eliminar la medida.')
       console.error(e.message)
     } finally {
       setLoading(false)
-      setPopUpBorrar(false)
     }
   }
 
@@ -115,29 +118,22 @@ const TallasCRUD = () => {
               </div>
             ))}
         </Row>
-        {loading ? (
+        {loading && (
           <Spinner
             variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
-        ) : (
-          ''
         )}
       </Col>
-      {
-        //#region Renderizado condicional PopUp
-        popUp ? (
-          <TallasPopUp
-            talla={selectedTalla}
-            onTallaUpdated={() => fetchData()}
-            closePopUp={() => setPopUp(false)}
-          />
-        ) : (
-          <></>
-        )
-        //#endregion
-      }
+      {popUp && (
+        <TallasPopUp
+          talla={selectedTalla}
+          onTallaUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+          showToast={showToast}
+        />
+      )}
       {popUpBorrar && (
         <PopUp
           header={

@@ -8,11 +8,11 @@ function Tostada({
   onClose,
   header,
   variant = 'danger',
-  delay = 4000,
+  delay = 3000,
 }) {
   return (
     <ToastContainer className="position-fixed bottom-0 end-0 mb-3 me-2 z-3">
-      <Toast show={show} onClose={onClose} delay={delay} autohide>
+      <Toast show={show} onClose={onClose} delay={delay} autohide={true}>
         <Toast.Header>
           <span className=" me-auto d-flex align-items-center">
             {variant === 'danger' && (

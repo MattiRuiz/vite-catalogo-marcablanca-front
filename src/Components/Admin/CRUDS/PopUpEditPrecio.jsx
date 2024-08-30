@@ -7,23 +7,11 @@ import { editPrecioEnGrupo } from '../../../Functions/ProductosFunctions'
 
 import { Boton } from '../../../ui'
 
-const PopUpEditPrecio = ({ closePopUp }) => {
+const PopUpEditPrecio = ({ onProductoUpdated, closePopUp, showToast }) => {
   const [porcentaje, setPorcentaje] = useState('')
   const [marcas, setMarcas] = useState()
   const [tipoProductos, setTipoProductos] = useState()
-
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
   const [selectedMarca, setSelectedMarca] = useState()
   const [selectedTipoProducto, setSelectedTipoProducto] = useState()
 
@@ -34,14 +22,12 @@ const PopUpEditPrecio = ({ closePopUp }) => {
       const tipoProductoResponse = await getAllTipoProductos()
       setTipoProductos(tipoProductoResponse.data)
     } catch (e) {
-      console.log(e.message)
-      alertDanger()
-      setAlertHeader('Error')
-      setAlertMessage(
-        'Hubo un problema al querer cargar las opciones de marca y tipo producto, por favor intente más tarde.'
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
       )
-      handleShowAlert()
-      setTimeout(() => handleCloseAlert(), 3000)
+      console.log(e.message)
     }
   }
 
@@ -51,47 +37,48 @@ const PopUpEditPrecio = ({ closePopUp }) => {
 
   const handleGuardar = async () => {
     setLoading(true)
+
     if (!porcentaje || !selectedMarca || !selectedTipoProducto) {
-      setLoading(false)
-      alertDanger()
-      setAlertHeader('Error')
-      setAlertMessage(
-        'Hay campos vacios, por favor complete el formulario para realizar el cambio.'
+      showToast(
+        'danger',
+        'Error',
+        'Hay campos vacíos, por favor complete todos los datos para continuar.'
       )
+      setLoading(false)
     } else {
       try {
         const aumento = (Number(porcentaje) + 100) / 100
+
         const dataToSend = {
           aumento,
           marcaId: Number(selectedMarca),
           tipoProducto_id: Number(selectedTipoProducto),
         }
-        console.log('dataToSend', dataToSend)
-
         const response = await editPrecioEnGrupo(dataToSend)
         setLoading(false)
+
         if (!response) {
-          alertDanger()
-          setAlertHeader('Error')
-          setAlertMessage('Hubo un problema al querer actualizar los precios.')
-          handleShowAlert()
-          setTimeout(() => handleCloseAlert(), 3000)
+          showToast(
+            'danger',
+            'Error',
+            'Hubo un problema al actualizar los precios.'
+          )
         } else {
-          alertSuccess()
-          setAlertHeader('Precios actualizados')
-          setAlertMessage('Los precios han sido modificados con éxito')
-          handleShowAlert()
-          setTimeout(() => {
-            closePopUp(), window.location.reload()
-          }, 2000)
+          showToast(
+            'success',
+            'Precios actualizados',
+            'Los precios han sido actualizados con éxito.'
+          )
+          onProductoUpdated()
+          closePopUp()
         }
-      } catch (error) {
-        console.log(error)
-        setAlertMessage(
+      } catch (e) {
+        console.error(e.message)
+        showToast(
+          'danger',
+          'Error',
           'Hubo un problema al querer ejecutar la función de precios.'
         )
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
       } finally {
         setLoading(false)
       }
@@ -148,18 +135,6 @@ const PopUpEditPrecio = ({ closePopUp }) => {
             </Form.Select>
           </Form.Group>
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer>
         <Boton variant="secondary" onClick={() => closePopUp()}>

@@ -4,17 +4,26 @@ import { Modal, Spinner, Form, Alert } from 'react-bootstrap'
 import { changePassword } from '../../Functions/ClienteFunctions'
 import LoginContext from '../../Context/LoginContext'
 
-import { Boton } from '../../ui'
+import { Boton, Tostada } from '../../ui'
 
 const ModalCambiarPassword = ({ closePopUp }) => {
   const { unauthorize } = useContext(LoginContext)
   const [loading, setLoading] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const [alertHeader, setAlertHeader] = useState('Error')
-  const [alertMessage, setAlertMessage] = useState(
-    'No se ha podido cambiar su contraseña'
-  )
+  const [toastConfig, setToastConfig] = useState({
+    show: false,
+    variant: 'danger',
+    header: '',
+    message: '',
+  })
+
+  const handleShowToast = (variant, header, message) => {
+    setToastConfig({
+      show: true,
+      variant,
+      header,
+      message,
+    })
+  }
 
   const [oldPass, setOldPass] = useState('')
   const [newPass, setNewPass] = useState('')
@@ -30,54 +39,50 @@ const ModalCambiarPassword = ({ closePopUp }) => {
   }
 
   const handleChangePassword = async () => {
-    const userData = JSON.parse(window.localStorage.getItem('userData'))
+    const userData = JSON.parse(localStorage.getItem('userData'))
     setLoading(true)
-    setShowAlert(false)
+
     if (!userData) {
-      setAlertVariant('danger')
-      setAlertHeader('Cuenta no logueada')
-      setAlertMessage(
-        'Su cuenta no se encuentra logueada, por favor acceda nuevamente para poder cambiar la contraseña.'
+      handleShowToast(
+        'danger',
+        'Cuenta no logueada',
+        'Su cuenta no se encuentra logueada, por favor ingrese nuevamente para poder continuar.'
       )
-      setShowAlert(true)
-      setTimeout(() => unauthorize(), 4000)
+      setTimeout(() => unauthorize(), 3000)
     } else if (newPass != newPassRep) {
-      setAlertVariant('danger')
-      setAlertHeader('Error')
-      setAlertMessage(
+      handleShowToast(
+        'danger',
+        'Error',
         'Las contraseñas nuevas no coinciden, por favor revise esa información e intente de nuevo.'
       )
-      setShowAlert(true)
     } else if (!oldPass || !newPass || !newPassRep) {
-      setAlertVariant('danger')
-      setAlertHeader('Error')
-      setAlertMessage('Hay campos que se encuentran vacíos.')
-      setShowAlert(true)
+      handleShowToast('danger', 'Error', 'Hay campos que se encuentran vacíos.')
     } else if (newPass.length < 2) {
-      setAlertVariant('danger')
-      setAlertHeader('Error')
-      setAlertMessage(
+      handleShowToast(
+        'danger',
+        'Error',
         'El largo de la contraseña nueva debe de ser mayor a 6 caracteres.'
       )
-      setShowAlert(true)
     } else {
       const dataToSend = {
         newPassword: newPass,
         password: oldPass,
         confirmPassword: newPassRep,
       }
-
       const response = await changePassword(userData.id, dataToSend)
+
       if (!response) {
-        setAlertVariant('danger')
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al actualizar la contraseña.')
-        setShowAlert(true)
+        handleShowToast(
+          'danger',
+          'Error',
+          'Hubo un problema al actualizar la contraseña.'
+        )
       } else {
-        setAlertVariant('success')
-        setAlertHeader('Contraseña actualizada')
-        setAlertMessage('La contraseña ha sido actualizada con éxito.')
-        setShowAlert(true)
+        handleShowToast(
+          'success',
+          'Contraseña actualizada',
+          'La contraseña ha sido actualizada con éxito.'
+        )
         deleteInputs()
       }
     }
@@ -117,18 +122,14 @@ const ModalCambiarPassword = ({ closePopUp }) => {
             onChange={handleNewPassRep}
           />
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          dismissible
+        <Tostada
+          show={toastConfig.show}
+          onClose={() => setToastConfig({ ...toastConfig, show: false })}
+          header={toastConfig.header}
+          variant={toastConfig.variant}
         >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
+          {toastConfig.message}
+        </Tostada>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Boton variant="secondary" onClick={() => closePopUp()}>

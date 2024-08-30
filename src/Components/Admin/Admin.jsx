@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container, Row, Col, Form, Modal } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import TallasCRUD from './CRUDS/TallasCRUD/TallasCRUD'
@@ -9,12 +9,30 @@ import ProductosCRUD from './CRUDS/Productos_CRUD/ProductosCRUD'
 import ClientesCRUD from './CRUDS/Clientes_CRUD/ClientesCRUD'
 import NotFound from '../404/NotFund'
 
+import { Tostada } from '../../ui'
+
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState('productos')
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
   const auth = userParsed.esAdmin
+
+  const [toastConfig, setToastConfig] = useState({
+    show: false,
+    variant: 'danger',
+    header: '',
+    message: '',
+  })
+
+  const handleShowToast = (variant, header, message) => {
+    setToastConfig({
+      show: true,
+      variant,
+      header,
+      message,
+    })
+  }
 
   return (
     <>
@@ -91,14 +109,34 @@ const Admin = () => {
                 </Form.Group>
               </Col>
               <Col xs={12} className="">
-                {selectedEntity === 'medidas' && <TallasCRUD />}
-                {selectedEntity === 'tipo de producto' && <TipoProductoCRUD />}
-                {selectedEntity === 'marcas' && <MarcasCRUD />}
-                {selectedEntity === 'productos' && <ProductosCRUD />}
-                {selectedEntity === 'clientes' && <ClientesCRUD />}
+                {selectedEntity === 'medidas' && (
+                  <TallasCRUD showToast={handleShowToast} />
+                )}
+                {selectedEntity === 'tipo de producto' && (
+                  <TipoProductoCRUD showToast={handleShowToast} />
+                )}
+                {selectedEntity === 'marcas' && (
+                  <MarcasCRUD showToast={handleShowToast} />
+                )}
+                {selectedEntity === 'productos' && (
+                  <ProductosCRUD showToast={handleShowToast} />
+                )}
+                {selectedEntity === 'clientes' && (
+                  <ClientesCRUD showToast={handleShowToast} />
+                )}
               </Col>
             </Col>
           </Row>
+          {toastConfig.show && (
+            <Tostada
+              show={toastConfig.show}
+              onClose={() => setToastConfig({ ...toastConfig, show: false })}
+              header={toastConfig.header}
+              variant={toastConfig.variant}
+            >
+              {toastConfig.message}
+            </Tostada>
+          )}
         </>
       ) : (
         <NotFound></NotFound>

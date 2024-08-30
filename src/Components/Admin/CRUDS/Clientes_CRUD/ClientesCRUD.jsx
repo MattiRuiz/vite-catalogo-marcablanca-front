@@ -11,23 +11,24 @@ import ClientesPopup from './ClientesCRUD_popup'
 import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
-const ClientesCRUD = () => {
-  //#region Declaracion useState's
+const ClientesCRUD = ({ showToast }) => {
   const [clientes, setClientes] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedCliente, setSelectedCliente] = useState(null)
-  //#endregion
-
   const [loading, setLoading] = useState(false)
 
-  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     setLoading(true)
     try {
       const clientesResponse = await getAllClientes()
       setClientes(clientesResponse.data)
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -37,13 +38,11 @@ const ClientesCRUD = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  //#endregion
 
   const openPopup = (cliente) => {
     setSelectedCliente(cliente)
     setPopUp(true)
   }
-  //#endregion
 
   const openPopUpBorrar = (cliente) => {
     setSelectedCliente(cliente)
@@ -53,15 +52,19 @@ const ClientesCRUD = () => {
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const response = await deleteCliente(selectedCliente.id)
-      console.log('Cliente eliminado', response)
+      await deleteCliente(selectedCliente.id)
+      showToast(
+        'success',
+        'Cliente eliminado',
+        'El cliente se ha eliminado con éxito.'
+      )
       fetchData()
+      setPopUpBorrar(false)
     } catch (e) {
-      alert('Hubo un problema al eliminar un cliente.')
+      showToast('danger', 'Error', 'Hubo un problema al eliminar el cliente.')
       console.error(e.message)
     } finally {
       setLoading(false)
-      setPopUpBorrar(false)
     }
   }
 
@@ -111,29 +114,22 @@ const ClientesCRUD = () => {
             </div>
           ))}
         </div>
-        {loading ? (
+        {loading && (
           <Spinner
             variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
-        ) : (
-          ''
         )}
       </Col>
-      {
-        //#region Renderizado condicional PopUp
-        popUp ? (
-          <ClientesPopup
-            cliente={selectedCliente}
-            onClienteUpdated={() => fetchData()}
-            closePopUp={() => setPopUp(false)}
-          />
-        ) : (
-          <></>
-        )
-        //#endregion
-      }
+      {popUp && (
+        <ClientesPopup
+          cliente={selectedCliente}
+          onClienteUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+          showToast={showToast}
+        />
+      )}
       {popUpBorrar && (
         <PopUp
           header={

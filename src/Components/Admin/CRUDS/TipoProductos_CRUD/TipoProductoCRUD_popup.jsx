@@ -1,14 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  Form,
-  Modal,
-  Alert,
-  Spinner,
-  Image,
-  Row,
-  Col,
-  Ratio,
-} from 'react-bootstrap'
+import { Form, Modal, Spinner, Image, Row, Col, Ratio } from 'react-bootstrap'
 
 import {
   createTipoProducto,
@@ -23,44 +14,30 @@ const TallasCRUD_popup = ({
   tipoProducto,
   onTipoProductoUpdated,
   closePopUp,
+  showToast,
 }) => {
-  const [tallaData, setTallaData] = useState({
+  const [tipoProductoData, setTipoProductoData] = useState({
     nombre: '',
     imagen: '',
   })
-
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
   const [loadingImagen, setLoadingImagen] = useState(false)
 
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
-  //#region UseEffect
   useEffect(() => {
     if (tipoProducto) {
-      setTallaData({
+      setTipoProductoData({
         nombre: tipoProducto.nombre || '',
         imagen: tipoProducto.imagen || '',
       })
     }
   }, [tipoProducto])
-  //#endregion
 
-  //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
     setLoading(true)
-    const dataToSend = {
-      ...tallaData,
-    }
 
+    const dataToSend = {
+      ...tipoProductoData,
+    }
     const formDataForAPI = new FormData()
     formDataForAPI.append('nombre', dataToSend.nombre)
     formDataForAPI.append('imagen', dataToSend.imagen)
@@ -71,51 +48,48 @@ const TallasCRUD_popup = ({
       const response = await updateTipoProducto(id, formDataForAPI)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage(
-          'Hubo un problema al querer actualizar el tipo de producto.'
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al actualizar el tipo de producto.'
         )
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
       } else {
-        alertSuccess()
-        setAlertHeader('Tipo de producto actualizado')
-        setAlertMessage('El tipo de producto ha sido actualizada con éxito.')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Tipo de producto actualizado',
+          ' El tipo de producto ha sido actualizado con éxito.'
+        )
         onTipoProductoUpdated()
+        closePopUp()
       }
     } else {
       const response = await createTipoProducto(formDataForAPI)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear un tipo de producto nuevo.')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al crear un tipo de producto.'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Tipo de producto creado')
-        setAlertMessage('El tipo de producto ha sido creado con éxito.')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Tipo de producto creado',
+          'El tipo de producto ha sido creado con éxito.'
+        )
         onTipoProductoUpdated()
+        closePopUp()
       }
     }
   }
-  //#endregion
 
-  //#region Handle de todos los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target
-    setTallaData((prevData) => ({
+    setTipoProductoData((prevData) => ({
       ...prevData,
       [name]: value,
     }))
   }
-  //#endregion
 
   const handleCambiarImagen = async (event) => {
     setLoadingImagen(true)
@@ -131,10 +105,18 @@ const TallasCRUD_popup = ({
     const id = tipoProducto.id
 
     try {
-      const response = await updateTipoProducto(id, formDataForAPI)
-      console.log('Imagen editada', response)
+      await updateTipoProducto(id, formDataForAPI)
+      showToast(
+        'success',
+        'Imagen editada',
+        'La imagen ha sido editada con éxito.'
+      )
     } catch (e) {
-      console.log('Error al editar una imagen', response)
+      showToast(
+        'danger',
+        'Error',
+        'Hubo un problema al querer modificar la imagen.'
+      )
     }
     setLoadingImagen(false)
     closePopUp()
@@ -157,7 +139,6 @@ const TallasCRUD_popup = ({
           )}
         </Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form>
           <Form.Group>
@@ -167,7 +148,7 @@ const TallasCRUD_popup = ({
               className="mb-3"
               placeholder="Nombre"
               name="nombre"
-              value={tallaData.nombre}
+              value={tipoProductoData.nombre}
               onChange={handleInputChange}
             />
             {tipoProducto ? (
@@ -221,25 +202,16 @@ const TallasCRUD_popup = ({
                   type="file"
                   name="imagen"
                   onChange={(e) =>
-                    setTallaData({ ...tallaData, imagen: e.target.files[0] })
+                    setTipoProductoData({
+                      ...tipoProductoData,
+                      imagen: e.target.files[0],
+                    })
                   }
                 />
               </>
             )}
           </Form.Group>
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Boton variant="secondary" onClick={() => closePopUp()}>

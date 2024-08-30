@@ -1,28 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Button, Form, Modal, Spinner } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
-const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
-  const [loading, setLoading] = useState(false)
-
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
+const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
   const [marcaData, setMarcaData] = useState({
     nombre: '',
   })
+  const [loading, setLoading] = useState(false)
 
-  //#region UseEffect
   useEffect(() => {
     if (marca) {
       setMarcaData({
@@ -30,66 +17,61 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
       })
     }
   }, [marca])
-  //#endregion
 
-  //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
     setLoading(true)
+
     const dataToSend = {
       ...marcaData,
     }
 
     if (!dataToSend.nombre) {
-      alertDanger()
-      setAlertHeader('Error')
-      setAlertMessage(
+      showToast(
+        'danger',
+        'Error',
         'Hay campos vacíos, por favor complete todos los datos para continuar.'
       )
       setLoading(false)
-      handleShowAlert()
     } else if (marca) {
       const id = marca.id
-
       const response = await updateMarca(id, dataToSend)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar la marca')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
-        console.log(response)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al querer actualizar la marca.'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Marca actualizada')
-        setAlertMessage('La marca ha sido actualizada con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Marca actualizada',
+          'La marca ha sido actualizada con éxito.'
+        )
         onMarcaUpdated()
-        console.log(response)
+        closePopUp()
       }
     } else {
       const response = await createMarca(dataToSend)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear una marca nueva')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al crear una marca nueva.'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Marca creada')
-        setAlertMessage('La marca ha sido creada con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Marca creada',
+          'La marca ha sido creada con éxito.'
+        )
         onMarcaUpdated()
+        closePopUp()
       }
     }
   }
-  //#endregion
 
-  //#region Handle de todos los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setMarcaData((prevData) => ({
@@ -97,7 +79,6 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
       [name]: value,
     }))
   }
-  //#endregion
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
@@ -129,18 +110,6 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp }) => {
             />
           </Form.Group>
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Button

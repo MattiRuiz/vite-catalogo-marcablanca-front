@@ -11,23 +11,24 @@ import MarcasPopUp from './MarcasCRUD_popup'
 import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
-const MarcasCRUD = () => {
-  //#region Declaracion useState's
+const MarcasCRUD = ({ showToast }) => {
   const [marcas, setMarcas] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedMarca, setSelectedMarca] = useState(null)
-  //#endregion
-
   const [loading, setLoading] = useState(false)
 
-  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     setLoading(true)
     try {
       const marcasRespone = await getAllMarcas()
       setMarcas(marcasRespone.data)
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -37,13 +38,11 @@ const MarcasCRUD = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  //#endregion
 
   const openPopup = (marca) => {
     setSelectedMarca(marca)
     setPopUp(true)
   }
-  //#endregion
 
   const openPopUpBorrar = (marca) => {
     setSelectedMarca(marca)
@@ -53,15 +52,19 @@ const MarcasCRUD = () => {
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const response = await deleteMarca(selectedMarca.id)
-      console.log('Marca eliminada', response)
+      await deleteMarca(selectedMarca.id)
+      showToast(
+        'success',
+        'Marca eliminada',
+        'La marca se ha eliminado con éxito.'
+      )
       fetchData()
+      setPopUpBorrar(false)
     } catch (e) {
-      alert('Hubo un problema al eliminar una marca.')
+      showToast('danger', 'Error', 'Hubo un problema al eliminar la marca.')
       console.error(e.message)
     } finally {
       setLoading(false)
-      setPopUpBorrar(false)
     }
   }
 
@@ -107,29 +110,22 @@ const MarcasCRUD = () => {
               </div>
             ))}
         </Row>
-        {loading ? (
+        {loading && (
           <Spinner
             variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
-        ) : (
-          ''
         )}
       </Col>
-      {
-        //#region Renderizado condicional PopUp
-        popUp ? (
-          <MarcasPopUp
-            marca={selectedMarca}
-            onMarcaUpdated={() => fetchData()}
-            closePopUp={() => setPopUp(false)}
-          />
-        ) : (
-          <></>
-        )
-        //#endregion
-      }
+      {popUp && (
+        <MarcasPopUp
+          marca={selectedMarca}
+          onMarcaUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+          showToast={showToast}
+        />
+      )}
       {popUpBorrar && (
         <PopUp
           header={

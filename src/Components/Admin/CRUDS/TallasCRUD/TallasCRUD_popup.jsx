@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form, Modal, Spinner } from 'react-bootstrap'
 
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
 
@@ -7,26 +7,13 @@ import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 import { Boton } from '../../../../ui'
 
-const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
+const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
   const [tallaData, setTallaData] = useState({
     nombre: '',
     dimensiones: '',
   })
-
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
 
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
-  //#region UseEffect
   useEffect(() => {
     if (talla) {
       setTallaData({
@@ -35,9 +22,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       })
     }
   }, [talla])
-  //#endregion
 
-  //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
     setLoading(true)
     const dataToSend = {
@@ -45,51 +30,48 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
     }
 
     if (!dataToSend.nombre && !dataToSend.dimensiones) {
-      alertDanger()
-      setAlertHeader('Error')
-      setAlertMessage('Ambos campos no pueden encontrarse vacíos.')
+      showToast('danger', 'Error', 'Ambos campos no pueden encontrarse vacíos.')
       setLoading(false)
-      handleShowAlert()
     } else if (talla) {
       const id = talla.id
       const response = await updateTalla(id, dataToSend)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar la medida.')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 2000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al actualizar la medida.'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Medida actualizada')
-        setAlertMessage('La medida ha sido actualizada con éxito.')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Medida actualizada',
+          'La medida ha sido actualizada con éxito.'
+        )
         onTallaUpdated()
+        closePopUp()
       }
       setLoading(false)
     } else {
       const response = await createTalla(dataToSend)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear una medida nueva')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al crear una medida nueva'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Medida creada')
-        setAlertMessage('La medida ha sido creada con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Medida creada',
+          'La medida ha sido creada con éxito'
+        )
         onTallaUpdated()
+        closePopUp()
       }
       setLoading(false)
     }
   }
-  //#endregion
 
-  //#region Handle de todos los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setTallaData((prevData) => ({
@@ -97,7 +79,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
       [name]: value,
     }))
   }
-  //#endregion
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
@@ -147,18 +128,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp }) => {
             </em>
           </p>
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Boton variant="secondary" onClick={() => closePopUp()}>

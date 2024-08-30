@@ -16,7 +16,7 @@ import {
   PiXCircleDuotone,
 } from 'react-icons/pi'
 
-const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
+const ImagenesCRUD_popup = ({ producto, closePopUp, showToast }) => {
   const [loading, setLoading] = useState(false)
   const [imagenes, setImagenes] = useState(null)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
@@ -28,6 +28,11 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
       const response = await getImagenesPorProducto(producto.id)
       setImagenes(response.data)
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -40,16 +45,34 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
 
   const handleAgregarImagen = async (event) => {
     setLoading(true)
+
     const dataToSend = {
       imagen: event.target.files[0],
       idProducto: producto.id,
     }
+
     const formDataForAPI = new FormData()
     formDataForAPI.append('imagen', dataToSend.imagen)
     formDataForAPI.append('idProducto', dataToSend.idProducto)
-    const response = await createImagen(formDataForAPI)
-    setLoading(false)
-    fetchImagenes()
+
+    try {
+      await createImagen(formDataForAPI)
+      showToast(
+        'success',
+        'Imagen agregada',
+        'La imagen ha sido agregada al carrusel con éxito.'
+      )
+      fetchImagenes()
+    } catch (e) {
+      showToast(
+        'danger',
+        'Error',
+        'Hubo un problema al agregar una imagen al carrusel.'
+      )
+      console.error(e.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const openPopUpBorrar = (imagen) => {
@@ -60,15 +83,20 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
   const handleDelete = async () => {
     setLoading(true)
     try {
-      const response = await deleteImagen(selectedImagen.id)
-      console.log('Imagen eliminada', response)
+      await deleteImagen(selectedImagen.id)
+      showToast(
+        'success',
+        'Imagen eliminada',
+        'La imagen ha sido eliminada del carrusel con éxito.'
+      )
       fetchImagenes()
+      setPopUpBorrar(false)
     } catch (e) {
       alert('Hubo un problema al eliminar la imagen.')
+      showToast('danger', 'Error', 'Hubo un problema al eliminar una imagen.')
       console.error(e.message)
     } finally {
       setLoading(false)
-      setPopUpBorrar(false)
     }
   }
 
@@ -111,7 +139,7 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                 </Ratio>
               </label>
             </Col>
-            {imagenes ? (
+            {imagenes &&
               imagenes.map((imagen, index) => (
                 <Col xs={4} key={index} className="position-relative mb-3">
                   <Ratio aspectRatio="1x1" className="border rounded">
@@ -122,15 +150,6 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                       fluid
                     />
                   </Ratio>
-                  {/* <Button
-                    variant="danger"
-                    size="sm"
-                    className="position-absolute bg-gradient border-0"
-                    style={{ top: '5px', right: '16px' }}
-                    onClick={() => openPopUpBorrar(imagen)}
-                  >
-                    <PiTrashBold />
-                  </Button> */}
                   <Boton
                     variant="danger"
                     size="sm"
@@ -141,16 +160,11 @@ const ImagenesCRUD_popup = ({ producto, closePopUp }) => {
                     <PiTrashBold />
                   </Boton>
                 </Col>
-              ))
-            ) : (
-              <></>
-            )}
-            {loading ? (
+              ))}
+            {loading && (
               <Col xs={4} className="d-flex align-items-center">
                 <Spinner className="my-3 d-block mx-auto" animation="border" />
               </Col>
-            ) : (
-              ''
             )}
           </Row>
         </Modal.Body>

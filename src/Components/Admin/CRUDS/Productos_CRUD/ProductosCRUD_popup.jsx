@@ -3,7 +3,6 @@ import {
   Button,
   Form,
   Modal,
-  Alert,
   Spinner,
   Image,
   Row,
@@ -25,6 +24,7 @@ const ProductosCRUD_popup = ({
   selectedCategoria,
   onProductoUpdated,
   closePopUp,
+  showToast,
 }) => {
   const [productoData, setProductoData] = useState({
     nombre: '',
@@ -36,22 +36,9 @@ const ProductosCRUD_popup = ({
   })
   const [marcas, setMarcas] = useState([])
   const [categorias, setCategorias] = useState([])
-
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
   const [loadingImagen, setLoadingImagen] = useState(false)
 
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
-  //#region UseEffect
   useEffect(() => {
     if (producto) {
       setProductoData({
@@ -64,17 +51,20 @@ const ProductosCRUD_popup = ({
       })
     }
   }, [producto])
-  //#endregion
 
   const fetchData = async () => {
     setLoading(true)
     try {
       const responseMarcas = await getAllMarcas()
       setMarcas(responseMarcas.data)
-
       const responseCategorias = await getAllTipoProductos()
       setCategorias(responseCategorias.data)
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -85,13 +75,12 @@ const ProductosCRUD_popup = ({
     fetchData()
   }, [])
 
-  //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
     setLoading(true)
+
     const dataToSend = {
       ...productoData,
     }
-
     const formDataForAPI = new FormData()
     formDataForAPI.append('nombre', dataToSend.nombre)
     formDataForAPI.append('descripcion', dataToSend.descripcion)
@@ -102,45 +91,44 @@ const ProductosCRUD_popup = ({
 
     if (producto) {
       const id = producto.id
-
       const response = await updateProducto(id, formDataForAPI)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar el producto')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al querer actualizar el producto'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Producto actualizado')
-        setAlertMessage('El producto ha sido actualizada con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Producto actualizado',
+          'El producto ha sido actualizada con éxito'
+        )
+        onProductoUpdated()
+        closePopUp()
       }
-      onProductoUpdated()
     } else {
       const response = await createProducto(formDataForAPI)
       setLoading(false)
       if (response.status === 200) {
-        alertSuccess()
-        setAlertHeader('Producto creado')
-        setAlertMessage('El producto ha sido creado con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Producto creado',
+          'El producto ha sido creado con éxito.'
+        )
+        onProductoUpdated()
+        closePopUp()
       } else {
-        alertDanger()
-        setAlertHeader('Error al crear un producto:')
-        setAlertMessage(`${response.data}`)
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 4000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al crear un nuevo producto.'
+        )
       }
-      onProductoUpdated()
     }
   }
-  //#endregion
 
-  //#region Handle de todos los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setProductoData((prevData) => ({
@@ -148,10 +136,10 @@ const ProductosCRUD_popup = ({
       [name]: value,
     }))
   }
-  //#endregion
 
   const handleCambiarImagen = async (event) => {
     setLoadingImagen(true)
+
     const dataToSend = {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
@@ -160,7 +148,6 @@ const ProductosCRUD_popup = ({
       tipoProductoId: selectedCategoria,
       adminsId: 1,
     }
-
     const formDataForAPI = new FormData()
     formDataForAPI.append('nombre', dataToSend.nombre)
     formDataForAPI.append('descripcion', dataToSend.descripcion)
@@ -174,12 +161,18 @@ const ProductosCRUD_popup = ({
     try {
       const response = await updateProducto(id, formDataForAPI)
       console.log('Imagen editada', response)
+      showToast(
+        'success',
+        'Imagen editada',
+        'La imagen ha sido editada con éxito.'
+      )
+      onProductoUpdated()
+      closePopUp()
     } catch (e) {
-      console.log('Error al editar una imagen', response)
+      showToast('danger', 'Error', 'Hubo un problema al reemplazar la imagen.')
+      console.error(e.message)
     }
     setLoadingImagen(false)
-    onProductoUpdated()
-    closePopUp()
   }
 
   return (
@@ -197,7 +190,6 @@ const ProductosCRUD_popup = ({
           )}
         </Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form>
           <Form.Group>
@@ -325,18 +317,6 @@ const ProductosCRUD_popup = ({
         <p className="mb-0 mt-2 texto-14">
           <span className="text-danger">*</span> Elementos obligatorios
         </p>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Button

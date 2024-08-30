@@ -11,15 +11,14 @@ import TipoProductosPopUp from './TipoProductoCRUD_popup'
 import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
-const TipoProductoCRUD = () => {
-  //#region Declaracion useState's
+const TipoProductoCRUD = ({ showToast }) => {
   const [tipoProductos, setTipoProductos] = useState([])
   const [popUp, setPopUp] = useState(false)
   const [popUpBorrar, setPopUpBorrar] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [selectedTipoProducto, setSelectedTipoProducto] = useState(null)
-  //#endregion
-
   const [imagenErrors, setImagenErrors] = useState({})
+
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
       ...prevErrors,
@@ -27,15 +26,17 @@ const TipoProductoCRUD = () => {
     }))
   }
 
-  const [loading, setLoading] = useState(false)
-
-  //#region Data inicial useEffect(clientes)
   const fetchData = async () => {
     setLoading(true)
     try {
       const tallasRespone = await getAllTipoProductos()
       setTipoProductos(tallasRespone.data)
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -45,33 +46,38 @@ const TipoProductoCRUD = () => {
   useEffect(() => {
     fetchData()
   }, [])
-  //#endregion
 
   const openPopup = (tipoProducto) => {
     setSelectedTipoProducto(tipoProducto)
     setPopUp(true)
   }
-  //#endregion
 
   const openPopUpBorrar = (tipoProducto) => {
     setSelectedTipoProducto(tipoProducto)
     setPopUpBorrar(true)
   }
 
-  //#region Handle elminar cliente
   const handleDelete = async () => {
     try {
-      const response = await deleteTipoProducto(selectedTipoProducto.id)
-      console.log('Tipo producto eliminado', response)
+      await deleteTipoProducto(selectedTipoProducto.id)
+      showToast(
+        'success',
+        'Tipo de producto eliminado',
+        'El tipo de producto se ha eliminado con éxito.'
+      )
       fetchData()
+      setPopUpBorrar(false)
     } catch (e) {
+      showToast(
+        'danger',
+        'Error',
+        'Hubo un problema al eliminar el tipo de producto.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
-      setPopUpBorrar(false)
     }
   }
-  //#endregion
 
   return (
     <>
@@ -92,7 +98,6 @@ const TipoProductoCRUD = () => {
                 className="tipoproducto-preview rounded-top"
               >
                 {imagenErrors[tipoProducto.id] ? (
-                  // Mostrar elemento alternativo en caso de error
                   <div className="w-100 h-100 d-flex align-items-center justify-content-center border rounded-3toptext-center">
                     <p className="texto-14 mb-0 color-grisclaro">
                       <strong>Sin imágen</strong>
@@ -125,29 +130,22 @@ const TipoProductoCRUD = () => {
             </div>
           ))}
         </div>
-        {loading ? (
+        {loading && (
           <Spinner
             variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
-        ) : (
-          ''
         )}
       </Col>
-      {
-        //#region Renderizado condicional PopUp
-        popUp ? (
-          <TipoProductosPopUp
-            tipoProducto={selectedTipoProducto}
-            onTipoProductoUpdated={() => fetchData()}
-            closePopUp={() => setPopUp(false)}
-          />
-        ) : (
-          <></>
-        )
-        //#endregion
-      }
+      {popUp && (
+        <TipoProductosPopUp
+          tipoProducto={selectedTipoProducto}
+          onTipoProductoUpdated={() => fetchData()}
+          closePopUp={() => setPopUp(false)}
+          showToast={showToast}
+        />
+      )}
       {popUpBorrar && (
         <PopUp
           header={

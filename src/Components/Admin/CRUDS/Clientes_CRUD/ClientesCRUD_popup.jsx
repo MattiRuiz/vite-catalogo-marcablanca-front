@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Button, Form, Modal, Spinner } from 'react-bootstrap'
 
 import {
   createCliente,
@@ -8,7 +8,12 @@ import {
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
-const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
+const ClientesCRUD_popup = ({
+  cliente,
+  onClienteUpdated,
+  closePopUp,
+  showToast,
+}) => {
   const [clienteData, setClienteData] = useState({
     nombre: '',
     apellido: '',
@@ -16,21 +21,8 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
     password: '',
   })
   const [edit, setEdit] = useState(false)
-
-  const [showAlert, setShowAlert] = useState(false)
-  const handleShowAlert = () => setShowAlert(true)
-  const handleCloseAlert = () => setShowAlert(false)
   const [loading, setLoading] = useState(false)
 
-  const [alertVariant, setAlertVariant] = useState('danger')
-  const alertDanger = () => setAlertVariant('danger')
-  const alertSuccess = () => setAlertVariant('success')
-  const [alertMessage, setAlertMessage] = useState(
-    'Ha ocurrido un error, por favor intente más tarde'
-  )
-  const [alertHeader, setAlertHeader] = useState('Error')
-
-  //#region UseEffect
   useEffect(() => {
     if (cliente) {
       setClienteData({
@@ -41,63 +33,57 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
       })
     }
   }, [cliente])
-  //#endregion
 
-  //#region Handle guardar cambios (CREAR O EDITAR)
   const handleGuardar = async () => {
     setLoading(true)
+
     const dataToSend = {
       ...clienteData,
     }
 
     if (!dataToSend.nombre || !dataToSend.apellido || !dataToSend.username) {
-      alertDanger()
-      setAlertHeader('Error')
-      setAlertMessage(
+      showToast(
+        'danger',
+        'Error',
         'Hay campos vacíos, por favor complete todos los datos para continuar.'
       )
       setLoading(false)
-      handleShowAlert()
     } else if (cliente) {
       const id = cliente.id
       const response = await updateCliente(id, dataToSend)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al querer actualizar el cliente')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un problema al querer actualizar el cliente.'
+        )
       } else {
-        alertSuccess()
-        setAlertHeader('Cliente actualizado')
-        setAlertMessage('El cliente ha sido actualizado con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Cliente actualizada',
+          'El cliente ha sido actualizada con éxito.'
+        )
         onClienteUpdated()
+        closePopUp()
       }
     } else {
       const response = await createCliente(dataToSend)
       setLoading(false)
       if (!response) {
-        alertDanger()
-        setAlertHeader('Error')
-        setAlertMessage('Hubo un problema al crear el cliente')
-        handleShowAlert()
-        setTimeout(() => handleCloseAlert(), 3000)
+        showToast('danger', 'Error', 'Hubo un problema al crear un cliente.')
       } else {
-        alertSuccess()
-        setAlertHeader('Cliente creado')
-        setAlertMessage('El cliente ha sido creado con éxito')
-        handleShowAlert()
-        setTimeout(() => closePopUp(), 2000)
+        showToast(
+          'success',
+          'Cliente creado',
+          'El cliente ha sido creado con éxito.'
+        )
         onClienteUpdated()
+        closePopUp()
       }
     }
   }
-  //#endregion
 
-  //#region Handle de todos los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setClienteData((prevData) => ({
@@ -105,7 +91,6 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
       [name]: value,
     }))
   }
-  //#endregion
 
   return (
     <Modal show={true} onHide={closePopUp} centered>
@@ -185,18 +170,6 @@ const ClientesCRUD_popup = ({ cliente, onClienteUpdated, closePopUp }) => {
             )}
           </Form.Group>
         </Form>
-        <Alert
-          variant={alertVariant}
-          className="mt-3 mb-0"
-          onClose={handleCloseAlert}
-          show={showAlert}
-          dismissible
-        >
-          <Alert.Heading className="fs-6">
-            <strong>{alertHeader}</strong>
-          </Alert.Heading>
-          {alertMessage}
-        </Alert>
       </Modal.Body>
       <Modal.Footer className="border-0 pt-0">
         <Button

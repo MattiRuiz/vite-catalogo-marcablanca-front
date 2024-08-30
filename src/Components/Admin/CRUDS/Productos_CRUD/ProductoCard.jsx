@@ -16,18 +16,8 @@ import PopUpEditPrecio from '../PopUpEditPrecio'
 
 import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'
 
-const ProductoCard = ({ id, onProductUpdate }) => {
+const ProductoCard = ({ id, onProductUpdate, showToast }) => {
   const [producto, setProducto] = useState()
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
-    const producto = await getProductoById(id)
-    setProducto(producto.data)
-  }
-
   const [popUp, setPopUp] = useState(false)
   const [popUpTalla, setPopUpTalla] = useState(false)
   const [popUpImagenes, setPopUpImagenes] = useState(false)
@@ -38,6 +28,16 @@ const ProductoCard = ({ id, onProductUpdate }) => {
   const [selectedProducto, setSelectedProducto] = useState({})
   const [selectedCategoria, setSelectedCategoria] = useState()
   const [selectedTallaProducto, setSelectedTallaProducto] = useState(null)
+  const [imagenErrors, setImagenErrors] = useState({})
+
+  const fetchData = async () => {
+    const producto = await getProductoById(id)
+    setProducto(producto.data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const openPopup = (producto, IDcategoria) => {
     setSelectedCategoria(IDcategoria)
@@ -56,20 +56,6 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     setPopUpBorrar(true)
   }
 
-  const handleDeleteProducto = async () => {
-    try {
-      const response = await deleteProducto(selectedProducto.id)
-      console.log('Producto eliminado', response)
-      onProductUpdate()
-      fetchData()
-    } catch (e) {
-      alert('Hubo un problema al eliminar un producto.')
-      console.error(e.message)
-    } finally {
-      setPopUpBorrar(false)
-    }
-  }
-
   const openPopUpImagenes = (producto) => {
     setSelectedProducto(producto)
     setPopUpImagenes(true)
@@ -81,20 +67,45 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     setPopUpBorrarTallaProducto(true)
   }
 
+  const handleDeleteProducto = async () => {
+    try {
+      const response = await deleteProducto(selectedProducto.id)
+      console.log('Producto eliminado', response)
+      showToast(
+        'success',
+        'Producto eliminado',
+        'El producto ha sido eliminado con éxito.'
+      )
+      onProductUpdate()
+      fetchData()
+      setPopUpBorrar(false)
+    } catch (e) {
+      showToast('danger', 'Error', 'Hubo un problema al eliminar un producto.')
+      console.error(e.message)
+    }
+  }
+
   const handleDeleteTallaProducto = async () => {
     try {
       const response = await deleteTallaProducto(selectedTallaProducto.id)
       console.log('Talla producto eliminada', response)
+      showToast(
+        'success',
+        'Medida del producto eliminada',
+        'La medida del producto ha sido eliminada con éxito.'
+      )
       fetchData()
+      setPopUpBorrarTallaProducto(false)
     } catch (e) {
-      alert('Hubo un problema al eliminar la medida del producto.')
+      showToast(
+        'danger',
+        'Error',
+        'Hubo un problema al eliminar la medida del producto.'
+      )
       console.error(e.message)
-    } finally {
-      setPopUpBorrarTallaProducto()
     }
   }
 
-  const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
       ...prevErrors,
@@ -106,11 +117,10 @@ const ProductoCard = ({ id, onProductUpdate }) => {
     <>
       {producto ? (
         <>
-          <Row className="">
+          <Row>
             <Col xs={12} sm={6} className="position-relative">
               <Ratio aspectRatio="4x3" className="rounded-3">
                 {imagenErrors[producto.id] ? (
-                  // Mostrar elemento alternativo en caso de error
                   <div className="w-100 h-100 d-flex align-items-center justify-content-center border  rounded-3">
                     <p className="mb-0 color-grisclaro">
                       <strong>Sin imágen</strong>
@@ -213,7 +223,6 @@ const ProductoCard = ({ id, onProductUpdate }) => {
                           </strong>{' '}
                           {talla.tallas.dimensiones}
                         </li>
-
                         <li className="fw-bold">${talla.precio}</li>
                       </ul>
                     </div>
@@ -242,7 +251,7 @@ const ProductoCard = ({ id, onProductUpdate }) => {
       ) : (
         <Spinner className="my-3 d-block mx-auto" animation="border" />
       )}
-      {popUp ? (
+      {popUp && (
         <ProductosPopUp
           producto={selectedProducto}
           selectedCategoria={selectedCategoria}
@@ -251,27 +260,24 @@ const ProductoCard = ({ id, onProductUpdate }) => {
             fetchData()
           }}
           closePopUp={() => setPopUp(false)}
+          showToast={showToast}
         />
-      ) : (
-        <></>
       )}
-      {popUpTalla ? (
+      {popUpTalla && (
         <TallaProductoCreate_popup
           selectedTallaProducto={selectedTallaProducto}
           producto={selectedProducto}
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUpTalla(false)}
+          showToast={showToast}
         />
-      ) : (
-        <></>
       )}
-      {popUpImagenes ? (
+      {popUpImagenes && (
         <ImagenesCRUD_popup
           producto={selectedProducto}
           closePopUp={() => setPopUpImagenes(false)}
+          showToast={showToast}
         />
-      ) : (
-        <></>
       )}
       {popUpBorrar && (
         <PopUp
@@ -318,6 +324,7 @@ const ProductoCard = ({ id, onProductUpdate }) => {
           closePopUp={() => {
             setPopUpEditarPrecio(false)
           }}
+          showToast={showToast}
         />
       )}
     </>

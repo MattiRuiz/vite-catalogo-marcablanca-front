@@ -9,7 +9,7 @@ import ProductoCard from './ProductoCard'
 
 import { Boton } from '../../../../ui'
 
-const ProductoCRUD = () => {
+const ProductoCRUD = ({ showToast }) => {
   const [categorias, setCategorias] = useState([])
 
   const [showProducto, setShowProducto] = useState({})
@@ -30,6 +30,11 @@ const ProductoCRUD = () => {
         setCategorias(data.data)
       }
     } catch (e) {
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -81,6 +86,7 @@ const ProductoCRUD = () => {
                         <ProductoCard
                           id={producto.id}
                           onProductUpdate={() => fetchData()}
+                          showToast={showToast}
                         />
                       )}
                     </Accordion.Body>
@@ -90,26 +96,26 @@ const ProductoCRUD = () => {
             ))}
           </Row>
         ))}
-        {loading ? (
+        {loading && (
           <Spinner
             variant="dark"
             className="my-5 d-block mx-auto"
             animation="border"
           />
-        ) : (
-          ''
         )}
       </Col>
       {popUp && (
         <ProductosPopUp
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUp(false)}
+          showToast={showToast}
         />
       )}
       {popUpEditarPrecio && (
         <PopUpEditarPrecio
           onProductoUpdated={() => fetchData()}
           closePopUp={() => setPopUpEditarPrecio(false)}
+          showToast={showToast}
         />
       )}
     </>
