@@ -8,7 +8,6 @@ import {
 
 import ClientesPopup from './ClientesCRUD_popup'
 
-import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
 const ClientesCRUD = ({ showToast }) => {
@@ -132,16 +131,12 @@ const ClientesCRUD = ({ showToast }) => {
       )}
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar cliente
-            </>
-          }
+          header="Borrar cliente"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDelete}
           loading={loading}
+          variant="danger"
         >
           <p>
             ¿Está seguro que desea borrar el usuario{' '}

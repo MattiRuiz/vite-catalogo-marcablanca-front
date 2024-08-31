@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Spinner } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
 
+import { PopUp, Input } from '../../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
@@ -81,72 +82,35 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
-        <Modal.Title className="fw-bold d-flex align-items-center">
-          {marca ? (
-            <>
-              <PiGearSixDuotone className="me-2" /> Editar una marca
-            </>
-          ) : (
-            <>
-              <PiPlusCircleDuotone className="me-2" /> Añadir una marca
-            </>
-          )}
-        </Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>Nombre de la empresa:</Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-2 "
-              placeholder="Nombre"
-              name="nombre"
-              value={marcaData.nombre}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer className="border-0 pt-0">
-        <Button
-          variant="secondary"
-          onClick={() => closePopUp()}
-          className="bg-gradient border-0"
-        >
-          Cancelar
-        </Button>
-        {marca ? (
-          <Button
-            className="bg-gradient border-0"
-            onClick={handleGuardar}
-            disabled={loading}
-          >
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Guardar cambios'
-            )}
-          </Button>
+    <PopUp
+      header={
+        marca ? (
+          <>
+            <PiGearSixDuotone className="me-2" /> Editar una marca
+          </>
         ) : (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            type="submit"
-            className="bg-gradient border-0"
-          >
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Crear marca'
-            )}
-          </Button>
-        )}
-      </Modal.Footer>
-    </Modal>
+          <>
+            <PiPlusCircleDuotone className="me-2" /> Añadir una marca
+          </>
+        )
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Guardar"
+      onAction={handleGuardar}
+      loading={loading}
+      variant="primary"
+    >
+      <Form>
+        <Input
+          label="Nombre de la empresa:"
+          type="text"
+          placeholder="Nombre"
+          name="nombre"
+          value={marcaData.nombre}
+          onChange={handleInputChange}
+        />
+      </Form>
+    </PopUp>
   )
 }
 

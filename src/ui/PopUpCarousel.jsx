@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Modal, Carousel, Image, Ratio } from 'react-bootstrap'
 
-import { getImagenesPorProducto } from '../../Functions/ProductosFunctions'
+import { getImagenesPorProducto } from '../Functions/ProductosFunctions'
 
 import { PiXBold, PiCaretRightBold, PiCaretLeftBold } from 'react-icons/pi'
 
-import { Boton } from '../../ui'
+import { Boton } from '../ui'
 
 const PopUpCarousel = ({ producto, closePopUp }) => {
   const [imagenesCarousel, setImagenesCarousel] = useState(null)

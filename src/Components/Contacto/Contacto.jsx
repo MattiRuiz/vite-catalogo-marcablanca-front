@@ -122,9 +122,9 @@ const Contacto = () => {
           como debería? No dudes en escribirnos.
         </p>
         <Form ref={form} onSubmit={sendEmail}>
-          <Form.Label>Nombre:</Form.Label>
           {user ? (
             <Input
+              label="Usuario"
               type="text"
               name="user_name"
               placeholder="Nombre"
@@ -133,6 +133,7 @@ const Contacto = () => {
             />
           ) : (
             <Input
+              label="Nombre"
               type="text"
               name="user_name"
               placeholder="Nombre"
@@ -141,14 +142,14 @@ const Contacto = () => {
             />
           )}
           <Input
-            label="Email:"
+            label="Email"
             type="text"
             name="user_email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Form.Label>Mensaje:</Form.Label>
+          <Form.Label>Mensaje</Form.Label>
           <Form.Control
             as="textarea"
             type="text"
@@ -163,10 +164,8 @@ const Contacto = () => {
             Enviar
           </Boton>
         </Form>
-        {loading ? (
+        {loading && (
           <Spinner className="my-3 d-block mx-auto" animation="border" />
-        ) : (
-          ''
         )}
         <Tostada
           show={showAlert}

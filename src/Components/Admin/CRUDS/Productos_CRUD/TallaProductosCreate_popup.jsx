@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 import {
   createTallaProducto,
@@ -8,7 +8,7 @@ import {
 import { getAllTallas } from '../../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
-import { Boton } from '../../../../ui'
+import { PopUp } from '../../../../ui'
 
 const TallaProductoCreate_popup = ({
   selectedTallaProducto,
@@ -127,72 +127,60 @@ const TallaProductoCreate_popup = ({
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
-        <Modal.Title className="fw-bold d-flex align-items-center">
-          {selectedTallaProducto ? (
-            <>
-              <PiGearSixDuotone className="me-2" /> Editar una medida de
-              producto
-            </>
-          ) : (
-            <>
-              <PiPlusCircleDuotone className="me-2" /> Añadir una medida al
-              producto
-            </>
-          )}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>Medida:</Form.Label>
-            <Form.Select
-              className="mb-3"
-              name="tallas_id"
-              value={tallaSelected.tallas_id}
-              onChange={handleInputChange}
-            >
-              <option value="">Selecciona una medida</option>
-              {tallas.length > 0 &&
-                tallas.map((medida) => (
-                  <option key={medida.id} value={medida.id}>
-                    {medida.nombre} - {medida.dimensiones}
-                  </option>
-                ))}
-            </Form.Select>
-            <Form.Label>Precio:</Form.Label>
-            <Form.Control
-              type="number"
-              className="mb-3"
-              placeholder="precio"
-              name="precio"
-              value={tallaSelected.precio}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-          <Form.Check
-            type="checkbox"
-            label="¿Hay stock?"
-            className="mb-2 mt-1"
-            checked={tallaSelected.stock}
-            onChange={handleStock}
-          />
-        </Form>
-      </Modal.Body>
-      <Modal.Footer className="border-0 pt-0">
-        <Boton variant="secondary" onClick={() => closePopUp()}>
-          Cancelar
-        </Boton>
-        <Boton onClick={handleGuardar} disabled={loading} type="submit">
-          {loading ? (
-            <Spinner animation="border" variant="light" size="sm" />
-          ) : (
-            'Guardar'
-          )}
-        </Boton>
-      </Modal.Footer>
-    </Modal>
+    <PopUp
+      header={
+        selectedTallaProducto ? (
+          <>
+            <PiGearSixDuotone className="me-2" /> Editar una medida de producto
+          </>
+        ) : (
+          <>
+            <PiPlusCircleDuotone className="me-2" /> Añadir una medida al
+            producto
+          </>
+        )
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Guardar"
+      onAction={handleGuardar}
+      loading={loading}
+      variant="primary"
+    >
+      <Form>
+        <Form.Label>Medida:</Form.Label>
+        <Form.Select
+          className="mb-3"
+          name="tallas_id"
+          value={tallaSelected.tallas_id}
+          onChange={handleInputChange}
+        >
+          <option value="">Selecciona una medida</option>
+          {tallas.length > 0 &&
+            tallas.map((medida) => (
+              <option key={medida.id} value={medida.id}>
+                {medida.nombre} - {medida.dimensiones}
+              </option>
+            ))}
+        </Form.Select>
+        <Form.Label>Precio:</Form.Label>
+        <Form.Control
+          type="number"
+          className="mb-3"
+          placeholder="precio"
+          name="precio"
+          value={tallaSelected.precio}
+          onChange={handleInputChange}
+        />
+
+        <Form.Check
+          type="checkbox"
+          label="¿Hay stock?"
+          className="mb-2 mt-1"
+          checked={tallaSelected.stock}
+          onChange={handleStock}
+        />
+      </Form>
+    </PopUp>
   )
 }
 

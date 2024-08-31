@@ -8,7 +8,6 @@ import {
 
 import MarcasPopUp from './MarcasCRUD_popup'
 
-import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
 const MarcasCRUD = ({ showToast }) => {
@@ -128,16 +127,12 @@ const MarcasCRUD = ({ showToast }) => {
       )}
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar marca
-            </>
-          }
+          header="Borrar marca"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDelete}
           loading={loading}
+          variant="danger"
         >
           <p>
             ¿Está seguro que desea borrar la marca{' '}

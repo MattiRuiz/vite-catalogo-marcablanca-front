@@ -5,7 +5,7 @@ import ModalCambiarPassword from './ModalCambiarPassword'
 
 import { getSuscripcion } from '../../Functions/ClienteFunctions'
 
-import { Boton } from '../../ui'
+import { Boton, PopUp } from '../../ui'
 
 function MiCuenta() {
   const [modalCambiarPass, setModalCambiarPass] = useState(false)
@@ -63,11 +63,17 @@ function MiCuenta() {
           </div>
         </Col>
       </Row>
-      {modalCambiarPass ? (
+      {modalCambiarPass && (
         <ModalCambiarPassword closePopUp={() => setModalCambiarPass(false)} />
-      ) : (
-        <></>
       )}
+      {/* {modalCambiarPass && (
+        <PopUp
+          header="Cambiar contraseña"
+          closePopUp={() => setModalCambiarPass(false)}
+          buttonLabel="Cambiar"
+          variant="primary"
+        ></PopUp>
+      )} */}
     </>
   )
 }

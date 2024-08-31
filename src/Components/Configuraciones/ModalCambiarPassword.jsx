@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react'
-import { Modal, Spinner, Form, Alert } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 import { changePassword } from '../../Functions/ClienteFunctions'
 import LoginContext from '../../Context/LoginContext'
 
-import { Boton, Tostada } from '../../ui'
+import { Tostada, Input, PopUp } from '../../ui'
+import { PiGearSixDuotone } from 'react-icons/pi'
 
 const ModalCambiarPassword = ({ closePopUp }) => {
   const { unauthorize } = useContext(LoginContext)
@@ -90,60 +91,51 @@ const ModalCambiarPassword = ({ closePopUp }) => {
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="bg-primario text-white border-0" closeButton>
-        <Modal.Title>Cambiar contraseña</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p className="fw-bold">Ingrese la siguiente información:</p>
-        <Form>
-          <Form.Label>Ingrese la contraseña actual:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Contraseña actual"
-            className="mb-3"
-            value={oldPass}
-            onChange={handleOldPass}
-          />
-          <Form.Label>Ingrese la contraseña nueva:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Contraseña nueva"
-            className="mb-3"
-            value={newPass}
-            onChange={handleNewPass}
-          />
-          <Form.Label>Repita la contraseña:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Repita la contraseña"
-            className="mb-1"
-            value={newPassRep}
-            onChange={handleNewPassRep}
-          />
-        </Form>
-        <Tostada
-          show={toastConfig.show}
-          onClose={() => setToastConfig({ ...toastConfig, show: false })}
-          header={toastConfig.header}
-          variant={toastConfig.variant}
-        >
-          {toastConfig.message}
-        </Tostada>
-      </Modal.Body>
-      <Modal.Footer className="border-0 pt-0">
-        <Boton variant="secondary" onClick={() => closePopUp()}>
-          Cancelar
-        </Boton>
-        <Boton onClick={handleChangePassword}>
-          {loading ? (
-            <Spinner animation="border" variant="light" size="sm" />
-          ) : (
-            'Cambiar'
-          )}
-        </Boton>
-      </Modal.Footer>
-    </Modal>
+    <PopUp
+      header={
+        <>
+          <PiGearSixDuotone className="me-2" /> Cambiar contraseña
+        </>
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Cambiar"
+      onAction={handleChangePassword}
+      loading={loading}
+      variant="primary"
+    >
+      <p className="fw-bold">Ingrese la siguiente información:</p>
+      <Form>
+        <Input
+          label="Ingrese la contraseña actual"
+          type="password"
+          placeholder="Contraseña actual"
+          value={oldPass}
+          onChange={handleOldPass}
+        />
+        <Input
+          label="Ingrese la contraseña nueva"
+          type="password"
+          placeholder="Contraseña nueva"
+          value={newPass}
+          onChange={handleNewPass}
+        />
+        <Input
+          label="Repita la contraseña"
+          type="password"
+          placeholder="Repita la contraseña"
+          value={newPassRep}
+          onChange={handleNewPassRep}
+        />
+      </Form>
+      <Tostada
+        show={toastConfig.show}
+        onClose={() => setToastConfig({ ...toastConfig, show: false })}
+        header={toastConfig.header}
+        variant={toastConfig.variant}
+      >
+        {toastConfig.message}
+      </Tostada>
+    </PopUp>
   )
 }
 

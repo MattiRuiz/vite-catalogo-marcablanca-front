@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Modal, Spinner } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 import {
   createCliente,
   updateCliente,
 } from '../../../../Functions/ClienteFunctions'
 
+import { PopUp, Input } from '../../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ClientesCRUD_popup = ({
@@ -93,120 +94,83 @@ const ClientesCRUD_popup = ({
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
-        {cliente ? (
-          <Modal.Title className="fw-bold d-flex align-items-center">
+    <PopUp
+      header={
+        cliente ? (
+          <>
             <PiGearSixDuotone className="me-2" />
             Editar cliente
-          </Modal.Title>
+          </>
         ) : (
-          <Modal.Title className="fw-bold d-flex align-items-center">
+          <>
             <PiPlusCircleDuotone className="me-2" />
             Añadir cliente
-          </Modal.Title>
-        )}
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>Nombre:</Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-3"
-              placeholder="Nombre"
-              name="nombre"
-              value={clienteData.nombre}
-              onChange={handleInputChange}
-            />
-            <Form.Label>Apellido:</Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-3"
-              placeholder="Apellido"
-              name="apellido"
-              value={clienteData.apellido}
-              onChange={handleInputChange}
-            />
-            <Form.Label>Nombre de usuario:</Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-3"
-              placeholder="Username"
-              name="username"
-              value={clienteData.username}
-              onChange={handleInputChange}
-            />
-            <Form.Label>Contraseña:</Form.Label>
-            {cliente ? (
-              <>
-                <Form.Control
-                  type="password"
-                  className="mb-3"
-                  placeholder="Password"
-                  name="password"
-                  value={clienteData.password}
-                  onChange={handleInputChange}
-                  disabled={!edit}
-                />
-                <Form.Check
-                  type="checkbox"
-                  label="Modificar contraseña"
-                  value={edit}
-                  onChange={() => {
-                    setEdit(!edit)
-                  }}
-                />
-              </>
-            ) : (
-              <Form.Control
-                type="password"
-                className="mb-3"
-                placeholder="Password"
-                name="password"
-                value={clienteData.password}
-                onChange={handleInputChange}
-              />
-            )}
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer className="border-0 pt-0">
-        <Button
-          variant="secondary"
-          onClick={() => closePopUp()}
-          className="bg-gradient border-0"
-        >
-          Cancelar
-        </Button>
+          </>
+        )
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Guardar"
+      onAction={handleGuardar}
+      loading={loading}
+      variant="primary"
+    >
+      <Form>
+        <Input
+          label="Nombre:"
+          type="text"
+          placeholder="Nombre"
+          name="nombre"
+          value={clienteData.nombre}
+          onChange={handleInputChange}
+        />
+        <Input
+          label="Apellido:"
+          type="text"
+          placeholder="Apellido"
+          name="apellido"
+          value={clienteData.apellido}
+          onChange={handleInputChange}
+        />
+        <Input
+          label="Nombre de usuario:"
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={clienteData.username}
+          onChange={handleInputChange}
+        />
         {cliente ? (
-          <Button
-            className="bg-gradient border-0"
-            onClick={handleGuardar}
-            disabled={loading}
-          >
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Guardar cambios'
-            )}
-          </Button>
+          <>
+            <Input
+              label="Contraseña:"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={clienteData.password}
+              onChange={handleInputChange}
+              disabled={!edit}
+            />
+            <Form.Check
+              type="checkbox"
+              label="Modificar contraseña"
+              value={edit}
+              onChange={() => {
+                setEdit(!edit)
+              }}
+            />
+          </>
         ) : (
-          <Button
-            onClick={handleGuardar}
-            disabled={loading}
-            type="submit"
-            className="bg-gradient border-0"
-          >
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Crear cliente'
-            )}
-          </Button>
+          <Input
+            label="Contraseña:"
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={clienteData.password}
+            onChange={handleInputChange}
+          />
         )}
-      </Modal.Footer>
-    </Modal>
+      </Form>
+    </PopUp>
   )
 }
 

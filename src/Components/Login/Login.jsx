@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
 
-import { Boton, PopUp, Tostada } from '../../ui'
+import { Boton, PopUp, Tostada, Input } from '../../ui'
 import { PiWarningDuotone } from 'react-icons/pi'
 
 function Login() {
@@ -16,7 +16,6 @@ function Login() {
   const navigate = useNavigate()
 
   const [showAlert, setShowAlert] = useState(false)
-
   const [alertMessage, setAlertMessage] = useState(
     'Ha ocurrido un error, por favor intente más tarde'
   )
@@ -85,14 +84,18 @@ function Login() {
         <Col xs={11} sm={8} md={5} lg={4}>
           <Form onSubmit={handleSubmit}>
             <h1 className="fw-bold mb-4">Iniciar sesión</h1>
-            <Form.Group className="py-2">
-              <Form.Label>Nombre de usuario</Form.Label>
-              <Form.Control type="text" onChange={userNameHandler} />
-            </Form.Group>
-            <Form.Group className="py-2">
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control type="password" onChange={passwordHandler} />
-            </Form.Group>
+            <Input
+              label="Nombre de usuario"
+              type="text"
+              name="user_name"
+              onChange={userNameHandler}
+            />
+            <Input
+              label="Contraseña"
+              type="password"
+              name="pass"
+              onChange={passwordHandler}
+            />
             <Link
               className="fst-italic d-block py-1 fw-semibold text-primary opacity-75"
               onClick={() => setPopUpForgotPassword(true)}

@@ -281,15 +281,11 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
       )}
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar producto
-            </>
-          }
+          header="Borrar producto"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDeleteProducto}
+          variant="danger"
         >
           <p>
             ¿Está seguro que desea borrar el producto{' '}
@@ -299,15 +295,11 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
       )}
       {popUpBorrarTallaProducto && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar medida de un producto
-            </>
-          }
+          header="Borrar medida de un producto"
           closePopUp={() => setPopUpBorrarTallaProducto(false)}
           buttonLabel="Borrar"
           onAction={handleDeleteTallaProducto}
+          variant="danger"
         >
           <p>
             ¿Está seguro que desea borrar la medida{' '}

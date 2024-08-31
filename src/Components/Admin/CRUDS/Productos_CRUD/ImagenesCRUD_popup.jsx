@@ -9,12 +9,7 @@ import {
 
 import { PopUp, Boton } from '../../../../ui'
 
-import {
-  PiTrashBold,
-  PiGearSixDuotone,
-  PiImageDuotone,
-  PiXCircleDuotone,
-} from 'react-icons/pi'
+import { PiTrashBold, PiGearSixDuotone, PiImageDuotone } from 'react-icons/pi'
 
 const ImagenesCRUD_popup = ({ producto, closePopUp, showToast }) => {
   const [loading, setLoading] = useState(false)
@@ -171,16 +166,12 @@ const ImagenesCRUD_popup = ({ producto, closePopUp, showToast }) => {
       </Modal>
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar imagen
-            </>
-          }
+          header="Borrar imagen"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDelete}
           loading={loading}
+          variant="danger"
         >
           <p>¿Está seguro que desea borrar esa imagen?</p>
         </PopUp>

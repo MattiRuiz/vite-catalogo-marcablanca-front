@@ -8,7 +8,6 @@ import {
 
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
 
-import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
 const TipoProductoCRUD = ({ showToast }) => {
@@ -148,16 +147,12 @@ const TipoProductoCRUD = ({ showToast }) => {
       )}
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar tipo de producto
-            </>
-          }
+          header="Borrar tipo de producto"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDelete}
           loading={loading}
+          variant="danger"
         >
           <p>
             ¿Está seguro que desea borrar el tipo de producto{' '}

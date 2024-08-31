@@ -15,17 +15,15 @@ import {
 } from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
-import { Boton } from '../../ui'
+import { Boton, PopUp } from '../../ui'
 
 function Navbar() {
   const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleOpen = () => setShow(true)
 
   const { menu, setMenu, unauthorize } = useContext(LoginContext)
 
   const logout = () => {
-    handleClose()
+    setShow(false)
     unauthorize()
   }
 
@@ -108,7 +106,7 @@ function Navbar() {
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item
-                    onClick={handleOpen}
+                    onClick={() => setShow(true)}
                     className="d-flex align-items-center py-2"
                   >
                     <PiXCircleFill className="text-secondary fs-5 me-3" />{' '}
@@ -143,25 +141,17 @@ function Navbar() {
           </Col>
         )}
       </Row>
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
-          <Modal.Title className="fw-bold d-flex align-items-center">
-            <PiXCircleDuotone className="me-2 text-danger" />
-            ¡Atención!
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="pb-0">
-          <p className="">¿Desea cerrar la sesión de su cuenta?</p>
-        </Modal.Body>
-        <Modal.Footer className="border-0 pt-0">
-          <Boton variant="secondary" onClick={handleClose}>
-            Cancelar
-          </Boton>
-          <Boton variant="danger" onClick={() => logout()}>
-            Cerrar sesión
-          </Boton>
-        </Modal.Footer>
-      </Modal>
+      {show && (
+        <PopUp
+          header="¡Atención!"
+          closePopUp={() => setShow(false)}
+          buttonLabel="Cerrar sesión"
+          onAction={logout}
+          variant="danger"
+        >
+          <p>¿Desea cerrar la sesión de su cuenta?</p>
+        </PopUp>
+      )}
     </>
   )
 }

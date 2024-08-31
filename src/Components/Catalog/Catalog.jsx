@@ -18,9 +18,9 @@ import {
 } from '../../Functions/ProductosFunctions'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
-import CardLoading from './CardLoading'
-import PopUpCarousel from './PopUpCarousel'
 import { PiFadersBold, PiArrowCircleRightDuotone } from 'react-icons/pi'
+
+import { CardLoading, PopUpCarousel } from '../../ui'
 
 function Catalog() {
   const { id } = useParams()

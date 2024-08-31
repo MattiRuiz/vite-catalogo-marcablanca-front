@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Form, Modal, Spinner } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
-import { Boton } from '../../../../ui'
+import { PopUp, Input } from '../../../../ui'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
   const [tallaData, setTallaData] = useState({
@@ -81,77 +81,58 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="pb-2 border-0 bg-secondary-subtle" closeButton>
-        <Modal.Title className="fw-bold d-flex align-items-center">
-          {talla ? (
-            <>
-              <PiGearSixDuotone className="me-2" /> Editar una medida
-            </>
-          ) : (
-            <>
-              <PiPlusCircleDuotone className="me-2" /> Añadir una medida
-            </>
-          )}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>
-              Nombre de la medida <span className="text-danger">*</span>:
-            </Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-3"
-              placeholder="Nombre"
-              name="nombre"
-              value={tallaData.nombre}
-              onChange={handleInputChange}
-            />
-            <Form.Label>
-              Dimensiones <span className="text-danger">*</span>:
-            </Form.Label>
-            <Form.Control
-              type="text"
-              className="mb-1"
-              placeholder="Dimensiones"
-              name="dimensiones"
-              value={tallaData.dimensiones}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-          <p className="texto-14">
-            <em>
-              <span className="text-danger">*</span> Uno de los valores puede
-              encontrarse en vacío pero no ambos.
-            </em>
-          </p>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer className="border-0 pt-0">
-        <Boton variant="secondary" onClick={() => closePopUp()}>
-          Cancel
-        </Boton>
-        {talla ? (
-          <Boton onClick={handleGuardar} disabled={loading}>
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Guardar cambios'
-            )}
-          </Boton>
+    <PopUp
+      header={
+        talla ? (
+          <>
+            <PiGearSixDuotone className="me-2" /> Editar una medida
+          </>
         ) : (
-          <Boton onClick={handleGuardar} disabled={loading} type="submit">
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              'Crear medida'
-            )}
-          </Boton>
-        )}
-      </Modal.Footer>
-    </Modal>
+          <>
+            <PiPlusCircleDuotone className="me-2" /> Añadir una medida
+          </>
+        )
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Guardar"
+      onAction={handleGuardar}
+      loading={loading}
+      variant="primary"
+    >
+      <Form>
+        <Input
+          label={
+            <>
+              Nombre de la medida <span className="text-danger">*</span>:
+            </>
+          }
+          type="text"
+          placeholder="Nombre"
+          name="nombre"
+          value={tallaData.nombre}
+          onChange={handleInputChange}
+        />
+        <Input
+          label={
+            <>
+              {' '}
+              Dimensiones <span className="text-danger">*</span>:
+            </>
+          }
+          type="text"
+          placeholder="Dimensiones"
+          name="dimensiones"
+          value={tallaData.dimensiones}
+          onChange={handleInputChange}
+        />
+        <p className="texto-14">
+          <em>
+            <span className="text-danger">*</span> Uno de los valores puede
+            encontrarse en vacío pero no ambos.
+          </em>
+        </p>
+      </Form>
+    </PopUp>
   )
 }
 

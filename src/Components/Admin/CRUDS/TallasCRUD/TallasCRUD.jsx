@@ -8,7 +8,6 @@ import {
 
 import TallasPopUp from './TallasCRUD_popup'
 
-import { PiXCircleDuotone } from 'react-icons/pi'
 import { PopUp, Boton } from '../../../../ui'
 
 const TallasCRUD = ({ showToast }) => {
@@ -136,16 +135,12 @@ const TallasCRUD = ({ showToast }) => {
       )}
       {popUpBorrar && (
         <PopUp
-          header={
-            <>
-              <PiXCircleDuotone className="me-2 text-danger" />
-              Borrar medida
-            </>
-          }
+          header="Borrar medida"
           closePopUp={() => setPopUpBorrar(false)}
           buttonLabel="Borrar"
           onAction={handleDelete}
           loading={loading}
+          variant="danger"
         >
           <p className="mb-2">¿Está seguro que desea borrar esta medida?</p>
           <p className="mb-2 ms-1">

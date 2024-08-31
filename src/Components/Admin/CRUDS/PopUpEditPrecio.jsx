@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Form, Modal, Alert, Spinner } from 'react-bootstrap'
+import { Form, Modal, Spinner } from 'react-bootstrap'
 
 import { getAllMarcas } from '../../../Functions/MarcasFunctions'
 import { getAllTipoProductos } from '../../../Functions/TipoProductosFunctions'
 import { editPrecioEnGrupo } from '../../../Functions/ProductosFunctions'
 
-import { Boton } from '../../../ui'
+import { Boton, PopUp, Input } from '../../../ui'
+import { PiGearSixDuotone } from 'react-icons/pi'
 
 const PopUpEditPrecio = ({ onProductoUpdated, closePopUp, showToast }) => {
   const [porcentaje, setPorcentaje] = useState('')
@@ -86,69 +87,60 @@ const PopUpEditPrecio = ({ onProductoUpdated, closePopUp, showToast }) => {
   }
 
   return (
-    <Modal show={true} onHide={closePopUp} centered>
-      <Modal.Header className="border-0 bg-primario text-white" closeButton>
-        <Modal.Title>Editar precios en grupo</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group>
-            <Form.Label>Porcentaje de aumento:</Form.Label>
-            <Form.Control
-              type="string"
-              className="mb-2"
-              placeholder="Porcentaje"
-              value={porcentaje}
-              onChange={(e) => setPorcentaje(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Marca a aumentar:</Form.Label>
-            <Form.Select
-              className="mb-3"
-              value={selectedMarca}
-              onChange={(e) => setSelectedMarca(e.target.value)}
-            >
-              <option value="">Seleccione una marca</option>
-              {marcas &&
-                marcas.map((marca) => (
-                  <option key={marca.id} value={marca.id}>
-                    {marca.nombre}
-                  </option>
-                ))}
-            </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Tipo de producto a aumentar:</Form.Label>
-            <Form.Select
-              className="mb-3"
-              value={selectedTipoProducto}
-              onChange={(e) => setSelectedTipoProducto(e.target.value)}
-            >
-              <option value="">Seleccione un tipo de producto</option>
-              {tipoProductos &&
-                tipoProductos.map((tipoProducto) => (
-                  <option key={tipoProducto.id} value={tipoProducto.id}>
-                    {tipoProducto.nombre}
-                  </option>
-                ))}
-            </Form.Select>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Boton variant="secondary" onClick={() => closePopUp()}>
-          Cancelar
-        </Boton>
-        <Boton onClick={handleGuardar} disabled={loading}>
-          {loading ? (
-            <Spinner animation="border" variant="light" size="sm" />
-          ) : (
-            'Enviar'
-          )}
-        </Boton>
-      </Modal.Footer>
-    </Modal>
+    <PopUp
+      header={
+        <>
+          <PiGearSixDuotone className="me-2" /> Editar precios en grupo
+        </>
+      }
+      closePopUp={closePopUp}
+      buttonLabel="Guardar"
+      onAction={handleGuardar}
+      loading={loading}
+      variant="primary"
+    >
+      <Form>
+        <Input
+          label="Porcentaje de aumento:"
+          type="string"
+          placeholder="Porcentaje"
+          value={porcentaje}
+          onChange={(e) => setPorcentaje(e.target.value)}
+        />
+        <Form.Group>
+          <Form.Label>Marca a aumentar:</Form.Label>
+          <Form.Select
+            className="mb-3"
+            value={selectedMarca}
+            onChange={(e) => setSelectedMarca(e.target.value)}
+          >
+            <option value="">Seleccione una marca</option>
+            {marcas &&
+              marcas.map((marca) => (
+                <option key={marca.id} value={marca.id}>
+                  {marca.nombre}
+                </option>
+              ))}
+          </Form.Select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Tipo de producto a aumentar:</Form.Label>
+          <Form.Select
+            className="mb-3"
+            value={selectedTipoProducto}
+            onChange={(e) => setSelectedTipoProducto(e.target.value)}
+          >
+            <option value="">Seleccione un tipo de producto</option>
+            {tipoProductos &&
+              tipoProductos.map((tipoProducto) => (
+                <option key={tipoProducto.id} value={tipoProducto.id}>
+                  {tipoProducto.nombre}
+                </option>
+              ))}
+          </Form.Select>
+        </Form.Group>
+      </Form>
+    </PopUp>
   )
 }
 
