@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Col, Row, Accordion, Spinner } from 'react-bootstrap'
 
-import { getAllProductosAdmin } from '../../../../Functions/ProductosFunctions'
+import { getAllProductosAdmin } from '../../../Functions/ProductosFunctions'
 
 import ProductosPopUp from './ProductosCRUD_popup'
-import PopUpEditarPrecio from '../PopUpEditPrecio'
+import PopUpEditarPrecio from './PopUpEditPrecio'
 import ProductoCard from './ProductoCard'
 
-import { Boton } from '../../../../ui'
+import { Boton } from '../../../ui'
 
 const ProductoCRUD = ({ showToast }) => {
   const [categorias, setCategorias] = useState([])

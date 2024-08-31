@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Col, Row, Spinner } from 'react-bootstrap'
 
-import {
-  getAllTallas,
-  deleteTalla,
-} from '../../../../Functions/TallasFunctions'
+import { getAllTallas, deleteTalla } from '../../../Functions/TallasFunctions'
 
 import TallasPopUp from './TallasCRUD_popup'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 const TallasCRUD = ({ showToast }) => {
   const [tallas, setTallas] = useState([])

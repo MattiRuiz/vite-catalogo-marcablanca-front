@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
-import { createMarca, updateMarca } from '../../../../Functions/MarcasFunctions'
+import { createMarca, updateMarca } from '../../../Functions/MarcasFunctions'
 
-import { PopUp, Input } from '../../../../ui'
+import { PopUp, Input } from '../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {

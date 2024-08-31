@@ -36,7 +36,6 @@ function WelcomeLog() {
         const response = await getAllTipoProductos()
         setCategorias(response.data)
         const respProductos = await getProductosCatalogo(1)
-        console.log(respProductos.data)
         setProductos(respProductos.data)
       } catch (error) {
         console.error('Error al obtener los productos:', error)
@@ -47,7 +46,6 @@ function WelcomeLog() {
     fetchData()
   }, [])
 
-  // Limitar la cantidad de categorías a mostrar
   const categoriasAMostrar = mostrarMas ? categorias : categorias.slice(0, 5)
 
   const showGanancia = localStorage.getItem('showGanancia')
@@ -92,14 +90,14 @@ function WelcomeLog() {
                   as={Link}
                   to={`/catalogo`}
                   xs={6}
-                  md={4}
+                  sm={4}
                   lg={3}
                   xl={2}
                   className="py-2"
                 >
                   <div className="position-relative">
                     {/* Superposición de fondo oscuro */}
-                    <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3"></div>
+                    <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3 z-1"></div>
                     {/* Texto sobre la imagen */}
 
                     <p
@@ -126,15 +124,14 @@ function WelcomeLog() {
                     as={Link}
                     to={`/catalogo/${producto.id}`}
                     xs={6}
-                    md={4}
+                    sm={4}
                     lg={3}
                     xl={2}
                     className="py-2"
                   >
                     <div className="position-relative">
                       {/* Superposición de fondo oscuro */}
-                      <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3"></div>
-                      {/* Texto sobre la imagen */}
+                      <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3 z-1"></div>
                       <p
                         className="fs-5 position-absolute bottom-0 start-0 ms-4 z-3 fw-semibold text-white"
                         style={{ letterSpacing: '.5px' }}

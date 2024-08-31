@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Form, Modal, Spinner } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 import { getAllMarcas } from '../../../Functions/MarcasFunctions'
 import { getAllTipoProductos } from '../../../Functions/TipoProductosFunctions'
 import { editPrecioEnGrupo } from '../../../Functions/ProductosFunctions'
 
-import { Boton, PopUp, Input } from '../../../ui'
+import { PopUp, Input } from '../../../ui'
 import { PiGearSixDuotone } from 'react-icons/pi'
 
 const PopUpEditPrecio = ({ onProductoUpdated, closePopUp, showToast }) => {

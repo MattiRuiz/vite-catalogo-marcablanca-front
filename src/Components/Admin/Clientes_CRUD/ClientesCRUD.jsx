@@ -4,11 +4,11 @@ import { Col, Spinner } from 'react-bootstrap'
 import {
   getAllClientes,
   deleteCliente,
-} from '../../../../Functions/ClienteFunctions'
+} from '../../../Functions/ClienteFunctions'
 
 import ClientesPopup from './ClientesCRUD_popup'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 const ClientesCRUD = ({ showToast }) => {
   const [clientes, setClientes] = useState([])

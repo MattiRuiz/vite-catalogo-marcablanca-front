@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Col, Spinner, Row } from 'react-bootstrap'
 
-import {
-  getAllMarcas,
-  deleteMarca,
-} from '../../../../Functions/MarcasFunctions'
+import { getAllMarcas, deleteMarca } from '../../../Functions/MarcasFunctions'
 
 import MarcasPopUp from './MarcasCRUD_popup'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 const MarcasCRUD = ({ showToast }) => {
   const [marcas, setMarcas] = useState([])

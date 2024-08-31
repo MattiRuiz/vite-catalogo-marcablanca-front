@@ -61,7 +61,7 @@ function Login() {
 
         if (user.userData.esAdmin === 0) {
           handleLogin(user)
-          navigate('/welcome')
+          navigate('/')
         } else if (user.userData.esAdmin === 1) {
           handleLogin(user)
           navigate('/admin')

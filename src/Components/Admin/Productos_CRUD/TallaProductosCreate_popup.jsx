@@ -4,11 +4,11 @@ import { Form } from 'react-bootstrap'
 import {
   createTallaProducto,
   updateTallaProducto,
-} from '../../../../Functions/TallasProductosFunctions'
-import { getAllTallas } from '../../../../Functions/TallasFunctions'
+} from '../../../Functions/TallasProductosFunctions'
+import { getAllTallas } from '../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
-import { PopUp } from '../../../../ui'
+import { PopUp } from '../../../ui'
 
 const TallaProductoCreate_popup = ({
   selectedTallaProducto,

@@ -4,11 +4,11 @@ import { Form, Spinner, Image, Row, Col, Ratio } from 'react-bootstrap'
 import {
   createProducto,
   updateProducto,
-} from '../../../../Functions/ProductosFunctions'
-import { getAllMarcas } from '../../../../Functions/MarcasFunctions'
-import { getAllTipoProductos } from '../../../../Functions/TipoProductosFunctions'
+} from '../../../Functions/ProductosFunctions'
+import { getAllMarcas } from '../../../Functions/MarcasFunctions'
+import { getAllTipoProductos } from '../../../Functions/TipoProductosFunctions'
 
-import { PopUp, Input, Boton } from '../../../../ui'
+import { PopUp, Input, Boton } from '../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ProductosCRUD_popup = ({

@@ -4,9 +4,9 @@ import { Form } from 'react-bootstrap'
 import {
   createCliente,
   updateCliente,
-} from '../../../../Functions/ClienteFunctions'
+} from '../../../Functions/ClienteFunctions'
 
-import { PopUp, Input } from '../../../../ui'
+import { PopUp, Input } from '../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ClientesCRUD_popup = ({

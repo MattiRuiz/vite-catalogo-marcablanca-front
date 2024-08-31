@@ -4,11 +4,11 @@ import { Col, Image, Spinner, Ratio } from 'react-bootstrap'
 import {
   getAllTipoProductos,
   deleteTipoProducto,
-} from '../../../../Functions/TipoProductosFunctions'
+} from '../../../Functions/TipoProductosFunctions'
 
 import TipoProductosPopUp from './TipoProductoCRUD_popup'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 const TipoProductoCRUD = ({ showToast }) => {
   const [tipoProductos, setTipoProductos] = useState([])

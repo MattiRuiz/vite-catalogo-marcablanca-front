@@ -184,6 +184,11 @@ li button span.material-symbols-outlined{
   background-color: #d3d3d3;
 }
 
+.overlay {
+  background: rgb(6,73,145);
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+}
+
 .form-control:focus {
   box-shadow:none;
 }

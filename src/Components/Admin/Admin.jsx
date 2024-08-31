@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Row, Col, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import TallasCRUD from './CRUDS/TallasCRUD/TallasCRUD'
-import TipoProductoCRUD from './CRUDS/TipoProductos_CRUD/TipoProductoCRUD'
-import MarcasCRUD from './CRUDS/Marcas_CRUD/MarcasCRUD'
-import ProductosCRUD from './CRUDS/Productos_CRUD/ProductosCRUD'
-import ClientesCRUD from './CRUDS/Clientes_CRUD/ClientesCRUD'
-import NotFound from '../404/NotFund'
+import TallasCRUD from './TallasCRUD/TallasCRUD'
+import TipoProductoCRUD from './TipoProductos_CRUD/TipoProductoCRUD'
+import MarcasCRUD from './Marcas_CRUD/MarcasCRUD'
+import ProductosCRUD from './Productos_CRUD/ProductosCRUD'
+import ClientesCRUD from './Clientes_CRUD/ClientesCRUD'
+import NotFound from '../NotFound/NotFound'
 
 import { Tostada } from '../../ui'
 
@@ -108,7 +108,7 @@ const Admin = () => {
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col xs={12} className="">
+              <Col xs={12}>
                 {selectedEntity === 'medidas' && (
                   <TallasCRUD showToast={handleShowToast} />
                 )}

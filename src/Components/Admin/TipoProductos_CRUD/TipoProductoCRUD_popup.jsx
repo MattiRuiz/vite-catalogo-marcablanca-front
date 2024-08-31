@@ -4,11 +4,11 @@ import { Form, Spinner, Image, Row, Col, Ratio } from 'react-bootstrap'
 import {
   createTipoProducto,
   updateTipoProducto,
-} from '../../../../Functions/TipoProductosFunctions'
+} from '../../../Functions/TipoProductosFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
-import { Boton, PopUp, Input } from '../../../../ui'
+import { Boton, PopUp, Input } from '../../../ui'
 
 const TallasCRUD_popup = ({
   tipoProducto,

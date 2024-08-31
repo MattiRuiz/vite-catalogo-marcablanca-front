@@ -4,15 +4,15 @@ import { Col, Row, Image, Spinner, Ratio } from 'react-bootstrap'
 import {
   getProductoById,
   deleteProducto,
-} from '../../../../Functions/ProductosFunctions'
-import { deleteTallaProducto } from '../../../../Functions/TallasProductosFunctions'
+} from '../../../Functions/ProductosFunctions'
+import { deleteTallaProducto } from '../../../Functions/TallasProductosFunctions'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 import ImagenesCRUD_popup from './ImagenesCRUD_popup'
 import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
-import PopUpEditPrecio from '../PopUpEditPrecio'
+import PopUpEditPrecio from './PopUpEditPrecio'
 
 import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'
 

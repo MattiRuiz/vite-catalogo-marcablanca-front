@@ -7,16 +7,16 @@ import Navbar from './Components/Navbar/Navbar'
 
 import Home from './Components/Home/Home'
 import Login from './Components/Login/Login'
-import Welcome from './Components/Welcome/Welcome'
 import Catalog from './Components/Catalog/Catalog'
 import MiCuenta from './Components/Configuraciones/MiCuenta'
 import Precios from './Components/Configuraciones/Precios'
 import Admin from './Components/Admin/Admin'
-import NotFound from './Components/404/NotFund'
+import NotFound from './Components/NotFound/NotFound'
 import Contacto from './Components/Contacto/Contacto'
 import Footer from './Components/Footer/Footer'
 import Suscripcion from './Components/Suscripcion/Suscripcion'
 import Terminos from './Components/Terminos/Terminos'
+import Ventajas from './Components/Ventajas/Ventajas'
 
 function App() {
   return (
@@ -37,14 +37,6 @@ function App() {
             element={
               <>
                 <Login />
-              </>
-            }
-          />
-          <Route
-            path="/welcome"
-            element={
-              <>
-                <Welcome />
               </>
             }
           />
@@ -117,6 +109,14 @@ function App() {
             element={
               <>
                 <Terminos />
+              </>
+            }
+          />
+          <Route
+            path="/ventajas"
+            element={
+              <>
+                <Ventajas />
               </>
             }
           />

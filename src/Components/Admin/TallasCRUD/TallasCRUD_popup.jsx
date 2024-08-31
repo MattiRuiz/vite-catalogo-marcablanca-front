@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 
-import { createTalla, updateTalla } from '../../../../Functions/TallasFunctions'
+import { createTalla, updateTalla } from '../../../Functions/TallasFunctions'
 
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
 
-import { PopUp, Input } from '../../../../ui'
+import { PopUp, Input } from '../../../ui'
 
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
   const [tallaData, setTallaData] = useState({

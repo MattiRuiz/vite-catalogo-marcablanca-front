@@ -5,9 +5,9 @@ import {
   getImagenesPorProducto,
   createImagen,
   deleteImagen,
-} from '../../../../Functions/ProductosFunctions'
+} from '../../../Functions/ProductosFunctions'
 
-import { PopUp, Boton } from '../../../../ui'
+import { PopUp, Boton } from '../../../ui'
 
 import { PiTrashBold, PiGearSixDuotone, PiImageDuotone } from 'react-icons/pi'
 
