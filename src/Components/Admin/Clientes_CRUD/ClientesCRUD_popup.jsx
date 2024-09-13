@@ -1,39 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Form } from 'react-bootstrap'
 
-import {
-  createCliente,
-  updateCliente,
-} from '../../../Functions/ClienteFunctions'
+import { createCliente } from '../../../Functions/ClienteFunctions'
 
+import EditarSuscripcion from './EditarSuscripcion'
 import { PopUp, Input } from '../../../ui'
-import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
+import { PiPlusCircleDuotone } from 'react-icons/pi'
 
-const ClientesCRUD_popup = ({
-  cliente,
-  onClienteUpdated,
-  closePopUp,
-  showToast,
-}) => {
+const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
   const [clienteData, setClienteData] = useState({
+    id: '',
     nombre: '',
     apellido: '',
     username: '',
     password: '',
   })
-  const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    if (cliente) {
-      setClienteData({
-        nombre: cliente.clientes.nombre || '',
-        apellido: cliente.clientes.apellido || '',
-        username: cliente.username || '',
-        password: cliente.password || '',
-      })
-    }
-  }, [cliente])
 
   const handleGuardar = async () => {
     setLoading(true)
@@ -49,25 +31,6 @@ const ClientesCRUD_popup = ({
         'Hay campos vacíos, por favor complete todos los datos para continuar.'
       )
       setLoading(false)
-    } else if (cliente) {
-      const id = cliente.id
-      const response = await updateCliente(id, dataToSend)
-      setLoading(false)
-      if (!response) {
-        showToast(
-          'danger',
-          'Error',
-          'Hubo un problema al querer actualizar el cliente.'
-        )
-      } else {
-        showToast(
-          'success',
-          'Cliente actualizada',
-          'El cliente ha sido actualizada con éxito.'
-        )
-        onClienteUpdated()
-        closePopUp()
-      }
     } else {
       const response = await createCliente(dataToSend)
       setLoading(false)
@@ -96,17 +59,10 @@ const ClientesCRUD_popup = ({
   return (
     <PopUp
       header={
-        cliente ? (
-          <>
-            <PiGearSixDuotone className="me-2" />
-            Editar cliente
-          </>
-        ) : (
-          <>
-            <PiPlusCircleDuotone className="me-2" />
-            Añadir cliente
-          </>
-        )
+        <>
+          <PiPlusCircleDuotone className="me-2" />
+          Añadir cliente
+        </>
       }
       closePopUp={closePopUp}
       buttonLabel="Guardar"
@@ -139,37 +95,17 @@ const ClientesCRUD_popup = ({
           value={clienteData.username}
           onChange={handleInputChange}
         />
-        {cliente ? (
-          <>
-            <Input
-              label="Contraseña:"
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={clienteData.password}
-              onChange={handleInputChange}
-              disabled={!edit}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Modificar contraseña"
-              value={edit}
-              onChange={() => {
-                setEdit(!edit)
-              }}
-            />
-          </>
-        ) : (
-          <Input
-            label="Contraseña:"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={clienteData.password}
-            onChange={handleInputChange}
-          />
-        )}
+
+        <Input
+          label="Contraseña:"
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={clienteData.password}
+          onChange={handleInputChange}
+        />
       </Form>
+      {/* <EditarSuscripcion id={clienteData.id} showToast={showToast} /> */}
     </PopUp>
   )
 }

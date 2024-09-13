@@ -7,6 +7,7 @@ import {
 } from '../../../Functions/ClienteFunctions'
 
 import ClientesPopup from './ClientesCRUD_popup'
+import ClientesEditor from './ClientesEditor'
 
 import { PopUp, Boton } from '../../../ui'
 
@@ -16,6 +17,8 @@ const ClientesCRUD = ({ showToast }) => {
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedCliente, setSelectedCliente] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  const [editor, setEditor] = useState(false)
 
   const fetchData = async () => {
     setLoading(true)
@@ -48,6 +51,11 @@ const ClientesCRUD = ({ showToast }) => {
     setPopUpBorrar(true)
   }
 
+  const openClienteEditor = (cliente) => {
+    setSelectedCliente(cliente)
+    setEditor(!editor)
+  }
+
   const handleDelete = async () => {
     setLoading(true)
     try {
@@ -70,49 +78,87 @@ const ClientesCRUD = ({ showToast }) => {
   return (
     <>
       <Col xs={12}>
-        <div className="mb-2 border-bottom pb-2">
-          <Boton className="me-2" onClick={() => openPopup(null)}>
-            Crear cliente
-          </Boton>
-        </div>
-        <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
-          <Col>
-            <p className="mb-0 texto-14 fw-bold">Usuario</p>
-          </Col>
-          <Col>
-            <p className="mb-0 texto-14 fw-bold">Nombre y apellido</p>
-          </Col>
-          <Col xs={2}>
-            <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
-          </Col>
-        </div>
-        <div className="bg-white">
-          {clientes.map((cliente) => (
-            <div
-              key={cliente.id}
-              className="border-bottom d-flex align-items-center justify-content-between p-2"
-            >
-              <Col>{cliente.username}</Col>
-              <Col>
-                {cliente.clientes.nombre} {cliente.clientes.apellido}
+        {editor && (
+          <ClientesEditor
+            cliente={selectedCliente}
+            onClienteUpdated={() => fetchData()}
+            onClose={() => setEditor(false)}
+            showToast={showToast}
+          />
+        )}
+        {!editor && (
+          <>
+            <Boton className="me-2" onClick={() => openPopup(null)}>
+              Crear cliente
+            </Boton>
+            <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
+              <Col xs={1}>
+                <p className="mb-0 texto-14 fw-bold">Id</p>
               </Col>
-              <Col xs={2} className="d-flex justify-content-center">
-                <button
-                  className="texto-14 fw-semibold py-0 border-end bg-transparent"
-                  onClick={() => openPopup(cliente)}
-                >
-                  Editar
-                </button>
-                <button
-                  className="texto-14 fw-semibold py-0 bg-transparent"
-                  onClick={() => openPopUpBorrar(cliente)}
-                >
-                  Borrar
-                </button>
+              <Col>
+                <p className="mb-0 texto-14 fw-bold">Usuario</p>
+              </Col>
+              <Col>
+                <p className="mb-0 texto-14 fw-bold">Nombre y apellido</p>
+              </Col>
+              <Col className="text-center">
+                <p className="mb-0 texto-14 fw-bold">Suscripción</p>
+              </Col>
+              <Col className="text-center">
+                <p className="mb-0 texto-14 fw-bold">Tipo sus.</p>
               </Col>
             </div>
-          ))}
-        </div>
+            <div className="bg-white">
+              {clientes.map((cliente) => (
+                <div
+                  key={cliente.id}
+                  className="border-bottom d-flex align-items-center justify-content-between p-2"
+                >
+                  <Col xs={1}>
+                    <button
+                      className="text-primary fw-semibold bg-transparent"
+                      onClick={() => openClienteEditor(cliente)}
+                    >
+                      {cliente.id}
+                    </button>
+                  </Col>
+                  <Col>{cliente.username}</Col>
+                  <Col>
+                    {cliente.clientes.nombre} {cliente.clientes.apellido}
+                  </Col>
+                  <Col className="text-center">
+                    {cliente.clientes.subscriptions ? (
+                      <p className="mb-0">
+                        {new Date(
+                          cliente.clientes.subscriptions.fecha_fin
+                        ).toLocaleDateString('es-AR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                        })}
+                      </p>
+                    ) : (
+                      <p className="mb-0 text-danger fw-bold">Inactiva</p>
+                    )}
+                  </Col>
+                  <Col className="text-center">
+                    {cliente.clientes.subscriptions ? (
+                      <p className="mb-0">
+                        {cliente.clientes.subscriptions.tipo === 1 && 'Básico'}
+                        {cliente.clientes.subscriptions.tipo === 2 &&
+                          'Completo'}
+                        {cliente.clientes.subscriptions.tipo === 3 &&
+                          'Revendedores'}
+                      </p>
+                    ) : (
+                      <p className="mb-0"> - </p>
+                    )}
+                  </Col>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
         {loading && (
           <Spinner
             variant="dark"

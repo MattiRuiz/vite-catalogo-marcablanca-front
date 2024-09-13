@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_NAME
 
-//#region Logout del admin si no tiene token
 const clearData = () => {
   try {
     localStorage.removeItem('token')
@@ -12,7 +11,6 @@ const clearData = () => {
     console.log('clearData error', e)
   }
 }
-//#endregion
 
 const getAllClientes = async () => {
   const respuesta = await axios.get(`${baseUrl}/api/clientes`, {
@@ -23,11 +21,6 @@ const getAllClientes = async () => {
   })
   return respuesta
 }
-
-// const getOneCliente = async (id) => {
-//   const respuesta = await axios.get(`${baseUrl}/api/clientes/${id}`)
-//   return respuesta
-// }
 
 const createCliente = async (_data) => {
   try {
@@ -95,6 +88,36 @@ const getSuscripcion = async (_id) => {
   return response
 }
 
+const createSuscripcion = async (_data) => {
+  try {
+    const response = await axios(`${baseUrl}/api/subscripciones`, {
+      method: 'POST',
+      data: _data,
+      headers: {
+        Authorization: window.localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
+const editSuscripcion = async (_id, _data) => {
+  try {
+    const response = await axios(`${baseUrl}/api/subscripciones/${_id}`, {
+      method: 'PUT',
+      data: _data,
+      headers: {
+        Authorization: window.localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 export {
   getAllClientes,
   createCliente,
@@ -103,4 +126,6 @@ export {
   clearData,
   changePassword,
   getSuscripcion,
+  createSuscripcion,
+  editSuscripcion,
 }

@@ -67,9 +67,12 @@ const ProductoCRUD = ({ showToast }) => {
           <Row className="py-3" key={categoria.id}>
             <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
             {categoria.productos.map((producto) => (
-              <Col key={producto.id} xs={12} md={6}>
+              <Col key={`col-${producto.id}`} xs={12} md={6}>
                 <Accordion className="mt-2">
-                  <Accordion.Item eventKey={producto.id} className="">
+                  <Accordion.Item
+                    eventKey={`event-${producto.id}`}
+                    key={`acc-${producto.id}`}
+                  >
                     <Accordion.Header
                       className="d-flex align-items-center"
                       onClick={() => handleShowProducto(producto.id)}
