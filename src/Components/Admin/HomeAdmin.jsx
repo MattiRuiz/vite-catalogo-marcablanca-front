@@ -15,12 +15,12 @@ const HomeAdmin = () => {
             border: '1px dashed var(--bs-border-color)',
           }}
         >
-          <PiShovelFill className="fs-1 text-muted mb-3" />
-          <h5 className="text-muted">Inicio en construcción</h5>
+          <PiShovelFill className="fs-1 text-muted mb-2" />
+          <h5 className="text-muted fw-semibold">Inicio en construcción</h5>
           <p className="mb-0">
             <em>
               La idea es colocar tipo un Dashboard, y en esta sección se
-              encuentren cosas útiles como, últimos registros, mensajería
+              encuentren cosas útiles como últimos registros, mensajería
               interna, estadísticas como visitantes diários, etc.
             </em>
           </p>

@@ -5,11 +5,11 @@ import { Row, Col, Image, Button, Dropdown } from 'react-bootstrap'
 import LoginContext from '../../Context/LoginContext'
 
 import {
-  PiGearFill,
-  PiNoteFill,
-  PiUserCircleGearFill,
-  PiXCircleFill,
-  PiCoinsFill,
+  PiGearBold,
+  PiNoteBold,
+  PiUserCircleGearBold,
+  PiXCircleBold,
+  PiCoinsBold,
   PiDotsThreeVerticalBold,
 } from 'react-icons/pi'
 
@@ -72,7 +72,7 @@ function Navbar() {
                         to={'/administrador-marcablanca'}
                         className="fw-bold d-flex align-items-center"
                       >
-                        <PiUserCircleGearFill className="text-secondary fs-5 me-3" />{' '}
+                        <PiUserCircleGearBold className="text-secondary fs-5 me-2" />{' '}
                         Administrar
                       </Dropdown.Item>
                       <Dropdown.Divider />
@@ -83,32 +83,32 @@ function Navbar() {
                   <Dropdown.Item
                     as={Link}
                     to={'/contacto'}
-                    className="d-flex align-items-center py-2"
+                    className="d-flex align-items-center py-2 fw-medium"
                   >
-                    <PiNoteFill className="text-secondary fs-5 me-3" /> Contacto
+                    <PiNoteBold className="text-secondary fs-5 me-2" /> Contacto
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
                     to={'/configurar-precios'}
-                    className="d-flex align-items-center py-2"
+                    className="d-flex align-items-center py-2 fw-medium"
                   >
-                    <PiCoinsFill className="text-secondary fs-5 me-3" />{' '}
+                    <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
                     Configurar precios
                   </Dropdown.Item>
                   <Dropdown.Item
                     as={Link}
                     to={'/mi-cuenta'}
-                    className="d-flex align-items-center py-2"
+                    className="d-flex align-items-center py-2 fw-medium"
                   >
-                    <PiGearFill className="text-secondary fs-5 me-3" /> Mi
+                    <PiGearBold className="text-secondary fs-5 me-2" /> Mi
                     cuenta
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item
                     onClick={() => setShow(true)}
-                    className="d-flex align-items-center py-2"
+                    className="d-flex align-items-center py-2 fw-medium"
                   >
-                    <PiXCircleFill className="text-secondary fs-5 me-3" />{' '}
+                    <PiXCircleBold className="text-secondary fs-5 me-2" />{' '}
                     Cerrar sesión
                   </Dropdown.Item>
                 </Dropdown.Menu>
