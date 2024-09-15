@@ -88,9 +88,13 @@ const ClientesCRUD = ({ showToast }) => {
         )}
         {!editor && (
           <>
-            <Boton className="me-2" onClick={() => openPopup(null)}>
-              Crear cliente
-            </Boton>
+            <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+              <h2 className="mb-0 fw-bold">Clientes</h2>
+              <Boton className="me-2" onClick={() => openPopup(null)}>
+                Crear cliente
+              </Boton>
+            </div>
+
             <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
               <Col xs={1}>
                 <p className="mb-0 texto-14 fw-bold">Id</p>

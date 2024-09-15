@@ -61,7 +61,7 @@ const deleteCliente = async (_id) => {
     })
     return response
   } catch (errors) {
-    console.log(errors)
+    return errors.response
   }
 }
 

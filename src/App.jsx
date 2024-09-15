@@ -81,7 +81,7 @@ function App() {
             }
           />
           <Route
-            path="/admin"
+            path="/administrador-marcablanca"
             element={
               <>
                 <Admin />

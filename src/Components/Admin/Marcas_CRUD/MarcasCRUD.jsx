@@ -67,7 +67,8 @@ const MarcasCRUD = ({ showToast }) => {
   return (
     <>
       <Col xs={12} md={10} lg={8}>
-        <div className="mb-2 border-bottom pb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+          <h2 className="mb-0 fw-bold">Marcas</h2>
           <Boton className="me-2" onClick={() => openPopup(null)}>
             Crear marca
           </Boton>

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, Image, Button, Dropdown, Modal } from 'react-bootstrap'
+import { Row, Col, Image, Button, Dropdown } from 'react-bootstrap'
 
 import LoginContext from '../../Context/LoginContext'
 
@@ -10,12 +10,11 @@ import {
   PiUserCircleGearFill,
   PiXCircleFill,
   PiCoinsFill,
-  PiXCircleDuotone,
   PiDotsThreeVerticalBold,
 } from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
-import { Boton, PopUp } from '../../ui'
+import { PopUp } from '../../ui'
 
 function Navbar() {
   const [show, setShow] = useState(false)
@@ -70,7 +69,7 @@ function Navbar() {
                     <>
                       <Dropdown.Item
                         as={Link}
-                        to={'/admin'}
+                        to={'/administrador-marcablanca'}
                         className="fw-bold d-flex align-items-center"
                       >
                         <PiUserCircleGearFill className="text-secondary fs-5 me-3" />{' '}

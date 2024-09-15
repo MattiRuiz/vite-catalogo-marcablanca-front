@@ -81,7 +81,8 @@ const TipoProductoCRUD = ({ showToast }) => {
   return (
     <>
       <Col xs={12}>
-        <div className="mb-2 border-bottom pb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+          <h2 className="mb-0 fw-bold">Tipo de producto</h2>
           <Boton className="me-2" onClick={() => openPopup(null)}>
             Crear tipo de producto
           </Boton>

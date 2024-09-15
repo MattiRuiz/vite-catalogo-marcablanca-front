@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Row, Col, Form } from 'react-bootstrap'
+import { Row, Col, Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+import HomeAdmin from './HomeAdmin'
 import TallasCRUD from './TallasCRUD/TallasCRUD'
 import TipoProductoCRUD from './TipoProductos_CRUD/TipoProductoCRUD'
 import MarcasCRUD from './Marcas_CRUD/MarcasCRUD'
@@ -9,10 +10,21 @@ import ProductosCRUD from './Productos_CRUD/ProductosCRUD'
 import ClientesCRUD from './Clientes_CRUD/ClientesCRUD'
 import NotFound from '../NotFound/NotFound'
 
+import {
+  PiUserListBold,
+  PiHouseLineBold,
+  PiLegoBold,
+  PiRulerBold,
+  PiTagBold,
+  PiBriefcaseBold,
+  PiListBold,
+} from 'react-icons/pi'
+
 import { Tostada } from '../../ui'
 
 const Admin = () => {
-  const [selectedEntity, setSelectedEntity] = useState('productos')
+  const [selectedEntity, setSelectedEntity] = useState('home')
+  const [showOffcanvas, setShowOffcanvas] = useState(false)
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
@@ -34,112 +46,260 @@ const Admin = () => {
     })
   }
 
+  const handleEntity = (entity) => {
+    setSelectedEntity(entity)
+    setShowOffcanvas(false)
+  }
+
   return (
     <>
-      {auth === 1 ? (
-        <>
-          <Row className="justify-content-center gap-3 bg-secondary-subtle alto-container">
-            <Col lg={2} className="d-none d-lg-flex border-end py-5">
-              <ul className="list-unstyled">
-                <li className="mb-2">
-                  <Link
-                    className="fw-medium"
-                    onClick={() => setSelectedEntity('medidas')}
-                  >
-                    Medidas
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="fw-medium"
-                    onClick={() => setSelectedEntity('tipo de producto')}
-                  >
-                    Tipo de producto
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="fw-medium"
-                    onClick={() => setSelectedEntity('marcas')}
-                  >
-                    Marcas
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="fw-medium"
-                    onClick={() => setSelectedEntity('productos')}
-                  >
-                    Productos
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="fw-medium"
-                    onClick={() => setSelectedEntity('clientes')}
-                  >
-                    Clientes
-                  </Link>
-                </li>
-              </ul>
-            </Col>
-            <Col xs={12} sm={11} md={10} lg={9} className="py-5">
-              <Col xs={12} className="">
-                <h6 className="fw-bold text-primary mb-0">
-                  Panel de Administración
-                </h6>
-                <h2 className="display-3 fw-bold lh-sm">
-                  Lista de {selectedEntity}
-                </h2>
-                <Form.Group className="d-lg-none mb-3">
-                  <Form.Label className="" htmlFor="entity">
-                    Selecciona una seccion:
-                  </Form.Label>
-                  <Form.Select
-                    id="entity"
-                    value={selectedEntity}
-                    onChange={(e) => setSelectedEntity(e.target.value)}
-                  >
-                    <option value="medidas">Medidas</option>
-                    <option value="tipo de producto">Tipo de Producto</option>
-                    <option value="marcas">Marcas</option>
-                    <option value="productos">Productos</option>
-                    <option value="clientes">Clientes</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col xs={12}>
-                {selectedEntity === 'medidas' && (
-                  <TallasCRUD showToast={handleShowToast} />
-                )}
-                {selectedEntity === 'tipo de producto' && (
-                  <TipoProductoCRUD showToast={handleShowToast} />
-                )}
-                {selectedEntity === 'marcas' && (
-                  <MarcasCRUD showToast={handleShowToast} />
-                )}
-                {selectedEntity === 'productos' && (
-                  <ProductosCRUD showToast={handleShowToast} />
-                )}
-                {selectedEntity === 'clientes' && (
-                  <ClientesCRUD showToast={handleShowToast} />
-                )}
-              </Col>
-            </Col>
-          </Row>
-          {toastConfig.show && (
-            <Tostada
-              show={toastConfig.show}
-              onClose={() => setToastConfig({ ...toastConfig, show: false })}
-              header={toastConfig.header}
-              variant={toastConfig.variant}
+      <Row className="justify-content-center gap-3 bg-secondary-subtle alto-container py-4">
+        <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
+          <h5 className="fw-bold mb-0">Hola {userParsed.username}</h5>
+          <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p>
+          <p className="texto-14 text-muted mb-2">Menú</p>
+          <ul className="list-unstyled">
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('home')}
+              >
+                <PiHouseLineBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'home'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Inicio
+              </Link>
+            </li>
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('productos')}
+              >
+                <PiLegoBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'productos'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Productos
+              </Link>
+            </li>
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('clientes')}
+              >
+                <PiUserListBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'clientes'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Clientes
+              </Link>
+            </li>
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('medidas')}
+              >
+                <PiRulerBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'medidas'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Medidas
+              </Link>
+            </li>
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('tipo de producto')}
+              >
+                <PiTagBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'tipo de producto'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Tipo de producto
+              </Link>
+            </li>
+            <li className="mb-3">
+              <Link
+                className="fw-medium d-flex align-items-center"
+                onClick={() => setSelectedEntity('marcas')}
+              >
+                <PiBriefcaseBold
+                  className={`me-2 fs-5 ${
+                    selectedEntity === 'marcas'
+                      ? 'text-primary'
+                      : 'text-secondary'
+                  }`}
+                />
+                Marcas
+              </Link>
+            </li>
+          </ul>
+        </Col>
+        <Col className="d-lg-none position-fixed bottom-0 end-0">
+          <div className="d-flex justify-content-start mb-3">
+            <button
+              className="rounded-circle bg-primary bg-gradient text-white shadow-sm ms-1"
+              style={{ width: '45px', height: '45px' }}
+              onClick={() => setShowOffcanvas(true)}
             >
-              {toastConfig.message}
-            </Tostada>
-          )}
-        </>
-      ) : (
-        <NotFound></NotFound>
+              <PiListBold className="fs-5" />
+            </button>
+          </div>
+        </Col>
+        <Offcanvas
+          show={showOffcanvas}
+          onHide={() => setShowOffcanvas(false)}
+          placement="start"
+          className="d-lg-none"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title></Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className="pt-0">
+            <h5 className="fw-bold mb-0">Hola {userParsed.username}</h5>
+            <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p>
+            <p className="texto-14 text-muted mb-2">Menú</p>
+            <ul className="list-unstyled">
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => handleEntity('home')}
+                >
+                  <PiHouseLineBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'home'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Inicio
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => handleEntity('productos')}
+                >
+                  <PiLegoBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'productos'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Productos
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => setSelectedEntity('clientes')}
+                >
+                  <PiUserListBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'clientes'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Clientes
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => setSelectedEntity('medidas')}
+                >
+                  <PiRulerBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'medidas'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Medidas
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => setSelectedEntity('tipo de producto')}
+                >
+                  <PiTagBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'tipo de producto'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Tipo de producto
+                </Link>
+              </li>
+              <li className="mb-3">
+                <Link
+                  className="fw-medium d-flex align-items-center"
+                  onClick={() => setSelectedEntity('marcas')}
+                >
+                  <PiBriefcaseBold
+                    className={`me-2 fs-5 ${
+                      selectedEntity === 'marcas'
+                        ? 'text-primary'
+                        : 'text-secondary'
+                    }`}
+                  />
+                  Marcas
+                </Link>
+              </li>
+            </ul>
+          </Offcanvas.Body>
+        </Offcanvas>
+        <Col xs={12} md={11} lg={9} className="py-3">
+          <Col xs={12}>
+            {selectedEntity === 'home' && <HomeAdmin />}
+            {selectedEntity === 'medidas' && (
+              <TallasCRUD showToast={handleShowToast} />
+            )}
+            {selectedEntity === 'tipo de producto' && (
+              <TipoProductoCRUD showToast={handleShowToast} />
+            )}
+            {selectedEntity === 'marcas' && (
+              <MarcasCRUD showToast={handleShowToast} />
+            )}
+            {selectedEntity === 'productos' && (
+              <ProductosCRUD showToast={handleShowToast} />
+            )}
+            {selectedEntity === 'clientes' && (
+              <ClientesCRUD showToast={handleShowToast} />
+            )}
+          </Col>
+        </Col>
+      </Row>
+
+      {toastConfig.show && (
+        <Tostada
+          show={toastConfig.show}
+          onClose={() => setToastConfig({ ...toastConfig, show: false })}
+          header={toastConfig.header}
+          variant={toastConfig.variant}
+        >
+          {toastConfig.message}
+        </Tostada>
       )}
     </>
   )

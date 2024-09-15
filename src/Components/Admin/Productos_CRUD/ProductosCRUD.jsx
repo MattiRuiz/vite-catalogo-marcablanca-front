@@ -55,13 +55,16 @@ const ProductoCRUD = ({ showToast }) => {
   return (
     <>
       <Col xs={12}>
-        <div className="mb-2 border-bottom pb-2">
-          <Boton className="me-2" onClick={() => openPopup()}>
-            Crear producto
-          </Boton>
-          <Boton variant="light" onClick={() => setPopUpEditarPrecio(true)}>
-            Editar grupos de precio
-          </Boton>
+        <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+          <h2 className="mb-0 fw-bold">Productos</h2>
+          <div>
+            <Boton className="me-2" onClick={() => openPopup()}>
+              Crear producto
+            </Boton>
+            <Boton variant="light" onClick={() => setPopUpEditarPrecio(true)}>
+              Editar grupos de precio
+            </Boton>
+          </div>
         </div>
         {categorias.map((categoria) => (
           <Row className="py-3" key={categoria.id}>

@@ -64,7 +64,7 @@ function Login() {
           navigate('/')
         } else if (user.userData.esAdmin === 1) {
           handleLogin(user)
-          navigate('/admin')
+          navigate('/administrador-marcablanca')
         }
       }
     } catch (error) {

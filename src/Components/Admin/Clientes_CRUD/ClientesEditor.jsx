@@ -112,15 +112,22 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
   const handleDelete = async () => {
     setLoading(true)
     try {
-      await deleteCliente(clienteData.id)
-      showToast(
-        'success',
-        'Cliente eliminado',
-        'El cliente se ha eliminado con éxito.'
-      )
-      onClienteUpdated()
-      setPopUpBorrar(false)
-      onClose()
+      const response = await deleteCliente(clienteData.id)
+      console.log('delete', response)
+
+      if (response.status === 200) {
+        showToast(
+          'success',
+          'Cliente eliminado',
+          'El cliente se ha eliminado con éxito.'
+        )
+        onClienteUpdated()
+        setPopUpBorrar(false)
+        onClose()
+      } else {
+        showToast('danger', 'Error', response.data)
+        setPopUpBorrar(false)
+      }
     } catch (e) {
       showToast('danger', 'Error', 'Hubo un problema al eliminar el cliente.')
       console.error(e.message)

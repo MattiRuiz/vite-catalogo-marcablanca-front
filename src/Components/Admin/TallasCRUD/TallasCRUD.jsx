@@ -7,6 +7,8 @@ import TallasPopUp from './TallasCRUD_popup'
 
 import { PopUp, Boton } from '../../../ui'
 
+import { PiRulerBold } from 'react-icons/pi'
+
 const TallasCRUD = ({ showToast }) => {
   const [tallas, setTallas] = useState([])
   const [popUp, setPopUp] = useState(false)
@@ -67,7 +69,8 @@ const TallasCRUD = ({ showToast }) => {
   return (
     <>
       <Col xs={12}>
-        <div className="mb-2 border-bottom pb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+          <h2 className="mb-0 fw-bold">Medidas</h2>
           <Boton onClick={() => openPopup(null)}>Crear medida</Boton>
         </div>
         <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
