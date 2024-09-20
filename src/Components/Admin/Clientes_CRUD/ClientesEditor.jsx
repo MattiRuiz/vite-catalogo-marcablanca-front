@@ -226,14 +226,13 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
           <div className="p-3">
             <h5 className="fw-bold border-bottom pb-3">
               Suscripción:{' '}
-              {suscripcionData ? (
-                <span className="text-success">
-                  {' '}
-                  Plan {suscripcionData.tipo === 1 && 'Básico'}
-                  {suscripcionData.tipo === 2 && 'Completo'}
-                </span>
-              ) : (
+              {suscripcionData === null && (
                 <span className="text-muted">A crear</span>
+              )}
+              {suscripcionData?.estado === 'active' ? (
+                <span className="text-success">Activa</span>
+              ) : (
+                <span className="text-danger">Vencida</span>
               )}
             </h5>
             <Form>
@@ -265,8 +264,23 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
               {suscripcionData && (
                 <Row>
                   <Col>
-                    <p className="mb-1">
-                      Vencimiento:{' '}
+                    <p className="mb-2">
+                      <strong>Plan:</strong>{' '}
+                      {suscripcionData.tipo === 1 && 'Básico'}
+                      {suscripcionData.tipo === 2 && 'Completo'}
+                    </p>
+                    <p className="mb-2">
+                      <strong>Inicio:</strong>{' '}
+                      {new Date(
+                        suscripcionData.fecha_inicio
+                      ).toLocaleDateString('es-AR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <p className="mb-2">
+                      <strong>Finalización:</strong>{' '}
                       {new Date(suscripcionData.fecha_fin).toLocaleDateString(
                         'es-AR',
                         {
@@ -276,7 +290,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                         }
                       )}
                     </p>
-                    <Form.Group className="mt-2">
+                    <Form.Group className="mt-3">
                       <Form.Check
                         type="checkbox"
                         label="Modificar suscripción"
@@ -288,7 +302,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                     </Form.Group>
                     {editar && (
                       <>
-                        <Row className="mt-2">
+                        <Row className="mt-3">
                           <Form.Group as={Col}>
                             <Form.Label>Tipo de suscripción:</Form.Label>
                             <Form.Select

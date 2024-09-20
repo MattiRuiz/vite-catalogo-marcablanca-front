@@ -18,7 +18,7 @@ import {
 } from '../../Functions/ProductosFunctions'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
-import { PiFadersBold, PiArrowCircleRightDuotone } from 'react-icons/pi'
+import { PiFadersBold, PiArrowCircleRightBold } from 'react-icons/pi'
 
 import { CardLoading, PopUpCarousel } from '../../ui'
 
@@ -47,7 +47,6 @@ function Catalog() {
     setPopUpCarrusel(true)
   }
 
-  //ganancias/precios
   const showGanancia = localStorage.getItem('showGanancia')
   let ganancia = 1
   let porcentual = 1.0
@@ -127,7 +126,7 @@ function Catalog() {
                       style={{ fontWeight: 500 }}
                       onClick={() => handleProducts(1)}
                     >
-                      Productos
+                      Todos
                     </Nav.Link>
                   </Nav.Item>
                   {categorias.map((categoria) => (
@@ -154,15 +153,14 @@ function Catalog() {
                   <li className="mt-4">
                     <Link
                       className="text-dark px-2 py-1 mb-1 d-flex align-items-center"
-                      style={{ fontWeight: 500 }}
                       onClick={() => handleProducts(1)}
                     >
-                      <PiArrowCircleRightDuotone
-                        className={`me-1 fs-5 text-primary ${
+                      <PiArrowCircleRightBold
+                        className={`me-2 fs-5 text-primary ${
                           activeCategory === null ? 'd-block' : 'd-none'
                         }`}
                       />
-                      Productos
+                      <span className="fw-semibold">Todos</span>
                     </Link>
                   </li>
                   {categorias.map((categoria) => (
@@ -171,12 +169,11 @@ function Catalog() {
                         className={`text-dark px-2 py-1 mb-1 d-flex ${
                           activeCategory === categoria.id ? 'active' : ''
                         }`}
-                        style={{ fontWeight: 500 }}
                         onClick={() => handleCategories(categoria.id)}
                       >
                         {activeCategory === categoria.id && (
-                          <PiArrowCircleRightDuotone
-                            className={`me-1 fs-5 text-primary`}
+                          <PiArrowCircleRightBold
+                            className={`me-2 fs-5 text-primary`}
                           />
                         )}
 
@@ -204,7 +201,7 @@ function Catalog() {
                         <Card className="mb-3 h-100 border-0">
                           <Ratio
                             aspectRatio="4x3"
-                            className="fondo-imagen position-relative rounded-3 shadow"
+                            className="fondo-imagen position-relative rounded-3 "
                           >
                             {imagenErrors[producto.id] ? (
                               <div className="w-100 h-100 d-flex align-items-center justify-content-center">
@@ -232,12 +229,12 @@ function Catalog() {
                               {producto.marca}
                             </p>
                           )}
-                          <Card.Body className="pb-0 px-2 pt-3">
+                          <Card.Body className="pb-0 px-0 pt-2">
                             <Card.Title className="fw-semibold mb-2">
                               {producto.nombre}
                             </Card.Title>
                             <Card.Subtitle
-                              className="text-muted mb-2 fst-italic"
+                              className="text-muted mb-1 fst-italic"
                               style={{ lineHeight: '1.3' }}
                             >
                               {producto.descripcion}
@@ -308,13 +305,11 @@ function Catalog() {
           </Row>
         </Col>
       </Row>
-      {popUpCarrusel ? (
+      {popUpCarrusel && (
         <PopUpCarousel
           producto={selectedProduct}
           closePopUp={() => setPopUpCarrusel(false)}
         />
-      ) : (
-        <></>
       )}
     </>
   )

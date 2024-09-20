@@ -130,19 +130,16 @@ const ClientesCRUD = ({ showToast }) => {
                   <Col>
                     {cliente.clientes.nombre} {cliente.clientes.apellido}
                   </Col>
+                  {console.log(cliente)}
                   <Col className="text-center">
-                    {cliente.clientes.subscriptions ? (
-                      <p className="mb-0">
-                        {new Date(
-                          cliente.clientes.subscriptions.fecha_fin
-                        ).toLocaleDateString('es-AR', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                        })}
-                      </p>
-                    ) : (
-                      <p className="mb-0 text-danger fw-bold">Inactiva</p>
+                    {cliente.clientes.subscriptions === null && (
+                      <p className="mb-0 text-muted fw-bold">A crear</p>
+                    )}
+                    {cliente.clientes.subscriptions?.estado === 'active' && (
+                      <p className="mb-0 text-success fw-bold">Activa</p>
+                    )}
+                    {cliente.clientes.subscriptions?.estado === 'expired' && (
+                      <p className="mb-0 text-danger fw-bold">Vencida</p>
                     )}
                   </Col>
                   <Col className="text-center">

@@ -62,14 +62,63 @@ function WelcomeLog() {
     <>
       <Row className="justify-content-around pt-4 pb-3">
         <Col xs={11} className="border-bottom pb-3">
-          <h1 className="mb-0 display-4 fw-normal">
+          <h1 className="mb-0 display-6 fw-normal">
             Hola <span className="fw-bold"> {username}</span>
           </h1>
-          <h5 className="mb-0">¡Te damos la bienvenida nuevamente!</h5>
+          <h5 className="mb-0 fw-light">¡Te damos la bienvenida!</h5>
         </Col>
       </Row>
       <Row className="pb-4 justify-content-center">
         <Col xs={11}>
+          <div className="d-flex gap-2 flex-wrap">
+            <Boton
+              className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center"
+              as={Link}
+              to={`/catalogo/`}
+            >
+              <Ratio
+                aspectRatio="1x1"
+                className="rounded-circle fondo-imagen me-2"
+                style={{ width: '40px' }}
+              >
+                <Image
+                  src={todosLosProductos}
+                  className="object-fit-cover rounded-circle"
+                  fluid
+                />
+              </Ratio>
+              Todos
+            </Boton>
+            {categorias.map((categoria) => (
+              <Boton
+                className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
+                as={Link}
+                to={`/catalogo/${categoria.id}`}
+                key={categoria.id}
+              >
+                <Ratio
+                  aspectRatio="1x1"
+                  className="rounded-circle fondo-imagen me-2"
+                  style={{ width: '40px' }}
+                >
+                  {imagenErrors[categoria.id] ? (
+                    <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                  ) : (
+                    <Image
+                      src={categoria.rutaImagen}
+                      className="object-fit-cover rounded-circle"
+                      fluid
+                      onError={() => handleImageError(producto.id)}
+                    />
+                  )}
+                </Ratio>
+                {categoria.nombre}
+              </Boton>
+            ))}
+          </div>
+        </Col>
+
+        {/* <Col xs={11}>
           <div className="d-flex justify-content-between align-items-end mb-3">
             <h2 className="fw-bold mb-0">Categorías</h2>
             <Boton
@@ -96,10 +145,7 @@ function WelcomeLog() {
                   className="py-2"
                 >
                   <div className="position-relative">
-                    {/* Superposición de fondo oscuro */}
                     <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3 z-1"></div>
-                    {/* Texto sobre la imagen */}
-
                     <p
                       className="fs-5 position-absolute bottom-0 start-0 ms-4 z-3 fw-semibold text-white"
                       style={{ letterSpacing: '.5px', lineHeight: 1.1 }}
@@ -130,7 +176,6 @@ function WelcomeLog() {
                     className="py-2"
                   >
                     <div className="position-relative">
-                      {/* Superposición de fondo oscuro */}
                       <div className="overlay position-absolute top-0 start-0 w-100 h-100 rounded-3 z-1"></div>
                       <p
                         className="fs-5 position-absolute bottom-0 start-0 ms-4 z-3 fw-semibold text-white"
@@ -163,10 +208,10 @@ function WelcomeLog() {
               </>
             )}
           </Row>
-        </Col>
+        </Col> */}
 
-        <Col xs={11} className="mt-4">
-          <div className="d-flex justify-content-between align-items-end mb-3">
+        <Col xs={11} className="mt-5">
+          <div className="d-flex justify-content-between align-items-end mb-4">
             <h2 className="fw-bold mb-0">Últimos productos</h2>
             <Boton
               className="fw-bold text-primary d-flex align-items-center py-0 px-1"
