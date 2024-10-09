@@ -51,20 +51,16 @@ function Login() {
       } else {
         const response = await loginCliente(data)
         const user = {
-          token: response.data.token,
-          userData: {
-            id: response.data.id,
-            esAdmin: response.data.esAdmin,
-            username: response.data.username,
-          },
+          ...response.data,
         }
 
-        if (user.userData.esAdmin === 0) {
-          handleLogin(user)
-          navigate('/')
-        } else if (user.userData.esAdmin === 1) {
-          handleLogin(user)
+        handleLogin(user)
+        if (user.esAdmin === 1) {
           navigate('/administrador-marcablanca')
+        } else if (user.clientes.subscriptions.estado === 'active') {
+          navigate('/')
+        } else {
+          navigate('/mi-cuenta')
         }
       }
     } catch (error) {

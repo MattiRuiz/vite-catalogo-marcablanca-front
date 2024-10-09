@@ -11,9 +11,7 @@ const loginCliente = async (data) => {
     })
 
     const userDataObject = {
-      id: response.data.id,
-      esAdmin: response.data.esAdmin,
-      username: response.data.username,
+      ...response.data,
     }
 
     const userData = JSON.stringify(userDataObject)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   Row,
   Col,
@@ -34,6 +34,7 @@ function Catalog() {
   const [activeCategory, setActiveCategory] = useState()
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [popUpCarrusel, setPopUpCarrusel] = useState(false)
+  const navigate = useNavigate()
 
   const handleImageError = (productId) => {
     setImagenErrors((prevErrors) => ({
@@ -83,6 +84,9 @@ function Catalog() {
     setActiveCategory(null)
   }
 
+  const userData = localStorage.getItem('userData')
+  const user = JSON.parse(userData)
+
   useEffect(() => {
     const fetchCategorias = async () => {
       setLoading(true)
@@ -90,6 +94,19 @@ function Catalog() {
       setCategorias(response.data)
       setLoading(false)
     }
+
+    if (user.clientes.subscriptions.estado === 'active') {
+      fetchCategorias()
+
+      if (id) {
+        handleCategories(id)
+      } else {
+        handleProducts(1)
+      }
+    } else {
+      navigate('/mi-cuenta')
+    }
+
     fetchCategorias()
 
     if (id) {

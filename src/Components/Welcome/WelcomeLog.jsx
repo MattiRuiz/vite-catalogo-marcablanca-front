@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Row, Col, Image, Ratio, Spinner, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
@@ -15,6 +15,7 @@ function WelcomeLog() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(false)
   const [mostrarMas, setMostrarMas] = useState(false)
+  const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
@@ -43,7 +44,16 @@ function WelcomeLog() {
         setLoading(false)
       }
     }
-    fetchData()
+
+    if (user.esAdmin) {
+      fetchData()
+    } else {
+      if (user.clientes.subscriptions.estado === 'active') {
+        fetchData()
+      } else {
+        navigate('/mi-cuenta')
+      }
+    }
   }, [])
 
   const categoriasAMostrar = mostrarMas ? categorias : categorias.slice(0, 5)
@@ -63,7 +73,7 @@ function WelcomeLog() {
       <Row className="justify-content-around pt-4 pb-3">
         <Col xs={11} className="border-bottom pb-3">
           <h1 className="mb-0 display-6 fw-normal">
-            Hola <span className="fw-bold"> {username}</span>
+            Hola <span className="fw-bold"> {user.username}</span>
           </h1>
           <h5 className="mb-0 fw-light">¡Te damos la bienvenida!</h5>
         </Col>

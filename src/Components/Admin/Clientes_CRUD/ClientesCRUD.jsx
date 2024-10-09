@@ -130,7 +130,6 @@ const ClientesCRUD = ({ showToast }) => {
                   <Col>
                     {cliente.clientes.nombre} {cliente.clientes.apellido}
                   </Col>
-                  {console.log(cliente)}
                   <Col className="text-center">
                     {cliente.clientes.subscriptions === null && (
                       <p className="mb-0 text-muted fw-bold">A crear</p>

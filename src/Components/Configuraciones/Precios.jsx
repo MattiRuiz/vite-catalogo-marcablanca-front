@@ -41,6 +41,7 @@ function Precios() {
     setShow(false)
     navigate('/welcome')
   }
+
   const dataSave = () => {
     const showGananciaCase = localStorage.getItem('showGanancia')
     if (showGananciaCase != null) {
@@ -53,6 +54,10 @@ function Precios() {
 
     setShow(false)
   }
+
+  const userData = localStorage.getItem('userData')
+  const user = JSON.parse(userData)
+
   useEffect(() => {
     dataSave()
   }, [])

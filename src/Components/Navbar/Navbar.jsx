@@ -19,7 +19,7 @@ import { PopUp } from '../../ui'
 function Navbar() {
   const [show, setShow] = useState(false)
 
-  const { menu, setMenu, unauthorize } = useContext(LoginContext)
+  const { user, setUser, unauthorize } = useContext(LoginContext)
 
   const logout = () => {
     setShow(false)
@@ -28,18 +28,15 @@ function Navbar() {
 
   useEffect(() => {
     try {
-      const token = localStorage.getItem('token')
-      if (token) {
-        const user = {
-          token: token,
-          userData: JSON.parse(localStorage.getItem('userData')),
-        }
-        setMenu(user)
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      if (userData) {
+        setUser(userData)
       } else {
-        setMenu()
+        setUser(null)
       }
-    } catch {
-      setMenu()
+    } catch (e) {
+      setUser(null)
+      console.error(e)
     }
   }, [])
 
@@ -51,7 +48,7 @@ function Navbar() {
             <Image src={imageLogo} className="logo-home d-block" />
           </Link>
         </Col>
-        {menu ? (
+        {user ? (
           <Col xs={6} className="d-flex justify-content-end">
             <div className="d-flex align-items-center">
               <Button as={Link} to={'/'} className="me-2 navbar-tab">
@@ -65,7 +62,7 @@ function Navbar() {
                   <PiDotsThreeVerticalBold className="fs-5" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {menu.userData?.esAdmin ? (
+                  {user.esAdmin ? (
                     <>
                       <Dropdown.Item
                         as={Link}
@@ -76,9 +73,30 @@ function Navbar() {
                         Administrar
                       </Dropdown.Item>
                       <Dropdown.Divider />
+                      <Dropdown.Item
+                        as={Link}
+                        to={'/configurar-precios'}
+                        className="d-flex align-items-center py-2 fw-medium"
+                      >
+                        <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
+                        Configurar precios
+                      </Dropdown.Item>
                     </>
                   ) : (
-                    ''
+                    <>
+                      {user.clientes.subscriptions?.estado === 'active' && (
+                        <>
+                          <Dropdown.Item
+                            as={Link}
+                            to={'/configurar-precios'}
+                            className="d-flex align-items-center py-2 fw-medium"
+                          >
+                            <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
+                            Configurar precios
+                          </Dropdown.Item>
+                        </>
+                      )}
+                    </>
                   )}
                   <Dropdown.Item
                     as={Link}
@@ -87,14 +105,7 @@ function Navbar() {
                   >
                     <PiNoteBold className="text-secondary fs-5 me-2" /> Contacto
                   </Dropdown.Item>
-                  <Dropdown.Item
-                    as={Link}
-                    to={'/configurar-precios'}
-                    className="d-flex align-items-center py-2 fw-medium"
-                  >
-                    <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
-                    Configurar precios
-                  </Dropdown.Item>
+
                   <Dropdown.Item
                     as={Link}
                     to={'/mi-cuenta'}

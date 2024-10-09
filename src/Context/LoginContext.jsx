@@ -7,22 +7,16 @@ import PopUpUnauthorize from './PopUpUnauthorize'
 const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
-  const [auth, setAuth] = useState()
-  const [menu, setMenu] = useState()
+  const [user, setUser] = useState(null)
   const [popUpUnauthorized, setPopUpUnauthorize] = useState(false)
   const navigate = useNavigate()
 
-  const handleLogin = (resp) => {
-    setAuth(resp)
-    const token = localStorage.getItem('token')
-    if (token) {
-      const user = {
-        token: token,
-        userData: JSON.parse(localStorage.getItem('userData')),
-      }
-      setMenu(user)
+  const handleLogin = () => {
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    if (userData) {
+      setUser(userData)
     } else {
-      setMenu()
+      setUser(null)
     }
   }
 
@@ -32,35 +26,28 @@ const LoginProvider = ({ children }) => {
     localStorage.removeItem('exp')
     localStorage.removeItem('ganancia')
     localStorage.removeItem('showGanancia')
-    setAuth()
-    setMenu(false)
+    setUser(null)
     navigate('/')
   }
 
   const checkUser = () => {
     const exp = localStorage.getItem('exp')
-    if (Number(exp) < Date.now()) {
+    if (exp && Number(exp) < Date.now()) {
       unauthorize()
+      console.log('Tiempo de sesión caducado, inicie sesión nuevamente.')
     } else {
-      const token = localStorage.getItem('token')
-      if (auth && token) {
-        setMenu(auth)
-      } else if (!auth && token) {
-        const user = {
-          token: token,
-          userData: JSON.parse(localStorage.getItem('userData')),
-        }
-        setMenu(user)
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      if (userData) {
+        setUser(userData)
       } else {
         unauthorize()
-        console.log('Su sesión ha terminado')
+        console.log('No se encontró información de usuario.')
       }
     }
   }
 
   useEffect(() => {
     checkUser()
-
     const responseInterceptor = axios.interceptors.response.use(
       (response) => {
         return response
@@ -70,10 +57,9 @@ const LoginProvider = ({ children }) => {
           localStorage.removeItem('token')
           localStorage.removeItem('exp')
           localStorage.removeItem('userData')
-          setAuth({})
-          setMenu(false)
-          setPopUpUnauthorize(true)
-          navigate('/login')
+          setUser(null)
+          // setPopUpUnauthorize(true)
+          navigate('/')
         }
         return Promise.reject(error)
       }
@@ -83,7 +69,7 @@ const LoginProvider = ({ children }) => {
     }
   }, [])
 
-  const data = { handleLogin, checkUser, menu, setMenu, unauthorize }
+  const data = { handleLogin, checkUser, user, setUser, unauthorize }
 
   return (
     <>
