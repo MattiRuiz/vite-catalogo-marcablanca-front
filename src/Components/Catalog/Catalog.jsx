@@ -20,7 +20,7 @@ import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 import { PiFadersBold, PiArrowCircleRightBold } from 'react-icons/pi'
 
-import { CardLoading, PopUpCarousel } from '../../ui'
+import { CardLoading, PopUpCarousel, CardProducto } from '../../ui'
 
 function Catalog() {
   const { id } = useParams()
@@ -214,85 +214,7 @@ function Catalog() {
                       lg={4}
                       className="mb-4"
                     >
-                      <Link onClick={() => openPopUpCarrusel(producto)}>
-                        <Card className="mb-3 h-100 border-0">
-                          <Ratio
-                            aspectRatio="4x3"
-                            className="fondo-imagen position-relative rounded-3 "
-                          >
-                            {imagenErrors[producto.id] ? (
-                              <div className="w-100 h-100 d-flex align-items-center justify-content-center">
-                                <p className="mb-0 color-grisclaro">
-                                  <strong>Sin imágen</strong>
-                                </p>
-                              </div>
-                            ) : (
-                              <Card.Img
-                                className="object-fit-cover rounded-3"
-                                alt={producto.nombre}
-                                variant="top"
-                                src={producto.rutaImagen}
-                                onError={() => handleImageError(producto.id)}
-                              />
-                            )}
-                          </Ratio>
-                          {producto.marca === 'Otros' ? (
-                            ''
-                          ) : (
-                            <p
-                              className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
-                              style={{ letterSpacing: '.25px' }}
-                            >
-                              {producto.marca}
-                            </p>
-                          )}
-                          <Card.Body className="pb-0 px-0 pt-2">
-                            <Card.Title className="fw-semibold mb-2">
-                              {producto.nombre}
-                            </Card.Title>
-                            <Card.Subtitle
-                              className="text-muted mb-1 fst-italic"
-                              style={{ lineHeight: '1.3' }}
-                            >
-                              {producto.descripcion}
-                            </Card.Subtitle>
-                            {producto.tallas
-                              .filter((talla) => talla.stock == 1)
-                              .map((talla, index) => (
-                                <div key={index}>
-                                  <div className="d-flex justify-content-between gap-2 mb-1">
-                                    <div className="d-flex justify-content-center flex-column">
-                                      {talla.nombre_talla && (
-                                        <p className="fw-bold text-uppercase mb-0">
-                                          {talla.nombre_talla}
-                                        </p>
-                                      )}
-                                      <p className="mb-0">
-                                        {' '}
-                                        {talla.dimensiones}
-                                      </p>
-                                    </div>
-                                    <div>
-                                      {showGanancia == 'true' ? (
-                                        <div className="">
-                                          <p className="fw-bold mb-0">
-                                            $
-                                            {Math.trunc(
-                                              parseInt(talla.precio) *
-                                                porcentual
-                                            )}
-                                          </p>
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                          </Card.Body>
-                        </Card>
-                      </Link>
+                      <CardProducto producto={producto} />
                     </Col>
                   ))
                 ) : (
