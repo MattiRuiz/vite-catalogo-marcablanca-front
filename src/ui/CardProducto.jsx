@@ -4,18 +4,8 @@ import { Ratio, Card } from 'react-bootstrap'
 
 import PopUpCarousel from './PopUpCarousel'
 
-function CardProducto({ producto }) {
+function CardProducto({ producto, showGanancia, ganancia }) {
   const [popUpCarrusel, setPopUpCarrusel] = useState(false)
-
-  const showGanancia = localStorage.getItem('showGanancia')
-  let ganancia = 1
-  let porcentual = 1.0
-
-  if (showGanancia == 'true') {
-    const gananciaStr = localStorage.getItem('ganancia')
-    ganancia = JSON.parse(gananciaStr)
-    porcentual = (ganancia + 100) / 100
-  }
 
   return (
     <>
@@ -62,24 +52,27 @@ function CardProducto({ producto }) {
               {producto.descripcion}
             </Card.Subtitle>
             {producto.tallas.map((talla, index) => (
-              <div className="d-flex justify-content-between gap-2 mb-1">
+              <div
+                key={index}
+                className="d-flex justify-content-between gap-2 mb-1"
+              >
                 <div className="d-flex justify-content-center flex-column">
-                  {talla.nombre_talla && (
+                  {talla.talla_nombre && (
                     <p className="fw-bold text-uppercase mb-0">
-                      {talla.nombre_talla}
+                      {talla.talla_nombre}
                     </p>
                   )}
-                  <p className="mb-0"> {talla.dimensiones}</p>
+                  {talla.dimensiones && (
+                    <p className="mb-0"> {talla.dimensiones}</p>
+                  )}
                 </div>
                 <div>
-                  {showGanancia == 'true' ? (
+                  {showGanancia && (
                     <div>
                       <p className="fw-bold mb-0">
-                        ${Math.trunc(parseInt(talla.precio) * porcentual)}
+                        ${Math.trunc(parseInt(talla.precio) * ganancia)}
                       </p>
                     </div>
-                  ) : (
-                    <></>
                   )}
                 </div>
               </div>

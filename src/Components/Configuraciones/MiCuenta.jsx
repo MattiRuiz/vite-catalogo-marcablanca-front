@@ -14,54 +14,6 @@ function MiCuenta() {
 
   const user = JSON.parse(localStorage.getItem('userData'))
 
-  // const fechaInicio = new Date(
-  //   user?.clientes.subscriptions?.fecha_inicio
-  // ).toLocaleDateString('es-AR', {
-  //   day: '2-digit',
-  //   month: 'long',
-  //   year: 'numeric',
-  // })
-  // const fechaVencimiento = new Date(
-  //   user?.clientes.subscriptions?.fecha_fin
-  // ).toLocaleDateString('es-AR', {
-  //   day: '2-digit',
-  //   month: 'long',
-  //   year: 'numeric',
-  // })
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (user) {
-  //         const response = await getSuscripcion(user.id)
-  //         setUserSuscripcion(response.data)
-  //         const fechaInicio = new Date(
-  //           response.data.fecha_inicio
-  //         ).toLocaleDateString('es-AR', {
-  //           day: '2-digit',
-  //           month: 'long',
-  //           year: 'numeric',
-  //         })
-  //         const fechaVencimiento = new Date(
-  //           response.data.fecha_fin
-  //         ).toLocaleDateString('es-AR', {
-  //           day: '2-digit',
-  //           month: 'long',
-  //           year: 'numeric',
-  //         })
-
-  //         setFechas({
-  //           inicio: fechaInicio,
-  //           vencimiento: fechaVencimiento,
-  //         })
-  //       }
-  //     } catch (error) {
-  //       console.log('Error al obtener las suscripciones: ', error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [])
-
   return (
     <>
       <Row className="py-5 px-2 px-md-0 justify-content-center">
@@ -74,7 +26,7 @@ function MiCuenta() {
                 Información de cuenta
               </h6>
               <h3 className="fw-bold mb-0">
-                Cuenta <span>administrador</span>
+                Cuenta <span className="text-success">administrador</span>
               </h3>
             </div>
           ) : (

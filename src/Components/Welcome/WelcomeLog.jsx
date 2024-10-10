@@ -14,7 +14,8 @@ function WelcomeLog() {
   const [categorias, setCategorias] = useState([])
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(false)
-  const [mostrarMas, setMostrarMas] = useState(false)
+  const [showGanancia, setShowGanancia] = useState(false)
+  const [ganancia, setGanancia] = useState(1.0)
   const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -28,8 +29,6 @@ function WelcomeLog() {
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
 
-  const username = user.username
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -39,6 +38,14 @@ function WelcomeLog() {
         const respProductos = await getProductosCatalogo(1)
         const shortProducts = respProductos.data.slice(0, 4)
         setProductos(shortProducts)
+
+        const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+        if (localGanancia) {
+          setShowGanancia(localGanancia)
+          let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
+          let porcentual = (valorGanancia + 100) / 100
+          setGanancia(porcentual)
+        }
       } catch (error) {
         console.error('Error al obtener los productos:', error)
       } finally {
@@ -56,18 +63,6 @@ function WelcomeLog() {
       }
     }
   }, [])
-
-  const categoriasAMostrar = mostrarMas ? categorias : categorias.slice(0, 5)
-
-  const showGanancia = localStorage.getItem('showGanancia')
-  let ganancia = 1
-  let porcentual = 1.0
-
-  if (showGanancia == 'true') {
-    const gananciaStr = localStorage.getItem('ganancia')
-    ganancia = JSON.parse(gananciaStr)
-    porcentual = (ganancia + 100) / 100
-  }
 
   return (
     <>
@@ -142,7 +137,7 @@ function WelcomeLog() {
               as={Link}
               to={'/catalogo'}
             >
-              {mostrarMas ? 'Ver menos' : 'Ver más'}{' '}
+              Ver más
               <PiArrowRightBold className="ms-2" />
             </Boton>
           </div>
@@ -152,7 +147,11 @@ function WelcomeLog() {
             ) : (
               productos.map((producto) => (
                 <Col key={producto.id} xs={12} sm={6} lg={3} className="mb-4">
-                  <CardProducto producto={producto} />
+                  <CardProducto
+                    producto={producto}
+                    showGanancia={showGanancia}
+                    ganancia={ganancia}
+                  />
                 </Col>
               ))
             )}

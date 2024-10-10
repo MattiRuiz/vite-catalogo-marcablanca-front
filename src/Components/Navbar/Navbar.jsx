@@ -51,9 +51,6 @@ function Navbar() {
         {user ? (
           <Col xs={6} className="d-flex justify-content-end">
             <div className="d-flex align-items-center">
-              <Button as={Link} to={'/'} className="me-2 navbar-tab">
-                Catálogo
-              </Button>
               <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-basic"
@@ -100,20 +97,20 @@ function Navbar() {
                   )}
                   <Dropdown.Item
                     as={Link}
-                    to={'/contacto'}
-                    className="d-flex align-items-center py-2 fw-medium"
-                  >
-                    <PiNoteBold className="text-secondary fs-5 me-2" /> Contacto
-                  </Dropdown.Item>
-
-                  <Dropdown.Item
-                    as={Link}
                     to={'/mi-cuenta'}
                     className="d-flex align-items-center py-2 fw-medium"
                   >
                     <PiGearBold className="text-secondary fs-5 me-2" /> Mi
                     cuenta
                   </Dropdown.Item>
+                  <Dropdown.Item
+                    as={Link}
+                    to={'/contacto'}
+                    className="d-flex align-items-center py-2 fw-medium"
+                  >
+                    <PiNoteBold className="text-secondary fs-5 me-2" /> Contacto
+                  </Dropdown.Item>
+
                   <Dropdown.Divider />
                   <Dropdown.Item
                     onClick={() => setShow(true)}

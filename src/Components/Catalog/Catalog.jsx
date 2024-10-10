@@ -20,7 +20,7 @@ import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 import { PiFadersBold, PiArrowCircleRightBold } from 'react-icons/pi'
 
-import { CardLoading, PopUpCarousel, CardProducto } from '../../ui'
+import { CardLoading, CardProducto } from '../../ui'
 
 function Catalog() {
   const { id } = useParams()
@@ -30,33 +30,20 @@ function Catalog() {
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
   const [title, setTitle] = useState('Todos los productos')
-  const [imagenErrors, setImagenErrors] = useState({})
   const [activeCategory, setActiveCategory] = useState()
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [popUpCarrusel, setPopUpCarrusel] = useState(false)
+  const [showGanancia, setShowGanancia] = useState(false)
+  const [ganancia, setGanancia] = useState(1.0)
   const navigate = useNavigate()
 
-  const handleImageError = (productId) => {
-    setImagenErrors((prevErrors) => ({
-      ...prevErrors,
-      [productId]: true,
-    }))
-  }
+  // const showGanancia = localStorage.getItem('showGanancia')
+  // let ganancia = 1
+  // let porcentual = 1.0
 
-  const openPopUpCarrusel = (producto) => {
-    setSelectedProduct(producto)
-    setPopUpCarrusel(true)
-  }
-
-  const showGanancia = localStorage.getItem('showGanancia')
-  let ganancia = 1
-  let porcentual = 1.0
-
-  if (showGanancia == 'true') {
-    const gananciaStr = localStorage.getItem('ganancia')
-    ganancia = JSON.parse(gananciaStr)
-    porcentual = (ganancia + 100) / 100
-  }
+  // if (showGanancia == 'true') {
+  //   const gananciaStr = localStorage.getItem('ganancia')
+  //   ganancia = JSON.parse(gananciaStr)
+  //   porcentual = (ganancia + 100) / 100
+  // }
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -113,6 +100,14 @@ function Catalog() {
       handleCategories(id)
     } else {
       handleProducts(1)
+    }
+
+    const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+    if (localGanancia) {
+      setShowGanancia(localGanancia)
+      let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
+      let porcentual = (valorGanancia + 100) / 100
+      setGanancia(porcentual)
     }
   }, [])
 
@@ -214,7 +209,11 @@ function Catalog() {
                       lg={4}
                       className="mb-4"
                     >
-                      <CardProducto producto={producto} />
+                      <CardProducto
+                        producto={producto}
+                        showGanancia={showGanancia}
+                        ganancia={ganancia}
+                      />
                     </Col>
                   ))
                 ) : (
@@ -244,12 +243,6 @@ function Catalog() {
           </Row>
         </Col>
       </Row>
-      {popUpCarrusel && (
-        <PopUpCarousel
-          producto={selectedProduct}
-          closePopUp={() => setPopUpCarrusel(false)}
-        />
-      )}
     </>
   )
 }
