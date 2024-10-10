@@ -57,11 +57,7 @@ function Precios() {
           </p>
           <div className="p-4 mb-3 rounded border">
             <h4 className="fw-semibold">Lista de precios</h4>
-            <p>
-              Descarga la lista de precios actualizada en formato PDF. Los
-              precios están actualizados al momento de descargar la lista y se
-              encuentran sujetos a cambio
-            </p>
+            <p>Descarga la lista de precios actualizada en formato PDF.</p>
             <Boton
               href={`https://catalogo-marcablanca.s3.sa-east-1.amazonaws.com/Lista_de_productos.pdf`}
               download
