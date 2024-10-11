@@ -24,16 +24,6 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
     fetchImagenes()
   }, [])
 
-  const showGanancia = localStorage.getItem('showGanancia')
-  let ganancia = 1
-  let porcentual = 1.0
-
-  if (showGanancia == 'true') {
-    const gananciaStr = localStorage.getItem('ganancia')
-    ganancia = JSON.parse(gananciaStr)
-    porcentual = (ganancia + 100) / 100
-  }
-
   const handleSelect = (selectedIndex) => {
     setCurrentIndex(selectedIndex)
   }
@@ -111,40 +101,27 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
           ''
         ) : (
           <p
-            className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
+            className="mt-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 ms-2 px-2 py-1 rounded-2 rounded-top-0 shadow-sm"
             style={{ letterSpacing: '.25px' }}
           >
             {producto.marca}
           </p>
         )}
-        <h4 className="mb-0">{producto.nombre}</h4>
-        <p>
-          <em>{producto.descripcion}</em>
-        </p>
+        <h4 className="mb-0 fw-bold text-dark">{producto.nombre}</h4>
+        {producto.descripcion && (
+          <p className="text-muted fst-italic" style={{ lineHeight: '1.3' }}>
+            {producto.descripcion}
+          </p>
+        )}
         {producto.tallas
           .filter((talla) => talla.stock == 1)
           .map((talla, index) => (
-            <div key={index}>
-              <div className="d-flex justify-content-between gap-2 mb-1">
-                <div className="d-flex justify-content-center flex-column">
-                  {talla.nombre && (
-                    <p className="fw-bold text-uppercase mb-0">
-                      {talla.nombre}
-                    </p>
-                  )}
-                  <p className="mb-0"> {talla.dimensiones}</p>
-                </div>
-                <div>
-                  {showGanancia == 'true' ? (
-                    <div className="">
-                      <p className="fw-bold mb-0">
-                        ${Math.trunc(parseInt(talla.precio) * porcentual)}
-                      </p>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
+            <div key={index} className="d-flex justify-content-between my-1">
+              <div className="d-flex justify-content-center flex-column">
+                {talla.talla_nombre && (
+                  <p className="fw-semibold mb-0">{talla.talla_nombre}</p>
+                )}
+                <p className="mb-0"> {talla.dimensiones}</p>
               </div>
             </div>
           ))}

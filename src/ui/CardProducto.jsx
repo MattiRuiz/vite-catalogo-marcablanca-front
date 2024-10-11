@@ -13,11 +13,11 @@ function CardProducto({ producto, showGanancia, ganancia }) {
         <Card className="mb-3 h-100">
           <Ratio
             aspectRatio="1x1"
-            className="fondo-imagen position-relative rounded-3  rounded-bottom-0"
+            className="fondo-imagen position-relative rounded-2  rounded-bottom-0"
           >
             {producto.rutaImagen ? (
               <Card.Img
-                className="object-fit-cover rounded-3 rounded-bottom-0"
+                className="object-fit-cover rounded-2 rounded-bottom-0"
                 alt={producto.nombre}
                 variant="top"
                 src={producto.rutaImagen}
