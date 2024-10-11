@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Button, Form, InputGroup, Image } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Row, Col, Form, InputGroup, Image } from 'react-bootstrap'
+import { useNavigate, Link } from 'react-router-dom'
 
 import PDFIcon from '../../Images/pdf.png'
 
@@ -50,7 +50,7 @@ function Precios() {
     <>
       <Row className="py-5 px-2 px-md-0 justify-content-center">
         <Col xs={12} md={10} lg={5}>
-          <h1 className="fw-bold mb-0">Configurar precios</h1>
+          <h1 className="fw-bold">Configurar precios *</h1>
           <p>
             Descarga la lista de precio o modifica la configuración de tu
             catálogo digital.
@@ -62,23 +62,25 @@ function Precios() {
               href={`https://catalogo-marcablanca.s3.sa-east-1.amazonaws.com/Lista_de_productos.pdf`}
               download
               target="_blank"
-              className="mb-3"
               variant="primary"
             >
               <Image src={PDFIcon} style={{ width: '50px' }} className="me-3" />
               Descargar PDF
             </Boton>
-            <p className="text-muted mb-0 texto-14">
-              * Los precios están actualizados al momento de descargar la lista
-              y se encuentran sujetos a cambio.
-            </p>
           </div>
           <div className="p-4 mb-3 rounded border">
-            <h4 className="fw-semibold">Activar precios en el catálogo</h4>
-            <Form className="">
-              <p className="mb-0">
-                Permite mostrar los precios de los productos en el catálogo:
-              </p>
+            <h4 className="fw-semibold">Precios en el catálogo</h4>
+            <p>
+              Permite mostrar/ocultar los precios de los productos en el
+              catálogo. Estos pueden ser:
+            </p>
+            <h5>Precio Mayorista</h5>
+            <p>
+              Al activar esta opción se mostrará en el catálogo el{' '}
+              <strong>precio para revendedores.</strong>
+            </p>
+            <Boton>Mostrar precio mayorista</Boton>
+            <Form>
               <Form.Check
                 onChange={(e) => handleShowGanacia(e)}
                 checked={showGanancia}
@@ -112,6 +114,16 @@ function Precios() {
               Aplicar cambios
             </Boton>
           </div>
+          <p>
+            * Todos los precios exhibidos se encuentran sujetos a cambio, para
+            más información puede visitar nuestros{' '}
+            <Link
+              className="fw-bold text-primary"
+              to="http://localhost:5173/terminos-y-condiciones"
+            >
+              Términos y condiciones.
+            </Link>
+          </p>
         </Col>
       </Row>
       {show && (

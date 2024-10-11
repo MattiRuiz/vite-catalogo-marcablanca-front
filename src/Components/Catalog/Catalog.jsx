@@ -82,7 +82,7 @@ function Catalog() {
       setLoading(false)
     }
 
-    if (user.clientes.subscriptions.estado === 'active') {
+    if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
       fetchCategorias()
 
       if (id) {
@@ -94,7 +94,7 @@ function Catalog() {
       navigate('/mi-cuenta')
     }
 
-    fetchCategorias()
+    // fetchCategorias()
 
     if (id) {
       handleCategories(id)
@@ -113,18 +113,8 @@ function Catalog() {
 
   return (
     <>
-      <Row className="py-4 justify-content-center">
-        <Col xs={12} md={11}>
-          <div className="border-bottom">
-            {productos ? (
-              <h2 className="mb-3 fw-bold">{title}</h2>
-            ) : (
-              <h2 className="mb-3">
-                <Placeholder xs={5} md={3} xl={2} />
-              </h2>
-            )}
-          </div>
-          <div className="d-lg-none mb-4">
+      <Row className="py-4 justify-content-center gap-3">
+        {/* <div className="d-lg-none mb-4">
             <Accordion>
               <Accordion.Header className="">
                 <PiFadersBold className="me-2 fs-5" />
@@ -138,7 +128,7 @@ function Catalog() {
                       style={{ fontWeight: 500 }}
                       onClick={() => handleProducts(1)}
                     >
-                      Todos
+                      Todos los productos
                     </Nav.Link>
                   </Nav.Item>
                   {categorias.map((categoria) => (
@@ -157,90 +147,86 @@ function Catalog() {
                 </Nav>
               </Accordion.Body>
             </Accordion>
+          </div> */}
+        <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
+          <h5 className="fw-bold mb-0">
+            Hola {user.clientes?.nombre ? user.clientes.nombre : user.username}
+          </h5>
+          <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p>
+          <p className="texto-14 text-muted mb-2">Menú</p>
+          {!loading ? (
+            <ul className="list-unstyled">
+              <li className="">
+                <Link
+                  className={`py-1 mb-1 d-flex  ${
+                    activeCategory === null ? 'fw-semibold ' : ''
+                  }`}
+                  onClick={() => handleProducts(1)}
+                >
+                  Todos los productos
+                </Link>
+              </li>
+              {categorias.map((categoria) => (
+                <li key={categoria.id} value={categoria.id}>
+                  <Link
+                    className={`py-1 mb-1 d-flex  ${
+                      activeCategory === categoria.id ? 'fw-semibold ' : ''
+                    }`}
+                    onClick={() => handleCategories(categoria.id)}
+                  >
+                    {categoria.nombre}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Spinner className="m-5" animation="border" />
+          )}
+        </Col>
+        <Col xs={12} md={11} lg={9} className="py-3">
+          <div className="border-bottom mb-3">
+            {productos ? (
+              <h2 className="mb-2 fw-bold">{title}</h2>
+            ) : (
+              <h2 className="mb-2">
+                <Placeholder xs={5} md={3} xl={2} />
+              </h2>
+            )}
           </div>
           <Row>
-            <Col lg={2} className="d-none d-lg-flex">
-              {!loading ? (
-                <ul className="list-unstyled">
-                  <li className="mt-4">
-                    <Link
-                      className="text-dark px-2 py-1 mb-1 d-flex align-items-center"
-                      onClick={() => handleProducts(1)}
-                    >
-                      <PiArrowCircleRightBold
-                        className={`me-2 fs-5 text-primary ${
-                          activeCategory === null ? 'd-block' : 'd-none'
-                        }`}
-                      />
-                      <span className="fw-semibold">Todos</span>
-                    </Link>
-                  </li>
-                  {categorias.map((categoria) => (
-                    <li key={categoria.id} value={categoria.id}>
-                      <Link
-                        className={`text-dark px-2 py-1 mb-1 d-flex ${
-                          activeCategory === categoria.id ? 'active' : ''
-                        }`}
-                        onClick={() => handleCategories(categoria.id)}
-                      >
-                        {activeCategory === categoria.id && (
-                          <PiArrowCircleRightBold
-                            className={`me-2 fs-5 text-primary`}
-                          />
-                        )}
-
-                        {categoria.nombre}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <Spinner className="m-5" animation="border" />
-              )}
-            </Col>
-            <Col xs={12} lg={10} className="mt-0 mt-lg-4">
-              <Row>
-                {productos ? (
-                  productos.map((producto) => (
-                    <Col
-                      key={producto.id}
-                      xs={12}
-                      sm={6}
-                      lg={4}
-                      className="mb-4"
-                    >
-                      <CardProducto
-                        producto={producto}
-                        showGanancia={showGanancia}
-                        ganancia={ganancia}
-                      />
-                    </Col>
-                  ))
-                ) : (
-                  <>
-                    <CardLoading />
-                    <CardLoading />
-                    <CardLoading />
-                  </>
-                )}
-              </Row>
-              {productos && (
-                <Pagination className="d-flex justify-content-center">
-                  {totalPaginas > 1
-                    ? Array.from({ length: totalPaginas }, (_, index) => (
-                        <Pagination.Item
-                          key={index + 1}
-                          active={index + 1 === currentPage}
-                          onClick={() => handlePageChange(index + 1)}
-                        >
-                          {index + 1}
-                        </Pagination.Item>
-                      ))
-                    : ''}
-                </Pagination>
-              )}
-            </Col>
+            {productos ? (
+              productos.map((producto) => (
+                <Col key={producto.id} xs={12} sm={6} lg={4} className="mb-4">
+                  <CardProducto
+                    producto={producto}
+                    showGanancia={showGanancia}
+                    ganancia={ganancia}
+                  />
+                </Col>
+              ))
+            ) : (
+              <>
+                <CardLoading />
+                <CardLoading />
+                <CardLoading />
+              </>
+            )}
           </Row>
+          {productos && (
+            <Pagination className="d-flex justify-content-center">
+              {totalPaginas > 1
+                ? Array.from({ length: totalPaginas }, (_, index) => (
+                    <Pagination.Item
+                      key={index + 1}
+                      active={index + 1 === currentPage}
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                    </Pagination.Item>
+                  ))
+                : ''}
+            </Pagination>
+          )}
         </Col>
       </Row>
     </>

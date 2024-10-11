@@ -10,14 +10,14 @@ function CardProducto({ producto, showGanancia, ganancia }) {
   return (
     <>
       <Link onClick={() => setPopUpCarrusel(true)}>
-        <Card className="mb-3 h-100 border-0">
+        <Card className="mb-3 h-100">
           <Ratio
-            aspectRatio="4x3"
-            className="fondo-imagen position-relative rounded-3 shadow"
+            aspectRatio="1x1"
+            className="fondo-imagen position-relative rounded-3  rounded-bottom-0"
           >
             {producto.rutaImagen ? (
               <Card.Img
-                className="object-fit-cover rounded-3"
+                className="object-fit-cover rounded-3 rounded-bottom-0"
                 alt={producto.nombre}
                 variant="top"
                 src={producto.rutaImagen}
@@ -35,32 +35,27 @@ function CardProducto({ producto, showGanancia, ganancia }) {
             ''
           ) : (
             <p
-              className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 mt-2 ms-2 px-2 py-0 rounded-2 shadow-sm"
+              className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 ms-2 px-2 py-1 rounded-2 rounded-top-0 shadow-sm"
               style={{ letterSpacing: '.25px' }}
             >
               {producto.marca}
             </p>
           )}
-          <Card.Body className="pb-0 px-0 pt-2">
-            <Card.Title className="fw-semibold mb-2">
+          <Card.Body className="pb-0">
+            <Card.Title className="fw-bold mb-2 fs-5">
               {producto.nombre}
             </Card.Title>
             <Card.Subtitle
-              className="text-muted mb-1 fst-italic"
+              className="text-muted mb-2 fst-italic"
               style={{ lineHeight: '1.3' }}
             >
               {producto.descripcion}
             </Card.Subtitle>
             {producto.tallas.map((talla, index) => (
-              <div
-                key={index}
-                className="d-flex justify-content-between gap-2 mb-1"
-              >
+              <div key={index} className="d-flex justify-content-between my-1">
                 <div className="d-flex justify-content-center flex-column">
                   {talla.talla_nombre && (
-                    <p className="fw-bold text-uppercase mb-0">
-                      {talla.talla_nombre}
-                    </p>
+                    <p className="fw-semibold mb-0">{talla.talla_nombre}</p>
                   )}
                   {talla.dimensiones && (
                     <p className="mb-0"> {talla.dimensiones}</p>

@@ -18,7 +18,7 @@ function MiCuenta() {
     <>
       <Row className="py-5 px-2 px-md-0 justify-content-center">
         <Col xs={12} md={10} lg={5}>
-          <h1 className="fw-bold mb-0">Mi cuenta</h1>
+          <h1 className="fw-bold">Mi cuenta</h1>
           <p>Administra tu suscripción o modifica tu contraseña.</p>
           {user.esAdmin ? (
             <div className="p-4 mb-3 rounded border">
