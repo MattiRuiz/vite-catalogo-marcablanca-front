@@ -9,7 +9,8 @@ import {
   PiNoteBold,
   PiUserCircleGearBold,
   PiXCircleBold,
-  PiCoinsBold,
+  PiEyeBold,
+  PiFileBold,
   PiDotsThreeVerticalBold,
 } from 'react-icons/pi'
 
@@ -75,8 +76,16 @@ function Navbar() {
                         to={'/configurar-precios'}
                         className="d-flex align-items-center py-2 fw-medium"
                       >
-                        <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
-                        Configurar precios
+                        <PiEyeBold className="text-secondary fs-5 me-2" />{' '}
+                        Configurar visualización
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        as={Link}
+                        to={'/lista-de-precios'}
+                        className="d-flex align-items-center py-2 fw-medium"
+                      >
+                        <PiFileBold className="text-secondary fs-5 me-2" />{' '}
+                        Lista de precio
                       </Dropdown.Item>
                     </>
                   ) : (
@@ -88,8 +97,16 @@ function Navbar() {
                             to={'/configurar-precios'}
                             className="d-flex align-items-center py-2 fw-medium"
                           >
-                            <PiCoinsBold className="text-secondary fs-5 me-2" />{' '}
-                            Configurar precios
+                            <PiEyeBold className="text-secondary fs-5 me-2" />{' '}
+                            Configurar visualización
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as={Link}
+                            to={'/lista-de-precios'}
+                            className="d-flex align-items-center py-2 fw-medium"
+                          >
+                            <PiFileBold className="text-secondary fs-5 me-2" />{' '}
+                            Lista de precio
                           </Dropdown.Item>
                         </>
                       )}

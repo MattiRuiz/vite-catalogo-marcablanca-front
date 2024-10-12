@@ -10,17 +10,21 @@ function Precios() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
+  const [gananciaReventa, setGananciaReventa] = useState('25')
+  const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
 
-  const handleValor = (e) => {
-    if (!e.target.value) {
-      setGanancia(0)
+  const handleGananciaReventa = (e) => {
+    setGananciaReventa(e.target.value)
+    if (
+      isNaN(parseInt(e.target.value)) ||
+      parseInt(e.target.value) < 25 ||
+      parseInt(e.target.value) > 100
+    ) {
+      setShowError(true)
     } else {
-      setGanancia(e.target.value)
+      setShowError(false)
     }
-  }
-  const handleShowGanacia = (e) => {
-    setShowGanancia(e.target.checked)
   }
 
   const mostrarPrecios = () => {
@@ -33,6 +37,9 @@ function Precios() {
     const showGananciaCase = localStorage.getItem('showGanancia')
     if (showGananciaCase != null) {
       setGanancia(localStorage.getItem('ganancia'))
+      if (parseInt(ganancia) !== 0) {
+        setGananciaReventa(ganancia)
+      }
       setShowGanancia(showGananciaCase.toLowerCase?.() === 'true')
     } else {
       localStorage.setItem('ganancia', 0)
@@ -46,75 +53,117 @@ function Precios() {
     dataSave()
   }, [])
 
+  const handleGanancia = (opt) => {
+    if (opt === 'M') {
+      setShowGanancia(true)
+      setGanancia(0)
+      setShow(true)
+    } else if (opt === 'O') {
+      setShowGanancia(false)
+      setShow(true)
+    } else if (opt === 'R') {
+      setShowGanancia(true)
+      setGanancia(gananciaReventa)
+      setShow(true)
+    }
+  }
+
   return (
     <>
-      <Row className="py-5 px-2 px-md-0 justify-content-center">
-        <Col xs={12} md={10} lg={5}>
-          <h1 className="fw-bold">Configurar precios *</h1>
-          <p>
-            Descarga la lista de precio o modifica la configuración de tu
-            catálogo digital.
+      <Row className="py-5 justify-content-center">
+        <Col xs={12} md={10}>
+          <h1 className="fw-bold text-center mb-1">
+            Configurar visualización de precios
+          </h1>
+          <p className="text-center">
+            Permite mostrar/ocultar los precios de los productos en el catálogo.
           </p>
-          <div className="p-4 mb-3 rounded border">
-            <h4 className="fw-semibold">Lista de precios</h4>
-            <p>Descarga la lista de precios actualizada en formato PDF.</p>
-            <Boton
-              href={`https://catalogo-marcablanca.s3.sa-east-1.amazonaws.com/Lista_de_productos.pdf`}
-              download
-              target="_blank"
-              variant="primary"
-            >
-              <Image src={PDFIcon} style={{ width: '50px' }} className="me-3" />
-              Descargar PDF
-            </Boton>
-          </div>
-          <div className="p-4 mb-3 rounded border">
-            <h4 className="fw-semibold">Precios en el catálogo</h4>
-            <p>
-              Permite mostrar/ocultar los precios de los productos en el
-              catálogo. Estos pueden ser:
-            </p>
-            <h5>Precio Mayorista</h5>
-            <p>
-              Al activar esta opción se mostrará en el catálogo el{' '}
-              <strong>precio para revendedores.</strong>
-            </p>
-            <Boton>Mostrar precio mayorista</Boton>
-            <Form>
-              <Form.Check
-                onChange={(e) => handleShowGanacia(e)}
-                checked={showGanancia}
-                type="switch"
-                label="Mostrar precios"
-                className="mt-2 mb-4 fw-semibold"
-              />
-            </Form>
-            <Form>
-              <Form.Label>Porcentaje de ganancia:</Form.Label>
-              <Row className="align-items-center">
-                <Col xs={12} sm={4}>
-                  <InputGroup>
-                    <InputGroup.Text>%</InputGroup.Text>
-                    <Form.Control
-                      onChange={(e) => handleValor(e)}
-                      value={ganancia}
-                      type="number"
-                      placeholder="Ingrese un valor"
-                      disabled={!showGanancia}
-                    />
-                  </InputGroup>
-                </Col>
-                <Form.Text className="text-muted mt-2">
-                  Si indicas un porcentaje de ganancia de 0, podrás ver el{' '}
-                  <strong>precio mayorista.</strong>
-                </Form.Text>
-              </Row>
-            </Form>
-            <Boton className="mt-3" onClick={() => setShow(true)} type="button">
-              Aplicar cambios
-            </Boton>
-          </div>
-          <p>
+          <Row className="mb-3">
+            <Col>
+              <div className="p-4 mb-3 rounded border h-100">
+                <h5 className="fw-bold">Mostrar precio mayorista</h5>
+                <p>
+                  Muestra el precio mayorista en el catálogo. Este es el costo
+                  al por mayor de los productos.
+                </p>
+                <Boton
+                  disabled={showGanancia && ganancia == 0}
+                  onClick={() => handleGanancia('M')}
+                >
+                  {showGanancia && ganancia == 0
+                    ? 'Mostrando precio mayorista'
+                    : 'Mostrar precio mayorista'}
+                </Boton>
+              </div>
+            </Col>
+            <Col>
+              <div className="p-4 mb-3 rounded border h-100">
+                <h5 className="fw-bold">Mostrar precio de reventa</h5>
+                <p>
+                  Muestra el precio de reventa, calculado sumando tu porcentaje
+                  de ganancia al precio mayorista.
+                </p>
+                <Form>
+                  <Row className="align-items-center">
+                    <Col xs={12}>
+                      <Form.Label className="fw-bold">
+                        Porcentaje de ganancia:
+                      </Form.Label>
+                      <InputGroup>
+                        <InputGroup.Text>%</InputGroup.Text>
+                        <Form.Control
+                          onChange={(e) => handleGananciaReventa(e)}
+                          value={gananciaReventa}
+                          placeholder="Ingrese un valor"
+                        />
+                      </InputGroup>
+                    </Col>
+                    {showError ? (
+                      <Form.Text className="text-danger">
+                        Coloque un valor entre 25 a 100%
+                      </Form.Text>
+                    ) : (
+                      <Form.Text className="text-primary">&nbsp;</Form.Text>
+                    )}
+                    <Col xs={12}>
+                      <Boton
+                        className="mt-1"
+                        onClick={() => handleGanancia('R')}
+                        disabled={showError}
+                      >
+                        {ganancia === gananciaReventa
+                          ? 'Cambiar precio revendedor'
+                          : 'Mostrar precio revendedor'}
+                      </Boton>
+                    </Col>
+                    {showGanancia && ganancia !== 0 && (
+                      <Form.Text className="mt-2">
+                        Actualmente mostrando precios con un
+                        <strong> {ganancia}%</strong>.
+                      </Form.Text>
+                    )}
+                  </Row>
+                </Form>
+              </div>
+            </Col>
+            <Col>
+              <div className="p-4 mb-3 rounded border h-100">
+                <h5 className="fw-bold">Ocultar precios</h5>
+                <p>
+                  Puedes ocultar completamente los precios del catálogo, útil
+                  cuando no quieres que se vean públicamente.
+                </p>
+                <Boton
+                  disabled={!showGanancia}
+                  onClick={() => handleGanancia('O')}
+                >
+                  {!showGanancia ? 'Precios ocultos' : 'Ocultar precios'}
+                </Boton>
+              </div>
+            </Col>
+          </Row>
+
+          <p className="text-center">
             * Todos los precios exhibidos se encuentran sujetos a cambio, para
             más información puede visitar nuestros{' '}
             <Link
@@ -128,7 +177,7 @@ function Precios() {
       </Row>
       {show && (
         <PopUp
-          header="Mostrar/ocultar precios"
+          header="Configurar precios"
           closePopUp={() => setShow(false)}
           buttonLabel="Aceptar"
           onAction={mostrarPrecios}
@@ -137,24 +186,19 @@ function Precios() {
           {showGanancia ? (
             <>
               <p className="mb-2">
-                Estás por <strong>mostrar</strong> el precio
+                ¿Estás seguro de mostrar el{' '}
+                <strong>
+                  precio{' '}
+                  {ganancia === 0
+                    ? 'mayorista'
+                    : `revendedor con ${ganancia}% de ganancia`}{' '}
+                </strong>
+                en el catálogo?
               </p>
-              <ul>
-                <li>
-                  <h5 className="mb-0">
-                    <strong>
-                      {' '}
-                      {ganancia === '0'
-                        ? 'Precio mayorista'
-                        : `Precio revendedor con un ${ganancia}% de ganancia`}
-                    </strong>
-                  </h5>
-                </li>
-              </ul>
             </>
           ) : (
             <p className="mb-1">
-              Estás por <strong>ocultar</strong> los precios del catálogo
+              Estás por <strong>ocultar</strong> los precios en el catálogo
               ¿Deseas continuar?
             </p>
           )}

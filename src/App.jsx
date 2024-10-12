@@ -17,6 +17,7 @@ import Footer from './Components/Footer/Footer'
 import Suscripcion from './Components/Suscripcion/Suscripcion'
 import Terminos from './Components/Terminos/Terminos'
 import Ventajas from './Components/Ventajas/Ventajas'
+import ListaDePrecio from './Components/Configuraciones/ListaDePrecio'
 
 function App() {
   return (
@@ -117,6 +118,14 @@ function App() {
             element={
               <>
                 <Ventajas />
+              </>
+            }
+          />
+          <Route
+            path="/lista-de-precios"
+            element={
+              <>
+                <ListaDePrecio />
               </>
             }
           />
