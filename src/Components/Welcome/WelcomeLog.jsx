@@ -26,6 +26,11 @@ function WelcomeLog() {
     }))
   }
 
+  const ocultarPrecios = () => {
+    setShowGanancia(false)
+    localStorage.setItem('showGanancia', false)
+  }
+
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
 
