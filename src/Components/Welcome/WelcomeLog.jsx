@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Image, Ratio, Spinner, Card } from 'react-bootstrap'
+import { Row, Col, Image, Ratio, Spinner, FormControl } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 
-import { PiArrowRightBold } from 'react-icons/pi'
+import { PiArrowRightBold, PiXCircleDuotone } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/all.webp'
 import { Boton, CardProducto } from '../../ui'
@@ -66,7 +66,7 @@ function WelcomeLog() {
 
   return (
     <>
-      <Row className="justify-content-around pt-4 pb-3">
+      {/* <Row className="justify-content-around pt-4 pb-3">
         <Col xs={11} className="border-bottom pb-3">
           <h1 className="mb-0 display-6 fw-normal">
             Hola{' '}
@@ -77,12 +77,29 @@ function WelcomeLog() {
           </h1>
           <h5 className="mb-0 fw-light">¡Te damos la bienvenida!</h5>
         </Col>
-      </Row>
-      <Row className="pb-4 justify-content-center">
+      </Row> */}
+      <Row className="py-5 justify-content-center">
         <Col xs={11} className="mb-1">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h2 className="fw-bold mb-0">Categorías</h2>
+            <FormControl placeholder="Buscar" style={{ maxWidth: '300px' }} />
+          </div>
+          {showGanancia && ganancia === 1 && (
+            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
+              <PiXCircleDuotone className="me-1 text-danger" />
+              <p className="mb-0">
+                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
+                mayoristas. Si desea ocultar los precios haga{' '}
+                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
+                  click aquí
+                </Link>
+                .
+              </p>
+            </div>
+          )}
           <div className="d-flex gap-2 flex-wrap">
             <Boton
-              className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
+              className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
               as={Link}
               to={`/catalogo/`}
             >
@@ -128,7 +145,7 @@ function WelcomeLog() {
           </div>
         </Col>
 
-        <Col xs={11} className="mt-4">
+        <Col xs={11} className="mt-5">
           <div className="d-flex justify-content-between align-items-end mb-3">
             <h2 className="fw-bold mb-0">Últimos ingresos</h2>
             <Boton

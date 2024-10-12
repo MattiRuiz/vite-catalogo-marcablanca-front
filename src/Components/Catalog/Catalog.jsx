@@ -3,13 +3,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   Row,
   Col,
-  Ratio,
-  Card,
   Placeholder,
   Pagination,
   Spinner,
   Nav,
   Accordion,
+  FormControl,
 } from 'react-bootstrap'
 
 import {
@@ -18,7 +17,7 @@ import {
 } from '../../Functions/ProductosFunctions'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
-import { PiFadersBold, PiArrowCircleRightBold } from 'react-icons/pi'
+import { PiXCircleDuotone } from 'react-icons/pi'
 
 import { CardLoading, CardProducto } from '../../ui'
 
@@ -71,6 +70,11 @@ function Catalog() {
     setActiveCategory(null)
   }
 
+  const ocultarPrecios = () => {
+    setShowGanancia(false)
+    localStorage.setItem('showGanancia', false)
+  }
+
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
 
@@ -93,8 +97,6 @@ function Catalog() {
     } else {
       navigate('/mi-cuenta')
     }
-
-    // fetchCategorias()
 
     if (id) {
       handleCategories(id)
@@ -184,15 +186,27 @@ function Catalog() {
           )}
         </Col>
         <Col xs={12} md={11} lg={9} className="py-3">
-          <div className="border-bottom mb-3">
-            {productos ? (
-              <h2 className="mb-2 fw-bold">{title}</h2>
+          <div className="mb-3 d-flex justify-content-between align-items-center">
+            {!loading ? (
+              <h2 className="mb-0 fw-bold">{title}</h2>
             ) : (
-              <h2 className="mb-2">
-                <Placeholder xs={5} md={3} xl={2} />
-              </h2>
+              <Placeholder xs={5} md={3} xl={2} />
             )}
+            <FormControl placeholder="Buscar" style={{ maxWidth: '300px' }} />
           </div>
+          {showGanancia && ganancia === 1 && (
+            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
+              <PiXCircleDuotone className="me-1 text-danger" />
+              <p className="mb-0">
+                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
+                mayoristas. Si desea ocultar los precios haga{' '}
+                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
+                  click aquí
+                </Link>
+                .
+              </p>
+            </div>
+          )}
           <Row>
             {productos ? (
               productos.map((producto) => (
