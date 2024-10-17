@@ -34,16 +34,6 @@ function Catalog() {
   const [ganancia, setGanancia] = useState(1.0)
   const navigate = useNavigate()
 
-  // const showGanancia = localStorage.getItem('showGanancia')
-  // let ganancia = 1
-  // let porcentual = 1.0
-
-  // if (showGanancia == 'true') {
-  //   const gananciaStr = localStorage.getItem('ganancia')
-  //   ganancia = JSON.parse(gananciaStr)
-  //   porcentual = (ganancia + 100) / 100
-  // }
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
     handleProducts(pageNumber)

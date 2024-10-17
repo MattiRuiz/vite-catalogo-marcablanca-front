@@ -2,13 +2,10 @@ import { createContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-import PopUpUnauthorize from './PopUpUnauthorize'
-
 const LoginContext = createContext()
 
 const LoginProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [popUpUnauthorized, setPopUpUnauthorize] = useState(false)
   const navigate = useNavigate()
 
   const handleLogin = () => {
@@ -58,7 +55,7 @@ const LoginProvider = ({ children }) => {
           localStorage.removeItem('exp')
           localStorage.removeItem('userData')
           setUser(null)
-          // setPopUpUnauthorize(true)
+          console.error('Unauthorized', error.response)
           navigate('/')
         }
         return Promise.reject(error)
@@ -74,9 +71,6 @@ const LoginProvider = ({ children }) => {
   return (
     <>
       <LoginContext.Provider value={data}>{children}</LoginContext.Provider>
-      {popUpUnauthorized && (
-        <PopUpUnauthorize closePopUp={() => setPopUpUnauthorize(false)} />
-      )}
     </>
   )
 }

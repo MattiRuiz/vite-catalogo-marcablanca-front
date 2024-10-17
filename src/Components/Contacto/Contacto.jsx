@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import { Col, Row, Form, Spinner, Image } from 'react-bootstrap'
+import { Col, Row, Form, Spinner, Image, Ratio } from 'react-bootstrap'
 
-import { PiMapPinLineDuotone, PiPhoneDuotone } from 'react-icons/pi'
+import { PiMapPinLine, PiPhone, PiCity } from 'react-icons/pi'
 import { SiWhatsapp } from 'react-icons/si'
 
 import productos from '../../Images/all.webp'
@@ -75,24 +75,77 @@ const Contacto = () => {
   }, [])
 
   return (
-    <Row className="shadow-sm py-md-3 justify-content-center px-2 px-md-0">
-      <Col
+    <Row className="shadow-sm justify-content-center px-2 py-5 align-items-center">
+      {/* <Col
         xs={12}
         lg={6}
         xl={5}
         className="p-0 text-white d-flex flex-column justify-content-center overflow-hidden"
       >
         <Image src={productos} fluid className="animated-image rounded" />
+      </Col> */}
+      <Col xs={12} md={4}>
+        <div className="d-flex justify-content-center flex-column">
+          <div className="border rounded-top-3">
+            <Ratio aspectRatio={'4x3'}>
+              <iframe
+                className="w-100 h-100 rounded-top-3"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.1498496349436!2d-60.650228000000006!3d-32.947052899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab1569f04db9%3A0x272e6f5a15593378!2sBlanquer%C3%ADa%20Marca%20Blanca!5e0!3m2!1ses!2sar!4v1729120690996!5m2!1ses!2sar"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </Ratio>
+          </div>
+          <div className="border d-flex flex-column px-5 py-4 justify-content-center border-top-0 rounded-bottom-3">
+            <h1 className="fw-bold">Contactanos</h1>
+            <ul className="list-unstyled">
+              <li className="d-flex align-items-center mb-1">
+                <a
+                  href="tel:+5493417017747"
+                  className="text-decoration-none d-flex align-items-center text-dark"
+                >
+                  <PiPhone className="fs-5 text-secondary me-2" />
+                  3417017747
+                </a>
+              </li>
+              <li className="d-flex align-items-center mb-1">
+                <a
+                  href="https://maps.app.goo.gl/Lukn1CDmAamZJQGV9"
+                  target="_blank"
+                  className="text-decoration-none d-flex align-items-center text-dark"
+                >
+                  <PiMapPinLine className="fs-5 text-secondary me-2" /> San Luis
+                  1927
+                </a>
+              </li>
+              <li className="d-flex align-items-center mb-1">
+                <PiCity className="fs-5 text-secondary me-2" /> Rosario, Santa
+                Fe
+              </li>
+
+              <li className="mt-3">
+                <Boton
+                  className="d-inline-flex align-items-center"
+                  href="https://api.whatsapp.com/send?phone=5493413278887"
+                  target="_blank"
+                >
+                  <SiWhatsapp className="fs-5 me-2" /> Envianos un Whatsapp
+                </Boton>
+              </li>
+            </ul>
+          </div>
+        </div>
       </Col>
       <Col xs={12} lg={6} xl={5} className="py-4 text-start ms-xl-5">
-        <h1 className="fw-bold">Contactos</h1>
+        {/* <h1 className="fw-bold">Contactanos</h1>
         <ul className="list-unstyled">
           <li className="d-flex align-items-center mb-1">
             <a
               href="tel:+5493417017747"
               className="text-decoration-none d-flex align-items-center text-dark"
             >
-              <PiPhoneDuotone className="me-2" />
+              <PiPhone className="fs-5 text-secondary me-2" />
               3417017747
             </a>
           </li>
@@ -101,8 +154,16 @@ const Contacto = () => {
               href="https://maps.app.goo.gl/Lukn1CDmAamZJQGV9"
               className="text-decoration-none d-flex align-items-center text-dark"
             >
-              <PiMapPinLineDuotone className="me-2" /> San Luis 1927 | Rosario,
-              Santa Fe
+              <PiMapPinLine className="fs-5 text-secondary me-2" /> San Luis
+              1927
+            </a>
+          </li>
+          <li className="d-flex align-items-center mb-1">
+            <a
+              href="https://maps.app.goo.gl/Lukn1CDmAamZJQGV9"
+              className="text-decoration-none d-flex align-items-center text-dark"
+            >
+              <PiCity className="fs-5 text-secondary me-2" /> Rosario, Santa Fe
             </a>
           </li>
 
@@ -115,11 +176,11 @@ const Contacto = () => {
               <SiWhatsapp className="fs-5 me-2" /> Envianos un Whatsapp
             </Boton>
           </li>
-        </ul>
-        <h3 className="fw-bold mt-4">O un mensaje:</h3>
-        <p>
+        </ul> */}
+        <h3 className="fw-bold">O envianos un mensaje:</h3>
+        <p className="mb-4">
           ¿Tenés consultas, dudas o recomendaciones? ¿Algo no está funcionando
-          como debería? No dudes en escribirnos.
+          como debería? <strong>No dudes en escribirnos.</strong>
         </p>
         <Form ref={form} onSubmit={sendEmail}>
           {user ? (

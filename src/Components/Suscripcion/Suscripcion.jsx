@@ -14,7 +14,7 @@ const Suscripcion = () => {
         <div className="text-center">
           <h6 className="fw-bold text-primary">Suscripciones</h6>
           <h1 className="display-3 fw-bold lh-1">
-            Suscripciones para todos los bolsillos
+            Obtené acceso exclusivo a nuestro catálogo
           </h1>
           <p>
             Las suscripciones se encuentran adecuadas dependiendo de su
@@ -50,7 +50,7 @@ const Suscripcion = () => {
       </Col>
       <Col xs={12}>
         <Row className="mt-3 justify-content-center">
-          <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
+          {/* <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 h-100">
               <h5 className="fw-bold">Básico</h5>
               <p>Lo esencial para el revendedor. Gestiona y administra.</p>
@@ -80,11 +80,11 @@ const Suscripcion = () => {
                 </li>
               </ul>
             </div>
-          </Col>
-          <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
+          </Col> */}
+          <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 h-100">
               <h5 className="fw-bold">Completo</h5>
-              <p>La mejor herramienta al alcance de tu celular.</p>
+              <p>Nuestro catálogo al alcance de la manos.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">
                   ${plan === 'mensual' ? '3.000' : '28.000'}
@@ -99,11 +99,11 @@ const Suscripcion = () => {
               <ul className="list-unstyled mt-4">
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Acceso al catálogo
+                  Catálogo digital Marca Blanca
                 </li>
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Muestra fotos de productos
+                  Acceso a la base de datos de fotos
                 </li>
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
@@ -111,15 +111,15 @@ const Suscripcion = () => {
                 </li>
                 <li className="d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Muestra los precios en el catálogo
+                  Muestra precios en el catálogo
                 </li>
               </ul>
             </div>
           </Col>
-          <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
+          <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 bg-dark bg-gradient text-white h-100">
               <h5 className="fw-bold">Pack revendedores</h5>
-              <p>Controla hasta 5 cuentas, ideal para grupos de reventa.</p>
+              <p>Controla las condiciones de venta de múltiples cuentas.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">
                   ${plan === 'mensual' ? '5.000' : '45.000'}
@@ -134,11 +134,11 @@ const Suscripcion = () => {
               <ul className="list-unstyled mt-4">
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}
-                  Acceso al catálogo
+                  Catálogo digital Marca Blanca
                 </li>
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}
-                  Muestra fotos de productos
+                  Acceso a la base de datos de fotos
                 </li>
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}
@@ -150,7 +150,7 @@ const Suscripcion = () => {
                 </li>
                 <li className="mb-3 d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}
-                  Gestiona 5 cuentas
+                  Gestiona múltiples cuentas
                 </li>
                 <li className="d-flex align-items-center">
                   <PiCheckCircleDuotone className="fs-5 text-danger me-2" />{' '}
@@ -162,7 +162,7 @@ const Suscripcion = () => {
         </Row>
       </Col>
       <div className="mt-4">
-        <p className="text-center mb-0">
+        <p className="text-center mb-0 texto-14">
           * Al suscribirte aceptas los{' '}
           <Link to={'/terminos-y-condiciones'} className="fw-bold text-primary">
             Términos y Condiciones.
