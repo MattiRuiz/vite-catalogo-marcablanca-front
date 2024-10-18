@@ -79,7 +79,7 @@ function Precios() {
             Permite mostrar/ocultar los precios de los productos en el catálogo.
           </p>
           <Row className="mb-3">
-            <Col>
+            <Col xs={12} lg={4} className="mb-3">
               <div className="p-4 mb-3 rounded border h-100">
                 <h5 className="fw-bold">Mostrar precio mayorista</h5>
                 <p>
@@ -96,7 +96,7 @@ function Precios() {
                 </Boton>
               </div>
             </Col>
-            <Col>
+            <Col xs={12} lg={4} className="mb-3">
               <div className="p-4 mb-3 rounded border h-100">
                 <h5 className="fw-bold">Mostrar precio de reventa</h5>
                 <p>
@@ -109,7 +109,7 @@ function Precios() {
                       <Form.Label className="fw-bold">
                         Porcentaje de ganancia:
                       </Form.Label>
-                      <InputGroup>
+                      <InputGroup style={{ maxWidth: '250px' }}>
                         <InputGroup.Text>%</InputGroup.Text>
                         <Form.Control
                           onChange={(e) => handleGananciaReventa(e)}
@@ -146,7 +146,7 @@ function Precios() {
                 </Form>
               </div>
             </Col>
-            <Col>
+            <Col xs={12} lg={4} className="mb-3">
               <div className="p-4 mb-3 rounded border h-100">
                 <h5 className="fw-bold">Ocultar precios</h5>
                 <p>

@@ -9,6 +9,8 @@ import {
   Nav,
   Accordion,
   FormControl,
+  Ratio,
+  Image,
 } from 'react-bootstrap'
 
 import {
@@ -17,9 +19,15 @@ import {
 } from '../../Functions/ProductosFunctions'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
-import { PiXCircleDuotone } from 'react-icons/pi'
+import {
+  PiXCircleDuotone,
+  PiListDashesBold,
+  PiCaretLeftBold,
+} from 'react-icons/pi'
 
-import { CardLoading, CardProducto } from '../../ui'
+import { CardLoading, CardProducto, Boton } from '../../ui'
+
+import todosLosProductos from '../../Images/all.webp'
 
 function Catalog() {
   const { id } = useParams()
@@ -32,7 +40,16 @@ function Catalog() {
   const [activeCategory, setActiveCategory] = useState()
   const [showGanancia, setShowGanancia] = useState(false)
   const [ganancia, setGanancia] = useState(1.0)
+  const [showCategoria, setShowCategoria] = useState(false)
   const navigate = useNavigate()
+
+  const [imagenErrors, setImagenErrors] = useState({})
+  const handleImageError = (productId) => {
+    setImagenErrors((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }))
+  }
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -48,6 +65,7 @@ function Catalog() {
     setProductos(respuesta.data)
     setTitle(respuesta.data[0].tipo_producto)
     setActiveCategory(value)
+    setShowCategoria(false)
   }
 
   const handleProducts = async (pageNumber) => {
@@ -105,46 +123,101 @@ function Catalog() {
 
   return (
     <>
-      <Row className="py-4 justify-content-center gap-3">
-        {/* <div className="d-lg-none mb-4">
-            <Accordion>
-              <Accordion.Header className="">
-                <PiFadersBold className="me-2 fs-5" />
-                <span className="fw-semibold">Filtros</span>
-              </Accordion.Header>
-              <Accordion.Body className="px-0 py-2 border-0 ">
-                <Nav justify variant="pills" className="justify-content-center">
-                  <Nav.Item>
-                    <Nav.Link
-                      className={`${activeCategory === null ? 'active' : ''}`}
-                      style={{ fontWeight: 500 }}
-                      onClick={() => handleProducts(1)}
+      <Row className="pt-2 pt-lg-4 pb-4 justify-content-center gap-3">
+        <Col xs={12} md={11} className="d-lg-none">
+          <div className="d-flex justify-content-between border-bottom pb-3 pt-1">
+            <Link to="/">
+              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center">
+                <PiCaretLeftBold className="me-1 fs-5" />
+                Volver
+              </button>
+            </Link>
+            <button
+              onClick={() => setShowCategoria(!showCategoria)}
+              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center"
+            >
+              <PiListDashesBold className="me-1 fs-5" /> Categorías
+            </button>
+          </div>
+          {showCategoria && (
+            <Col xs={12} sm={11} className="mt-3">
+              {showGanancia && ganancia === 1 && (
+                <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
+                  <PiXCircleDuotone className="me-1 text-danger" />
+                  <p className="mb-0">
+                    <strong>ATENCIÓN:</strong> Se encuentra mostrando los
+                    precios mayoristas. Si desea ocultar los precios haga{' '}
+                    <Link
+                      className="fw-semibold"
+                      onClick={() => ocultarPrecios()}
                     >
-                      Todos los productos
-                    </Nav.Link>
-                  </Nav.Item>
-                  {categorias.map((categoria) => (
-                    <Nav.Item key={categoria.id}>
-                      <Nav.Link
-                        className={`${
-                          activeCategory === categoria.id ? 'active' : ''
-                        }`}
-                        style={{ fontWeight: 500 }}
-                        onClick={() => handleCategories(categoria.id)}
-                      >
-                        {categoria.nombre}
-                      </Nav.Link>
-                    </Nav.Item>
-                  ))}
-                </Nav>
-              </Accordion.Body>
-            </Accordion>
-          </div> */}
+                      click aquí
+                    </Link>
+                    .
+                  </p>
+                </div>
+              )}
+              <div className="d-flex gap-2 flex-wrap">
+                <Boton
+                  className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
+                  as={Link}
+                  to={`/catalogo/`}
+                >
+                  <Ratio
+                    aspectRatio="1x1"
+                    className="rounded-circle fondo-imagen me-2"
+                    style={{ width: '40px' }}
+                  >
+                    <Image
+                      src={todosLosProductos}
+                      className="object-fit-cover rounded-circle"
+                      fluid
+                    />
+                  </Ratio>
+                  Todos los productos
+                </Boton>
+                {categorias.map((categoria) => (
+                  <Boton
+                    className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
+                    key={categoria.id}
+                    onClick={() => handleCategories(categoria.id)}
+                  >
+                    <Ratio
+                      aspectRatio="1x1"
+                      className="rounded-circle fondo-imagen me-2"
+                      style={{ width: '40px' }}
+                    >
+                      {imagenErrors[categoria.id] ? (
+                        <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                      ) : (
+                        <Image
+                          src={categoria.rutaImagen}
+                          className="object-fit-cover rounded-circle"
+                          fluid
+                          onError={() => handleImageError(categoria.id)}
+                        />
+                      )}
+                    </Ratio>
+                    {categoria.nombre}
+                  </Boton>
+                ))}
+              </div>
+            </Col>
+          )}
+        </Col>
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
-          <h5 className="fw-bold mb-0">
+          {/* <h5 className="fw-bold mb-0">
             Hola {user.clientes?.nombre ? user.clientes.nombre : user.username}
           </h5>
-          <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p>
+          <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p> */}
+          <div className="border-bottom pb-2 mb-3">
+            <Link to="/">
+              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center">
+                <PiCaretLeftBold className="me-1 fs-5" />
+                Volver
+              </button>
+            </Link>
+          </div>
           <p className="texto-14 text-muted mb-2">Menú</p>
           {!loading ? (
             <ul className="list-unstyled">
@@ -175,14 +248,18 @@ function Catalog() {
             <Spinner className="m-5" animation="border" />
           )}
         </Col>
-        <Col xs={12} md={11} lg={9} className="py-3">
+        <Col xs={12} md={11} lg={9} className="py-2">
           <div className="mb-3 d-flex justify-content-between align-items-center">
             {!loading ? (
-              <h2 className="mb-0 fw-bold">{title}</h2>
+              <h1 className="mb-0 fw-bold">{title}</h1>
             ) : (
               <Placeholder xs={5} md={3} xl={2} />
             )}
-            <FormControl placeholder="Buscar" style={{ maxWidth: '300px' }} />
+            <FormControl
+              className="d-none d-md-inline"
+              placeholder="Buscar"
+              style={{ maxWidth: '300px' }}
+            />
           </div>
           {showGanancia && ganancia === 1 && (
             <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
@@ -200,7 +277,7 @@ function Catalog() {
           <Row>
             {productos ? (
               productos.map((producto) => (
-                <Col key={producto.id} xs={12} sm={6} lg={4} className="mb-4">
+                <Col key={producto.id} xs={6} md={4} className="mb-4">
                   <CardProducto
                     producto={producto}
                     showGanancia={showGanancia}

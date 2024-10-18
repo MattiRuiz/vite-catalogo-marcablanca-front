@@ -5,7 +5,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 
-import { PiArrowRightBold, PiXCircleDuotone } from 'react-icons/pi'
+import {
+  PiArrowRightBold,
+  PiXCircleDuotone,
+  PiListDashesBold,
+  PiCaretLeftBold,
+} from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/all.webp'
 import { Boton, CardProducto } from '../../ui'
@@ -16,6 +21,7 @@ function WelcomeLog() {
   const [loading, setLoading] = useState(false)
   const [showGanancia, setShowGanancia] = useState(false)
   const [ganancia, setGanancia] = useState(1.0)
+  const [showCategoria, setShowCategoria] = useState(false)
   const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -71,23 +77,88 @@ function WelcomeLog() {
 
   return (
     <>
-      {/* <Row className="justify-content-around pt-4 pb-3">
-        <Col xs={11} className="border-bottom pb-3">
-          <h1 className="mb-0 display-6 fw-normal">
-            Hola{' '}
-            <span className="fw-bold">
-              {' '}
-              {user.esAdmin ? user.username : user.clientes.nombre}
-            </span>
-          </h1>
-          <h5 className="mb-0 fw-light">¡Te damos la bienvenida!</h5>
+      <Row className="pt-2 pt-lg-4 pb-4 justify-content-center">
+        <Col xs={12} className="d-lg-none">
+          <div className="d-flex justify-content-between border-bottom pb-2">
+            <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
+            <button
+              onClick={() => setShowCategoria(!showCategoria)}
+              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center"
+            >
+              <PiListDashesBold className="me-1 fs-5" /> Categorías
+            </button>
+          </div>
+          {showCategoria && (
+            <Col xs={12} sm={11} className="mt-3">
+              {showGanancia && ganancia === 1 && (
+                <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
+                  <PiXCircleDuotone className="me-1 text-danger" />
+                  <p className="mb-0">
+                    <strong>ATENCIÓN:</strong> Se encuentra mostrando los
+                    precios mayoristas. Si desea ocultar los precios haga{' '}
+                    <Link
+                      className="fw-semibold"
+                      onClick={() => ocultarPrecios()}
+                    >
+                      click aquí
+                    </Link>
+                    .
+                  </p>
+                </div>
+              )}
+              <div className="d-flex gap-2 flex-wrap">
+                <Boton
+                  className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
+                  as={Link}
+                  to={`/catalogo/`}
+                >
+                  <Ratio
+                    aspectRatio="1x1"
+                    className="rounded-circle fondo-imagen me-2"
+                    style={{ width: '40px' }}
+                  >
+                    <Image
+                      src={todosLosProductos}
+                      className="object-fit-cover rounded-circle"
+                      fluid
+                    />
+                  </Ratio>
+                  Todos los productos
+                </Boton>
+                {categorias.map((categoria) => (
+                  <Boton
+                    className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
+                    key={categoria.id}
+                    as={Link}
+                    to={`/catalogo/${categoria.id}`}
+                  >
+                    <Ratio
+                      aspectRatio="1x1"
+                      className="rounded-circle fondo-imagen me-2"
+                      style={{ width: '40px' }}
+                    >
+                      {imagenErrors[categoria.id] ? (
+                        <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                      ) : (
+                        <Image
+                          src={categoria.rutaImagen}
+                          className="object-fit-cover rounded-circle"
+                          fluid
+                          onError={() => handleImageError(categoria.id)}
+                        />
+                      )}
+                    </Ratio>
+                    {categoria.nombre}
+                  </Boton>
+                ))}
+              </div>
+            </Col>
+          )}
         </Col>
-      </Row> */}
-      <Row className="py-5 justify-content-center">
-        <Col xs={11} className="mb-1">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h2 className="fw-bold mb-0">Categorías</h2>
-            <FormControl placeholder="Buscar" style={{ maxWidth: '300px' }} />
+        <Col xs={12} className="mb-1 d-none d-lg-block">
+          <div className="mb-4 d-flex justify-content-between align-items-center">
+            <h1 className="fw-bold mb-0">Categorías</h1>
+            <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
           </div>
           {showGanancia && ganancia === 1 && (
             <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
@@ -150,11 +221,11 @@ function WelcomeLog() {
           </div>
         </Col>
 
-        <Col xs={11} className="mt-5">
-          <div className="d-flex justify-content-between align-items-end mb-3">
-            <h2 className="fw-bold mb-0">Últimos ingresos</h2>
+        <Col xs={12} className="mt-4">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h1 className="fw-bold mb-0">Últimos ingresos</h1>
             <Boton
-              className="fw-bold text-primary d-flex align-items-center py-0 px-1"
+              className="fw-bold d-flex align-items-center py-0 px-1"
               variant="light"
               as={Link}
               to={'/catalogo'}
@@ -168,7 +239,7 @@ function WelcomeLog() {
               <Spinner className="my-5 d-block mx-auto" animation="border" />
             ) : (
               productos.map((producto) => (
-                <Col key={producto.id} xs={12} sm={6} lg={3} className="mb-4">
+                <Col key={producto.id} xs={6} md={4} lg={3} className="mb-4">
                   <CardProducto
                     producto={producto}
                     showGanancia={showGanancia}

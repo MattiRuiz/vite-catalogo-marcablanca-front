@@ -18,7 +18,7 @@ const getAllProductosAdmin = async () => {
 
 const getProductosPorCategoria = async (id) => {
   const respuesta = await axios.get(
-    `${baseUrl}/api/productostallas/categoria/${id}`
+    `${baseUrl}/api/productostallas/categoria/${id}/1`
   )
   return respuesta
 }
