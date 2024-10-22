@@ -1,82 +1,72 @@
-import { Image } from 'react-bootstrap'
+import { Image, Row, Col, Ratio } from 'react-bootstrap'
 
-import trabajando from './trabajando.png'
-
-// import analitico from '../../Images/analitico.png'
-// import analisis from '../../Images/analisis.png'
-// import negocios from '../../Images/negocios-en-linea.png'
-// import reporte from '../../Images/reporte-de-negocios.png'
+import stock from '../../Images/stock.jpg'
+import fotos from '../../Images/banco-de-fotos.jpg'
+import lista from '../../Images/lista-de-precio.jpg'
+import reventa from '../../Images/precio-reventa.jpg'
 
 function Ventajas() {
   return (
-    <div className="py-5 text-center">
-      <Image src={trabajando} className="mb-2" />
-      <h1>Próximamente...</h1>
-      <p>Nos encontramos trabajando para mejorar la experiencia del usuario.</p>
-      {/* <Row className="justify-content-center align-items-center align-items-stretch py-5 bg-claro">
-        <Col xs={12} lg={12} className="text-center mb-4">
-          <p className="fs-2 lh-sm mb-3 fw-light">
-            Accedé a nuestro catálogo y disfruta de todos sus beneficios:
-          </p>
-        </Col>
-        <Row className="text-center justify-content-evenly overflow-hidden">
-          <Col xs={12} md={6} lg={3} className="card-container">
-            <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
-              <div
-                style={{ width: '70px', height: '70px' }}
-                className="d-flex text-white justify-content-center align-items-center mb-4"
-              >
-                <Image src={analitico} fluid />
-              </div>
+    <Row className="justify-content-center align-items-center align-items-stretch py-5">
+      <Col xs={12} lg={10} className="text-center mb-4">
+        <h6 className="fw-bold text-primary">Ventajas</h6>
+        <h1 className="display-3 fw-bold lh-1">
+          Accedé a nuestro catálogo y disfruta de todos sus beneficios
+        </h1>
+      </Col>
+      <Row className="text-center justify-content-evenly overflow-hidden">
+        <Col xs={12} sm={6} lg={3} className="card-container mb-3 mb-lg-0">
+          <div className="d-flex flex-column align-items-center bg-white h-100 border rounded-4">
+            <Ratio aspectRatio="1x1" className="mb-4">
+              <Image src={stock} className="rounded-top-4" />
+            </Ratio>
+            <div className="px-4">
               <h4 className="fw-bold mb-1">Consultar stock</h4>
-              <p>Encuentra todos los productos disponibles en tiempo real.</p>
+              <p>Encuentra todos los productos disponibles en tiempo real</p>
             </div>
-          </Col>
-          <Col xs={12} md={6} lg={3} className="card-container">
-            <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
-              <div
-                style={{ width: '70px', height: '70px' }}
-                className="d-flex text-white justify-content-center align-items-center mb-4"
-              >
-                <Image src={analisis} fluid />
-              </div>
+          </div>
+        </Col>
+        <Col xs={12} sm={6} lg={3} className="card-container mb-3 mb-lg-0">
+          <div className="d-flex flex-column align-items-center bg-white h-100 border rounded-4">
+            <Ratio aspectRatio="1x1" className="mb-4">
+              <Image src={fotos} className="rounded-top-4" />
+            </Ratio>
+            <div className="px-4">
               <h4 className="fw-bold mb-1">Banco de fotos</h4>
               <p>
-                Cada producto incluye múltiples fotos para una mejor
-                presentación a tus clientes.
+                Los productos incluye múltiples fotos para una mejor
+                presentación a tus clientes
               </p>
             </div>
-          </Col>
-          <Col xs={12} md={6} lg={3} className="card-container">
-            <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
-              <div
-                style={{ width: '70px', height: '70px' }}
-                className="d-flex text-white justify-content-center align-items-center mb-4"
-              >
-                <Image src={reporte} fluid />
-              </div>
+          </div>
+        </Col>
+        <Col xs={12} sm={6} lg={3} className="card-container mb-3 mb-lg-0">
+          <div className="d-flex flex-column align-items-center bg-white h-100 border rounded-4">
+            <Ratio aspectRatio="1x1" className="mb-4">
+              <Image src={lista} className="rounded-top-4" />
+            </Ratio>
+            <div className="px-4">
               <h4 className="fw-bold mb-1">Lista de precios</h4>
-              <p>Descarga al instante la lista de precios actualizada.</p>
+              <p>Descarga al instante la lista de precios actualizada</p>
             </div>
-          </Col>
-          <Col xs={12} md={6} lg={3} className="card-container">
-            <div className="d-flex flex-column align-items-center bg-white p-5 h-100">
-              <div
-                style={{ width: '70px', height: '70px' }}
-                className="d-flex text-white justify-content-center align-items-center mb-4"
-              >
-                <Image src={negocios} fluid />
-              </div>
+          </div>
+        </Col>
+        <Col xs={12} sm={6} lg={3} className="card-container mb-3 mb-lg-0">
+          <div className="d-flex flex-column align-items-center bg-white h-100 border rounded-4">
+            <Ratio aspectRatio="1x1" className="mb-4">
+              <Image src={reventa} className="rounded-top-4" />
+            </Ratio>
+            <div className="px-4">
               <h4 className="fw-bold mb-1">Precios de reventa</h4>
               <p>
                 Configura tu cuenta y muestra los precios de los productos a tus
-                clientes.
+                clientes
               </p>
             </div>
-          </Col>
-        </Row>
-      </Row> */}
-    </div>
+          </div>
+        </Col>
+      </Row>
+    </Row>
   )
 }
 

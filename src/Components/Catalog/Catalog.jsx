@@ -65,7 +65,6 @@ function Catalog() {
     setProductos(respuesta.data)
     setTitle(respuesta.data[0].tipo_producto)
     setActiveCategory(value)
-    setShowCategoria(false)
   }
 
   const handleProducts = async (pageNumber) => {

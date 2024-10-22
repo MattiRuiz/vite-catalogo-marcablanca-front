@@ -60,10 +60,6 @@ p {
   background-color: var(--primary)!important;
 }
 
-.bg-claro {
-  background-color: #f3efea;
-}
-
 .color-primario {
   color: var(--primary)
 }
