@@ -83,7 +83,7 @@ const Suscripcion = () => {
           </Col> */}
           <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 h-100">
-              <h5 className="fw-bold">Completo</h5>
+              <h5 className="fw-bold">Plan Completo</h5>
               <p>Nuestro catálogo al alcance de la manos.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">
@@ -118,7 +118,7 @@ const Suscripcion = () => {
           </Col>
           <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 bg-dark bg-gradient text-white h-100">
-              <h5 className="fw-bold">Pack revendedores</h5>
+              <h5 className="fw-bold">Plan Revendedores</h5>
               <p>Controla las condiciones de venta de múltiples cuentas.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">

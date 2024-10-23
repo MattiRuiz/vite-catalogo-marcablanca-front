@@ -12,6 +12,7 @@ import {
   PiEyeBold,
   PiFileBold,
   PiDotsThreeVerticalBold,
+  PiBookOpenBold,
 } from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
@@ -73,6 +74,15 @@ function Navbar() {
                       <Dropdown.Divider />
                       <Dropdown.Item
                         as={Link}
+                        to={'/catalogo'}
+                        className="fw-bold d-flex align-items-center"
+                      >
+                        <PiBookOpenBold className="text-primary fs-5 me-2" />{' '}
+                        Catálogo
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        as={Link}
                         to={'/configurar-precios'}
                         className="d-flex align-items-center py-2 fw-medium"
                       >
@@ -92,6 +102,15 @@ function Navbar() {
                     <>
                       {user.clientes.subscriptions?.estado === 'active' && (
                         <>
+                          <Dropdown.Item
+                            as={Link}
+                            to={'/catalogo'}
+                            className="fw-bold d-flex align-items-center"
+                          >
+                            <PiBookOpenBold className="text-primary fs-5 me-2" />{' '}
+                            Catálogo
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
                           <Dropdown.Item
                             as={Link}
                             to={'/configurar-precios'}

@@ -75,17 +75,20 @@ function Precios() {
           <h1 className="fw-bold text-center mb-1">
             Configurar visualización de precios
           </h1>
-          <p className="text-center">
-            Permite mostrar/ocultar los precios de los productos en el catálogo.
+          <p className="text-center mb-4">
+            Permite <strong>mostrar u ocultar</strong> los precios de los
+            productos en el catálogo.
           </p>
-          <Row className="mb-3">
+          <Row className="mb-3 text-center">
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100">
-                <h5 className="fw-bold">Mostrar precio mayorista</h5>
-                <p>
-                  Muestra el precio mayorista en el catálogo. Este es el costo
-                  al por mayor de los productos.
-                </p>
+              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 className="fw-bold mb-4">Mostrar precio mayorista</h5>
+                  <p>
+                    Muestra el precio mayorista en el catálogo. Este es el costo
+                    al por mayor de los productos.
+                  </p>
+                </div>
                 <Boton
                   disabled={showGanancia && ganancia == 0}
                   onClick={() => handleGanancia('M')}
@@ -97,27 +100,28 @@ function Precios() {
               </div>
             </Col>
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100">
-                <h5 className="fw-bold">Mostrar precio de reventa</h5>
-                <p>
-                  Muestra el precio de reventa, calculado sumando tu porcentaje
-                  de ganancia al precio mayorista.
-                </p>
-                <Form>
-                  <Row className="align-items-center">
-                    <Col xs={12}>
-                      <Form.Label className="fw-bold">
-                        Porcentaje de ganancia:
-                      </Form.Label>
-                      <InputGroup style={{ maxWidth: '250px' }}>
-                        <InputGroup.Text>%</InputGroup.Text>
-                        <Form.Control
-                          onChange={(e) => handleGananciaReventa(e)}
-                          value={gananciaReventa}
-                          placeholder="Ingrese un valor"
-                        />
-                      </InputGroup>
-                    </Col>
+              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 className="fw-bold mb-4">Mostrar precio de reventa</h5>
+                  <p>
+                    Muestra el precio de reventa, calculado sumando tu
+                    porcentaje de ganancia al precio mayorista.
+                  </p>
+                  <Form>
+                    <Form.Label className="fw-bold">
+                      Indique el porcentaje de ganancia
+                    </Form.Label>
+                    <InputGroup
+                      className="mx-auto"
+                      style={{ maxWidth: '200px' }}
+                    >
+                      <InputGroup.Text>%</InputGroup.Text>
+                      <Form.Control
+                        onChange={(e) => handleGananciaReventa(e)}
+                        value={gananciaReventa}
+                        placeholder="Ingrese un valor"
+                      />
+                    </InputGroup>
                     {showError ? (
                       <Form.Text className="text-danger">
                         Coloque un valor entre 25 a 100%
@@ -125,34 +129,34 @@ function Precios() {
                     ) : (
                       <Form.Text className="text-primary">&nbsp;</Form.Text>
                     )}
-                    <Col xs={12}>
-                      <Boton
-                        className="mt-1"
-                        onClick={() => handleGanancia('R')}
-                        disabled={showError}
-                      >
-                        {ganancia === gananciaReventa
-                          ? 'Cambiar precio revendedor'
-                          : 'Mostrar precio revendedor'}
-                      </Boton>
-                    </Col>
                     {showGanancia && ganancia !== 0 && (
                       <Form.Text className="mt-2">
                         Actualmente mostrando precios con un
                         <strong> {ganancia}%</strong>.
                       </Form.Text>
                     )}
-                  </Row>
-                </Form>
+                  </Form>
+                </div>
+                <Boton
+                  className="mt-1"
+                  onClick={() => handleGanancia('R')}
+                  disabled={showError}
+                >
+                  {ganancia === gananciaReventa
+                    ? 'Cambiar precio revendedor'
+                    : 'Mostrar precio revendedor'}
+                </Boton>
               </div>
             </Col>
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100">
-                <h5 className="fw-bold">Ocultar precios</h5>
-                <p>
-                  Puedes ocultar completamente los precios del catálogo, útil
-                  cuando no quieres que se vean públicamente.
-                </p>
+              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 className="fw-bold mb-4">Ocultar precios</h5>
+                  <p>
+                    Puedes ocultar completamente los precios del catálogo, útil
+                    cuando no quieres que se vean públicamente.
+                  </p>
+                </div>
                 <Boton
                   disabled={!showGanancia}
                   onClick={() => handleGanancia('O')}
@@ -163,9 +167,9 @@ function Precios() {
             </Col>
           </Row>
 
-          <p className="text-center">
-            * Todos los precios exhibidos se encuentran sujetos a cambio, para
-            más información puede visitar nuestros{' '}
+          <p className="text-center texto-14 fst-italic">
+            Todos los precios exhibidos se encuentran sujetos a cambio, para más
+            información puede visitar nuestros{' '}
             <Link
               className="fw-bold text-primary"
               to="http://localhost:5173/terminos-y-condiciones"

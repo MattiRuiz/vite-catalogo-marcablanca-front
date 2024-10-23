@@ -16,12 +16,14 @@ function MiCuenta() {
 
   return (
     <>
-      <Row className="py-5 px-2 px-md-0 justify-content-center">
-        <Col xs={12} md={10} lg={5}>
-          <h1 className="fw-bold">Mi cuenta</h1>
-          <p>Administra tu suscripción o modifica tu contraseña.</p>
+      <Row className="py-5 justify-content-center">
+        <Col xs={12} md={10} lg={6}>
+          <h1 className="fw-bold text-center mb-1">Mi cuenta</h1>
+          <p className="text-center mb-4">
+            Ve el estado de tu suscripción o modifica tu contraseña.
+          </p>
           {user.esAdmin ? (
-            <div className="p-4 mb-3 rounded border">
+            <div className="p-5 mb-4 rounded border">
               <h6 className="text-secondary fw-bold mb-1 ">
                 Información de cuenta
               </h6>
@@ -30,11 +32,10 @@ function MiCuenta() {
               </h3>
             </div>
           ) : (
-            <div className="p-4 mb-3 rounded border">
+            <div className="p-5 mb-4 rounded border">
               <h6 className="text-secondary fw-bold mb-1 ">
-                Plan {user?.clientes.subscriptions.tipo === 1 && 'Básico'}
-                {user?.clientes.subscriptions.tipo === 2 && 'Completo'}
-                {user?.clientes.subscriptions.tipo === 3 && 'Revendedores'}
+                Plan {user?.clientes.subscriptions.tipo === 1 && 'Completo'}
+                {user?.clientes.subscriptions.tipo === 2 && 'Revendedores'}
               </h6>
               <h3 className="fw-bold border-bottom pb-2 mb-2">
                 Estado:{' '}
@@ -68,7 +69,7 @@ function MiCuenta() {
               </ul>
             </div>
           )}
-          <div className="p-4 rounded border">
+          {/* <div className="p-5 rounded border">
             <h3 className="fw-bold ">Cambiar la contraseña</h3>
             <p className="mb-0">
               Para cambiar la contraseña, haga clic en el siguiente botón y
@@ -77,7 +78,17 @@ function MiCuenta() {
             <Boton className="mt-3" onClick={() => setModalCambiarPass(true)}>
               Cambiar la contraseña
             </Boton>
-          </div>
+          </div> */}
+          <p className="text-center">
+            <strong>¿Necesitas cambiar la contraseña?</strong> Hacé{' '}
+            <a
+              className="fw-bold text-primary"
+              onClick={() => setModalCambiarPass(true)}
+            >
+              click acá
+            </a>{' '}
+            y rellená el formulario.
+          </p>
         </Col>
       </Row>
       {modalCambiarPass && (
