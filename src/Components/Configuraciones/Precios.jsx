@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { Row, Col, Form, InputGroup, Image } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom'
 
-import PDFIcon from '../../Images/pdf.png'
-
 import { Boton, PopUp } from '../../ui'
 
 function Precios() {
@@ -170,10 +168,7 @@ function Precios() {
           <p className="text-center texto-14 fst-italic">
             Todos los precios exhibidos se encuentran sujetos a cambio, para más
             información puede visitar nuestros{' '}
-            <Link
-              className="fw-bold text-primary"
-              to="http://localhost:5173/terminos-y-condiciones"
-            >
+            <Link className="fw-bold text-primary" to="/terminos-y-condiciones">
               Términos y condiciones.
             </Link>
           </p>

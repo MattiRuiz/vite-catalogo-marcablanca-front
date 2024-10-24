@@ -44,7 +44,7 @@ function Navbar() {
 
   return (
     <>
-      <Row className="bg-primary bg-gradient py-2 text-center text-white px-3 shadow-lg">
+      <Row className="bg-primary bg-gradient py-2 text-center text-white px-3">
         <Col xs={6} className="ps-0">
           <Link to={'/'}>
             <Image src={imageLogo} className="logo-home d-block" />

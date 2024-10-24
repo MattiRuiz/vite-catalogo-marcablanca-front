@@ -55,7 +55,9 @@ function CardProducto({ producto, showGanancia, ganancia }) {
               <div key={index} className="d-flex justify-content-between my-1">
                 <div className="d-flex justify-content-center flex-column">
                   {talla.talla_nombre && (
-                    <p className="fw-semibold mb-0">{talla.talla_nombre}</p>
+                    <p className="fw-semibold mb-0 lh-sm">
+                      {talla.talla_nombre}
+                    </p>
                   )}
                   {talla.dimensiones && (
                     <p className="mb-0"> {talla.dimensiones}</p>

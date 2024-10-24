@@ -65,6 +65,7 @@ function Catalog() {
     setProductos(respuesta.data)
     setTitle(respuesta.data[0].tipo_producto)
     setActiveCategory(value)
+    setShowCategoria(false)
   }
 
   const handleProducts = async (pageNumber) => {
@@ -140,22 +141,6 @@ function Catalog() {
           </div>
           {showCategoria && (
             <Col xs={12} sm={11} className="mt-3">
-              {showGanancia && ganancia === 1 && (
-                <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-                  <PiXCircleDuotone className="me-1 text-danger" />
-                  <p className="mb-0">
-                    <strong>ATENCIÓN:</strong> Se encuentra mostrando los
-                    precios mayoristas. Si desea ocultar los precios haga{' '}
-                    <Link
-                      className="fw-semibold"
-                      onClick={() => ocultarPrecios()}
-                    >
-                      click aquí
-                    </Link>
-                    .
-                  </p>
-                </div>
-              )}
               <div className="d-flex gap-2 flex-wrap">
                 <Boton
                   className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
@@ -205,10 +190,6 @@ function Catalog() {
           )}
         </Col>
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
-          {/* <h5 className="fw-bold mb-0">
-            Hola {user.clientes?.nombre ? user.clientes.nombre : user.username}
-          </h5>
-          <p className="texto-14 text-muted border-bottom pb-2">Bienvenido</p> */}
           <div className="border-bottom pb-2 mb-3">
             <Link to="/">
               <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center">
@@ -262,8 +243,8 @@ function Catalog() {
           </div>
           {showGanancia && ganancia === 1 && (
             <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-              <PiXCircleDuotone className="me-1 text-danger" />
               <p className="mb-0">
+                <PiXCircleDuotone className="me-1 mb-1 text-danger" />
                 <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
                 mayoristas. Si desea ocultar los precios haga{' '}
                 <Link className="fw-semibold" onClick={() => ocultarPrecios()}>

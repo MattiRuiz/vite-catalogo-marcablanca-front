@@ -1,29 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import ModalCambiarPassword from './ModalCambiarPassword'
-import { getSuscripcion } from '../../Functions/ClienteFunctions'
-import { Boton } from '../../ui'
 
 function MiCuenta() {
   const [modalCambiarPass, setModalCambiarPass] = useState(false)
-  const [userSuscripcion, setUserSuscripcion] = useState(null)
-  const [fechas, setFechas] = useState({
-    inicio: '',
-    vencimiento: '',
-  })
 
   const user = JSON.parse(localStorage.getItem('userData'))
 
   return (
     <>
-      <Row className="py-5 justify-content-center">
-        <Col xs={12} md={10} lg={6}>
-          <h1 className="fw-bold text-center mb-1">Mi cuenta</h1>
-          <p className="text-center mb-4">
-            Ve el estado de tu suscripción o modifica tu contraseña.
-          </p>
+      <Row className="justify-content-center justify-content-md-around align-items-center alto-container">
+        <Col xs={12} sm={10} md={8} lg={6}>
+          <h1 className="fw-bold mb-1">Mi cuenta</h1>
+          <p>Ve el estado de tu suscripción o modifica tu contraseña.</p>
           {user.esAdmin ? (
-            <div className="p-5 mb-4 rounded border">
+            <div className="p-5 mb-3 rounded border">
               <h6 className="text-secondary fw-bold mb-1 ">
                 Información de cuenta
               </h6>
@@ -32,7 +23,7 @@ function MiCuenta() {
               </h3>
             </div>
           ) : (
-            <div className="p-5 mb-4 rounded border">
+            <div className="p-5 mb-3 rounded border">
               <h6 className="text-secondary fw-bold mb-1 ">
                 Plan {user?.clientes.subscriptions.tipo === 1 && 'Completo'}
                 {user?.clientes.subscriptions.tipo === 2 && 'Revendedores'}
@@ -69,17 +60,7 @@ function MiCuenta() {
               </ul>
             </div>
           )}
-          {/* <div className="p-5 rounded border">
-            <h3 className="fw-bold ">Cambiar la contraseña</h3>
-            <p className="mb-0">
-              Para cambiar la contraseña, haga clic en el siguiente botón y
-              rellene el formulario:
-            </p>
-            <Boton className="mt-3" onClick={() => setModalCambiarPass(true)}>
-              Cambiar la contraseña
-            </Boton>
-          </div> */}
-          <p className="text-center">
+          <p>
             <strong>¿Necesitas cambiar la contraseña?</strong> Hacé{' '}
             <a
               className="fw-bold text-primary"

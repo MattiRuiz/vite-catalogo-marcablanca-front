@@ -6,9 +6,7 @@ const Terminos = () => {
     <Row className="justify-content-center justify-content-md-around align-items-center alto-container py-5">
       <Col xs={11} sm={8}>
         <h5 className="fw-bold text-muted">Catálogo Digital Marca Blanca</h5>
-        <h1 className="display-3 fw-bold lh-1">
-          Términos y Condiciones de Uso
-        </h1>
+        <h1 className="display-3 fw-bold">Términos y Condiciones de Uso</h1>
         <p className="fst-italic">Última actualización: 13/08/2024</p>
         <p>
           Estos términos y condiciones (los "Términos") regulan el uso del

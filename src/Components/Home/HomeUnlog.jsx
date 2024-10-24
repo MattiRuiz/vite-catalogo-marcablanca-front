@@ -8,7 +8,7 @@ import { PiArrowRightBold } from 'react-icons/pi'
 
 function HomeUnlog() {
   return (
-    <Row className="text-center shadow-sm py-3 justify-content-center align-items-center px-2 px-md-0">
+    <Row className="text-center py-3 justify-content-center align-items-center px-2 px-md-0">
       <Col
         xs={12}
         sm={10}
@@ -26,7 +26,7 @@ function HomeUnlog() {
         xl={5}
         className="py-4 text-start ms-lg-2 ms-xl-5"
       >
-        <p className="mb-2 border d-inline-block px-3 py-1 rounded-5 fw-semibold">
+        <p className="mb-3 border d-inline-block px-3 py-1 rounded-5 fw-semibold">
           ¡Atención revendedores!
         </p>
         <h5

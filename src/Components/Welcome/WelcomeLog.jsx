@@ -21,7 +21,7 @@ function WelcomeLog() {
   const [loading, setLoading] = useState(false)
   const [showGanancia, setShowGanancia] = useState(false)
   const [ganancia, setGanancia] = useState(1.0)
-  const [showCategoria, setShowCategoria] = useState(false)
+  const [showCategoria, setShowCategoria] = useState(true)
   const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -90,22 +90,6 @@ function WelcomeLog() {
           </div>
           {showCategoria && (
             <Col xs={12} sm={11} className="mt-3">
-              {showGanancia && ganancia === 1 && (
-                <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-                  <PiXCircleDuotone className="me-1 text-danger" />
-                  <p className="mb-0">
-                    <strong>ATENCIÓN:</strong> Se encuentra mostrando los
-                    precios mayoristas. Si desea ocultar los precios haga{' '}
-                    <Link
-                      className="fw-semibold"
-                      onClick={() => ocultarPrecios()}
-                    >
-                      click aquí
-                    </Link>
-                    .
-                  </p>
-                </div>
-              )}
               <div className="d-flex gap-2 flex-wrap">
                 <Boton
                   className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
@@ -160,19 +144,6 @@ function WelcomeLog() {
             <h1 className="fw-bold mb-0">Categorías</h1>
             <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
           </div>
-          {showGanancia && ganancia === 1 && (
-            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-              <PiXCircleDuotone className="me-1 text-danger" />
-              <p className="mb-0">
-                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
-                mayoristas. Si desea ocultar los precios haga{' '}
-                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
-                  click aquí
-                </Link>
-                .
-              </p>
-            </div>
-          )}
           <div className="d-flex gap-2 flex-wrap">
             <Boton
               className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
@@ -234,6 +205,19 @@ function WelcomeLog() {
               <PiArrowRightBold className="ms-2" />
             </Boton>
           </div>
+          {showGanancia && ganancia === 1 && (
+            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
+              <p className="mb-0">
+                <PiXCircleDuotone className="me-1 mb-1 text-danger" />
+                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
+                mayoristas. Si desea ocultar los precios haga{' '}
+                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
+                  click aquí
+                </Link>
+                .
+              </p>
+            </div>
+          )}
           <Row>
             {loading ? (
               <Spinner className="my-5 d-block mx-auto" animation="border" />
