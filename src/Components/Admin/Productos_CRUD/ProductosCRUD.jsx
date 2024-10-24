@@ -81,11 +81,6 @@ const ProductoCRUD = ({ showToast }) => {
                       onClick={() => handleShowProducto(producto.id)}
                     >
                       {producto.nombre}
-                      {producto.marca === 'Otros' ? (
-                        ''
-                      ) : (
-                        <strong className="ms-1"> - {producto.marca}</strong>
-                      )}
                     </Accordion.Header>
                     <Accordion.Body>
                       {showProducto[producto.id] && (

@@ -7,7 +7,7 @@ import { PiXBold, PiCaretRightBold, PiCaretLeftBold } from 'react-icons/pi'
 
 import { Boton } from '../ui'
 
-const PopUpCarousel = ({ producto, closePopUp }) => {
+const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
   const [imagenesCarousel, setImagenesCarousel] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -109,19 +109,31 @@ const PopUpCarousel = ({ producto, closePopUp }) => {
         )}
         <h4 className="mb-0 fw-bold text-dark">{producto.nombre}</h4>
         {producto.descripcion && (
-          <p className="text-muted fst-italic" style={{ lineHeight: '1.3' }}>
+          <p className="fst-italic" style={{ lineHeight: '1.3' }}>
             {producto.descripcion}
           </p>
         )}
         {producto.tallas
           .filter((talla) => talla.stock == 1)
           .map((talla, index) => (
-            <div key={index} className="d-flex justify-content-between my-1">
+            <div
+              key={index}
+              className="d-flex justify-content-between my-1 w-100"
+            >
               <div className="d-flex justify-content-center flex-column">
                 {talla.talla_nombre && (
                   <p className="fw-semibold mb-0">{talla.talla_nombre}</p>
                 )}
                 <p className="mb-0"> {talla.dimensiones}</p>
+              </div>
+              <div>
+                {showGanancia && (
+                  <div>
+                    <p className="fw-bold mb-0">
+                      ${Math.trunc(parseInt(talla.precio) * ganancia)}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ))}

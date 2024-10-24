@@ -6,8 +6,6 @@ import {
   Placeholder,
   Pagination,
   Spinner,
-  Nav,
-  Accordion,
   FormControl,
   Ratio,
   Image,
@@ -29,7 +27,7 @@ import { CardLoading, CardProducto, Boton } from '../../ui'
 
 import todosLosProductos from '../../Images/all.webp'
 
-function Catalog() {
+function Catalogo() {
   const { id } = useParams()
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
@@ -60,10 +58,10 @@ function Catalog() {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
     setProductos('')
     const respuesta = await getProductosPorCategoria(value)
-    setTotalPaginas(1)
-    setCurrentPage(1)
-    setProductos(respuesta.data)
-    setTitle(respuesta.data[0].tipo_producto)
+    setProductos(respuesta.data.productos)
+    setTitle(respuesta.data.productos[0].tipo_producto)
+    setTotalPaginas(respuesta.data.totalPages)
+    setCurrentPage(parseInt(respuesta.data.page))
     setActiveCategory(value)
     setShowCategoria(false)
   }
@@ -72,8 +70,8 @@ function Catalog() {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
     setProductos('')
     const response = await getProductosCatalogo(pageNumber)
-    setTotalPaginas(response.data.totalPaginas)
-    setProductos(response.data)
+    setTotalPaginas(response.data)
+    setProductos(response.data.productosAgrupadosArray)
     setTitle('Todos los productos')
     setActiveCategory(null)
   }
@@ -294,4 +292,4 @@ function Catalog() {
   )
 }
 
-export default Catalog
+export default Catalogo

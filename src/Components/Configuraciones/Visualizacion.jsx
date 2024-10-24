@@ -4,14 +4,13 @@ import { useNavigate, Link } from 'react-router-dom'
 
 import { Boton, PopUp } from '../../ui'
 
-function Precios() {
+function Visualizacion() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
   const [gananciaReventa, setGananciaReventa] = useState('25')
   const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
-
   const handleGananciaReventa = (e) => {
     setGananciaReventa(e.target.value)
     if (
@@ -207,4 +206,4 @@ function Precios() {
   )
 }
 
-export default Precios
+export default Visualizacion

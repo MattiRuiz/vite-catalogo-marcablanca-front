@@ -52,7 +52,10 @@ function CardProducto({ producto, showGanancia, ganancia }) {
               {producto.descripcion}
             </Card.Subtitle>
             {producto.tallas.map((talla, index) => (
-              <div key={index} className="d-flex justify-content-between my-1">
+              <div
+                key={index}
+                className="d-sm-flex justify-content-between my-1"
+              >
                 <div className="d-flex justify-content-center flex-column">
                   {talla.talla_nombre && (
                     <p className="fw-semibold mb-0 lh-sm">
@@ -81,6 +84,8 @@ function CardProducto({ producto, showGanancia, ganancia }) {
         <PopUpCarousel
           producto={producto}
           closePopUp={() => setPopUpCarrusel(false)}
+          showGanancia={showGanancia}
+          ganancia={ganancia}
         />
       )}
     </>

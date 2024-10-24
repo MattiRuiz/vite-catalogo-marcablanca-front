@@ -9,7 +9,6 @@ import {
   PiArrowRightBold,
   PiXCircleDuotone,
   PiListDashesBold,
-  PiCaretLeftBold,
 } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/all.webp'
@@ -47,7 +46,10 @@ function WelcomeLog() {
         const response = await getAllTipoProductos()
         setCategorias(response.data)
         const respProductos = await getProductosCatalogo(1)
-        const shortProducts = respProductos.data.slice(0, 4)
+        const shortProducts = respProductos.data.productosAgrupadosArray.slice(
+          0,
+          8
+        )
         setProductos(shortProducts)
 
         const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))

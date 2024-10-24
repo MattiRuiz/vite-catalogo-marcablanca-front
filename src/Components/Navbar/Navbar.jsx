@@ -83,7 +83,7 @@ function Navbar() {
                       <Dropdown.Divider />
                       <Dropdown.Item
                         as={Link}
-                        to={'/configurar-precios'}
+                        to={'/configurar-visualizacion'}
                         className="d-flex align-items-center py-2 fw-medium"
                       >
                         <PiEyeBold className="text-secondary fs-5 me-2" />{' '}
@@ -113,7 +113,7 @@ function Navbar() {
                           <Dropdown.Divider />
                           <Dropdown.Item
                             as={Link}
-                            to={'/configurar-precios'}
+                            to={'/configurar-visualizacion'}
                             className="d-flex align-items-center py-2 fw-medium"
                           >
                             <PiEyeBold className="text-secondary fs-5 me-2" />{' '}

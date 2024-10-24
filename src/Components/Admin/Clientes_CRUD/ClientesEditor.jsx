@@ -229,11 +229,20 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
               {suscripcionData === null && (
                 <span className="text-muted">A crear</span>
               )}
-              {suscripcionData?.estado === 'active' ? (
+              {suscripcionData?.estado === 'active' && (
+                <span className="text-success">Activa</span>
+              )}
+              {suscripcionData?.estado === 'expired' && (
+                <span className="text-danger">Vencida</span>
+              )}
+              {suscripcionData?.estado === 'cancelada' && (
+                <span className="text-danger">Cancelada</span>
+              )}
+              {/* {suscripcionData?.estado === 'active' ? (
                 <span className="text-success">Activa</span>
               ) : (
                 <span className="text-danger">Vencida</span>
-              )}
+              )} */}
             </h5>
             <Form>
               {!suscripcionData && (
@@ -246,8 +255,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                         value={tipoSuscripcion}
                       >
                         <option value="">-- Seleccione un plan --</option>
-                        <option value="1">Básico</option>
-                        <option value="2">Completo</option>
+                        <option value="1">Plan Completo</option>
                       </Form.Select>
                     </Form.Group>
                     <Form.Group as={Col}>
@@ -266,8 +274,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                   <Col>
                     <p className="mb-2">
                       <strong>Plan:</strong>{' '}
-                      {suscripcionData.tipo === 1 && 'Básico'}
-                      {suscripcionData.tipo === 2 && 'Completo'}
+                      {suscripcionData.tipo === 1 && 'Completo'}
                     </p>
                     <p className="mb-2">
                       <strong>Inicio:</strong>{' '}
@@ -310,12 +317,11 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                               value={tipoSuscripcion}
                             >
                               <option value="">-- Seleccione un plan --</option>
-                              <option value="1">Básico</option>
-                              <option value="2">Completo</option>
+                              <option value="1">Plan Completo</option>
                             </Form.Select>
                           </Form.Group>
                           <Form.Group as={Col}>
-                            <Form.Label>Meses extra:</Form.Label>
+                            <Form.Label>Meses:</Form.Label>
                             <Form.Control
                               type="numeric"
                               onChange={handleCantMeses}
@@ -334,7 +340,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
       </Col>
       <div className="mt-3 d-flex justify-content-between">
         <Boton variant="danger" onClick={() => setPopUpBorrar(true)}>
-          Borrar usuario
+          Cancelar suscripción
         </Boton>
         <Boton onClick={() => handleGuardar()} disabled={loading}>
           {loading ? (

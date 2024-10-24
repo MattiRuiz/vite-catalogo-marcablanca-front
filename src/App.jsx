@@ -7,9 +7,9 @@ import Navbar from './Components/Navbar/Navbar'
 
 import Home from './Components/Home/Home'
 import Login from './Components/Login/Login'
-import Catalog from './Components/Catalog/Catalog'
+import Catalogo from './Components/Catalogo/Catalogo'
 import MiCuenta from './Components/Configuraciones/MiCuenta'
-import Precios from './Components/Configuraciones/Precios'
+import Visualizacion from './Components/Configuraciones/Visualizacion'
 import Admin from './Components/Admin/Admin'
 import NotFound from './Components/NotFound/NotFound'
 import Contacto from './Components/Contacto/Contacto'
@@ -45,7 +45,7 @@ function App() {
             path="/catalogo"
             element={
               <>
-                <Catalog />
+                <Catalogo />
               </>
             }
           />
@@ -61,7 +61,7 @@ function App() {
             path="/catalogo/:id"
             element={
               <>
-                <Catalog />
+                <Catalogo />
               </>
             }
           />
@@ -74,10 +74,10 @@ function App() {
             }
           />
           <Route
-            path="/configurar-precios"
+            path="/configurar-visualizacion"
             element={
               <>
-                <Precios />
+                <Visualizacion />
               </>
             }
           />

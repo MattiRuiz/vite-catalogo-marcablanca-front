@@ -11,7 +11,10 @@ function Tostada({
   delay = 3000,
 }) {
   return (
-    <ToastContainer className="position-fixed bottom-0 end-0 mb-3 me-2 z-3">
+    <ToastContainer
+      className="position-fixed bottom-0 end-0 mb-3 me-2"
+      style={{ zIndex: '9999' }}
+    >
       <Toast show={show} onClose={onClose} delay={delay} autohide={true}>
         <Toast.Header>
           <span className=" me-auto d-flex align-items-center">

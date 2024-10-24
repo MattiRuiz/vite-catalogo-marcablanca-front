@@ -8,7 +8,6 @@ import TipoProductoCRUD from './TipoProductos_CRUD/TipoProductoCRUD'
 import MarcasCRUD from './Marcas_CRUD/MarcasCRUD'
 import ProductosCRUD from './Productos_CRUD/ProductosCRUD'
 import ClientesCRUD from './Clientes_CRUD/ClientesCRUD'
-import NotFound from '../NotFound/NotFound'
 
 import {
   PiUserListBold,
@@ -16,6 +15,7 @@ import {
   PiLegoBold,
   PiRulerBold,
   PiTagBold,
+  PiXBold,
   PiBriefcaseBold,
   PiListBold,
 } from 'react-icons/pi'
@@ -28,7 +28,6 @@ const Admin = () => {
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
-  const auth = userParsed.esAdmin
 
   const [toastConfig, setToastConfig] = useState({
     show: false,
@@ -151,14 +150,23 @@ const Admin = () => {
             </li>
           </ul>
         </Col>
-        <Col className="d-lg-none position-fixed bottom-0 end-0">
+        <Col
+          className="d-lg-none position-fixed bottom-0 end-0"
+          style={{ zIndex: '4999' }}
+        >
           <div className="d-flex justify-content-start mb-3">
             <button
-              className="rounded-circle bg-primary bg-gradient text-white shadow-sm ms-1"
-              style={{ width: '45px', height: '45px' }}
-              onClick={() => setShowOffcanvas(true)}
+              className={`rounded-circle ${
+                showOffcanvas ? 'bg-secondary' : 'bg-primary'
+              } bg-gradient text-white shadow ms-1`}
+              style={{ width: '55px', height: '55px' }}
+              onClick={() => setShowOffcanvas(!showOffcanvas)}
             >
-              <PiListBold className="fs-5" />
+              {showOffcanvas ? (
+                <PiXBold className="fs-4" />
+              ) : (
+                <PiListBold className="fs-4" />
+              )}
             </button>
           </div>
         </Col>
