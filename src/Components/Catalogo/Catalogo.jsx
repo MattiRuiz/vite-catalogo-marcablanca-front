@@ -57,11 +57,11 @@ function Catalogo() {
   const handleCategories = async (value) => {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
     setProductos('')
-    const respuesta = await getProductosPorCategoria(value)
-    setProductos(respuesta.data.productos)
-    setTitle(respuesta.data.productos[0].tipo_producto)
-    setTotalPaginas(respuesta.data.totalPages)
-    setCurrentPage(parseInt(respuesta.data.page))
+    const response = await getProductosPorCategoria(value)
+    setProductos(response.data.productos)
+    setTitle(response.data.productos[0].tipo_producto)
+    setTotalPaginas(response.data.totalPages)
+    setCurrentPage(parseInt(response.data.page))
     setActiveCategory(value)
     setShowCategoria(false)
   }
@@ -70,8 +70,10 @@ function Catalogo() {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
     setProductos('')
     const response = await getProductosCatalogo(pageNumber)
-    setTotalPaginas(response.data)
+    setTotalPaginas(response.data.totalPages)
     setProductos(response.data.productosAgrupadosArray)
+    setTotalPaginas(response.data.totalPages)
+    setCurrentPage(parseInt(response.data.actualPage))
     setTitle('Todos los productos')
     setActiveCategory(null)
   }

@@ -140,7 +140,7 @@ const ClientesCRUD = ({ showToast }) => {
                     {cliente.clientes.subscriptions?.estado === 'expired' && (
                       <p className="mb-0 text-danger fw-bold">Vencida</p>
                     )}
-                    {cliente.clientes.subscriptions?.estado === 'cancelada' && (
+                    {cliente.clientes.subscriptions?.estado === 'canceled' && (
                       <p className="mb-0 text-danger fw-bold">Cancelada</p>
                     )}
                   </Col>

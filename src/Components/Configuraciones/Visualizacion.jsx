@@ -8,11 +8,12 @@ function Visualizacion() {
   const [show, setShow] = useState(false)
   const [ganancia, setGanancia] = useState(0)
   const [showGanancia, setShowGanancia] = useState(false)
-  const [gananciaReventa, setGananciaReventa] = useState('25')
+  const [gananciaReventa, setGananciaReventa] = useState()
   const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
+
   const handleGananciaReventa = (e) => {
-    setGananciaReventa(e.target.value)
+    setGanancia(e.target.value)
     if (
       isNaN(parseInt(e.target.value)) ||
       parseInt(e.target.value) < 25 ||
@@ -33,9 +34,11 @@ function Visualizacion() {
   const dataSave = () => {
     const showGananciaCase = localStorage.getItem('showGanancia')
     if (showGananciaCase != null) {
-      setGanancia(localStorage.getItem('ganancia'))
-      if (parseInt(ganancia) !== 0) {
-        setGananciaReventa(ganancia)
+      const gananciaCase = parseInt(localStorage.getItem('ganancia'))
+      if (gananciaCase !== 0) {
+        setGanancia(gananciaCase)
+      } else {
+        setGanancia(25)
       }
       setShowGanancia(showGananciaCase.toLowerCase?.() === 'true')
     } else {
@@ -60,7 +63,7 @@ function Visualizacion() {
       setShow(true)
     } else if (opt === 'R') {
       setShowGanancia(true)
-      setGanancia(gananciaReventa)
+      setGanancia(ganancia)
       setShow(true)
     }
   }
@@ -115,7 +118,7 @@ function Visualizacion() {
                       <InputGroup.Text>%</InputGroup.Text>
                       <Form.Control
                         onChange={(e) => handleGananciaReventa(e)}
-                        value={gananciaReventa}
+                        value={ganancia}
                         placeholder="Ingrese un valor"
                       />
                     </InputGroup>
@@ -139,9 +142,7 @@ function Visualizacion() {
                   onClick={() => handleGanancia('R')}
                   disabled={showError}
                 >
-                  {ganancia === gananciaReventa
-                    ? 'Cambiar precio revendedor'
-                    : 'Mostrar precio revendedor'}
+                  Mostrar precio revendedor
                 </Boton>
               </div>
             </Col>

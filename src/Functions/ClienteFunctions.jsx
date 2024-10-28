@@ -118,6 +118,21 @@ const editSuscripcion = async (_id, _data) => {
   }
 }
 
+const cancelSuscripcion = async (_id) => {
+  try {
+    const response = await axios(`${baseUrl}/api/cancelarSubscripcion/${_id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: window.localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (errors) {
+    console.error(errors)
+    return errors
+  }
+}
+
 export {
   getAllClientes,
   createCliente,
@@ -128,4 +143,5 @@ export {
   getSuscripcion,
   createSuscripcion,
   editSuscripcion,
+  cancelSuscripcion,
 }

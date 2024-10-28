@@ -1,11 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import { Col, Row, Form, Spinner, Image, Ratio } from 'react-bootstrap'
+import { Col, Row, Form, Spinner, Ratio } from 'react-bootstrap'
 
 import { PiMapPinLine, PiPhone, PiCity } from 'react-icons/pi'
 import { SiWhatsapp } from 'react-icons/si'
-
-import productos from '../../Images/all.webp'
 
 import { Boton, Input, Tostada } from '../../ui'
 
@@ -14,6 +12,7 @@ const Contacto = () => {
   const [user, setUser] = useState()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [celular, setCelular] = useState('')
   const [message, setMessage] = useState('')
 
   const [showAlert, setShowAlert] = useState(false)
@@ -29,7 +28,7 @@ const Contacto = () => {
     e.preventDefault()
     setLoading(true)
 
-    if (!name || !email || !message) {
+    if (!name || !email || !message || !celular) {
       setAlertVariant('danger')
       setAlertHeader('Hubo un problema')
       setAlertMessage(
@@ -54,6 +53,7 @@ const Contacto = () => {
           setName('')
           setEmail('')
           setMessage('')
+          setCelular('')
         },
         (error) => {
           setAlertVariant('danger')
@@ -76,7 +76,7 @@ const Contacto = () => {
 
   return (
     <Row className="shadow-sm justify-content-center px-2 py-5">
-      <Col xs={12} md={4}>
+      <Col xs={12} md={6} lg={4}>
         <div className="d-flex justify-content-center flex-column">
           <div className="border rounded-top-3">
             <Ratio aspectRatio={'4x3'}>
@@ -129,7 +129,7 @@ const Contacto = () => {
           </div>
         </div>
       </Col>
-      <Col xs={12} lg={6} xl={5} className="py-4 text-start ms-xl-5">
+      <Col xs={12} md={8} lg={6} xl={5} className="py-4 text-start ms-xl-5">
         <h1 className="fw-bold">Envianos un mensaje</h1>
         <p className="mb-4">
           ¿Tenés consultas, dudas o recomendaciones? ¿Algo no está funcionando
@@ -143,14 +143,13 @@ const Contacto = () => {
               name="user_name"
               placeholder="Nombre"
               value={name}
-              disabled
             />
           ) : (
             <Input
               label="Nombre"
               type="text"
               name="user_name"
-              placeholder="Nombre"
+              placeholder=""
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -159,9 +158,17 @@ const Contacto = () => {
             label="Email"
             type="text"
             name="user_email"
-            placeholder="Email"
+            placeholder=""
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            label="Celular"
+            type="text"
+            name="user_phone"
+            placeholder=""
+            value={celular}
+            onChange={(e) => setCelular(e.target.value)}
           />
           <Form.Label>Mensaje</Form.Label>
           <Form.Control

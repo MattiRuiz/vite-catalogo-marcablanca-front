@@ -5,6 +5,7 @@ import {
   updateCliente,
   deleteCliente,
   editSuscripcion,
+  cancelSuscripcion,
 } from '../../../Functions/ClienteFunctions'
 
 import { Boton, Input, PopUp } from '../../../ui'
@@ -109,17 +110,15 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
     onClose()
   }
 
-  const handleDelete = async () => {
+  const handleCancelar = async () => {
     setLoading(true)
     try {
-      const response = await deleteCliente(clienteData.id)
-      console.log('delete', response)
-
+      const response = await cancelSuscripcion(cliente.id)
       if (response.status === 200) {
         showToast(
           'success',
-          'Cliente eliminado',
-          'El cliente se ha eliminado con éxito.'
+          'Suscripción canceled',
+          'La suscripción del cliente ha sido canceled con éxito.'
         )
         onClienteUpdated()
         setPopUpBorrar(false)
@@ -129,7 +128,11 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
         setPopUpBorrar(false)
       }
     } catch (e) {
-      showToast('danger', 'Error', 'Hubo un problema al eliminar el cliente.')
+      showToast(
+        'danger',
+        'Error',
+        'Hubo un problema al cancelar la suscripción.'
+      )
       console.error(e.message)
     } finally {
       setLoading(false)
@@ -235,14 +238,9 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
               {suscripcionData?.estado === 'expired' && (
                 <span className="text-danger">Vencida</span>
               )}
-              {suscripcionData?.estado === 'cancelada' && (
+              {suscripcionData?.estado === 'canceled' && (
                 <span className="text-danger">Cancelada</span>
               )}
-              {/* {suscripcionData?.estado === 'active' ? (
-                <span className="text-success">Activa</span>
-              ) : (
-                <span className="text-danger">Vencida</span>
-              )} */}
             </h5>
             <Form>
               {!suscripcionData && (
@@ -352,15 +350,15 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
       </div>
       {popUpBorrar && (
         <PopUp
-          header="Borrar cliente"
+          header="Cancelar suscripción"
           closePopUp={() => setPopUpBorrar(false)}
-          buttonLabel="Borrar"
-          onAction={handleDelete}
+          buttonLabel="Cancelar"
+          onAction={handleCancelar}
           loading={loading}
           variant="danger"
         >
           <p>
-            ¿Está seguro que desea borrar el usuario{' '}
+            ¿Está seguro que desea cancelar la suscripción del usuario{' '}
             <strong>{clienteData.username}</strong> del cliente{' '}
             <strong>
               {clienteData.nombre} {clienteData.apellido}
