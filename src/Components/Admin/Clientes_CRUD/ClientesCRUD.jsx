@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Spinner } from 'react-bootstrap'
+import { Col, Spinner, FormControl } from 'react-bootstrap'
 
 import {
   getAllClientes,
@@ -9,7 +9,9 @@ import {
 import ClientesPopup from './ClientesCRUD_popup'
 import ClientesEditor from './ClientesEditor'
 
-import { PopUp, Boton } from '../../../ui'
+import { PiPlusCircleBold } from 'react-icons/pi'
+
+import { PopUp, BotonSecundario } from '../../../ui'
 
 const ClientesCRUD = ({ showToast }) => {
   const [clientes, setClientes] = useState([])
@@ -17,8 +19,8 @@ const ClientesCRUD = ({ showToast }) => {
   const [popUpBorrar, setPopUpBorrar] = useState(false)
   const [selectedCliente, setSelectedCliente] = useState(null)
   const [loading, setLoading] = useState(false)
-
   const [editor, setEditor] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const fetchData = async () => {
     setLoading(true)
@@ -75,6 +77,12 @@ const ClientesCRUD = ({ showToast }) => {
     }
   }
 
+  const filteredClientes = clientes.filter((cliente) =>
+    `${cliente.clientes.nombre} ${cliente.clientes.apellido} ${cliente.username}`
+      .toLocaleLowerCase()
+      .includes(searchTerm.toLowerCase())
+  )
+
   return (
     <>
       <Col xs={12}>
@@ -90,9 +98,20 @@ const ClientesCRUD = ({ showToast }) => {
           <>
             <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
               <h2 className="mb-0 fw-bold">Clientes</h2>
-              <Boton className="me-2" onClick={() => openPopup(null)}>
-                Crear cliente
-              </Boton>
+              <div className="d-flex">
+                <BotonSecundario
+                  className="me-2 "
+                  onClick={() => openPopup(null)}
+                >
+                  Añadir <PiPlusCircleBold className="ms-2" />
+                </BotonSecundario>
+                <FormControl
+                  placeholder="Buscar"
+                  style={{ maxWidth: '300px' }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
@@ -113,7 +132,7 @@ const ClientesCRUD = ({ showToast }) => {
               </Col>
             </div>
             <div className="bg-white">
-              {clientes.map((cliente) => (
+              {filteredClientes.map((cliente) => (
                 <div
                   key={cliente.id}
                   className="border-bottom d-flex align-items-center justify-content-between p-2"

@@ -127,14 +127,14 @@ function Catalogo() {
         <Col xs={12} md={11} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-3 pt-1">
             <Link to="/">
-              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center">
+              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center bg-transparent">
                 <PiCaretLeftBold className="me-1 fs-5" />
                 Volver
               </button>
             </Link>
             <button
               onClick={() => setShowCategoria(!showCategoria)}
-              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center"
+              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center bg-transparent"
             >
               <PiListDashesBold className="me-1 fs-5" /> Categorías
             </button>

@@ -5,7 +5,9 @@ import { getAllMarcas, deleteMarca } from '../../../Functions/MarcasFunctions'
 
 import MarcasPopUp from './MarcasCRUD_popup'
 
-import { PopUp, Boton } from '../../../ui'
+import { PiPlusCircleBold } from 'react-icons/pi'
+
+import { PopUp, BotonSecundario } from '../../../ui'
 
 const MarcasCRUD = ({ showToast }) => {
   const [marcas, setMarcas] = useState([])
@@ -69,9 +71,9 @@ const MarcasCRUD = ({ showToast }) => {
       <Col xs={12} md={10} lg={8}>
         <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
           <h2 className="mb-0 fw-bold">Marcas</h2>
-          <Boton className="me-2" onClick={() => openPopup(null)}>
-            Crear marca
-          </Boton>
+          <BotonSecundario onClick={() => openPopup(null)}>
+            Añadir <PiPlusCircleBold className="ms-2" />
+          </BotonSecundario>
         </div>
         <Row className="d-flex align-items-center justify-content-between p-2 bg-dark mt-3 rounded-top text-white">
           <Col>

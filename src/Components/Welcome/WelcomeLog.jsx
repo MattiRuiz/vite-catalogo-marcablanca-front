@@ -85,7 +85,7 @@ function WelcomeLog() {
             <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
             <button
               onClick={() => setShowCategoria(!showCategoria)}
-              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center"
+              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center bg-transparent"
             >
               <PiListDashesBold className="me-1 fs-5" /> Categorías
             </button>

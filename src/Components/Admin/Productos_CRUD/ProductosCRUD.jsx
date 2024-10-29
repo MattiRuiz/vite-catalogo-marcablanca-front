@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Row, Accordion, Spinner } from 'react-bootstrap'
+import { Col, Row, Accordion, Spinner, FormControl } from 'react-bootstrap'
 
 import { getAllProductosAdmin } from '../../../Functions/ProductosFunctions'
 
@@ -7,12 +7,17 @@ import ProductosPopUp from './ProductosCRUD_popup'
 import PopUpEditarPrecio from './PopUpEditPrecio'
 import ProductoCard from './ProductoCard'
 
-import { Boton } from '../../../ui'
+import { BotonSecundario } from '../../../ui'
+
+import { PiPlusCircleBold } from 'react-icons/pi'
 
 const ProductoCRUD = ({ showToast }) => {
   const [categorias, setCategorias] = useState([])
-
   const [showProducto, setShowProducto] = useState({})
+  const [filteredCategorias, setFilteredCategorias] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const handleShowProducto = (productId) => {
     setShowProducto((prevProductos) => ({
       ...prevProductos,
@@ -20,14 +25,13 @@ const ProductoCRUD = ({ showToast }) => {
     }))
   }
 
-  const [loading, setLoading] = useState(false)
-
   const fetchData = async () => {
     setLoading(true)
     try {
       const data = await getAllProductosAdmin()
       if (data.data) {
         setCategorias(data.data)
+        setFilteredCategorias(data.data)
       }
     } catch (e) {
       showToast(
@@ -45,6 +49,20 @@ const ProductoCRUD = ({ showToast }) => {
     fetchData()
   }, [])
 
+  // Filtrar productos según el término de búsqueda
+  useEffect(() => {
+    const filteredData = categorias
+      .map((categoria) => ({
+        ...categoria,
+        productos: categoria.productos.filter((producto) =>
+          producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      }))
+      .filter((categoria) => categoria.productos.length > 0)
+
+    setFilteredCategorias(filteredData)
+  }, [searchTerm, categorias])
+
   const [popUp, setPopUp] = useState(false)
   const openPopup = () => {
     setPopUp(true)
@@ -57,16 +75,22 @@ const ProductoCRUD = ({ showToast }) => {
       <Col xs={12}>
         <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
           <h2 className="mb-0 fw-bold">Productos</h2>
-          <div>
-            <Boton className="me-2" onClick={() => openPopup()}>
-              Crear producto
-            </Boton>
-            <Boton variant="light" onClick={() => setPopUpEditarPrecio(true)}>
+          <div className="d-flex">
+            <BotonSecundario className="me-2" onClick={() => openPopup()}>
+              Añadir <PiPlusCircleBold className="ms-2" />
+            </BotonSecundario>
+            <FormControl
+              placeholder="Buscar"
+              style={{ maxWidth: '300px' }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {/* <Boton variant="light" onClick={() => setPopUpEditarPrecio(true)}>
               Editar grupos de precio
-            </Boton>
+            </Boton> */}
           </div>
         </div>
-        {categorias.map((categoria) => (
+        {filteredCategorias.map((categoria) => (
           <Row className="py-3" key={categoria.id}>
             <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
             {categoria.productos.map((producto) => (
