@@ -90,8 +90,8 @@ const ProductoCRUD = ({ showToast }) => {
             </Boton> */}
           </div>
         </div>
-        {filteredCategorias.map((categoria) => (
-          <Row className="py-3" key={categoria.id}>
+        {filteredCategorias.map((categoria, index) => (
+          <Row className="py-3" key={index}>
             <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
             {categoria.productos.map((producto) => (
               <Col key={`col-${producto.id}`} xs={12} md={6}>

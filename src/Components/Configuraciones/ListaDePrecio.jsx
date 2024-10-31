@@ -10,7 +10,7 @@ const ListaDePrecio = () => {
   return (
     <>
       <Row className="py-5 px-2 px-md-0 justify-content-center align-items-center gap-3">
-        <Col Col xs={11} sm={8} md={6} lg={4}>
+        <Col xs={11} sm={8} md={6} lg={4}>
           <Image src={listaGrande} fluid rounded className="border" />
         </Col>
         <Col xs={11} sm={8} md={6} lg={5}>

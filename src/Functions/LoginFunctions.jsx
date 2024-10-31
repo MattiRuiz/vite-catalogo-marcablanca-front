@@ -21,7 +21,7 @@ const loginCliente = async (data) => {
 
     return response
   } catch (errors) {
-    console.log(errors)
+    console.error(errors)
   }
 }
 

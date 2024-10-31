@@ -12,7 +12,7 @@ import {
 } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/all.webp'
-import { Boton, CardProducto } from '../../ui'
+import { Boton, CardProducto, BotonSecundario } from '../../ui'
 
 function WelcomeLog() {
   const [categorias, setCategorias] = useState([])
@@ -83,12 +83,12 @@ function WelcomeLog() {
         <Col xs={12} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-2">
             <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
-            <button
+            <BotonSecundario
               onClick={() => setShowCategoria(!showCategoria)}
-              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center bg-transparent"
+              className="ps-3 pe-0 py-2"
             >
               <PiListDashesBold className="me-1 fs-5" /> Categorías
-            </button>
+            </BotonSecundario>
           </div>
           {showCategoria && (
             <Col xs={12} sm={11} className="mt-3">

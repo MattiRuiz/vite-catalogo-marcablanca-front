@@ -38,7 +38,6 @@ const LoginProvider = ({ children }) => {
         setUser(userData)
       } else {
         unauthorize()
-        console.log('No se encontró información de usuario.')
       }
     }
   }

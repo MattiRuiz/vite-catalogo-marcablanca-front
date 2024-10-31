@@ -23,7 +23,7 @@ import {
   PiCaretLeftBold,
 } from 'react-icons/pi'
 
-import { CardLoading, CardProducto, Boton } from '../../ui'
+import { CardLoading, CardProducto, Boton, BotonSecundario } from '../../ui'
 
 import todosLosProductos from '../../Images/all.webp'
 
@@ -127,17 +127,17 @@ function Catalogo() {
         <Col xs={12} md={11} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-3 pt-1">
             <Link to="/">
-              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center bg-transparent">
+              <BotonSecundario className="pe-3 ps-0 py-2">
                 <PiCaretLeftBold className="me-1 fs-5" />
                 Volver
-              </button>
+              </BotonSecundario>
             </Link>
-            <button
+            <BotonSecundario
               onClick={() => setShowCategoria(!showCategoria)}
-              className="ps-3 pe-0 py-2 fw-semibold d-flex align-items-center bg-transparent"
+              className="ps-3 pe-0 py-2"
             >
               <PiListDashesBold className="me-1 fs-5" /> Categorías
-            </button>
+            </BotonSecundario>
           </div>
           {showCategoria && (
             <Col xs={12} sm={11} className="mt-3">
@@ -192,10 +192,10 @@ function Catalogo() {
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
           <div className="border-bottom pb-2 mb-3">
             <Link to="/">
-              <button className="pe-3 ps-0 py-2 fw-semibold d-flex align-items-center">
+              <BotonSecundario className="pe-3 ps-0 py-2">
                 <PiCaretLeftBold className="me-1 fs-5" />
                 Volver
-              </button>
+              </BotonSecundario>
             </Link>
           </div>
           <p className="texto-14 text-muted mb-2">Menú</p>
