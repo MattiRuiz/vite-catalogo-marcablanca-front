@@ -61,7 +61,7 @@ function Catalogo() {
     setProductos(response.data.productos)
     setTitle(response.data.productos[0].tipo_producto)
     setTotalPaginas(response.data.totalPages)
-    setCurrentPage(parseInt(response.data.page))
+    setCurrentPage(parseInt(response.data.actualPage))
     setActiveCategory(value)
     setShowCategoria(false)
   }
@@ -70,8 +70,7 @@ function Catalogo() {
     window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
     setProductos('')
     const response = await getProductosCatalogo(pageNumber)
-    setTotalPaginas(response.data.totalPages)
-    setProductos(response.data.productosAgrupadosArray)
+    setProductos(response.data.productos)
     setTotalPaginas(response.data.totalPages)
     setCurrentPage(parseInt(response.data.actualPage))
     setTitle('Todos los productos')

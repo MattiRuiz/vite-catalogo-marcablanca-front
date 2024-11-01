@@ -39,33 +39,30 @@ function WelcomeLog() {
   const userData = localStorage.getItem('userData')
   const user = JSON.parse(userData)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const response = await getAllTipoProductos()
-        setCategorias(response.data)
-        const respProductos = await getProductosCatalogo(1)
-        const shortProducts = respProductos.data.productosAgrupadosArray.slice(
-          0,
-          8
-        )
-        setProductos(shortProducts)
+  const fetchData = async () => {
+    setLoading(true)
+    try {
+      const response = await getAllTipoProductos()
+      setCategorias(response.data)
+      const respProductos = await getProductosCatalogo(1)
+      const shortProducts = respProductos.data.productos.slice(0, 8)
+      setProductos(shortProducts)
 
-        const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
-        if (localGanancia) {
-          setShowGanancia(localGanancia)
-          let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
-          let porcentual = (valorGanancia + 100) / 100
-          setGanancia(porcentual)
-        }
-      } catch (error) {
-        console.error('Error al obtener los productos:', error)
-      } finally {
-        setLoading(false)
+      const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+      if (localGanancia) {
+        setShowGanancia(localGanancia)
+        let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
+        let porcentual = (valorGanancia + 100) / 100
+        setGanancia(porcentual)
       }
+    } catch (error) {
+      console.error('Error al obtener los productos:', error)
+    } finally {
+      setLoading(false)
     }
+  }
 
+  useEffect(() => {
     if (user.esAdmin) {
       fetchData()
     } else {
