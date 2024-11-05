@@ -18,7 +18,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
     if (talla) {
       setTallaData({
         nombre: talla.nombre || '',
-        dimensiones: talla.dimensiones || '',
       })
     }
   }, [talla])
@@ -29,7 +28,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
       ...tallaData,
     }
 
-    if (!dataToSend.nombre && !dataToSend.dimensiones) {
+    if (!dataToSend.nombre) {
       showToast('danger', 'Error', 'Ambos campos no pueden encontrarse vacíos.')
       setLoading(false)
     } else if (talla) {
@@ -112,25 +111,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
           value={tallaData.nombre}
           onChange={handleInputChange}
         />
-        <Input
-          label={
-            <>
-              {' '}
-              Dimensiones <span className="text-danger">*</span>:
-            </>
-          }
-          type="text"
-          placeholder="Dimensiones"
-          name="dimensiones"
-          value={tallaData.dimensiones}
-          onChange={handleInputChange}
-        />
-        <p className="texto-14">
-          <em>
-            <span className="text-danger">*</span> Uno de los valores puede
-            encontrarse en vacío pero no ambos.
-          </em>
-        </p>
       </Form>
     </PopUp>
   )
