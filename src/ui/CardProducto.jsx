@@ -62,9 +62,6 @@ function CardProducto({ producto, showGanancia, ganancia }) {
                       {talla.talla_nombre}
                     </p>
                   )}
-                  {talla.dimensiones && (
-                    <p className="mb-0"> {talla.dimensiones}</p>
-                  )}
                 </div>
                 <div>
                   {showGanancia && (

@@ -226,8 +226,7 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
                         <li>
                           <strong className="text-muted">
                             {talla.tallas.nombre ? talla.tallas.nombre : ''}
-                          </strong>{' '}
-                          {talla.tallas.dimensiones}
+                          </strong>
                         </li>
                         <li className="fw-bold">${talla.precio}</li>
                       </ul>
