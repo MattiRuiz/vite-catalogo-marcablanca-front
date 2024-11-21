@@ -153,7 +153,9 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
                   <li className="">
                     <strong>Marca</strong>
                   </li>
-                  <li className="lh-sm">{producto.marcas.nombre}</li>
+                  <li className="lh-sm">
+                    {producto.marcas?.nombre || 'Sin marca'}
+                  </li>
                 </ul>
                 <ul className="list-unstyled mb-1">
                   <li className="">
