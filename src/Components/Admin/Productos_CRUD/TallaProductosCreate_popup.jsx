@@ -31,7 +31,10 @@ const TallaProductoCreate_popup = ({
     const getTallas = async () => {
       try {
         const response = await getAllTallas()
-        setTallas(response.data)
+        const sortedTallas = response.data.sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        )
+        setTallas(sortedTallas)
       } catch (e) {
         console.error(e)
         showToast(
