@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { changePassword } from '../../Functions/ClienteFunctions'
 import LoginContext from '../../Context/LoginContext'
 
-import { Tostada, Input, PopUp } from '../../ui'
+import { Tostada, PasswordInput, PopUp } from '../../ui'
 import { PiGearSixDuotone } from 'react-icons/pi'
 
 const ModalCambiarPassword = ({ closePopUp }) => {
@@ -33,7 +33,7 @@ const ModalCambiarPassword = ({ closePopUp }) => {
   const handleOldPass = (e) => setOldPass(e.target.value)
   const handleNewPass = (e) => setNewPass(e.target.value)
   const handleNewPassRep = (e) => setNewPassRep(e.target.value)
-  const deleteInputs = () => {
+  const deletePasswordInputs = () => {
     setOldPass('')
     setNewPass('')
     setNewPassRep('')
@@ -84,7 +84,7 @@ const ModalCambiarPassword = ({ closePopUp }) => {
           'Contraseña actualizada',
           'La contraseña ha sido actualizada con éxito.'
         )
-        deleteInputs()
+        deletePasswordInputs()
       }
     }
     setLoading(false)
@@ -105,24 +105,18 @@ const ModalCambiarPassword = ({ closePopUp }) => {
     >
       <p className="fw-bold">Ingrese la siguiente información:</p>
       <Form>
-        <Input
+        <PasswordInput
           label="Ingrese la contraseña actual"
-          type="password"
-          placeholder="Contraseña actual"
           value={oldPass}
           onChange={handleOldPass}
         />
-        <Input
+        <PasswordInput
           label="Ingrese la contraseña nueva"
-          type="password"
-          placeholder="Contraseña nueva"
           value={newPass}
           onChange={handleNewPass}
         />
-        <Input
+        <PasswordInput
           label="Repita la contraseña"
-          type="password"
-          placeholder="Repita la contraseña"
           value={newPassRep}
           onChange={handleNewPassRep}
         />

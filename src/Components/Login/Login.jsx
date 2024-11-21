@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LoginContext from '../../Context/LoginContext'
 import loginCliente from '../../Functions/LoginFunctions'
 
-import { Boton, PopUp, Tostada, Input } from '../../ui'
+import { Boton, PopUp, Tostada, Input, PasswordInput } from '../../ui'
 import { PiWarningDuotone } from 'react-icons/pi'
 
 function Login() {
@@ -86,12 +86,7 @@ function Login() {
               name="user_name"
               onChange={userNameHandler}
             />
-            <Input
-              label="Contraseña"
-              type="password"
-              name="pass"
-              onChange={passwordHandler}
-            />
+            <PasswordInput name="pass" onChange={passwordHandler} />
             <Link
               className="fst-italic d-block py-1 fw-semibold text-primary opacity-75"
               onClick={() => setPopUpForgotPassword(true)}
