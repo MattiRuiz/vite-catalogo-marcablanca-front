@@ -10,7 +10,6 @@ import { PopUp, Input } from '../../../ui'
 const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
   const [tallaData, setTallaData] = useState({
     nombre: '',
-    dimensiones: '',
   })
   const [loading, setLoading] = useState(false)
 
