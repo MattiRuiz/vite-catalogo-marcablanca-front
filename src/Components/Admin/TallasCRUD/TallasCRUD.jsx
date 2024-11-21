@@ -153,12 +153,6 @@ const TallasCRUD = ({ showToast }) => {
                 <em>(Sin nombre)</em>
               )}{' '}
             </strong>
-            -{' '}
-            {selectedTalla.dimensiones ? (
-              selectedTalla.dimensiones
-            ) : (
-              <em>(Sin medida)</em>
-            )}
           </p>
         </PopUp>
       )}

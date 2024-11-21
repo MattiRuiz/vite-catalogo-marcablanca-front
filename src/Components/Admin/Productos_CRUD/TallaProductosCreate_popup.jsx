@@ -148,7 +148,12 @@ const TallaProductoCreate_popup = ({
       loading={loading}
       variant="primary"
     >
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleGuardar()
+        }}
+      >
         <Form.Label>Medida:</Form.Label>
         <Form.Select
           className="mb-3"

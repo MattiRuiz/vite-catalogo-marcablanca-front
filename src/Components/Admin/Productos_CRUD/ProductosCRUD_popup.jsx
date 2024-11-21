@@ -186,7 +186,12 @@ const ProductosCRUD_popup = ({
         loading={loading}
         variant="primary"
       >
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleGuardar()
+          }}
+        >
           <Input
             label={
               <>

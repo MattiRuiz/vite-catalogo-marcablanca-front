@@ -142,7 +142,12 @@ const TallasCRUD_popup = ({
       loading={loading}
       variant="primary"
     >
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleGuardar()
+        }}
+      >
         <Input
           label="Nombre del tipo de producto:"
           type="text"

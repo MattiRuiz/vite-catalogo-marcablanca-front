@@ -100,7 +100,12 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
       loading={loading}
       variant="primary"
     >
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleGuardar()
+        }}
+      >
         <Input
           label="Nombre de la empresa:"
           type="text"

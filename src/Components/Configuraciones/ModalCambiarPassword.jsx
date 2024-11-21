@@ -104,7 +104,12 @@ const ModalCambiarPassword = ({ closePopUp }) => {
       variant="primary"
     >
       <p className="fw-bold">Ingrese la siguiente información:</p>
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleChangePassword()
+        }}
+      >
         <PasswordInput
           label="Ingrese la contraseña actual"
           value={oldPass}

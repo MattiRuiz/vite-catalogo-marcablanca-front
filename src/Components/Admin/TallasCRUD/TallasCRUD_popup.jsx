@@ -97,7 +97,12 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
       loading={loading}
       variant="primary"
     >
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleGuardar()
+        }}
+      >
         <Input
           label={
             <>
