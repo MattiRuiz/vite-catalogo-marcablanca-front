@@ -109,7 +109,6 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
         <Input
           label="Nombre de la empresa:"
           type="text"
-          placeholder="Nombre"
           name="nombre"
           value={marcaData.nombre}
           onChange={handleInputChange}

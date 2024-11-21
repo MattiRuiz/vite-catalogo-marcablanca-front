@@ -110,7 +110,6 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
             </>
           }
           type="text"
-          placeholder="Nombre"
           name="nombre"
           value={tallaData.nombre}
           onChange={handleInputChange}

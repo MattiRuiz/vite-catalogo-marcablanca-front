@@ -199,7 +199,6 @@ const ProductosCRUD_popup = ({
               </>
             }
             type="text"
-            placeholder="Nombre"
             name="nombre"
             value={productoData.nombre}
             onChange={handleInputChange}
@@ -207,7 +206,6 @@ const ProductosCRUD_popup = ({
           <Input
             label="Descripción:"
             type="text"
-            placeholder="Descripción"
             name="descripcion"
             value={productoData.descripcion}
             onChange={handleInputChange}

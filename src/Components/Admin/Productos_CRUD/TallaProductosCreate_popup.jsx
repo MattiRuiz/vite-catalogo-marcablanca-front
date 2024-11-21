@@ -173,7 +173,6 @@ const TallaProductoCreate_popup = ({
         <Form.Control
           type="text"
           className="mb-3"
-          placeholder="Dimensiones"
           name="dimensiones"
           value={tallaSelected.dimensiones}
           onChange={handleInputChange}
@@ -182,7 +181,6 @@ const TallaProductoCreate_popup = ({
         <Form.Control
           type="number"
           className="mb-3"
-          placeholder="precio"
           name="precio"
           value={tallaSelected.precio}
           onChange={handleInputChange}

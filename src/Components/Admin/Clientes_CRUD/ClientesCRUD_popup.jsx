@@ -79,7 +79,6 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
         <Input
           label="Nombre:"
           type="text"
-          placeholder="Nombre"
           name="nombre"
           value={clienteData.nombre}
           onChange={handleInputChange}
@@ -87,7 +86,6 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
         <Input
           label="Apellido:"
           type="text"
-          placeholder="Apellido"
           name="apellido"
           value={clienteData.apellido}
           onChange={handleInputChange}
@@ -95,7 +93,6 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
         <Input
           label="Nombre de usuario:"
           type="text"
-          placeholder="Username"
           name="username"
           value={clienteData.username}
           onChange={handleInputChange}
@@ -104,7 +101,6 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
         <Input
           label="Contraseña:"
           type="password"
-          placeholder="Password"
           name="password"
           value={clienteData.password}
           onChange={handleInputChange}
