@@ -50,44 +50,13 @@ const Suscripcion = () => {
       </Col>
       <Col xs={12}>
         <Row className="mt-3 justify-content-center">
-          {/* <Col xs={12} sm={8} md={6} lg={4} xl={3} className="mb-3 mb-lg-0">
-            <div className="border rounded-4 p-4 h-100">
-              <h5 className="fw-bold">Básico</h5>
-              <p>Lo esencial para el revendedor. Gestiona y administra.</p>
-              <div className="d-flex align-items-end mb-3">
-                <h1 className="mb-0 fw-semibold display-5">
-                  ${plan === 'mensual' ? '2.000' : '20.000'}
-                </h1>
-                <p className="mb-1 ms-1 fw-bold fs-5">
-                  al {plan === 'mensual' ? 'mes' : 'año'}
-                </p>
-              </div>
-              <Boton className="w-100" as={Link} to="/contacto">
-                Comprar plan
-              </Boton>
-              <ul className="list-unstyled mt-4">
-                <li className="mb-3 d-flex align-items-center">
-                  <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Acceso al catálogo
-                </li>
-                <li className="mb-3 d-flex align-items-center">
-                  <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Muestra fotos de productos
-                </li>
-                <li className="d-flex align-items-center">
-                  <PiCheckCircleDuotone className="fs-5 text-primary me-2" />{' '}
-                  Lista de precios actualizada
-                </li>
-              </ul>
-            </div>
-          </Col> */}
           <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 h-100">
               <h5 className="fw-bold">Plan Completo</h5>
               <p>Nuestro catálogo al alcance de la manos.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">
-                  ${plan === 'mensual' ? '3.000' : '28.000'}
+                  ${plan === 'mensual' ? '2.000' : '20.000'}
                 </h1>
                 <p className="mb-1 ms-1 fw-bold fs-5">
                   al {plan === 'mensual' ? 'mes' : 'año'}
@@ -122,7 +91,7 @@ const Suscripcion = () => {
               <p>Controla las condiciones de venta de múltiples cuentas.</p>
               <div className="d-flex align-items-end mb-3">
                 <h1 className="mb-0 fw-semibold display-5">
-                  ${plan === 'mensual' ? '5.000' : '45.000'}
+                  ${plan === 'mensual' ? '4.000' : '40.000'}
                 </h1>
                 <p className="mb-1 ms-1 fw-bold fs-5">
                   al {plan === 'mensual' ? 'mes' : 'año'}
