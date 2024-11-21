@@ -185,9 +185,6 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
             </Col>
           </Row>
           <Row className="mt-3">
-            <Col xs={12}>
-              <h6 className="mb-1 fw-bold">Medidas</h6>
-            </Col>
             {producto.productos_tallas &&
             producto.productos_tallas.length > 0 ? (
               producto.productos_tallas.map((talla) => (
@@ -237,7 +234,7 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
               ))
             ) : (
               <Col xs={12}>
-                <p className="fst-italic texto-14 mb-4 mt-0">
+                <p className="fst-italic texto-14 mb-2 mt-0">
                   Este producto no tiene medidas vinculadas, por favor cree una
                   para que el producto sea mostrado en el catálogo.
                 </p>
