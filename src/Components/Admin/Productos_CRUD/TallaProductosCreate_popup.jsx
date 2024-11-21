@@ -23,6 +23,7 @@ const TallaProductoCreate_popup = ({
     stock: 0,
     precio: '',
     tallas_id: '',
+    dimensiones: '',
     productos_id: producto.id,
   })
 
@@ -49,6 +50,7 @@ const TallaProductoCreate_popup = ({
         stock: selectedTallaProducto.stock || 0,
         precio: selectedTallaProducto.precio || '',
         tallas_id: selectedTallaProducto.tallas.id || '',
+        dimensiones: selectedTallaProducto.dimensiones || '',
         productos_id: producto.id,
       })
     }
@@ -158,10 +160,19 @@ const TallaProductoCreate_popup = ({
           {tallas.length > 0 &&
             tallas.map((medida) => (
               <option key={medida.id} value={medida.id}>
-                {medida.nombre} - {medida.dimensiones}
+                {medida.nombre}
               </option>
             ))}
         </Form.Select>
+        <Form.Label>Dimensiones:</Form.Label>
+        <Form.Control
+          type="text"
+          className="mb-3"
+          placeholder="Dimensiones"
+          name="dimensiones"
+          value={tallaSelected.dimensiones}
+          onChange={handleInputChange}
+        />
         <Form.Label>Precio:</Form.Label>
         <Form.Control
           type="number"

@@ -79,9 +79,9 @@ const TallasCRUD = ({ showToast }) => {
           <Col>
             <p className="mb-0 texto-14 fw-bold">Nombre de la medida</p>
           </Col>
-          <Col>
+          {/* <Col>
             <p className="mb-0 texto-14 fw-bold">Descripción</p>
-          </Col>
+          </Col> */}
           <Col xs={2}>
             <p className="mb-0 texto-14 fw-bold text-center">Opciones</p>
           </Col>
@@ -95,13 +95,13 @@ const TallasCRUD = ({ showToast }) => {
                 className="border-bottom d-flex align-items-center justify-content-between p-2 bg-white"
               >
                 <Col>{talla.nombre ? talla.nombre : <em>(Sin nombre)</em>}</Col>
-                <Col>
+                {/* <Col>
                   {talla.dimensiones ? (
                     talla.dimensiones
                   ) : (
                     <em>(Sin medida)</em>
                   )}
-                </Col>
+                </Col> */}
                 <Col xs={2} className="d-flex justify-content-center">
                   <button
                     className="texto-14 fw-semibold py-0 border-end bg-transparent"
