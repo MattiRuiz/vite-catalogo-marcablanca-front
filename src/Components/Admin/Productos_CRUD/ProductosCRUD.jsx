@@ -76,9 +76,6 @@ const ProductoCRUD = ({ showToast }) => {
         <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
           <h2 className="mb-0 fw-bold">Productos</h2>
           <div className="d-flex">
-            <BotonSecundario className="me-2" onClick={() => openPopup()}>
-              Añadir <PiPlusCircleBold className="ms-2" />
-            </BotonSecundario>
             <FormControl
               placeholder="Buscar"
               style={{ maxWidth: '300px' }}
@@ -92,7 +89,14 @@ const ProductoCRUD = ({ showToast }) => {
         </div>
         {filteredCategorias.map((categoria, index) => (
           <Row className="py-3" key={index}>
-            <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
+            <div className="d-flex justify-content-between align-items-center">
+              <h4 className="mb-0 fw-bold">{categoria.categoria}</h4>
+              <div className="d-flex">
+                <BotonSecundario className="me-2" onClick={() => openPopup()}>
+                  Añadir <PiPlusCircleBold className="ms-2" />
+                </BotonSecundario>
+              </div>
+            </div>
             {categoria.productos.map((producto) => (
               <Col key={`col-${producto.id}`} xs={12} md={6}>
                 <Accordion className="mt-2">
