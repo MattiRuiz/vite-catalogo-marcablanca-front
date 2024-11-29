@@ -1,2 +1,6 @@
 User-agent: *
-Disallow: /admin/
+Disallow: /admin/  # Bloquea el acceso a la sección de administración
+
+Allow: /  # Permite el acceso al resto del sitio
+
+Sitemap: https://www.blanqueriamarcablanca.com/sitemap.xml
