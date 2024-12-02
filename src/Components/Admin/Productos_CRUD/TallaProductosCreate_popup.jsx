@@ -6,9 +6,14 @@ import {
   updateTallaProducto,
 } from '../../../Functions/TallasProductosFunctions'
 import { getAllTallas } from '../../../Functions/TallasFunctions'
+import TallasCRUD_popup from '../TallasCRUD/TallasCRUD_popup'
 
-import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
-import { PopUp } from '../../../ui'
+import {
+  PiGearSixDuotone,
+  PiPlusCircleDuotone,
+  PiPlusCircleBold,
+} from 'react-icons/pi'
+import { PopUp, BotonSecundario } from '../../../ui'
 
 const TallaProductoCreate_popup = ({
   selectedTallaProducto,
@@ -19,6 +24,7 @@ const TallaProductoCreate_popup = ({
 }) => {
   const [tallas, setTallas] = useState({})
   const [loading, setLoading] = useState(false)
+  const [popUpTalla, setPopUpTalla] = useState(false)
   const [tallaSelected, setTallaSelected] = useState({
     stock: 0,
     precio: '',
@@ -27,23 +33,24 @@ const TallaProductoCreate_popup = ({
     productos_id: producto.id,
   })
 
-  useEffect(() => {
-    const getTallas = async () => {
-      try {
-        const response = await getAllTallas()
-        const sortedTallas = response.data.sort((a, b) =>
-          a.nombre.localeCompare(b.nombre)
-        )
-        setTallas(sortedTallas)
-      } catch (e) {
-        console.error(e)
-        showToast(
-          'danger',
-          'Problema de carga',
-          'Hubo un problema al actualizar la información.'
-        )
-      }
+  const getTallas = async () => {
+    try {
+      const response = await getAllTallas()
+      const sortedTallas = response.data.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      )
+      setTallas(sortedTallas)
+    } catch (e) {
+      console.error(e)
+      showToast(
+        'danger',
+        'Problema de carga',
+        'Hubo un problema al actualizar la información.'
+      )
     }
+  }
+
+  useEffect(() => {
     getTallas()
   }, [])
 
@@ -158,20 +165,29 @@ const TallaProductoCreate_popup = ({
         }}
       >
         <Form.Label>Medida:</Form.Label>
-        <Form.Select
-          className="mb-3"
-          name="tallas_id"
-          value={tallaSelected.tallas_id}
-          onChange={handleInputChange}
-        >
-          <option value="">Selecciona una medida</option>
-          {tallas.length > 0 &&
-            tallas.map((medida) => (
-              <option key={medida.id} value={medida.id}>
-                {medida.nombre}
-              </option>
-            ))}
-        </Form.Select>
+        <div className="d-flex mb-3">
+          <Form.Select
+            className=""
+            name="tallas_id"
+            value={tallaSelected.tallas_id}
+            onChange={handleInputChange}
+          >
+            <option value="">Selecciona una medida</option>
+            {tallas.length > 0 &&
+              tallas.map((medida) => (
+                <option key={medida.id} value={medida.id}>
+                  {medida.nombre}
+                </option>
+              ))}
+          </Form.Select>
+          <BotonSecundario
+            className="px-3"
+            onClick={() => setPopUpTalla(true)}
+            type="button"
+          >
+            Añadir <PiPlusCircleBold className="ms-2" />
+          </BotonSecundario>
+        </div>
         <Form.Label>Dimensiones:</Form.Label>
         <Form.Control
           type="text"
@@ -197,6 +213,13 @@ const TallaProductoCreate_popup = ({
           onChange={handleStock}
         />
       </Form>
+      {popUpTalla && (
+        <TallasCRUD_popup
+          onTallaUpdated={() => getTallas()}
+          closePopUp={() => setPopUpTalla(false)}
+          showToast={showToast}
+        />
+      )}
     </PopUp>
   )
 }
