@@ -14,7 +14,11 @@ import ProductosPopUp from './ProductosCRUD_popup'
 import TallaProductoCreate_popup from './TallaProductosCreate_popup'
 import PopUpEditPrecio from './PopUpEditPrecio'
 
-import { PiCheckCircleDuotone, PiXCircleDuotone } from 'react-icons/pi'
+import {
+  PiCheckCircleDuotone,
+  PiXCircleDuotone,
+  PiImageBold,
+} from 'react-icons/pi'
 
 const ProductoCard = ({ id, onProductUpdate, showToast }) => {
   const [producto, setProducto] = useState()
@@ -136,11 +140,12 @@ const ProductoCard = ({ id, onProductUpdate, showToast }) => {
                 )}
               </Ratio>
               <Boton
-                className="position-absolute bottom-0 left-0 mb-2 ms-2 z-3"
+                className="position-absolute top-0 left-0 mt-2 ms-2 z-3 d-flex align-items-center"
                 size="sm"
+                variant="light"
                 onClick={() => openPopUpImagenes(producto)}
               >
-                Editar carrusel
+                <PiImageBold className="me-2" /> Imágenes
               </Boton>
             </Col>
             <Col

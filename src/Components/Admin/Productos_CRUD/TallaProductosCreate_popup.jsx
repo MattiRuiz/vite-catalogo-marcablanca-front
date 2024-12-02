@@ -95,11 +95,11 @@ const TallaProductoCreate_popup = ({
       ...tallaSelected,
     }
 
-    if (!dataToSend.precio) {
+    if (!dataToSend.precio || !dataToSend.tallas_id) {
       showToast(
         'danger',
         'Error',
-        'No puedes crear un tipo de producto sin precio.'
+        'No se puede crear una medida de producto sin medida o precio.'
       )
       setLoading(false)
     } else if (selectedTallaProducto) {
