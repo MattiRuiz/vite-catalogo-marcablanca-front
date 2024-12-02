@@ -195,7 +195,7 @@ const ProductosCRUD_popup = ({
           <Input
             label={
               <>
-                Nombre del producto<span className="text-danger">*</span>:
+                Nombre del producto <span className="text-danger">*</span>
               </>
             }
             type="text"
@@ -204,14 +204,14 @@ const ProductosCRUD_popup = ({
             onChange={handleInputChange}
           />
           <Input
-            label="Descripción:"
+            label="Descripción"
             type="text"
             name="descripcion"
             value={productoData.descripcion}
             onChange={handleInputChange}
           />
           <Form.Label>
-            Tipo de producto<span className="text-danger">*</span>:
+            Tipo de producto <span className="text-danger">*</span>
           </Form.Label>
           <Form.Select
             className="mb-3"
@@ -230,7 +230,7 @@ const ProductosCRUD_popup = ({
               </option>
             ))}
           </Form.Select>
-          <Form.Label>Marca:</Form.Label>
+          <Form.Label>Marca</Form.Label>
           <Form.Select
             className="mb-3"
             value={productoData.marcasId}
@@ -267,7 +267,7 @@ const ProductosCRUD_popup = ({
                 style={{ borderRadius: '0 8px 8px 0' }}
               >
                 <p className="mb-2">
-                  Imágen de portada<span className="text-danger">*</span>:
+                  Imágen de portada <span className="text-danger">*</span>
                 </p>
                 <label htmlFor="fileInput">
                   <Boton as="span">
@@ -296,7 +296,7 @@ const ProductosCRUD_popup = ({
               <Input
                 label={
                   <>
-                    Imágen de portada<span className="text-danger">*</span>:
+                    Imágen de portada <span className="text-danger">*</span>
                   </>
                 }
                 type="file"

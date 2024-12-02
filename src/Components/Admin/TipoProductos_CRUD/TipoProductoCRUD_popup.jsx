@@ -51,13 +51,13 @@ const TallasCRUD_popup = ({
         showToast(
           'danger',
           'Error',
-          'Hubo un problema al actualizar el tipo de producto.'
+          'Hubo un problema al actualizar una categoría.'
         )
       } else {
         showToast(
           'success',
-          'Tipo de producto actualizado',
-          ' El tipo de producto ha sido actualizado con éxito.'
+          'Categoría actualizada',
+          'La categoría ha sido actualizada con éxito.'
         )
         onTipoProductoUpdated()
         closePopUp()
@@ -66,16 +66,12 @@ const TallasCRUD_popup = ({
       const response = await createTipoProducto(formDataForAPI)
       setLoading(false)
       if (!response) {
-        showToast(
-          'danger',
-          'Error',
-          'Hubo un problema al crear un tipo de producto.'
-        )
+        showToast('danger', 'Error', 'Hubo un problema al crear una categoría.')
       } else {
         showToast(
           'success',
-          'Tipo de producto creado',
-          'El tipo de producto ha sido creado con éxito.'
+          'Categoría creada',
+          'La categoría ha sido creado con éxito.'
         )
         onTipoProductoUpdated()
         closePopUp()
@@ -128,11 +124,11 @@ const TallasCRUD_popup = ({
       header={
         tipoProducto ? (
           <>
-            <PiGearSixDuotone className="me-2" /> Editar un tipo de producto
+            <PiGearSixDuotone className="me-2" /> Editar una categoría
           </>
         ) : (
           <>
-            <PiPlusCircleDuotone className="me-2" /> Añadir un tipo de producto
+            <PiPlusCircleDuotone className="me-2" /> Añadir una categoría
           </>
         )
       }
@@ -149,7 +145,11 @@ const TallasCRUD_popup = ({
         }}
       >
         <Input
-          label="Nombre del tipo de producto:"
+          label={
+            <>
+              Nombre de la categoría <span className="text-danger">*</span>
+            </>
+          }
           type="text"
           placeholder="Nombre"
           name="nombre"
@@ -201,7 +201,11 @@ const TallasCRUD_popup = ({
           </Row>
         ) : (
           <Input
-            label="Imágen:"
+            label={
+              <>
+                Imágen <span className="text-danger">*</span>
+              </>
+            }
             className="mb-3"
             type="file"
             name="imagen"

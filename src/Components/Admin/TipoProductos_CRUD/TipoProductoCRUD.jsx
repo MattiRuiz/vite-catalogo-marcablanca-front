@@ -63,8 +63,8 @@ const TipoProductoCRUD = ({ showToast }) => {
       await deleteTipoProducto(selectedTipoProducto.id)
       showToast(
         'success',
-        'Tipo de producto eliminado',
-        'El tipo de producto se ha eliminado con éxito.'
+        'Categoría eliminada',
+        'La categoría se ha eliminado con éxito.'
       )
       fetchData()
       setPopUpBorrar(false)
@@ -72,7 +72,7 @@ const TipoProductoCRUD = ({ showToast }) => {
       showToast(
         'danger',
         'Error',
-        'Hubo un problema al eliminar el tipo de producto.'
+        'Hubo un problema al eliminar una categoría.'
       )
       console.error(e.message)
     } finally {
@@ -84,7 +84,7 @@ const TipoProductoCRUD = ({ showToast }) => {
     <>
       <Col xs={12}>
         <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
-          <h2 className="mb-0 fw-bold">Tipo de producto</h2>
+          <h2 className="mb-0 fw-bold">Categorías</h2>
           <BotonSecundario onClick={() => openPopup(null)}>
             Añadir <PiPlusCircleBold className="ms-2" />
           </BotonSecundario>

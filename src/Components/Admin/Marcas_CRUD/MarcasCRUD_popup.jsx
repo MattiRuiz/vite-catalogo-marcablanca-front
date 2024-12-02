@@ -107,7 +107,11 @@ const MarcasCRUD_popup = ({ marca, onMarcaUpdated, closePopUp, showToast }) => {
         }}
       >
         <Input
-          label="Nombre de la empresa:"
+          label={
+            <>
+              Nombre de la empresa <span className="text-danger">*</span>
+            </>
+          }
           type="text"
           name="nombre"
           value={marcaData.nombre}

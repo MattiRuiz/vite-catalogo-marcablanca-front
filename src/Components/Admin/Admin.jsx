@@ -130,7 +130,7 @@ const Admin = () => {
                       : 'text-secondary'
                   }`}
                 />
-                Tipo de producto
+                Categorías
               </Link>
             </li>
             <li className="mb-3">
@@ -256,7 +256,7 @@ const Admin = () => {
                         : 'text-secondary'
                     }`}
                   />
-                  Tipo de producto
+                  Categoría
                 </Link>
               </li>
               <li className="mb-3">

@@ -106,7 +106,7 @@ const TallasCRUD_popup = ({ talla, onTallaUpdated, closePopUp, showToast }) => {
         <Input
           label={
             <>
-              Nombre de la medida <span className="text-danger">*</span>:
+              Nombre de la medida <span className="text-danger">*</span>
             </>
           }
           type="text"

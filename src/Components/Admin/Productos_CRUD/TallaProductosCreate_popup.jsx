@@ -164,7 +164,9 @@ const TallaProductoCreate_popup = ({
           handleGuardar()
         }}
       >
-        <Form.Label>Medida:</Form.Label>
+        <Form.Label>
+          Medida <span className="text-danger">*</span>
+        </Form.Label>
         <div className="d-flex mb-3">
           <Form.Select
             className=""
@@ -188,7 +190,7 @@ const TallaProductoCreate_popup = ({
             Añadir <PiPlusCircleBold className="ms-2" />
           </BotonSecundario>
         </div>
-        <Form.Label>Dimensiones:</Form.Label>
+        <Form.Label>Dimensiones</Form.Label>
         <Form.Control
           type="text"
           className="mb-3"
@@ -196,7 +198,9 @@ const TallaProductoCreate_popup = ({
           value={tallaSelected.dimensiones}
           onChange={handleInputChange}
         />
-        <Form.Label>Precio:</Form.Label>
+        <Form.Label>
+          Precio <span className="text-danger">*</span>
+        </Form.Label>
         <Form.Control
           type="number"
           className="mb-3"
@@ -207,7 +211,7 @@ const TallaProductoCreate_popup = ({
 
         <Form.Check
           type="checkbox"
-          label="¿Hay stock?"
+          label={tallaSelected.stock ? 'Con stock' : 'Sin stock'}
           className="mb-2 mt-1"
           checked={tallaSelected.stock}
           onChange={handleStock}

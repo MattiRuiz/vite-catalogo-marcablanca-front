@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { createCliente } from '../../../Functions/ClienteFunctions'
 
 import EditarSuscripcion from './EditarSuscripcion'
-import { PopUp, Input } from '../../../ui'
+import { PopUp, Input, PasswordInput } from '../../../ui'
 import { PiPlusCircleDuotone } from 'react-icons/pi'
 
 const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
@@ -24,7 +24,12 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
       ...clienteData,
     }
 
-    if (!dataToSend.nombre || !dataToSend.apellido || !dataToSend.username) {
+    if (
+      !dataToSend.nombre ||
+      !dataToSend.apellido ||
+      !dataToSend.username ||
+      !dataToSend.password
+    ) {
       showToast(
         'danger',
         'Error',
@@ -77,30 +82,39 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
         }}
       >
         <Input
-          label="Nombre:"
+          label={
+            <>
+              Nombre <span className="text-danger">*</span>
+            </>
+          }
           type="text"
           name="nombre"
           value={clienteData.nombre}
           onChange={handleInputChange}
         />
         <Input
-          label="Apellido:"
+          label={
+            <>
+              Apellido <span className="text-danger">*</span>
+            </>
+          }
           type="text"
           name="apellido"
           value={clienteData.apellido}
           onChange={handleInputChange}
         />
         <Input
-          label="Nombre de usuario:"
+          label={
+            <>
+              Nombre de usuario <span className="text-danger">*</span>
+            </>
+          }
           type="text"
           name="username"
           value={clienteData.username}
           onChange={handleInputChange}
         />
-
-        <Input
-          label="Contraseña:"
-          type="password"
+        <PasswordInput
           name="password"
           value={clienteData.password}
           onChange={handleInputChange}
