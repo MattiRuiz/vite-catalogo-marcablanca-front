@@ -31,9 +31,7 @@ function CardProducto({ producto, showGanancia, ganancia }) {
               </div>
             )}
           </Ratio>
-          {producto.marca === 'Otros' ? (
-            ''
-          ) : (
+          {producto.marca && (
             <p
               className="mb-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 ms-2 px-2 py-1 rounded-2 rounded-top-0 shadow-sm"
               style={{ letterSpacing: '.25px' }}
