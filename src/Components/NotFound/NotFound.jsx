@@ -1,5 +1,6 @@
 import { Row, Col, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import logoMB from '../../Images/logo-marca.svg'
 
 const NotFound = () => {
   return (
@@ -8,7 +9,7 @@ const NotFound = () => {
       style={{ minHeight: '80vh' }}
     >
       <Col xs={8} md={6} lg={4}>
-        <Image src="/src/Images/logo-marca.svg" fluid />
+        <Image src={logoMB} fluid />
       </Col>
       <br></br>
       <Col xs={12} className="text-center text-white">
