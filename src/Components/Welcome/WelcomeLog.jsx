@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Row, Col, Image, Ratio, Spinner, FormControl } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
@@ -76,6 +77,9 @@ function WelcomeLog() {
 
   return (
     <>
+      <Helmet>
+        <title>Inicio | Catálogo Marca Blanca</title>
+      </Helmet>
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center">
         <Col xs={12} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-2">

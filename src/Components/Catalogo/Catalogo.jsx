@@ -10,6 +10,7 @@ import {
   Ratio,
   Image,
 } from 'react-bootstrap'
+import { Helmet } from 'react-helmet'
 
 import {
   getProductosCatalogo,
@@ -122,6 +123,13 @@ function Catalogo() {
 
   return (
     <>
+      <Helmet>
+        <title>Catálogo Marca Blanca</title>
+        <link
+          rel="canonical"
+          href="https://www.blanqueriamarcablanca.com/catalogo"
+        />
+      </Helmet>
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center gap-3">
         <Col xs={12} md={11} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-3 pt-1">
