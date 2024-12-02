@@ -79,7 +79,7 @@ function WelcomeLog() {
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center">
         <Col xs={12} className="d-lg-none">
           <div className="d-flex justify-content-between border-bottom pb-2">
-            <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
+            {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
             <BotonSecundario
               onClick={() => setShowCategoria(!showCategoria)}
               className="ps-3 pe-0 py-2"
@@ -141,7 +141,7 @@ function WelcomeLog() {
         <Col xs={12} className="mb-1 d-none d-lg-block">
           <div className="mb-4 d-flex justify-content-between align-items-center">
             <h1 className="fw-bold mb-0">Categorías</h1>
-            <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} />
+            {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
           </div>
           <div className="d-flex gap-2 flex-wrap">
             <Boton

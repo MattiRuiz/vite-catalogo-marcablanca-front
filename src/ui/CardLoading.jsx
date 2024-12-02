@@ -3,7 +3,7 @@ import { Col, Placeholder, Ratio, Card } from 'react-bootstrap'
 function CardLoading() {
   return (
     <>
-      <Col xs={6} md={4} className="mb-4">
+      <Col xs={12} sm={6} md={4} className="mb-4">
         <Card className="mb-3 h-100 border-0">
           <Ratio aspectRatio="4x3" className="rounded-3">
             <Placeholder as={Card.Img} className="fondo-imagen rounded-3" />

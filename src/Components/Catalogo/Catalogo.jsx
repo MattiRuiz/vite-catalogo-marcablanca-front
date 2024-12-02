@@ -234,11 +234,11 @@ function Catalogo() {
             ) : (
               <Placeholder xs={5} md={3} xl={2} />
             )}
-            <FormControl
+            {/* <FormControl
               className="d-none d-md-inline"
               placeholder="Buscar"
               style={{ maxWidth: '300px' }}
-            />
+            /> */}
           </div>
           {showGanancia && ganancia === 1 && (
             <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
@@ -256,7 +256,7 @@ function Catalogo() {
           <Row>
             {productos ? (
               productos.map((producto) => (
-                <Col key={producto.id} xs={6} md={4} className="mb-4">
+                <Col key={producto.id} xs={12} sm={6} md={4} className="mb-4">
                   <CardProducto
                     producto={producto}
                     showGanancia={showGanancia}
