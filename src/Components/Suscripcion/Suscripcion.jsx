@@ -85,7 +85,7 @@ const Suscripcion = () => {
               </ul>
             </div>
           </Col>
-          <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
+          {/* <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
             <div className="border rounded-4 p-4 bg-dark bg-gradient text-white h-100">
               <h5 className="fw-bold">Plan Revendedores</h5>
               <p>Controla las condiciones de venta de múltiples cuentas.</p>
@@ -127,7 +127,7 @@ const Suscripcion = () => {
                 </li>
               </ul>
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </Col>
       <div className="mt-4">
