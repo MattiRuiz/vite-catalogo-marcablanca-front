@@ -127,7 +127,7 @@ function Catalogo() {
         <title>Catálogo Marca Blanca</title>
         <link
           rel="canonical"
-          href="https://www.blanqueriamarcablanca.com/catalogo"
+          href="https://www.blanqueriamarcablanca.com/catalogo/"
         />
       </Helmet>
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center gap-3">

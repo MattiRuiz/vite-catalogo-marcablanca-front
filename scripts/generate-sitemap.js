@@ -9,9 +9,10 @@ const generateSitemap = async () => {
   // Añade tus rutas manualmente o de una base de datos
   const routes = [
     { url: '/', changefreq: 'weekly', priority: 1.0 },
-    { url: '/catalogo', changefreq: 'daily', priority: 0.8 },
+    { url: '/catalogo/', changefreq: 'daily', priority: 0.8 },
     { url: '/contacto', changefreq: 'monthly', priority: 0.5 },
-    { url: '/suscripciones', changefreq: 'monthly', priority: 0.2 },
+    { url: '/suscripciones', changefreq: 'monthly', priority: 0.3 },
+    { url: '/ventajas', changefreq: 'monthly', priority: 0.2 },
     { url: '/terminos-y-condiciones', changefreq: 'monthly', priority: 0.1 },
     // Agrega más rutas aquí
   ]
