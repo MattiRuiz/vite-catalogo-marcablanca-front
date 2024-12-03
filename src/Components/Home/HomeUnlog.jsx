@@ -1,7 +1,7 @@
 import { Row, Col, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import maschico from '../../Images/maschico.jpg'
+import imagewebp from '../../Images/1733184166121.webp'
 
 import { Boton } from '../../ui'
 import { PiArrowRightBold } from 'react-icons/pi'
@@ -16,7 +16,7 @@ function HomeUnlog() {
         lg={6}
         className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden"
       >
-        <Image src={maschico} fluid className="animated-image " />
+        <Image src={imagewebp} fluid className="animated-image " />
       </Col>
       <Col
         xs={12}
