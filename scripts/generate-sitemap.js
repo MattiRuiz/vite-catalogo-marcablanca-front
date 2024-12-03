@@ -12,7 +12,7 @@ const generateSitemap = async () => {
     { url: '/catalogo/', changefreq: 'daily', priority: 0.8 },
     { url: '/contacto', changefreq: 'monthly', priority: 0.5 },
     { url: '/suscripciones', changefreq: 'monthly', priority: 0.3 },
-    { url: '/ventajas', changefreq: 'monthly', priority: 0.2 },
+    { url: '/ventajas', changefreq: 'monthly', priority: 0.5 },
     { url: '/terminos-y-condiciones', changefreq: 'monthly', priority: 0.1 },
     // Agrega más rutas aquí
   ]
