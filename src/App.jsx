@@ -25,110 +25,19 @@ function App() {
       <Container fluid className="bg-white alto-container">
         <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Home />
-              </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                <Login />
-              </>
-            }
-          />
-          <Route
-            path="/catalogo"
-            element={
-              <>
-                <Catalogo />
-              </>
-            }
-          />
-          <Route
-            path="/suscripciones"
-            element={
-              <>
-                <Suscripcion />
-              </>
-            }
-          />
-          <Route
-            path="/catalogo/:id"
-            element={
-              <>
-                <Catalogo />
-              </>
-            }
-          />
-          <Route
-            path="/mi-cuenta"
-            element={
-              <>
-                <MiCuenta />
-              </>
-            }
-          />
-          <Route
-            path="/configurar-visualizacion"
-            element={
-              <>
-                <Visualizacion />
-              </>
-            }
-          />
-          <Route
-            path="/administrador-marcablanca"
-            element={
-              <>
-                <Admin />
-              </>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <>
-                <NotFound />
-              </>
-            }
-          />
-          <Route
-            path="/contacto"
-            element={
-              <>
-                <Contacto />
-              </>
-            }
-          />
-          <Route
-            path="/terminos-y-condiciones"
-            element={
-              <>
-                <Terminos />
-              </>
-            }
-          />
-          <Route
-            path="/ventajas"
-            element={
-              <>
-                <Ventajas />
-              </>
-            }
-          />
-          <Route
-            path="/lista-de-precios"
-            element={
-              <>
-                <ListaDePrecio />
-              </>
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/suscripciones" element={<Suscripcion />} />
+          <Route path="/catalogo/:id" element={<Catalogo />} />
+          <Route path="/mi-cuenta" element={<MiCuenta />} />
+          <Route path="/configurar-visualizacion" element={<Visualizacion />} />
+          <Route path="/administrador-marcablanca" element={<Admin />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/terminos-y-condiciones" element={<Terminos />} />
+          <Route path="/ventajas" element={<Ventajas />} />
+          <Route path="/lista-de-precios" element={<ListaDePrecio />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
       <Footer />
