@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Col, Image, Spinner, Ratio } from 'react-bootstrap'
 
 import {
-  getAllTipoProductos,
+  getAdminTipoProductos,
   deleteTipoProducto,
 } from '../../../Functions/TipoProductosFunctions'
 
@@ -30,7 +30,7 @@ const TipoProductoCRUD = ({ showToast }) => {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const tallasRespone = await getAllTipoProductos()
+      const tallasRespone = await getAdminTipoProductos()
       setTipoProductos(tallasRespone.data)
     } catch (e) {
       showToast(

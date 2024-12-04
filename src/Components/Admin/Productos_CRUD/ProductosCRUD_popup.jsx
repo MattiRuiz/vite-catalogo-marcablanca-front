@@ -6,7 +6,7 @@ import {
   updateProducto,
 } from '../../../Functions/ProductosFunctions'
 import { getAllMarcas } from '../../../Functions/MarcasFunctions'
-import { getAllTipoProductos } from '../../../Functions/TipoProductosFunctions'
+import { getAdminTipoProductos } from '../../../Functions/TipoProductosFunctions'
 
 import { PopUp, Input, Boton } from '../../../ui'
 import { PiGearSixDuotone, PiPlusCircleDuotone } from 'react-icons/pi'
@@ -49,7 +49,7 @@ const ProductosCRUD_popup = ({
     try {
       const responseMarcas = await getAllMarcas()
       setMarcas(responseMarcas.data)
-      const responseCategorias = await getAllTipoProductos()
+      const responseCategorias = await getAdminTipoProductos()
       setCategorias(responseCategorias.data)
     } catch (e) {
       showToast(

@@ -11,6 +11,15 @@ const getAllTipoProductos = async () => {
   }
 }
 
+const getAdminTipoProductos = async () => {
+  try {
+    const respuesta = await axios(`${baseUrl}/api/tipoProductos/admin`)
+    return respuesta
+  } catch (errors) {
+    console.log(errors)
+  }
+}
+
 const getOneTipoProducto = async (id) => {
   try {
     const respuesta = await axios(`${baseUrl}/api/tipoProductos/${id}`, {
@@ -77,4 +86,5 @@ export {
   createTipoProducto,
   updateTipoProducto,
   deleteTipoProducto,
+  getAdminTipoProductos,
 }
