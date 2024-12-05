@@ -13,6 +13,8 @@ import {
 } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/all.webp'
+import banner1 from '../../Images/marcablanca-banner1.webp'
+import banner2 from '../../Images/marcablanca-banner2.webp'
 import { Boton, CardProducto, BotonSecundario } from '../../ui'
 
 function WelcomeLog() {
@@ -46,7 +48,7 @@ function WelcomeLog() {
       const response = await getAllTipoProductos()
       setCategorias(response.data)
       const respProductos = await getProductosCatalogo(1)
-      const shortProducts = respProductos.data.productos.slice(0, 8)
+      const shortProducts = respProductos.data.productos.slice(0, 4)
       setProductos(shortProducts)
 
       const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
@@ -142,6 +144,7 @@ function WelcomeLog() {
             </Col>
           )}
         </Col>
+
         <Col xs={12} className="mb-1 d-none d-lg-block">
           <div className="mb-4 d-flex justify-content-between align-items-center">
             <h1 className="fw-bold mb-0">Categorías</h1>
@@ -194,7 +197,16 @@ function WelcomeLog() {
             ))}
           </div>
         </Col>
-
+        <Col xs={12} md={6} className="mt-4">
+          <Link to={'/catalogo/30/1'}>
+            <Image src={banner1} style={{ width: '100%' }} fluid />
+          </Link>
+        </Col>
+        <Col xs={12} md={6} className="mt-4">
+          <Link to={'/catalogo/10/1'}>
+            <Image src={banner2} style={{ width: '100%' }} fluid />
+          </Link>
+        </Col>
         <Col xs={12} className="mt-4">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h1 className="fw-bold mb-0">Últimos ingresos</h1>
@@ -226,7 +238,14 @@ function WelcomeLog() {
               <Spinner className="my-5 d-block mx-auto" animation="border" />
             ) : (
               productos.map((producto) => (
-                <Col key={producto.id} xs={6} md={4} lg={3} className="mb-4">
+                <Col
+                  key={producto.id}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  className="mb-4"
+                >
                   <CardProducto
                     producto={producto}
                     showGanancia={showGanancia}

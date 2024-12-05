@@ -249,6 +249,9 @@ function Catalogo() {
                       page === categoria.id ? 'fw-semibold ' : ''
                     }`}
                     to={`/catalogo/${categoria.id}/1`}
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
                   >
                     {categoria.nombre}
                   </Link>
