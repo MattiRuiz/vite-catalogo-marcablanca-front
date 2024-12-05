@@ -42,7 +42,7 @@ function App() {
             }
           />
           <Route
-            path="/catalogo"
+            path="/catalogo/page/:page"
             element={
               <>
                 <Catalogo />
@@ -58,7 +58,7 @@ function App() {
             }
           />
           <Route
-            path="/catalogo/:id"
+            path="/catalogo/:id/:page"
             element={
               <>
                 <Catalogo />

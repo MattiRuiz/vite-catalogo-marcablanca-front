@@ -29,18 +29,19 @@ import { CardLoading, CardProducto, Boton, BotonSecundario } from '../../ui'
 import todosLosProductos from '../../Images/all.webp'
 
 function Catalogo() {
-  const { id } = useParams()
+  const { id, page } = useParams()
+  const navigate = useNavigate()
+
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(Number(page) || 1)
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
   const [title, setTitle] = useState('Todos los productos')
-  const [activeCategory, setActiveCategory] = useState()
+  const [showCategoria, setShowCategoria] = useState(false)
+
   const [showGanancia, setShowGanancia] = useState(false)
   const [ganancia, setGanancia] = useState(1.0)
-  const [showCategoria, setShowCategoria] = useState(false)
-  const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
   const handleImageError = (productId) => {
@@ -50,32 +51,51 @@ function Catalogo() {
     }))
   }
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    handleProducts(pageNumber)
-  }
+  // const handlePageChange = (pageNumber) => {
+  //   setCurrentPage(pageNumber)
+  //   handleProducts(pageNumber)
+  // }
 
-  const handleCategories = async (value) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
-    setProductos('')
-    const response = await getProductosPorCategoria(value)
-    setProductos(response.data.productos)
-    setTitle(response.data.productos[0].tipo_producto)
-    setTotalPaginas(response.data.totalPages)
-    setCurrentPage(parseInt(response.data.actualPage))
-    setActiveCategory(value)
-    setShowCategoria(false)
-  }
+  // const handleCategories = async (value) => {
+  //   window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
+  //   setProductos('')
+  //   const response = await getProductosPorCategoria(value)
+  //   setProductos(response.data.productos)
+  //   setTitle(response.data.productos[0].tipo_producto)
+  //   setTotalPaginas(response.data.totalPages)
+  //   setCurrentPage(parseInt(response.data.actualPage))
+  //   setShowCategoria(false)
+  // }
 
-  const handleProducts = async (pageNumber) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
-    setProductos('')
-    const response = await getProductosCatalogo(pageNumber)
-    setProductos(response.data.productos)
-    setTotalPaginas(response.data.totalPages)
-    setCurrentPage(parseInt(response.data.actualPage))
-    setTitle('Todos los productos')
-    setActiveCategory(null)
+  // const handleProducts = async (pageNumber) => {
+  //   window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
+  //   setProductos('')
+  //   const response = await getProductosCatalogo(pageNumber)
+  //   setProductos(response.data.productos)
+  //   setTotalPaginas(response.data.totalPages)
+  //   setCurrentPage(parseInt(response.data.actualPage))
+  //   setTitle('Todos los productos')
+  // }
+
+  const fetchProducts = async (categoryId, pageNumber = 1) => {
+    setLoading(true)
+    try {
+      let response
+      if (categoryId) {
+        response = await getProductosPorCategoria(categoryId, pageNumber)
+        setTitle(response.data.productos[0]?.tipo_producto || 'Categoría')
+      } else {
+        response = await getProductosCatalogo(pageNumber)
+        setTitle('Todos los productos')
+      }
+      setProductos(response.data.productos)
+      setTotalPaginas(response.data.totalPages)
+      setCurrentPage(pageNumber)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const ocultarPrecios = () => {
@@ -96,20 +116,6 @@ function Catalogo() {
 
     if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
       fetchCategorias()
-
-      if (id) {
-        handleCategories(id)
-      } else {
-        handleProducts(1)
-      }
-    } else {
-      navigate('/mi-cuenta')
-    }
-
-    if (id) {
-      handleCategories(id)
-    } else {
-      handleProducts(1)
     }
 
     const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
@@ -120,6 +126,24 @@ function Catalogo() {
       setGanancia(porcentual)
     }
   }, [])
+
+  useEffect(() => {
+    fetchProducts(id, currentPage)
+  }, [id, currentPage])
+
+  const handlePageChange = (pageNumber) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setCurrentPage(pageNumber)
+    if (id) {
+      navigate(`/catalogo/${id}/${pageNumber}`)
+    } else {
+      navigate(`/catalogo/page/${pageNumber}`)
+    }
+  }
+
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/catalogo/${categoryId}/1`)
+  }
 
   return (
     <>
@@ -152,7 +176,7 @@ function Catalogo() {
                 <Boton
                   className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
                   as={Link}
-                  to={`/catalogo/`}
+                  to={`/catalogo/page/1`}
                 >
                   <Ratio
                     aspectRatio="1x1"
@@ -171,7 +195,7 @@ function Catalogo() {
                   <Boton
                     className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
                     key={categoria.id}
-                    onClick={() => handleCategories(categoria.id)}
+                    onClick={() => handleCategoryClick(categoria.id)}
                   >
                     <Ratio
                       aspectRatio="1x1"
@@ -211,9 +235,9 @@ function Catalogo() {
               <li className="">
                 <Link
                   className={`py-1 mb-1 d-flex  ${
-                    activeCategory === null ? 'fw-semibold ' : ''
+                    page === null ? 'fw-semibold ' : ''
                   }`}
-                  onClick={() => handleProducts(1)}
+                  to={`/catalogo/page/1`}
                 >
                   Todos los productos
                 </Link>
@@ -222,9 +246,9 @@ function Catalogo() {
                 <li key={categoria.id} value={categoria.id}>
                   <Link
                     className={`py-1 mb-1 d-flex  ${
-                      activeCategory === categoria.id ? 'fw-semibold ' : ''
+                      page === categoria.id ? 'fw-semibold ' : ''
                     }`}
-                    onClick={() => handleCategories(categoria.id)}
+                    to={`/catalogo/${categoria.id}/1`}
                   >
                     {categoria.nombre}
                   </Link>

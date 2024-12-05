@@ -74,7 +74,7 @@ function Navbar() {
                       <Dropdown.Divider />
                       <Dropdown.Item
                         as={Link}
-                        to={'/catalogo'}
+                        to={'/catalogo/page/1'}
                         className="fw-bold d-flex align-items-center"
                       >
                         <PiBookOpenBold className="text-primary fs-5 me-2" />{' '}

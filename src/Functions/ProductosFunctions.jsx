@@ -16,9 +16,9 @@ const getAllProductosAdmin = async () => {
   return respuesta
 }
 
-const getProductosPorCategoria = async (id) => {
+const getProductosPorCategoria = async (id, pageNumber) => {
   const respuesta = await axios.get(
-    `${baseUrl}/api/productostallas/categoria/${id}/1`
+    `${baseUrl}/api/productostallas/categoria/${id}/${pageNumber}`
   )
   return respuesta
 }

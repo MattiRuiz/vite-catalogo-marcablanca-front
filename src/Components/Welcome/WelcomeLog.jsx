@@ -97,7 +97,7 @@ function WelcomeLog() {
                 <Boton
                   className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
                   as={Link}
-                  to={`/catalogo/`}
+                  to={`/catalogo/page/1`}
                 >
                   <Ratio
                     aspectRatio="1x1"
@@ -117,7 +117,7 @@ function WelcomeLog() {
                     className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
                     key={categoria.id}
                     as={Link}
-                    to={`/catalogo/${categoria.id}`}
+                    to={`/catalogo/${categoria.id}/1`}
                   >
                     <Ratio
                       aspectRatio="1x1"
@@ -151,7 +151,7 @@ function WelcomeLog() {
             <Boton
               className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
               as={Link}
-              to={`/catalogo/`}
+              to={`/catalogo/page/1`}
             >
               <Ratio
                 aspectRatio="1x1"
@@ -170,7 +170,7 @@ function WelcomeLog() {
               <Boton
                 className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
                 as={Link}
-                to={`/catalogo/${categoria.id}`}
+                to={`/catalogo/${categoria.id}/1`}
                 key={categoria.id}
               >
                 <Ratio
