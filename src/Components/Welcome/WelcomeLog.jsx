@@ -80,7 +80,7 @@ function WelcomeLog() {
   return (
     <>
       <Helmet>
-        <title>Inicio | Catálogo Marca Blanca</title>
+        <title>Bienvenidos | Catálogo Marca Blanca</title>
       </Helmet>
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center">
         <Col xs={12} className="d-lg-none">

@@ -3,7 +3,7 @@ import { Form, Row, Col, Spinner } from 'react-bootstrap'
 
 import {
   updateCliente,
-  deleteCliente,
+  createSuscripcion,
   editSuscripcion,
   cancelSuscripcion,
 } from '../../../Functions/ClienteFunctions'
@@ -48,11 +48,9 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
 
   const handleGuardar = async () => {
     setLoading(true)
-
     const dataToSend = {
       ...clienteData,
     }
-
     if (!dataToSend.nombre || !dataToSend.apellido || !dataToSend.username) {
       showToast(
         'danger',
@@ -62,36 +60,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
       setLoading(false)
       return
     }
-
-    const id = cliente.id
-
-    if (editar) {
-      if (!tipoSuscripcion || !mesesExtra) {
-        showToast(
-          'danger',
-          'Error',
-          'Por favor complete los datos de suscripcion o desactive el check "Modificar suscripción"'
-        )
-        setLoading(false)
-        return
-      } else {
-        const suscripcionResponse = await editSuscripcion(id, {
-          tipo: tipoSuscripcion,
-          mesesExtra,
-        })
-        if (!suscripcionResponse) {
-          showToast(
-            'danger',
-            'Error',
-            'Hubo un error al actualizar la suscripción.'
-          )
-          setLoading(false)
-          return
-        }
-      }
-    }
-
-    const clienteResponse = await updateCliente(id, dataToSend)
+    const clienteResponse = await updateCliente(cliente.id, dataToSend)
     setLoading(false)
     if (!clienteResponse) {
       showToast(
@@ -110,23 +79,85 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
     onClose()
   }
 
+  const editarSuscripcion = async () => {
+    setLoading(true)
+    if (!tipoSuscripcion || !mesesExtra) {
+      showToast(
+        'danger',
+        'Error',
+        'Por favor complete los datos de suscripcion'
+      )
+      setLoading(false)
+      return
+    } else {
+      const suscripcionResponse = await editSuscripcion(cliente.id, {
+        tipo: tipoSuscripcion,
+        mesesExtra,
+      })
+      if (!suscripcionResponse) {
+        showToast(
+          'danger',
+          'Error',
+          'Hubo un error al actualizar la suscripción.'
+        )
+        setLoading(false)
+        return
+      } else {
+        showToast(
+          'success',
+          'Suscripción editada',
+          'La suscripción ha sido modificada con éxito.'
+        )
+        onClienteUpdated()
+        onClose()
+      }
+    }
+  }
+
+  const crearSuscripcion = async () => {
+    setLoading(true)
+    if (!tipoSuscripcion || !mesesExtra) {
+      showToast(
+        'danger',
+        'Error',
+        'Por favor complete los datos de suscripcion'
+      )
+      setLoading(false)
+      return
+    } else {
+      const suscripcionResponse = await createSuscripcion({
+        cliente_id: cliente.id,
+        meses: mesesExtra,
+        tipo: Number(tipoSuscripcion),
+      })
+      if (!suscripcionResponse) {
+        showToast('danger', 'Error', 'Hubo un error al crear la suscripción.')
+        setLoading(false)
+        return
+      } else {
+        showToast(
+          'success',
+          'Suscripción creada',
+          'La suscripción ha sido creada con éxito.'
+        )
+        onClienteUpdated()
+        onClose()
+      }
+    }
+  }
+
   const handleCancelar = async () => {
     setLoading(true)
     try {
       const response = await cancelSuscripcion(cliente.id)
-      if (response.status === 200) {
-        showToast(
-          'success',
-          'Suscripción canceled',
-          'La suscripción del cliente ha sido canceled con éxito.'
-        )
-        onClienteUpdated()
-        setPopUpBorrar(false)
-        onClose()
-      } else {
-        showToast('danger', 'Error', response.data)
-        setPopUpBorrar(false)
-      }
+      showToast(
+        'success',
+        'Suscripción cancelada',
+        'La suscripción del cliente ha sido canceled con éxito.'
+      )
+      onClienteUpdated()
+      onClose()
+      setPopUpBorrar(false)
     } catch (e) {
       showToast(
         'danger',
@@ -177,7 +208,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
       <Col lg={6}>
         <Form className="p-3 border rounded">
           <Input
-            label="Nombre:"
+            label="Nombre"
             type="text"
             placeholder="Nombre"
             name="nombre"
@@ -185,7 +216,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
             onChange={handleInputChange}
           />
           <Input
-            label="Apellido:"
+            label="Apellido"
             type="text"
             placeholder="Apellido"
             name="apellido"
@@ -195,7 +226,7 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
           {cliente ? (
             <>
               <Input
-                label="Contraseña:"
+                label="Contraseña"
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -222,6 +253,13 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
               onChange={handleInputChange}
             />
           )}
+          <Boton
+            className="mt-3"
+            onClick={() => handleGuardar()}
+            disabled={loading}
+          >
+            Editar usuario
+          </Boton>
         </Form>
       </Col>
       <Col lg={6} className="mt-3 mt-lg-0">
@@ -265,6 +303,14 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                       />
                     </Form.Group>
                   </Row>
+                  <div className="mt-3">
+                    <Boton
+                      onClick={() => crearSuscripcion()}
+                      disabled={loading}
+                    >
+                      Crear suscripción
+                    </Boton>
+                  </div>
                 </>
               )}
               {suscripcionData && (
@@ -327,6 +373,21 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
                             />
                           </Form.Group>
                         </Row>
+                        <div className="mt-3 d-flex justify-content-between">
+                          <Boton
+                            onClick={() => editarSuscripcion()}
+                            disabled={loading}
+                          >
+                            Editar suscripción
+                          </Boton>
+                          <Boton
+                            variant="danger"
+                            onClick={() => setPopUpBorrar(true)}
+                            disabled={loading}
+                          >
+                            Cancelar suscripción
+                          </Boton>
+                        </div>
                       </>
                     )}
                   </Col>
@@ -336,23 +397,11 @@ const ClientesEditor = ({ cliente, onClienteUpdated, onClose, showToast }) => {
           </div>
         </div>
       </Col>
-      <div className="mt-3 d-flex justify-content-between">
-        <Boton variant="danger" onClick={() => setPopUpBorrar(true)}>
-          Cancelar suscripción
-        </Boton>
-        <Boton onClick={() => handleGuardar()} disabled={loading}>
-          {loading ? (
-            <Spinner animation="border" variant="light" size="sm" />
-          ) : (
-            'Guardar cambios'
-          )}
-        </Boton>
-      </div>
       {popUpBorrar && (
         <PopUp
           header="Cancelar suscripción"
           closePopUp={() => setPopUpBorrar(false)}
-          buttonLabel="Cancelar"
+          buttonLabel="Aceptar"
           onAction={handleCancelar}
           loading={loading}
           variant="danger"

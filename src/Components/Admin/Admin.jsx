@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Row, Col, Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import HomeAdmin from './HomeAdmin'
 import TallasCRUD from './TallasCRUD/TallasCRUD'
@@ -52,6 +53,9 @@ const Admin = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Administrador | Catálogo Marca Blanca</title>
+      </Helmet>
       <Row className="justify-content-center gap-3 bg-secondary-subtle alto-container py-4">
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
           <h5 className="fw-bold mb-0">Hola {userParsed.username}</h5>

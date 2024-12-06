@@ -128,7 +128,7 @@ const ClientesCRUD = ({ showToast }) => {
                 <p className="mb-0 texto-14 fw-bold">Suscripción</p>
               </Col>
               <Col className="text-center">
-                <p className="mb-0 texto-14 fw-bold">Tipo sus.</p>
+                <p className="mb-0 texto-14 fw-bold">Fecha fin</p>
               </Col>
             </div>
             <div className="bg-white">
@@ -166,10 +166,13 @@ const ClientesCRUD = ({ showToast }) => {
                   <Col className="text-center">
                     {cliente.clientes.subscriptions ? (
                       <p className="mb-0">
-                        {cliente.clientes.subscriptions.tipo === 1 &&
-                          'Completo'}
-                        {cliente.clientes.subscriptions.tipo === 2 &&
-                          'Revendedores'}
+                        {new Date(
+                          cliente.clientes.subscriptions.fecha_fin
+                        ).toLocaleDateString('es-AR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                        })}
                       </p>
                     ) : (
                       <p className="mb-0"> - </p>
