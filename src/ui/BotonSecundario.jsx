@@ -1,12 +1,14 @@
+import { Button } from 'react-bootstrap'
+
 function BotonSecundario({ children, onClick, className, ...props }) {
   return (
-    <button
-      className={`fw-semibold d-flex align-items-center bg-transparent ${className}`}
+    <Button
+      className={`fw-semibold d-flex align-items-center bg-transparent text-dark border-0 ${className}`}
       onClick={onClick}
       {...props}
     >
       {children}
-    </button>
+    </Button>
   )
 }
 

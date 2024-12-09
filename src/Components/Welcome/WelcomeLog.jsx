@@ -7,7 +7,7 @@ import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 
 import {
-  PiArrowRightBold,
+  PiCaretRightBold,
   PiXCircleDuotone,
   PiListDashesBold,
 } from 'react-icons/pi'
@@ -15,7 +15,7 @@ import {
 import todosLosProductos from '../../Images/all.webp'
 import banner1 from '../../Images/marcablanca-banner1.webp'
 import banner2 from '../../Images/marcablanca-banner2.webp'
-import { Boton, CardProducto, BotonSecundario } from '../../ui'
+import { BotonSecundario, CardProducto, CardLoading } from '../../ui'
 
 function WelcomeLog() {
   const [categorias, setCategorias] = useState([])
@@ -96,7 +96,7 @@ function WelcomeLog() {
           {showCategoria && (
             <Col xs={12} sm={11} className="mt-3">
               <div className="d-flex gap-2 flex-wrap">
-                <Boton
+                <BotonSecundario
                   className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
                   as={Link}
                   to={`/catalogo/page/1`}
@@ -113,9 +113,9 @@ function WelcomeLog() {
                     />
                   </Ratio>
                   Todos los productos
-                </Boton>
+                </BotonSecundario>
                 {categorias.map((categoria) => (
-                  <Boton
+                  <BotonSecundario
                     className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
                     key={categoria.id}
                     as={Link}
@@ -138,87 +138,102 @@ function WelcomeLog() {
                       )}
                     </Ratio>
                     {categoria.nombre}
-                  </Boton>
+                  </BotonSecundario>
                 ))}
               </div>
             </Col>
           )}
         </Col>
 
-        <Col xs={12} className="mb-1 d-none d-lg-block">
-          <div className="mb-4 d-flex justify-content-between align-items-center">
-            <h1 className="fw-bold mb-0">Categorías</h1>
-            {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
-          </div>
-          <div className="d-flex gap-2 flex-wrap">
-            <Boton
-              className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
-              as={Link}
-              to={`/catalogo/page/1`}
-            >
-              <Ratio
-                aspectRatio="1x1"
-                className="rounded-circle fondo-imagen me-2"
-                style={{ width: '40px' }}
-              >
+        <Col>
+          <Row className="overflow-hidden">
+            <Col xs={12} md={6} className="card-container">
+              <Link to={'/catalogo/30/1'}>
                 <Image
-                  src={todosLosProductos}
-                  className="object-fit-cover rounded-circle"
+                  className="rounded-2"
+                  src={banner1}
+                  style={{ width: '100%' }}
                   fluid
                 />
-              </Ratio>
-              Todos los productos
-            </Boton>
-            {categorias.map((categoria) => (
-              <Boton
-                className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
-                as={Link}
-                to={`/catalogo/${categoria.id}/1`}
-                key={categoria.id}
-              >
-                <Ratio
-                  aspectRatio="1x1"
-                  className="rounded-circle fondo-imagen me-2"
-                  style={{ width: '40px' }}
+              </Link>
+            </Col>
+            <Col xs={12} md={6} className="card-container">
+              <Link to={'/catalogo/10/1'}>
+                <Image
+                  className="rounded-2"
+                  src={banner2}
+                  style={{ width: '100%' }}
+                  fluid
+                />
+              </Link>
+            </Col>
+            <Col xs={12} className="my-2 d-none d-lg-block card-container">
+              <div className="mb-2 d-flex justify-content-between align-items-center ">
+                {/* <h2 className="fw-bold mb-0">Categorías</h2> */}
+                {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
+              </div>
+              <div className="d-flex gap-2 flex-wrap">
+                <BotonSecundario
+                  className=" py-1 ps-2 pe-3 d-flex align-items-center "
+                  as={Link}
+                  to={`/catalogo/page/1`}
                 >
-                  {imagenErrors[categoria.id] ? (
-                    <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
-                  ) : (
+                  <Ratio
+                    aspectRatio="1x1"
+                    className="rounded-circle fondo-imagen me-2"
+                    style={{ width: '40px' }}
+                  >
                     <Image
-                      src={categoria.rutaImagen}
+                      src={todosLosProductos}
                       className="object-fit-cover rounded-circle"
                       fluid
-                      onError={() => handleImageError(categoria.id)}
                     />
-                  )}
-                </Ratio>
-                {categoria.nombre}
-              </Boton>
-            ))}
-          </div>
+                  </Ratio>
+                  Todos los productos
+                </BotonSecundario>
+                {categorias.map((categoria) => (
+                  <BotonSecundario
+                    className="py-1 ps-2 pe-3 d-flex align-items-center"
+                    as={Link}
+                    to={`/catalogo/${categoria.id}/1`}
+                    key={categoria.id}
+                  >
+                    <Ratio
+                      aspectRatio="1x1"
+                      className="rounded-circle fondo-imagen me-2"
+                      style={{ width: '40px' }}
+                    >
+                      {imagenErrors[categoria.id] ? (
+                        <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                      ) : (
+                        <Image
+                          src={categoria.rutaImagen}
+                          className="object-fit-cover rounded-circle"
+                          fluid
+                          onError={() => handleImageError(categoria.id)}
+                        />
+                      )}
+                    </Ratio>
+                    {categoria.nombre}
+                  </BotonSecundario>
+                ))}
+              </div>
+            </Col>
+          </Row>
         </Col>
-        <Col xs={12} md={6} className="mt-4">
-          <Link to={'/catalogo/30/1'}>
-            <Image src={banner1} style={{ width: '100%' }} fluid />
-          </Link>
-        </Col>
-        <Col xs={12} md={6} className="mt-4">
-          <Link to={'/catalogo/10/1'}>
-            <Image src={banner2} style={{ width: '100%' }} fluid />
-          </Link>
-        </Col>
-        <Col xs={12} className="mt-4">
+
+        <Col xs={12} className="mt-3">
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h1 className="fw-bold mb-0">Últimos ingresos</h1>
-            <Boton
+            <h2 className="fw-bold mb-0">Últimos ingresos</h2>
+            <BotonSecundario
               className="fw-bold d-flex align-items-center py-0 px-1"
               variant="light"
               as={Link}
               to={'/catalogo'}
             >
               Ver más
-              <PiArrowRightBold className="ms-2" />
-            </Boton>
+              <PiCaretRightBold className="ms-2" />
+            </BotonSecundario>
           </div>
           {showGanancia && ganancia === 1 && (
             <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
@@ -235,7 +250,20 @@ function WelcomeLog() {
           )}
           <Row>
             {loading ? (
-              <Spinner className="my-5 d-block mx-auto" animation="border" />
+              <>
+                <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+                  <CardLoading />
+                </Col>
+                <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+                  <CardLoading />
+                </Col>
+                <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+                  <CardLoading />
+                </Col>
+                <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+                  <CardLoading />
+                </Col>
+              </>
             ) : (
               productos.map((producto) => (
                 <Col

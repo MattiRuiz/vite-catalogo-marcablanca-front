@@ -81,27 +81,19 @@ function Catalogo() {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      setLoading(true)
       const response = await getAllTipoProductos()
       setCategorias(response.data)
-      setLoading(false)
     }
 
     if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
       fetchCategorias()
     }
-
-    const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
-    if (localGanancia) {
-      setShowGanancia(localGanancia)
-      let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
-      let porcentual = (valorGanancia + 100) / 100
-      setGanancia(porcentual)
-    }
   }, [])
 
   useEffect(() => {
-    fetchProducts(id, currentPage)
+    if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
+      fetchProducts(id, currentPage)
+    }
   }, [id, currentPage])
 
   const handlePageChange = (pageNumber) => {
@@ -118,6 +110,13 @@ function Catalogo() {
     navigate(`/catalogo/${categoryId}/1`)
   }
 
+  const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+  if (localGanancia) {
+    setShowGanancia(localGanancia)
+    let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
+    let porcentual = (valorGanancia + 100) / 100
+    setGanancia(porcentual)
+  }
   return (
     <>
       <Helmet>
@@ -278,13 +277,20 @@ function Catalogo() {
               ))}
             {loading && (
               <>
-                <CardLoading />
-                <CardLoading />
-                <CardLoading />
+                <Col xs={12} sm={6} md={4} className="mb-4">
+                  <CardLoading />
+                </Col>
+
+                <Col xs={12} sm={6} md={4} className="mb-4">
+                  <CardLoading />
+                </Col>
+                <Col xs={12} sm={6} md={4} className="mb-4">
+                  <CardLoading />
+                </Col>
               </>
             )}
           </Row>
-          {productos && (
+          {productos && !loading && (
             <Pagination className="d-flex justify-content-center">
               {totalPaginas > 1
                 ? Array.from({ length: totalPaginas }, (_, index) => (
