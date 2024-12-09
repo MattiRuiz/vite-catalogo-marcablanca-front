@@ -43,9 +43,9 @@ const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
             currentIndex > 0 && (
               <span
                 aria-hidden="true"
-                className="carousel-control-prev-icon d-flex justify-content-center align-items-center text-dark bg-white bg-gradient bg-opacity-50 rounded-5"
+                className="carousel-control-prev-icon d-flex justify-content-center align-items-center text-dark bg-white bg-gradient rounded-5"
               >
-                <PiCaretLeftBold className="" />
+                <PiCaretLeftBold />
               </span>
             )
           }
@@ -53,16 +53,16 @@ const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
             currentIndex < totalImages - 1 && (
               <span
                 aria-hidden="true"
-                className="carousel-control-next-icon d-flex justify-content-center align-items-center text-dark bg-white bg-gradient bg-opacity-50 rounded-5"
+                className="carousel-control-next-icon d-flex justify-content-center align-items-center text-dark bg-white bg-gradient rounded-5"
               >
-                <PiCaretRightBold className="" />
+                <PiCaretRightBold />
               </span>
             )
           }
         >
           {producto && (
             <Carousel.Item>
-              <Ratio aspectRatio="4x3">
+              <Ratio aspectRatio="1x1">
                 <Image
                   src={producto.rutaImagen}
                   alt={producto.nombre}
@@ -72,10 +72,10 @@ const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
               </Ratio>
             </Carousel.Item>
           )}
-          {imagenesCarousel ? (
+          {imagenesCarousel &&
             imagenesCarousel.map((imagen, index) => (
               <Carousel.Item key={index}>
-                <Ratio aspectRatio="4x3">
+                <Ratio aspectRatio="1x1">
                   <Image
                     src={imagen.rutaImagen}
                     alt={imagen.rutaImagen}
@@ -84,22 +84,17 @@ const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
                   />
                 </Ratio>
               </Carousel.Item>
-            ))
-          ) : (
-            <></>
-          )}
+            ))}
         </Carousel>
         <Boton
           onClick={closePopUp}
-          className="position-absolute top-0 end-0 py-2 px-2 me-2 mt-2 bg-white opacity-75 text-dark z-3 rounded-5 d-flex justify-content-center align-items-center bg-opacity-50"
+          className="position-absolute top-0 end-0 py-2 px-2 me-2 mt-2 bg-white text-dark z-3 rounded-5 d-flex justify-content-center align-items-center"
         >
           <PiXBold />
         </Boton>
       </Modal.Body>
       <Modal.Footer className="border-0 flex-column align-items-start">
-        {producto.marca === 'Otros' ? (
-          ''
-        ) : (
+        {producto.marca && (
           <p
             className="mt-0 bg-primary bg-gradient text-white fw-semibold position-absolute top-0 start-0 z-3 ms-2 px-2 py-1 rounded-2 rounded-top-0 shadow-sm"
             style={{ letterSpacing: '.25px' }}
@@ -124,7 +119,9 @@ const PopUpCarousel = ({ producto, closePopUp, showGanancia, ganancia }) => {
                 {talla.talla_nombre && (
                   <p className="fw-semibold mb-0">{talla.talla_nombre}</p>
                 )}
-                <p className="mb-0"> {talla.dimensiones}</p>
+                {talla.dimensiones && (
+                  <p className="mb-0"> {talla.dimensiones}</p>
+                )}
               </div>
               <div>
                 {showGanancia && (
