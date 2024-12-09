@@ -23,7 +23,7 @@ function WelcomeLog() {
   const [loading, setLoading] = useState(false)
   const [showGanancia, setShowGanancia] = useState(false)
   const [ganancia, setGanancia] = useState(1.0)
-  const [showCategoria, setShowCategoria] = useState(true)
+  const [showCategoria, setShowCategoria] = useState(false)
   const navigate = useNavigate()
 
   const [imagenErrors, setImagenErrors] = useState({})
@@ -94,60 +94,62 @@ function WelcomeLog() {
             </BotonSecundario>
           </div>
           {showCategoria && (
-            <Col xs={12} sm={11} className="mt-3">
-              <div className="d-flex gap-2 flex-wrap">
-                <BotonSecundario
-                  className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
-                  as={Link}
-                  to={`/catalogo/page/1`}
-                >
-                  <Ratio
-                    aspectRatio="1x1"
-                    className="rounded-circle fondo-imagen me-2"
-                    style={{ width: '40px' }}
-                  >
-                    <Image
-                      src={todosLosProductos}
-                      className="object-fit-cover rounded-circle"
-                      fluid
-                    />
-                  </Ratio>
-                  Todos los productos
-                </BotonSecundario>
-                {categorias.map((categoria) => (
+            <div className="overflow-hidden">
+              <Col xs={12} sm={11} className="mt-3 pb-4 animacion-abajo">
+                <div className="d-flex justify-content-center gap-2 flex-wrap">
                   <BotonSecundario
-                    className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
-                    key={categoria.id}
+                    className="py-1 ps-2 pe-3 d-flex align-items-center "
                     as={Link}
-                    to={`/catalogo/${categoria.id}/1`}
+                    to={`/catalogo/page/1`}
                   >
                     <Ratio
                       aspectRatio="1x1"
                       className="rounded-circle fondo-imagen me-2"
                       style={{ width: '40px' }}
                     >
-                      {imagenErrors[categoria.id] ? (
-                        <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
-                      ) : (
-                        <Image
-                          src={categoria.rutaImagen}
-                          className="object-fit-cover rounded-circle"
-                          fluid
-                          onError={() => handleImageError(categoria.id)}
-                        />
-                      )}
+                      <Image
+                        src={todosLosProductos}
+                        className="object-fit-cover rounded-circle"
+                        fluid
+                      />
                     </Ratio>
-                    {categoria.nombre}
+                    Todos los productos
                   </BotonSecundario>
-                ))}
-              </div>
-            </Col>
+                  {categorias.map((categoria) => (
+                    <BotonSecundario
+                      className="py-1 ps-2 pe-3 rounded-pill d-flex align-items-center"
+                      key={categoria.id}
+                      as={Link}
+                      to={`/catalogo/${categoria.id}/1`}
+                    >
+                      <Ratio
+                        aspectRatio="1x1"
+                        className="rounded-circle fondo-imagen me-2"
+                        style={{ width: '40px' }}
+                      >
+                        {imagenErrors[categoria.id] ? (
+                          <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                        ) : (
+                          <Image
+                            src={categoria.rutaImagen}
+                            className="object-fit-cover rounded-circle"
+                            fluid
+                            onError={() => handleImageError(categoria.id)}
+                          />
+                        )}
+                      </Ratio>
+                      {categoria.nombre}
+                    </BotonSecundario>
+                  ))}
+                </div>
+              </Col>
+            </div>
           )}
         </Col>
 
         <Col>
           <Row className="overflow-hidden">
-            <Col xs={12} md={6} className="card-container">
+            <Col xs={12} md={6} className="card-container my-1">
               <Link to={'/catalogo/30/1'}>
                 <Image
                   className="rounded-2"
@@ -157,7 +159,7 @@ function WelcomeLog() {
                 />
               </Link>
             </Col>
-            <Col xs={12} md={6} className="card-container">
+            <Col xs={12} md={6} className="card-container my-1">
               <Link to={'/catalogo/10/1'}>
                 <Image
                   className="rounded-2"

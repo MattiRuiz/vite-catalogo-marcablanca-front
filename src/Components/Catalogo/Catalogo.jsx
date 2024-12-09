@@ -143,53 +143,55 @@ function Catalogo() {
             </BotonSecundario>
           </div>
           {showCategoria && (
-            <Col xs={12} sm={11} className="mt-3">
-              <div className="d-flex gap-2 flex-wrap">
-                <Boton
-                  className="bg-secondary py-2 ps-2 pe-3 rounded-pill d-flex align-items-center "
-                  as={Link}
-                  to={`/catalogo/page/1`}
-                >
-                  <Ratio
-                    aspectRatio="1x1"
-                    className="rounded-circle fondo-imagen me-2"
-                    style={{ width: '40px' }}
-                  >
-                    <Image
-                      src={todosLosProductos}
-                      className="object-fit-cover rounded-circle"
-                      fluid
-                    />
-                  </Ratio>
-                  Todos los productos
-                </Boton>
-                {categorias.map((categoria) => (
-                  <Boton
-                    className="bg-secondary-subtle py-2 ps-2 pe-3 rounded-pill d-flex align-items-center text-dark"
-                    key={categoria.id}
-                    onClick={() => handleCategoryClick(categoria.id)}
+            <div className="overflow-hidden">
+              <Col xs={12} sm={11} className="mt-3 animacion-abajo">
+                <div className="d-flex justify-content-center gap-2 flex-wrap border-bottom pb-3">
+                  <BotonSecundario
+                    className="py-1 ps-2 pe-2 rounded-pill d-flex align-items-center "
+                    as={Link}
+                    to={`/catalogo/page/1`}
                   >
                     <Ratio
                       aspectRatio="1x1"
                       className="rounded-circle fondo-imagen me-2"
                       style={{ width: '40px' }}
                     >
-                      {imagenErrors[categoria.id] ? (
-                        <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
-                      ) : (
-                        <Image
-                          src={categoria.rutaImagen}
-                          className="object-fit-cover rounded-circle"
-                          fluid
-                          onError={() => handleImageError(categoria.id)}
-                        />
-                      )}
+                      <Image
+                        src={todosLosProductos}
+                        className="object-fit-cover rounded-circle"
+                        fluid
+                      />
                     </Ratio>
-                    {categoria.nombre}
-                  </Boton>
-                ))}
-              </div>
-            </Col>
+                    Todos los productos
+                  </BotonSecundario>
+                  {categorias.map((categoria) => (
+                    <BotonSecundario
+                      className="py-1 ps-2 pe-2 rounded-pill d-flex align-items-center text-dark"
+                      key={categoria.id}
+                      onClick={() => handleCategoryClick(categoria.id)}
+                    >
+                      <Ratio
+                        aspectRatio="1x1"
+                        className="rounded-circle fondo-imagen me-2"
+                        style={{ width: '40px' }}
+                      >
+                        {imagenErrors[categoria.id] ? (
+                          <div className="w-100 h-100 d-flex align-items-center justify-content-center"></div>
+                        ) : (
+                          <Image
+                            src={categoria.rutaImagen}
+                            className="object-fit-cover rounded-circle"
+                            fluid
+                            onError={() => handleImageError(categoria.id)}
+                          />
+                        )}
+                      </Ratio>
+                      {categoria.nombre}
+                    </BotonSecundario>
+                  ))}
+                </div>
+              </Col>
+            </div>
           )}
         </Col>
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
