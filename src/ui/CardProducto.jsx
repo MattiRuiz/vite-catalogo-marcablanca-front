@@ -39,7 +39,7 @@ function CardProducto({ producto, showGanancia, ganancia }) {
               {producto.marca}
             </p>
           )}
-          <Card.Body className="pb-0">
+          <Card.Body className="pb-1">
             <Card.Title className="fw-bold mb-2 fs-5">
               {producto.nombre}
             </Card.Title>

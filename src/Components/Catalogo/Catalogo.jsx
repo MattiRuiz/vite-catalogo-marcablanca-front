@@ -5,7 +5,6 @@ import {
   Col,
   Placeholder,
   Pagination,
-  Spinner,
   FormControl,
   Ratio,
   Image,
@@ -37,7 +36,7 @@ function Catalogo() {
   const [currentPage, setCurrentPage] = useState(Number(page) || 1)
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
-  const [title, setTitle] = useState('Todos los productos')
+  const [title, setTitle] = useState('')
   const [showCategoria, setShowCategoria] = useState(false)
 
   const [showGanancia, setShowGanancia] = useState(false)
@@ -50,32 +49,6 @@ function Catalogo() {
       [productId]: true,
     }))
   }
-
-  // const handlePageChange = (pageNumber) => {
-  //   setCurrentPage(pageNumber)
-  //   handleProducts(pageNumber)
-  // }
-
-  // const handleCategories = async (value) => {
-  //   window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
-  //   setProductos('')
-  //   const response = await getProductosPorCategoria(value)
-  //   setProductos(response.data.productos)
-  //   setTitle(response.data.productos[0].tipo_producto)
-  //   setTotalPaginas(response.data.totalPages)
-  //   setCurrentPage(parseInt(response.data.actualPage))
-  //   setShowCategoria(false)
-  // }
-
-  // const handleProducts = async (pageNumber) => {
-  //   window.scrollTo({ top: 0, behavior: 'smooth' }) // Scroll to top
-  //   setProductos('')
-  //   const response = await getProductosCatalogo(pageNumber)
-  //   setProductos(response.data.productos)
-  //   setTotalPaginas(response.data.totalPages)
-  //   setCurrentPage(parseInt(response.data.actualPage))
-  //   setTitle('Todos los productos')
-  // }
 
   const fetchProducts = async (categoryId, pageNumber = 1) => {
     setLoading(true)
@@ -230,44 +203,47 @@ function Catalogo() {
             </Link>
           </div>
           <p className="texto-14 text-muted mb-2">Menú</p>
-          {!loading ? (
-            <ul className="list-unstyled">
-              <li className="">
+
+          <ul className="list-unstyled">
+            <li className="">
+              <Link
+                className={`py-1 mb-1 d-flex  ${
+                  page === null ? 'fw-semibold ' : ''
+                }`}
+                to={`/catalogo/page/1`}
+              >
+                Todos los productos
+              </Link>
+            </li>
+            {categorias.map((categoria) => (
+              <li key={categoria.id} value={categoria.id}>
                 <Link
                   className={`py-1 mb-1 d-flex  ${
-                    page === null ? 'fw-semibold ' : ''
+                    page === categoria.id ? 'fw-semibold ' : ''
                   }`}
-                  to={`/catalogo/page/1`}
+                  to={`/catalogo/${categoria.id}/1`}
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
                 >
-                  Todos los productos
+                  {categoria.nombre}
                 </Link>
               </li>
-              {categorias.map((categoria) => (
-                <li key={categoria.id} value={categoria.id}>
-                  <Link
-                    className={`py-1 mb-1 d-flex  ${
-                      page === categoria.id ? 'fw-semibold ' : ''
-                    }`}
-                    to={`/catalogo/${categoria.id}/1`}
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: 'smooth' })
-                    }
-                  >
-                    {categoria.nombre}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <Spinner className="m-5" animation="border" />
-          )}
+            ))}
+          </ul>
         </Col>
         <Col xs={12} md={11} lg={9} className="py-2">
           <div className="mb-3 d-flex justify-content-between align-items-center">
             {!loading ? (
               <h1 className="mb-0 fw-bold">{title}</h1>
             ) : (
-              <Placeholder xs={5} md={3} xl={2} />
+              <Placeholder
+                xs={5}
+                md={3}
+                xl={2}
+                className="mb-3"
+                style={{ height: '30px' }}
+              />
             )}
             {/* <FormControl
               className="d-none d-md-inline"
@@ -289,7 +265,8 @@ function Catalogo() {
             </div>
           )}
           <Row>
-            {productos ? (
+            {productos &&
+              !loading &&
               productos.map((producto) => (
                 <Col key={producto.id} xs={12} sm={6} md={4} className="mb-4">
                   <CardProducto
@@ -298,8 +275,8 @@ function Catalogo() {
                     ganancia={ganancia}
                   />
                 </Col>
-              ))
-            ) : (
+              ))}
+            {loading && (
               <>
                 <CardLoading />
                 <CardLoading />
