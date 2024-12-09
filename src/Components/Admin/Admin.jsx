@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Row, Col, Offcanvas } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
 import HomeAdmin from './HomeAdmin'
@@ -26,6 +26,7 @@ import { Tostada } from '../../ui'
 const Admin = () => {
   const [selectedEntity, setSelectedEntity] = useState('home')
   const [showOffcanvas, setShowOffcanvas] = useState(false)
+  const navigate = useNavigate()
 
   const user = localStorage.getItem('userData')
   const userParsed = JSON.parse(user)
@@ -50,6 +51,12 @@ const Admin = () => {
     setSelectedEntity(entity)
     setShowOffcanvas(false)
   }
+
+  useEffect(() => {
+    if (userParsed.esAdmin !== 1) {
+      navigate('/404')
+    }
+  }, [])
 
   return (
     <>

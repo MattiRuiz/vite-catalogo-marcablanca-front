@@ -174,7 +174,7 @@ function WelcomeLog() {
                 {/* <h2 className="fw-bold mb-0">Categorías</h2> */}
                 {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
               </div>
-              <div className="d-flex gap-2 flex-wrap">
+              <div className="d-flex gap-2 flex-wrap justify-content-center">
                 <BotonSecundario
                   className=" py-1 ps-2 pe-3 d-flex align-items-center "
                   as={Link}
