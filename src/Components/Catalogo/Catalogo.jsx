@@ -8,6 +8,7 @@ import {
   FormControl,
   Ratio,
   Image,
+  Spinner,
 } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
 
@@ -33,6 +34,7 @@ function Catalogo() {
 
   const [categorias, setCategorias] = useState([])
   const [loading, setLoading] = useState(false)
+  const [loadingCat, setLoadingCat] = useState(false)
   const [currentPage, setCurrentPage] = useState(Number(page) || 1)
   const [totalPaginas, setTotalPaginas] = useState(0)
   const [productos, setProductos] = useState()
@@ -81,8 +83,15 @@ function Catalogo() {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await getAllTipoProductos()
-      setCategorias(response.data)
+      setLoadingCat(true)
+      try {
+        const response = await getAllTipoProductos()
+        setCategorias(response.data)
+      } catch (error) {
+        console.error('Error fetching categorias', error)
+      } finally {
+        setLoadingCat(false)
+      }
     }
 
     if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
@@ -195,43 +204,51 @@ function Catalogo() {
           )}
         </Col>
         <Col lg={2} className="d-none d-lg-flex flex-column border-end py-2">
-          <div className="border-bottom pb-2 mb-3">
-            <Link to="/">
-              <BotonSecundario className="pe-3 ps-0 py-2">
-                <PiCaretLeftBold className="me-1 fs-5" />
-                Volver
-              </BotonSecundario>
-            </Link>
-          </div>
-          <p className="texto-14 text-muted mb-2">Menú</p>
-
-          <ul className="list-unstyled">
-            <li className="">
-              <Link
-                className={`py-1 mb-1 d-flex  ${
-                  page === null ? 'fw-semibold ' : ''
-                }`}
-                to={`/catalogo/page/1`}
-              >
-                Todos los productos
-              </Link>
-            </li>
-            {categorias.map((categoria) => (
-              <li key={categoria.id} value={categoria.id}>
-                <Link
-                  className={`py-1 mb-1 d-flex  ${
-                    page === categoria.id ? 'fw-semibold ' : ''
-                  }`}
-                  to={`/catalogo/${categoria.id}/1`}
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }
-                >
-                  {categoria.nombre}
+          {!loadingCat ? (
+            <>
+              <div className="border-bottom pb-2 mb-3">
+                <Link to="/">
+                  <BotonSecundario className="pe-3 ps-0 py-2">
+                    <PiCaretLeftBold className="me-1 fs-5" />
+                    Volver
+                  </BotonSecundario>
                 </Link>
-              </li>
-            ))}
-          </ul>
+              </div>
+              <p className="texto-14 text-muted mb-2">Menú</p>
+
+              <ul className="list-unstyled">
+                <li className="">
+                  <Link
+                    className={`py-1 mb-1 d-flex  ${
+                      page === null ? 'fw-semibold ' : ''
+                    }`}
+                    to={`/catalogo/page/1`}
+                  >
+                    Todos los productos
+                  </Link>
+                </li>
+                {categorias.map((categoria) => (
+                  <li key={categoria.id} value={categoria.id}>
+                    <Link
+                      className={`py-1 mb-1 d-flex  ${
+                        page === categoria.id ? 'fw-semibold ' : ''
+                      }`}
+                      to={`/catalogo/${categoria.id}/1`}
+                      onClick={() =>
+                        window.scrollTo({ top: 0, behavior: 'smooth' })
+                      }
+                    >
+                      {categoria.nombre}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <div className="d-flex justify-content-center py-5">
+              <Spinner />
+            </div>
+          )}
         </Col>
         <Col xs={12} md={11} lg={9} className="py-2">
           <div className="mb-3 d-flex justify-content-between align-items-center">

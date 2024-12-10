@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Image, Ratio, Spinner, FormControl } from 'react-bootstrap'
+import { Row, Col, Image, Ratio, FormControl } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
@@ -231,7 +231,7 @@ function WelcomeLog() {
               className="fw-bold d-flex align-items-center py-0 px-1"
               variant="light"
               as={Link}
-              to={'/catalogo'}
+              to={'/catalogo/page/1'}
             >
               Ver más
               <PiCaretRightBold className="ms-2" />

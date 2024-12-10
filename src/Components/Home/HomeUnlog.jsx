@@ -14,9 +14,9 @@ function HomeUnlog() {
         sm={10}
         md={8}
         lg={6}
-        className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden"
+        className="p-0 text-white d-flex flex-column justify-content-center rounded overflow-hidden animacion-start"
       >
-        <Image src={imagewebp} fluid className="animated-image " />
+        <Image src={imagewebp} fluid className=" " />
       </Col>
       <Col
         xs={12}
@@ -24,7 +24,7 @@ function HomeUnlog() {
         md={8}
         lg={6}
         xl={5}
-        className="py-4 text-start ms-lg-2 ms-xl-5"
+        className="py-4 text-start ms-lg-2 ms-xl-5 animacion-end"
       >
         <p className="mb-3 border d-inline-block px-3 py-1 rounded-5 fw-semibold">
           ¡Atención revendedores!

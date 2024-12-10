@@ -249,13 +249,25 @@ min-height: 80vh;
 .card-container {
   opacity: 0;
   transform: translateY(100px);
-  animation: slide 1s forwards;
+  animation: slideY 1s forwards;
 }
 
 .animacion-abajo {
   opacity: 0;
   transform: translateY(-100px);
-  animation: slide .5s forwards;
+  animation: slideY .5s forwards;
+}
+
+.animacion-start {
+  opacity: 0;
+  transform: translateX(-100px);
+  animation: slideX 1s forwards;
+}
+
+.animacion-end {
+  opacity: 0;
+  transform: translateX(100px);
+  animation: slideX 1s forwards;
 }
 
 .card-container:nth-child(1) {
@@ -274,10 +286,17 @@ min-height: 80vh;
   animation-delay: 0.7s;
 }
 
-@keyframes slide {
+@keyframes slideY {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideX {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

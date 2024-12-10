@@ -49,8 +49,14 @@ const Suscripcion = () => {
         </div>
       </Col>
       <Col xs={12}>
-        <Row className="mt-3 justify-content-center">
-          <Col xs={12} sm={8} md={6} lg={4} className="mb-3 mb-lg-0">
+        <Row className="mt-3 justify-content-center overflow-hidden">
+          <Col
+            xs={12}
+            sm={8}
+            md={6}
+            lg={4}
+            className="mb-3 mb-lg-0 animacion-abajo"
+          >
             <div className="border rounded-4 p-4 h-100">
               <h5 className="fw-bold">Plan Completo</h5>
               <p>Nuestro catálogo al alcance de la manos.</p>
