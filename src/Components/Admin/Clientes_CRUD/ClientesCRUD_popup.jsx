@@ -120,7 +120,6 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
           onChange={handleInputChange}
         />
       </Form>
-      {/* <EditarSuscripcion id={clienteData.id} showToast={showToast} /> */}
     </PopUp>
   )
 }

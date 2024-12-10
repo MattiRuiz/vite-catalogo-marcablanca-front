@@ -25,7 +25,7 @@ function PopUp({
       <Modal.Body>{children}</Modal.Body>
       {buttonLabel && (
         <Modal.Footer className="border-0 pt-0">
-          <Boton variant="secondary" onClick={closePopUp}>
+          <Boton variant="secondary" onClick={closePopUp} disabled={loading}>
             Cancelar
           </Boton>
           <Boton
@@ -33,11 +33,7 @@ function PopUp({
             onClick={onAction}
             disabled={loading}
           >
-            {loading ? (
-              <Spinner animation="border" variant="light" size="sm" />
-            ) : (
-              buttonLabel
-            )}
+            {buttonLabel}
           </Boton>
         </Modal.Footer>
       )}
