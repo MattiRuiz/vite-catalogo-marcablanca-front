@@ -1,69 +1,81 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Form, InputGroup, Image } from 'react-bootstrap'
+import { Row, Col, Form, InputGroup, Card } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom'
 
-import { Boton, PopUp } from '../../ui'
+import { Boton, PopUp, Tostada } from '../../ui'
 
 function Visualizacion() {
   const [show, setShow] = useState(false)
-  const [ganancia, setGanancia] = useState(0)
+  const [ganancia, setGanancia] = useState('')
   const [showGanancia, setShowGanancia] = useState(false)
-  const [gananciaReventa, setGananciaReventa] = useState()
-  const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
+  const [storedData, setStoredData] = useState({
+    showGanancia: false,
+    ganancia: '',
+  })
+
+  const [toastConfig, setToastConfig] = useState({
+    show: false,
+    variant: 'danger',
+    header: '',
+    message: '',
+  })
+
+  const handleShowToast = (variant, header, message) => {
+    setToastConfig({
+      show: true,
+      variant,
+      header,
+      message,
+    })
+  }
+
+  const fetchData = () => {
+    const showGananciaCase = localStorage.getItem('showGanancia') === 'true'
+    const gananciaCase = parseInt(localStorage.getItem('ganancia')) || ''
+    setStoredData({ showGanancia: showGananciaCase, ganancia: gananciaCase })
+    setGanancia(gananciaCase)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleGananciaReventa = (e) => {
     setGanancia(e.target.value)
-    if (
-      isNaN(parseInt(e.target.value)) ||
-      parseInt(e.target.value) < 25 ||
-      parseInt(e.target.value) > 100
-    ) {
-      setShowError(true)
-    } else {
-      setShowError(false)
-    }
   }
 
   const mostrarPrecios = () => {
-    localStorage.setItem('ganancia', ganancia)
+    localStorage.setItem('ganancia', ganancia ? ganancia : '')
     localStorage.setItem('showGanancia', showGanancia)
     navigate('/')
   }
 
-  const dataSave = () => {
-    const showGananciaCase = localStorage.getItem('showGanancia')
-    if (showGananciaCase != null) {
-      const gananciaCase = parseInt(localStorage.getItem('ganancia'))
-      if (gananciaCase !== 0) {
-        setGanancia(gananciaCase)
-      } else {
-        setGanancia(25)
-      }
-      setShowGanancia(showGananciaCase.toLowerCase?.() === 'true')
-    } else {
-      localStorage.setItem('ganancia', 0)
-      localStorage.setItem('showGanancia', false)
-    }
-
-    setShow(false)
-  }
-
-  useEffect(() => {
-    dataSave()
-  }, [])
-
   const handleGanancia = (opt) => {
     if (opt === 'M') {
       setShowGanancia(true)
-      setGanancia(0)
-      setShow(true)
-    } else if (opt === 'O') {
-      setShowGanancia(false)
+      setGanancia('')
       setShow(true)
     } else if (opt === 'R') {
-      setShowGanancia(true)
-      setGanancia(ganancia)
+      if (!ganancia || isNaN(ganancia)) {
+        handleShowToast(
+          'danger',
+          'Error',
+          'Por favor indique un porcentaje de ganancia válido.'
+        )
+      } else if (ganancia < 25 || ganancia > 100) {
+        handleShowToast(
+          'danger',
+          'Error',
+          'El porcentaje de ganancia debe ser un valor entre 25% al 100%.'
+        )
+      } else {
+        setShowGanancia(true)
+        setShow(true)
+      }
+    } else if (opt === 'O') {
+      setShowGanancia(false)
+      setGanancia('')
       setShow(true)
     }
   }
@@ -77,91 +89,107 @@ function Visualizacion() {
           </h1>
           <p className="text-center mb-4">
             Permite <strong>mostrar u ocultar</strong> los precios de los
-            productos en el catálogo.
+            productos en el catálogo. El borde azul indica la opción que se
+            encuentra activa actualmente.
           </p>
           <Row className="mb-3 text-center">
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
-                <div>
-                  <h5 className="fw-bold mb-4">Mostrar precio mayorista</h5>
-                  <p>
-                    Muestra el precio mayorista en el catálogo. Este es el costo
-                    al por mayor de los productos.
-                  </p>
-                </div>
-                <Boton
-                  disabled={showGanancia && ganancia == 0}
-                  onClick={() => handleGanancia('M')}
-                >
-                  {showGanancia && ganancia == 0
-                    ? 'Mostrando precio mayorista'
-                    : 'Mostrar precio mayorista'}
-                </Boton>
-              </div>
+              <Card
+                className="h-100"
+                border={!storedData.showGanancia && 'primary'}
+              >
+                <Card.Header className="border-bottom-0">
+                  <h5 className="fw-bold mb-0">Ocultar precios</h5>
+                </Card.Header>
+                <Card.Body>
+                  <p>Oculta los precios del catálogo.</p>
+                </Card.Body>
+                <Card.Footer className="border-top-0">
+                  <Boton
+                    disabled={!storedData.showGanancia}
+                    onClick={() => handleGanancia('O')}
+                    className="w-100"
+                  >
+                    {!storedData.showGanancia
+                      ? 'Los precios se encuentran ocultos'
+                      : 'Ocultar precios'}
+                  </Boton>
+                </Card.Footer>
+              </Card>
             </Col>
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
-                <div>
-                  <h5 className="fw-bold mb-4">Mostrar precio de reventa</h5>
-                  <p>
-                    Muestra el precio de reventa, calculado sumando tu
-                    porcentaje de ganancia al precio mayorista.
-                  </p>
-                  <Form>
-                    <Form.Label className="fw-bold">
-                      Indique el porcentaje de ganancia
-                    </Form.Label>
-                    <InputGroup
-                      className="mx-auto"
-                      style={{ maxWidth: '200px' }}
-                    >
-                      <InputGroup.Text>%</InputGroup.Text>
-                      <Form.Control
-                        onChange={(e) => handleGananciaReventa(e)}
-                        value={ganancia}
-                        placeholder="Ingrese un valor"
-                      />
-                    </InputGroup>
-                    {showError ? (
-                      <Form.Text className="text-danger">
-                        Coloque un valor entre 25 a 100%
-                      </Form.Text>
-                    ) : (
-                      <Form.Text className="text-primary">&nbsp;</Form.Text>
-                    )}
-                    {showGanancia && ganancia !== 0 && (
-                      <Form.Text className="mt-2">
-                        Actualmente mostrando precios con un
-                        <strong> {ganancia}%</strong>.
-                      </Form.Text>
-                    )}
-                  </Form>
-                </div>
-                <Boton
-                  className="mt-1"
-                  onClick={() => handleGanancia('R')}
-                  disabled={showError}
-                >
-                  Mostrar precio revendedor
-                </Boton>
-              </div>
+              <Card
+                className="h-100"
+                border={
+                  storedData.showGanancia && storedData.ganancia && 'primary'
+                }
+              >
+                <Card.Header className="border-bottom-0">
+                  <h5 className="fw-bold mb-0">Precio de reventa</h5>
+                </Card.Header>
+                <Card.Body>
+                  <div>
+                    <p>
+                      Muestra el precio de reventa, calculado sumando tu
+                      porcentaje de ganancia al precio mayorista.
+                    </p>
+                    <Form>
+                      <Form.Label className="fw-bold">
+                        Indique el porcentaje de ganancia
+                      </Form.Label>
+                      <InputGroup
+                        className="mx-auto"
+                        style={{ maxWidth: '200px' }}
+                      >
+                        <InputGroup.Text>%</InputGroup.Text>
+                        <Form.Control
+                          onChange={(e) => handleGananciaReventa(e)}
+                          value={ganancia}
+                          placeholder="25% ~ 100%"
+                        />
+                      </InputGroup>
+                      {storedData.showGanancia &&
+                        storedData.ganancia !== '' && (
+                          <Form.Text className="mt-2 text-primary">
+                            Actualmente mostrando precios con un
+                            <strong> {storedData.ganancia}%</strong>.
+                          </Form.Text>
+                        )}
+                    </Form>
+                  </div>
+                </Card.Body>
+                <Card.Footer className="border-top-0">
+                  <Boton className="w-100" onClick={() => handleGanancia('R')}>
+                    Mostrar precio revendedor
+                  </Boton>
+                </Card.Footer>
+              </Card>
             </Col>
             <Col xs={12} lg={4} className="mb-3">
-              <div className="p-4 mb-3 rounded border h-100 d-flex flex-column justify-content-between">
-                <div>
-                  <h5 className="fw-bold mb-4">Ocultar precios</h5>
-                  <p>
-                    Puedes ocultar completamente los precios del catálogo, útil
-                    cuando no quieres que se vean públicamente.
-                  </p>
-                </div>
-                <Boton
-                  disabled={!showGanancia}
-                  onClick={() => handleGanancia('O')}
-                >
-                  {!showGanancia ? 'Precios ocultos' : 'Ocultar precios'}
-                </Boton>
-              </div>
+              <Card
+                className="h-100"
+                border={
+                  storedData.showGanancia && !storedData.ganancia && 'primary'
+                }
+              >
+                <Card.Header className="border-bottom-0">
+                  <h5 className="fw-bold mb-0">Precio mayorista</h5>
+                </Card.Header>
+                <Card.Body>
+                  <p>Muestra el precio mayorista en el catálogo.</p>
+                </Card.Body>
+                <Card.Footer className="border-top-0">
+                  <Boton
+                    disabled={storedData.showGanancia && !storedData.ganancia}
+                    onClick={() => handleGanancia('M')}
+                    className="w-100"
+                  >
+                    {storedData.showGanancia && !storedData.ganancia
+                      ? 'Mostrando precio mayorista'
+                      : 'Mostrar precio mayorista'}
+                  </Boton>
+                </Card.Footer>
+              </Card>
             </Col>
           </Row>
 
@@ -174,6 +202,16 @@ function Visualizacion() {
           </p>
         </Col>
       </Row>
+      {toastConfig.show && (
+        <Tostada
+          show={toastConfig.show}
+          onClose={() => setToastConfig({ ...toastConfig, show: false })}
+          header={toastConfig.header}
+          variant={toastConfig.variant}
+        >
+          {toastConfig.message}
+        </Tostada>
+      )}
       {show && (
         <PopUp
           header="Configurar precios"
@@ -185,20 +223,20 @@ function Visualizacion() {
           {showGanancia ? (
             <>
               <p className="mb-2">
-                ¿Estás seguro de mostrar el{' '}
+                Al aceptar vas volver al inicio y mostrar el{' '}
                 <strong>
                   precio{' '}
-                  {ganancia === 0
+                  {ganancia === ''
                     ? 'mayorista'
                     : `revendedor con ${ganancia}% de ganancia`}{' '}
                 </strong>
-                en el catálogo?
+                en el catálogo. ¿Deseas continuar?
               </p>
             </>
           ) : (
             <p className="mb-1">
-              Estás por <strong>ocultar</strong> los precios en el catálogo
-              ¿Deseas continuar?
+              Estás por volver al inicio y <strong>ocultar</strong> los precios
+              en el catálogo. ¿Deseas continuar?
             </p>
           )}
         </PopUp>

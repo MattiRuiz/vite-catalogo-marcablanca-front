@@ -24,9 +24,9 @@ import {
   PiCaretLeftBold,
 } from 'react-icons/pi'
 
-import { CardLoading, CardProducto, Boton, BotonSecundario } from '../../ui'
+import { CardLoading, CardProducto, BotonSecundario } from '../../ui'
 
-import todosLosProductos from '../../Images/all.webp'
+import todosLosProductos from '../../Images/todos-los-productos.webp'
 
 function Catalogo() {
   const { id, page } = useParams()
@@ -98,11 +98,16 @@ function Catalogo() {
       fetchCategorias()
     }
 
-    const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
-    if (localGanancia) {
-      setShowGanancia(localGanancia)
-      let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
-      let porcentual = (valorGanancia + 100) / 100
+    const localShowGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+    const localGanancia = JSON.parse(localStorage.getItem('ganancia') || '0')
+
+    if (localShowGanancia && localGanancia) {
+      setShowGanancia(localShowGanancia)
+      let porcentual = (localGanancia + 100) / 100
+      setGanancia(porcentual)
+    } else if (localShowGanancia && !localGanancia) {
+      setShowGanancia(localShowGanancia)
+      let porcentual = (0 + 100) / 100
       setGanancia(porcentual)
     }
   }, [])

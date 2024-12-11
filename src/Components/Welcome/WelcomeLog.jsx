@@ -12,7 +12,7 @@ import {
   PiListDashesBold,
 } from 'react-icons/pi'
 
-import todosLosProductos from '../../Images/all.webp'
+import todosLosProductos from '../../Images/todos-los-productos.webp'
 import banner1 from '../../Images/marcablanca-banner1.webp'
 import banner2 from '../../Images/marcablanca-banner2.webp'
 import { BotonSecundario, CardProducto, CardLoading } from '../../ui'
@@ -51,11 +51,16 @@ function WelcomeLog() {
       const shortProducts = respProductos.data.productos.slice(0, 4)
       setProductos(shortProducts)
 
-      const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
-      if (localGanancia) {
-        setShowGanancia(localGanancia)
-        let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
-        let porcentual = (valorGanancia + 100) / 100
+      const localShowGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+      const localGanancia = JSON.parse(localStorage.getItem('ganancia') || '0')
+
+      if (localShowGanancia && localGanancia) {
+        setShowGanancia(localShowGanancia)
+        let porcentual = (localGanancia + 100) / 100
+        setGanancia(porcentual)
+      } else if (localShowGanancia && !localGanancia) {
+        setShowGanancia(localShowGanancia)
+        let porcentual = (0 + 100) / 100
         setGanancia(porcentual)
       }
     } catch (error) {
