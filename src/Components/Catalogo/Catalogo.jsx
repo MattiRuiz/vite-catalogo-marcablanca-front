@@ -97,6 +97,14 @@ function Catalogo() {
     if (user.esAdmin || user.clientes.subscriptions.estado === 'active') {
       fetchCategorias()
     }
+
+    const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
+    if (localGanancia) {
+      setShowGanancia(localGanancia)
+      let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
+      let porcentual = (valorGanancia + 100) / 100
+      setGanancia(porcentual)
+    }
   }, [])
 
   useEffect(() => {
@@ -119,13 +127,6 @@ function Catalogo() {
     navigate(`/catalogo/${categoryId}/1`)
   }
 
-  const localGanancia = JSON.parse(localStorage.getItem('showGanancia'))
-  if (localGanancia) {
-    setShowGanancia(localGanancia)
-    let valorGanancia = JSON.parse(localStorage.getItem('ganancia'))
-    let porcentual = (valorGanancia + 100) / 100
-    setGanancia(porcentual)
-  }
   return (
     <>
       <Helmet>
@@ -270,13 +271,14 @@ function Catalogo() {
             /> */}
           </div>
           {showGanancia && ganancia === 1 && (
-            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-              <p className="mb-0">
-                <PiXCircleDuotone className="me-1 mb-1 text-danger" />
-                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
-                mayoristas. Si desea ocultar los precios haga{' '}
-                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
-                  click aquí
+            <div className="bg-danger-subtle p-3 mb-3 rounded">
+              <p className="mb-0 text-center">
+                <PiXCircleDuotone className="me-1 mb-1 text-danger fs-5" />
+                <strong>PRECIO MAYORISTA:</strong> Actualmente se encuentra
+                mostrando los <strong>precios mayoristas</strong>. Si desea
+                ocultar los precios haga{' '}
+                <Link className="alert-link" onClick={() => ocultarPrecios()}>
+                  <u>click acá</u>
                 </Link>
                 .
               </p>

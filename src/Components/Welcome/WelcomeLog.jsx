@@ -238,13 +238,14 @@ function WelcomeLog() {
             </BotonSecundario>
           </div>
           {showGanancia && ganancia === 1 && (
-            <div className="bg-secondary-subtle py-2 px-3 mb-3 rounded d-flex align-items-center">
-              <p className="mb-0">
-                <PiXCircleDuotone className="me-1 mb-1 text-danger" />
-                <strong>ATENCIÓN:</strong> Se encuentra mostrando los precios
-                mayoristas. Si desea ocultar los precios haga{' '}
-                <Link className="fw-semibold" onClick={() => ocultarPrecios()}>
-                  click aquí
+            <div className="bg-danger-subtle p-3 mb-3 rounded">
+              <p className="mb-0 text-center">
+                <PiXCircleDuotone className="me-1 mb-1 text-danger fs-5" />
+                <strong>PRECIO MAYORISTA:</strong> Se encuentra mostrando los{' '}
+                <strong>precios mayoristas</strong>. Si desea ocultar los
+                precios haga{' '}
+                <Link className="alert-link" onClick={() => ocultarPrecios()}>
+                  <u>click acá</u>
                 </Link>
                 .
               </p>
