@@ -13,7 +13,7 @@ import {
 } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/todos-los-productos.webp'
-import banner1 from '../../Images/marcablanca-banner1.webp'
+import banner1 from '../../Images/marcablanca-banner3.webp'
 import banner2 from '../../Images/marcablanca-banner2.webp'
 import { BotonSecundario, CardProducto, CardLoading } from '../../ui'
 
@@ -48,7 +48,7 @@ function WelcomeLog() {
       const response = await getAllTipoProductos()
       setCategorias(response.data)
       const respProductos = await getProductosCatalogo(1)
-      const shortProducts = respProductos.data.productos.slice(0, 4)
+      const shortProducts = respProductos.data.productos.slice(0, 8)
       setProductos(shortProducts)
 
       const localShowGanancia = JSON.parse(localStorage.getItem('showGanancia'))
@@ -155,7 +155,7 @@ function WelcomeLog() {
         <Col>
           <Row className="overflow-hidden">
             <Col xs={12} md={6} className="card-container my-1">
-              <Link to={'/catalogo/30/1'}>
+              <Link to={'/catalogo/22/1'}>
                 <Image
                   className="rounded-2"
                   src={banner1}
