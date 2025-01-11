@@ -31,10 +31,12 @@ const ListaDePrecio = () => {
           </Boton>
         </Col>
         <Col xs={11} md={8} lg={7} className="mt-3 border-top pt-3">
-          <p className="fst-italic texto-14 text-center">
+          <p className="fst-italic texto-14 text-center mb-0">
             Les recordamos que la lista de precios puede no estar actualizada y
-            variar con respecto a los precios en nuestro local. Para más
-            información ingrese a los{' '}
+            variar con respecto a los precios en nuestro local.
+          </p>
+          <p className="fst-italic texto-14 text-center">
+            Para más información ingrese a los{' '}
             <Link
               to={'/terminos-y-condiciones'}
               className="fw-bold text-primary"

@@ -18,6 +18,7 @@ import Suscripcion from './Components/Suscripcion/Suscripcion'
 import Terminos from './Components/Terminos/Terminos'
 import Ventajas from './Components/Ventajas/Ventajas'
 import ListaDePrecio from './Components/Configuraciones/ListaDePrecio'
+import Ayuda from './Components/Ayuda/Ayuda'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/terminos-y-condiciones" element={<Terminos />} />
           <Route path="/ventajas" element={<Ventajas />} />
           <Route path="/lista-de-precios" element={<ListaDePrecio />} />
+          <Route path="/ayuda" element={<Ayuda />} />
         </Routes>
       </Container>
       <Footer />

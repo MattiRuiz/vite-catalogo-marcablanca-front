@@ -13,6 +13,7 @@ import {
   PiFileBold,
   PiDotsThreeVerticalBold,
   PiBookOpenBold,
+  PiQuestionBold,
 } from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
@@ -145,6 +146,14 @@ function Navbar() {
                     className="d-flex align-items-center py-2 fw-medium"
                   >
                     <PiNoteBold className="text-secondary fs-5 me-2" /> Contacto
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    as={Link}
+                    to={'/ayuda'}
+                    className="d-flex align-items-center py-2 fw-medium"
+                  >
+                    <PiQuestionBold className="text-secondary fs-5 me-2" />{' '}
+                    Centro de ayuda
                   </Dropdown.Item>
 
                   <Dropdown.Divider />
