@@ -43,13 +43,12 @@ function HomeUnlog() {
           , sus fotos, precio y disponibilidad al momento.
         </p>
         <div className="d-flex gap-2">
-          <Boton as={Link} to={'/suscripciones'}>
+          {/* <Boton as={Link} to={'/suscripciones'}>
             Suscripciones
-          </Boton>
+          </Boton> */}
           <Boton
             as={Link}
             to={'/ventajas'}
-            variant="light"
             className="d-flex align-items-center"
           >
             Ver ventajas <PiArrowRightBold className="ms-2" />
