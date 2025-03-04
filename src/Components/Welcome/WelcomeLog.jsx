@@ -40,7 +40,18 @@ function WelcomeLog() {
   }
 
   const userData = localStorage.getItem('userData')
-  const user = JSON.parse(userData)
+  let user = {}
+  if (userData === 'undefined') {
+    alert(
+      "Ocurrió un error. Por favor intente ingresar nuevamente y si el problema persiste avise a la empresa o envie un mensaje en la sección 'Contactos'."
+    )
+    localStorage.removeItem('token')
+    localStorage.removeItem('userData')
+    localStorage.removeItem('exp')
+    navigate('/')
+  } else {
+    user = JSON.parse(userData)
+  }
 
   const fetchData = async () => {
     setLoading(true)

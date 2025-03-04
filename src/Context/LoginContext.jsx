@@ -34,7 +34,12 @@ const LoginProvider = ({ children }) => {
       console.log('Tiempo de sesión caducado, inicie sesión nuevamente.')
     } else {
       const userData = JSON.parse(localStorage.getItem('userData'))
-      if (userData) {
+      if (userData === undefined) {
+        alert(
+          "Ocurrió un error. Por favor intente ingresar nuevamente y si el problema persiste avise a la empresa o envie un mensaje en la sección 'Contactos'."
+        )
+        unauthorize()
+      } else if (userData) {
         setUser(userData)
       } else {
         unauthorize()
