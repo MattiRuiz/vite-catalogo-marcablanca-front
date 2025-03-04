@@ -15,7 +15,7 @@ import {
 import todosLosProductos from '../../Images/todos-los-productos.webp'
 import banner1 from '../../Images/marcablanca-banner3.webp'
 import banner2 from '../../Images/marcablanca-banner2.webp'
-import { BotonSecundario, CardProducto, CardLoading } from '../../ui'
+import { BotonSecundario, CardProducto, CardLoading, Feedback } from '../../ui'
 
 function WelcomeLog() {
   const [categorias, setCategorias] = useState([])
@@ -302,6 +302,7 @@ function WelcomeLog() {
               ))
             )}
           </Row>
+          <Feedback />
         </Col>
       </Row>
     </>
