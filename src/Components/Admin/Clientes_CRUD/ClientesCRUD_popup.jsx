@@ -3,7 +3,6 @@ import { Form } from 'react-bootstrap'
 
 import { createCliente } from '../../../Functions/ClienteFunctions'
 
-import EditarSuscripcion from './EditarSuscripcion'
 import { PopUp, Input, PasswordInput } from '../../../ui'
 import { PiPlusCircleDuotone } from 'react-icons/pi'
 
@@ -76,6 +75,7 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
       variant="primary"
     >
       <Form
+        autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault()
           handleGuardar()
