@@ -113,11 +113,13 @@ const ClientesCRUD_popup = ({ onClienteUpdated, closePopUp, showToast }) => {
           name="username"
           value={clienteData.username}
           onChange={handleInputChange}
+          autoComplete="off"
         />
         <PasswordInput
           name="password"
           value={clienteData.password}
           onChange={handleInputChange}
+          autoComplete="new-password"
         />
       </Form>
     </PopUp>
