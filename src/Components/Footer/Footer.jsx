@@ -7,11 +7,11 @@ function Footer() {
       className="py-3 text-center text-white bg-primary bg-gradient texto-14"
     >
       <p className="mb-0">
-        <span className="fw-semibold">©2024 Blanquería Marca Blanca.</span>{' '}
+        <span className="fw-semibold">©2025 Blanquería Marca Blanca.</span>{' '}
         Todos los derechos reservados.
       </p>
       <p className="mb-0">
-        Aplicación desarrollada por{' '}
+        Desarrollada por{' '}
         <a
           href="https://mattiruiz.github.io/"
           className="text-white fw-semibold"
