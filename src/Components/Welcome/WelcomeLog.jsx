@@ -15,6 +15,9 @@ import {
 import todosLosProductos from '../../Images/todos-los-productos.webp'
 import banner1 from '../../Images/marcablanca-banner3.webp'
 import banner2 from '../../Images/marcablanca-banner2.webp'
+import bannerFutbol from '../../Images/banner-futbol.webp'
+import bannerInfantil from '../../Images/banner-infantiles.webp'
+import bannerToallas from '../../Images/banner-toallas.webp'
 import { BotonSecundario, CardProducto, CardLoading, Feedback } from '../../ui'
 
 function WelcomeLog() {
@@ -165,21 +168,31 @@ function WelcomeLog() {
 
         <Col>
           <Row className="overflow-hidden">
-            <Col xs={12} md={6} className="card-container my-1">
+            <Col xs={12} sm={6} md={4} className="my-1">
               <Link to={'/catalogo/22/1'}>
                 <Image
                   className="rounded-2"
-                  src={banner1}
+                  src={bannerFutbol}
                   style={{ width: '100%' }}
                   fluid
                 />
               </Link>
             </Col>
-            <Col xs={12} md={6} className="card-container my-1">
+            <Col xs={12} sm={6} md={4} className="my-1">
               <Link to={'/catalogo/10/1'}>
                 <Image
                   className="rounded-2"
-                  src={banner2}
+                  src={bannerInfantil}
+                  style={{ width: '100%' }}
+                  fluid
+                />
+              </Link>
+            </Col>
+            <Col xs={12} sm={6} md={4} className="my-1 d-none d-md-block">
+              <Link to={'/catalogo/2/1'}>
+                <Image
+                  className="rounded-2"
+                  src={bannerToallas}
                   style={{ width: '100%' }}
                   fluid
                 />
