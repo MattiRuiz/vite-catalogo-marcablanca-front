@@ -146,7 +146,7 @@ const Contacto = () => {
             />
           ) : (
             <Input
-              label="Nombre"
+              label="Nombre y Apellido"
               type="text"
               name="user_name"
               placeholder=""
