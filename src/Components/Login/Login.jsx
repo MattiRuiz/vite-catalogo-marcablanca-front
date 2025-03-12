@@ -106,12 +106,12 @@ function Login() {
               )}
             </Boton>
           </Form>
-          <p>
+          {/* <p>
             ¿No tenés cuenta? Consulta las{' '}
             <Link to={'/suscripciones'} className="fw-bold text-primary">
               Suscripciones
             </Link>
-          </p>
+          </p> */}
         </Col>
         <Tostada
           onClose={() => setShowAlert(false)}
