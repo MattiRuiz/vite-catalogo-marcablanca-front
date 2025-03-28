@@ -95,9 +95,7 @@ function Visualizacion() {
             <Col xs={12} lg={4} className="mb-3">
               <Card
                 className="h-100"
-                border={
-                  storedData.showGanancia && storedData.ganancia && 'primary'
-                }
+                bg={storedData.showGanancia && storedData.ganancia && 'info'}
               >
                 <Card.Header className="border-bottom-0 pb-0">
                   <h3 className="fw-bold mb-0">Precio de reventa</h3>
@@ -127,9 +125,12 @@ function Visualizacion() {
                       </InputGroup>
                       {storedData.showGanancia &&
                         storedData.ganancia !== '' && (
-                          <Form.Text className="mt-2 text-primary">
-                            Actualmente mostrando precios con un
-                            <strong> {storedData.ganancia}%</strong>.
+                          <Form.Text className="mt-1 d-block text-primary fs-6">
+                            Mostrando precios con un
+                            <strong>
+                              {' '}
+                              {storedData.ganancia}% de ganancia.
+                            </strong>
                           </Form.Text>
                         )}
                     </Form>
@@ -145,9 +146,7 @@ function Visualizacion() {
             <Col xs={12} lg={4} className="mb-3">
               <Card
                 className="h-100"
-                border={
-                  storedData.showGanancia && !storedData.ganancia && 'primary'
-                }
+                bg={storedData.showGanancia && !storedData.ganancia && 'info'}
               >
                 <Card.Header className="border-bottom-0  pb-0">
                   <h3 className="fw-bold mb-0">Precio mayorista</h3>
@@ -175,10 +174,7 @@ function Visualizacion() {
               </Card>
             </Col>
             <Col xs={12} lg={4} className="mb-3">
-              <Card
-                className="h-100"
-                border={!storedData.showGanancia && 'primary'}
-              >
+              <Card className="h-100" bg={!storedData.showGanancia && 'info'}>
                 <Card.Header className="border-bottom-0 pb-0">
                   <h3 className="fw-bold mb-0">Ocultar precios</h3>
                 </Card.Header>

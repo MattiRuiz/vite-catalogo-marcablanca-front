@@ -23,17 +23,17 @@ const Ayuda = () => {
             frecuentes:
           </p>
           <ol>
-            <li className="mb-2 fw-semibold fs-5 text-primary">
+            <li className="mb-1 fw-semibold fs-5 text-primary lh-sm">
               <a href="#primero" className="text-primary">
                 Cómo mostrar los precios en el catálogo
               </a>
             </li>
-            <li className="mb-2 fw-semibold fs-5 text-primary">
+            <li className="mb-1 fw-semibold fs-5 text-primary">
               <a href="#segundo" className="text-primary">
                 Estado de suscripción
               </a>
             </li>
-            <li className="mb-2 fw-semibold fs-5 text-primary">
+            <li className="mb-1 fw-semibold fs-5 text-primary">
               <a href="#tercero" className="text-primary">
                 Preguntas frecuentes
               </a>

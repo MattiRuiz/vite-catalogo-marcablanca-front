@@ -8,9 +8,6 @@ function Footer() {
     >
       <p className="mb-0">
         <span className="fw-semibold">©2025 Blanquería Marca Blanca.</span>{' '}
-        Todos los derechos reservados.
-      </p>
-      <p className="mb-0">
         Desarrollada por{' '}
         <a
           href="https://mattiruiz.github.io/"
