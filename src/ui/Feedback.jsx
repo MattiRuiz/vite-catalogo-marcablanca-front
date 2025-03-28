@@ -2,7 +2,7 @@ import { Alert, Button } from 'react-bootstrap'
 
 function InvitacionFeedback() {
   return (
-    <Alert variant="info" className="text-center my-4">
+    <Alert variant="info" className="text-center">
       <h5>🎉 ¡Tu opinión es muy importante!</h5>
       <p>
         Estamos en la etapa beta de nuestro Catálogo Digital Marca Blanca y

@@ -89,34 +89,9 @@ function Visualizacion() {
           </h1>
           <p className="text-center mb-4">
             Permite <strong>mostrar u ocultar</strong> los precios de los
-            productos en el catálogo. El borde azul indica la opción que se
-            encuentra activa actualmente.
+            productos en el catálogo.
           </p>
           <Row className="mb-3 text-center">
-            <Col xs={12} lg={4} className="mb-3">
-              <Card
-                className="h-100"
-                border={!storedData.showGanancia && 'primary'}
-              >
-                <Card.Header className="border-bottom-0">
-                  <h5 className="fw-bold mb-0">Ocultar precios</h5>
-                </Card.Header>
-                <Card.Body>
-                  <p>Oculta los precios del catálogo.</p>
-                </Card.Body>
-                <Card.Footer className="border-top-0">
-                  <Boton
-                    disabled={!storedData.showGanancia}
-                    onClick={() => handleGanancia('O')}
-                    className="w-100"
-                  >
-                    {!storedData.showGanancia
-                      ? 'Los precios se encuentran ocultos'
-                      : 'Ocultar precios'}
-                  </Boton>
-                </Card.Footer>
-              </Card>
-            </Col>
             <Col xs={12} lg={4} className="mb-3">
               <Card
                 className="h-100"
@@ -124,14 +99,16 @@ function Visualizacion() {
                   storedData.showGanancia && storedData.ganancia && 'primary'
                 }
               >
-                <Card.Header className="border-bottom-0">
-                  <h5 className="fw-bold mb-0">Precio de reventa</h5>
+                <Card.Header className="border-bottom-0 pb-0">
+                  <h3 className="fw-bold mb-0">Precio de reventa</h3>
                 </Card.Header>
                 <Card.Body>
                   <div>
                     <p>
-                      Muestra el precio de reventa, calculado sumando tu
-                      porcentaje de ganancia al precio mayorista.
+                      {' '}
+                      Permite a los <em>revendedores</em> mostrarle el precio de
+                      reventa a sus <em>clientes</em>. Para activarlo debes
+                      indicar un <strong>porcentaje de ganancia.</strong>
                     </p>
                     <Form>
                       <Form.Label className="fw-bold">
@@ -145,7 +122,7 @@ function Visualizacion() {
                         <Form.Control
                           onChange={(e) => handleGananciaReventa(e)}
                           value={ganancia}
-                          placeholder="25% ~ 100%"
+                          placeholder="00"
                         />
                       </InputGroup>
                       {storedData.showGanancia &&
@@ -172,11 +149,17 @@ function Visualizacion() {
                   storedData.showGanancia && !storedData.ganancia && 'primary'
                 }
               >
-                <Card.Header className="border-bottom-0">
-                  <h5 className="fw-bold mb-0">Precio mayorista</h5>
+                <Card.Header className="border-bottom-0  pb-0">
+                  <h3 className="fw-bold mb-0">Precio mayorista</h3>
                 </Card.Header>
                 <Card.Body>
-                  <p>Muestra el precio mayorista en el catálogo.</p>
+                  <p>
+                    Permite al <em>revendedor</em> ver los precios{' '}
+                    <strong>de costo</strong> de los productos.{' '}
+                    <span className="text-decoration-underline">Cuidado:</span>{' '}
+                    Estos precios no deberían ser vistos por sus{' '}
+                    <em>clientes</em>.
+                  </p>
                 </Card.Body>
                 <Card.Footer className="border-top-0">
                   <Boton
@@ -187,6 +170,34 @@ function Visualizacion() {
                     {storedData.showGanancia && !storedData.ganancia
                       ? 'Mostrando precio mayorista'
                       : 'Mostrar precio mayorista'}
+                  </Boton>
+                </Card.Footer>
+              </Card>
+            </Col>
+            <Col xs={12} lg={4} className="mb-3">
+              <Card
+                className="h-100"
+                border={!storedData.showGanancia && 'primary'}
+              >
+                <Card.Header className="border-bottom-0 pb-0">
+                  <h3 className="fw-bold mb-0">Ocultar precios</h3>
+                </Card.Header>
+                <Card.Body>
+                  <p>
+                    Oculta{' '}
+                    <strong className="text-decoration-underline">todos</strong>{' '}
+                    los precios del catálogo.
+                  </p>
+                </Card.Body>
+                <Card.Footer className="border-top-0">
+                  <Boton
+                    disabled={!storedData.showGanancia}
+                    onClick={() => handleGanancia('O')}
+                    className="w-100"
+                  >
+                    {!storedData.showGanancia
+                      ? 'Los precios se encuentran ocultos'
+                      : 'Ocultar precios'}
                   </Boton>
                 </Card.Footer>
               </Card>

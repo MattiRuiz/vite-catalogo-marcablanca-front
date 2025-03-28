@@ -20,7 +20,7 @@ import { getAllTipoProductos } from '../../Functions/TipoProductosFunctions'
 
 import {
   PiXCircleDuotone,
-  PiListDashesBold,
+  PiDotsThreeOutlineFill,
   PiCaretLeftBold,
 } from 'react-icons/pi'
 
@@ -154,7 +154,7 @@ function Catalogo() {
               onClick={() => setShowCategoria(!showCategoria)}
               className="ps-3 pe-0 py-2"
             >
-              <PiListDashesBold className="me-1 fs-5" /> Categorías
+              <PiDotsThreeOutlineFill className="me-2 fs-3" /> Ver categorías
             </BotonSecundario>
           </div>
           {showCategoria && (
@@ -279,9 +279,9 @@ function Catalogo() {
             <div className="bg-danger-subtle p-3 mb-3 rounded">
               <p className="mb-0 text-center">
                 <PiXCircleDuotone className="me-1 mb-1 text-danger fs-5" />
-                <strong>PRECIO MAYORISTA:</strong> Actualmente se encuentra
-                mostrando los <strong>precios mayoristas</strong>. Si desea
-                ocultar los precios haga{' '}
+                <strong>ATENCIÓN:</strong> Actualmente se encuentra mostrando
+                los <strong>precios mayoristas</strong>. Para ocultar los
+                precios haga{' '}
                 <Link className="alert-link" onClick={() => ocultarPrecios()}>
                   <u>click acá</u>
                 </Link>

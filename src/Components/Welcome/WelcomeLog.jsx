@@ -9,15 +9,14 @@ import { getProductosCatalogo } from '../../Functions/ProductosFunctions'
 import {
   PiCaretRightBold,
   PiXCircleDuotone,
-  PiListDashesBold,
+  PiDotsThreeOutlineFill,
 } from 'react-icons/pi'
 
 import todosLosProductos from '../../Images/todos-los-productos.webp'
-import banner1 from '../../Images/marcablanca-banner3.webp'
-import banner2 from '../../Images/marcablanca-banner2.webp'
 import bannerFutbol from '../../Images/banner-futbol.webp'
 import bannerInfantil from '../../Images/banner-infantiles.webp'
 import bannerToallas from '../../Images/banner-toallas.webp'
+import bannerSabanas from '../../Images/banner-sabanas.webp'
 import { BotonSecundario, CardProducto, CardLoading, Feedback } from '../../ui'
 
 function WelcomeLog() {
@@ -103,13 +102,14 @@ function WelcomeLog() {
       </Helmet>
       <Row className="pt-2 pt-lg-4 pb-4 justify-content-center">
         <Col xs={12} className="d-lg-none">
-          <div className="d-flex justify-content-between border-bottom pb-2">
+          <div className="d-flex justify-content-center pb-2">
             {/* <FormControl placeholder="Buscar" style={{ maxWidth: '250px' }} /> */}
             <BotonSecundario
               onClick={() => setShowCategoria(!showCategoria)}
-              className="ps-3 pe-0 py-2"
+              className=""
             >
-              <PiListDashesBold className="me-1 fs-5" /> Categorías
+              <PiDotsThreeOutlineFill className="me-2 fs-3" /> Ver todas las
+              categorías
             </BotonSecundario>
           </div>
           {showCategoria && (
@@ -168,7 +168,7 @@ function WelcomeLog() {
 
         <Col>
           <Row className="overflow-hidden">
-            <Col xs={12} sm={6} md={4} className="my-1">
+            <Col xs={6} md={3} className="my-1">
               <Link to={'/catalogo/22/1'}>
                 <Image
                   className="rounded-2"
@@ -178,7 +178,7 @@ function WelcomeLog() {
                 />
               </Link>
             </Col>
-            <Col xs={12} sm={6} md={4} className="my-1">
+            <Col xs={6} md={3} className="my-1">
               <Link to={'/catalogo/10/1'}>
                 <Image
                   className="rounded-2"
@@ -188,11 +188,21 @@ function WelcomeLog() {
                 />
               </Link>
             </Col>
-            <Col xs={12} sm={6} md={4} className="my-1 d-none d-md-block">
+            <Col xs={6} md={3} className="my-1">
               <Link to={'/catalogo/2/1'}>
                 <Image
                   className="rounded-2"
                   src={bannerToallas}
+                  style={{ width: '100%' }}
+                  fluid
+                />
+              </Link>
+            </Col>
+            <Col xs={6} md={3} className="my-1">
+              <Link to={'/catalogo/1/1'}>
+                <Image
+                  className="rounded-2"
+                  src={bannerSabanas}
                   style={{ width: '100%' }}
                   fluid
                 />
@@ -253,8 +263,8 @@ function WelcomeLog() {
           </Row>
         </Col>
 
-        <Col xs={12} className="mt-3">
-          <div className="d-flex justify-content-between align-items-center mb-3">
+        <Col xs={12} className="my-5">
+          <div className="d-flex justify-content-between align-items-center mb-4">
             <h2 className="fw-bold mb-0">Últimos ingresos</h2>
             <BotonSecundario
               className="fw-bold d-flex align-items-center py-0 px-1"
@@ -270,8 +280,8 @@ function WelcomeLog() {
             <div className="bg-danger-subtle p-3 mb-3 rounded">
               <p className="mb-0 text-center">
                 <PiXCircleDuotone className="me-1 mb-1 text-danger fs-5" />
-                <strong>PRECIO MAYORISTA:</strong> Se encuentra mostrando los{' '}
-                <strong>precios mayoristas</strong>. Si desea ocultar los
+                <strong>ATENCIÓN:</strong> Actualmente se encuentra mostrando
+                los <strong>precios mayoristas</strong>. Para ocultar los
                 precios haga{' '}
                 <Link className="alert-link" onClick={() => ocultarPrecios()}>
                   <u>click acá</u>

@@ -45,8 +45,15 @@ a {
 }
 
 p {
-  line-height: 150%;
+  line-height: 160%;
 }
+
+@media (max-width: 768px) {
+  p {
+    font-size: 1.1rem;
+  }
+}
+
 
 .logo-home {
   width: 100px;

@@ -11,13 +11,14 @@ import {
   PiXCircleBold,
   PiEyeBold,
   PiFileBold,
-  PiDotsThreeVerticalBold,
+  PiList,
   PiBookOpenBold,
   PiQuestionBold,
+  PiQuestion,
 } from 'react-icons/pi'
 
 import imageLogo from '../../Images/logo-marca.svg'
-import { PopUp } from '../../ui'
+import { PopUp, Boton } from '../../ui'
 
 function Navbar() {
   const [show, setShow] = useState(false)
@@ -54,12 +55,16 @@ function Navbar() {
         {user ? (
           <Col xs={6} className="d-flex justify-content-end">
             <div className="d-flex align-items-center">
+              <Link className="text-white px-2 py-1" to={'/ayuda'}>
+                <PiQuestion className="fs-2" />
+              </Link>
+
               <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-basic"
                   className="d-flex align-items-center py-1 px-2 border-0 bg-transparent"
                 >
-                  <PiDotsThreeVerticalBold className="fs-5" />
+                  <PiList className="fs-2" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="animacion-abajo">
                   {user.esAdmin ? (
