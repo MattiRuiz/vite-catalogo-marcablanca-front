@@ -135,10 +135,11 @@ const ProductosCRUD_popup = ({
       nombre: producto.nombre,
       descripcion: producto.descripcion,
       imagen: event.target.files[0],
-      marcasId: producto.marcas.id,
+      marcasId: producto.marcas ? producto.marcas.id : '',
       tipoProductoId: selectedCategoria,
       adminsId: 1,
     }
+
     const formDataForAPI = new FormData()
     formDataForAPI.append('nombre', dataToSend.nombre)
     formDataForAPI.append('descripcion', dataToSend.descripcion)
