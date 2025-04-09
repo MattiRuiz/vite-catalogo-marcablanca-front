@@ -4,13 +4,13 @@ function Footer() {
   return (
     <Container
       fluid
-      className="py-3 text-center text-white bg-primary bg-gradient texto-14"
+      className="py-3 text-center text-white bg-primary bg-gradient "
     >
-      <p className="mb-0">
+      <p className="mb-0 texto-14">
         <span className="fw-semibold">©2025 Blanquería Marca Blanca.</span>{' '}
         Todos los derechos reservados.
       </p>
-      <p className="mb-0">
+      <p className="mb-0 texto-14">
         Desarrollada por{' '}
         <a
           href="https://mattiruiz.github.io/"
